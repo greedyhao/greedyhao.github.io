@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>Altium入门 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="入门,Altium">
+    <meta name="description" content="准备开发环境 这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就是给AD16添加一个license而已。">
+<meta name="keywords" content="入门,Altium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Altium入门">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="准备开发环境 这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就是给AD16添加一个license而已。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E6%B7%BB%E5%8A%A0%E5%85%83%E4%BB%B6%E5%BA%93.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/Altium%E5%AE%89%E8%A3%85.jpg">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/Altium%E7%94%BB%E5%85%83%E4%BB%B6%E5%BA%93.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E5%BC%95%E8%84%9A%E5%B0%81%E8%A3%851.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E5%BC%95%E8%84%9A%E5%B0%81%E8%A3%852.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E4%BB%8E%E5%8E%9F%E7%90%86%E5%9B%BE%E5%AF%BC%E5%85%A5.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room1.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room2.png">
+<meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room3.png">
+<meta property="og:updated_time" content="2017-08-14T13:25:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Altium入门">
+<meta name="twitter:description" content="准备开发环境 这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就是给AD16添加一个license而已。">
+<meta name="twitter:image" content="http://oqcum4nqg.bkt.clouddn.com/Altium/%E6%B7%BB%E5%8A%A0%E5%85%83%E4%BB%B6%E5%BA%93.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Altium入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Altium入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-10T08:48:00.000Z" itemprop="datePublished" class="page-time">
+  2017-08-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备开发环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备开发环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#熟悉界面"><span class="post-toc-number">2.</span> <span class="post-toc-text">熟悉界面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#学习流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">学习流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#第一阶段学习"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">第一阶段学习</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下一个阶段"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">下一个阶段</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一阶段的学习"><span class="post-toc-number">4.</span> <span class="post-toc-text">第一阶段的学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加元件库"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">添加元件库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绘制自己的元件库"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">绘制自己的元件库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绘制原理图"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">绘制原理图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#绘制pcb"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">绘制PCB</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-altium-2017-08-10-Altium学习"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Altium入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-10 16:48:00" datetime="2017-08-10T08:48:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="准备开发环境">准备开发环境</h2>
+<p>这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就是给AD16添加一个license而已。</p>
+<a id="more"></a>
+<h2 id="熟悉界面">熟悉界面</h2>
+<p>现在市面上大部分的教程主要都是对界面的介绍，都很详细，看着都觉得烦，一本本都和说明书一样，没碰过Altium的人可以买或借一本Altium的书， 用来当说明书，使用的软件版本越新越好；视频就不考虑了吧，进度太慢，语速太慢，效率太低。</p>
+<h2 id="学习流程">学习流程</h2>
+<h3 id="第一阶段学习">第一阶段学习</h3>
+<p>熟悉界面，会画元件库、PCB库，会画原理图、PCB图。</p>
+<h3 id="下一个阶段">下一个阶段</h3>
+<p>优化原理图界面，不同功能模块分离；PCB好的布局，走线。</p>
+<h2 id="第一阶段的学习">第一阶段的学习</h2>
+<h3 id="添加元件库">添加元件库</h3>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/%E6%B7%BB%E5%8A%A0%E5%85%83%E4%BB%B6%E5%BA%93.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我选中的这两个是经常用的库，<strong>Miscellaneous Connectors.IntLib</strong>里是一些常用的连接器件，<strong>Miscellaneous Device.IntLib</strong>里是一些常用的元件。</p>
+<p>你的元件库在你安装Altium时就给你安装上了的，安装位置如图： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/Altium%E5%AE%89%E8%A3%85.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h3 id="绘制自己的元件库">绘制自己的元件库</h3>
+<p>由于电子的世界更新很快，很多元件由于比较新，所以官方元件库中可能没有，这时候就需要自己画了；具体过程自己查，我就总结一下。 - 首先是要查看该元件的datesheet - 元件库中画一个元件的形状是可以随意的，不会影响元件的电气特性，所以元器件的大小，引脚间距，怎么开心怎么画；有时候为了原理图连线的方便， 也会适当的调整引脚位置，甚至隐藏引脚。</p>
+<p>这是我画的一个三端稳压器： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/Altium%E7%94%BB%E5%85%83%E4%BB%B6%E5%BA%93.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> - 画完后要选择引脚封装，这个很重要，这才会影响元件的电气特性。 <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E5%BC%95%E8%84%9A%E5%B0%81%E8%A3%851.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> 然后弹出下面的界面，在筛选处选择自己需要的元件封装： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/%E6%B7%BB%E5%8A%A0%E5%BC%95%E8%84%9A%E5%B0%81%E8%A3%852.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h3 id="绘制原理图">绘制原理图</h3>
+<p>这个刚开始学习的时候并没有什么难度，按照需要绘制就好。</p>
+<h3 id="绘制pcb">绘制PCB</h3>
+<p>我在刚开始的时候真的不知道怎么下手，很多书说的都不清楚，我就总结一下。 - 首先是从原理图导入元件 <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/%E4%BB%8E%E5%8E%9F%E7%90%86%E5%9B%BE%E5%AF%BC%E5%85%A5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> - 接下来把那个红色的room移动，再删除这个room <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure> <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oqcum4nqg.bkt.clouddn.com/Altium/%E5%88%A0%E9%99%A4room3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<ul>
+<li><p>然后手动更改布局</p></li>
+<li><p>最后自动走线外加手动更加走线</p></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2017-08-14T13:25:21.000Z" itemprop="dateUpdated">2017-08-14 21:25:21</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Altium/">Altium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&title=《Altium入门》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&title=《Altium入门》 — Zhuhao's Blog&source=准备开发环境
+这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Altium入门》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">从51最小系统开始</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">doxygen简明指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&title=《Altium入门》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&title=《Altium入门》 — Zhuhao's Blog&source=准备开发环境
+这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Altium入门》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-altium-2017-08-10-Altium学习/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3a22ojMRAE0Pz/T2dh2YdAYqeqW3KycOZp8GVGZwxSu9Rvb/Hx/vf4eP7x+PzJR+9+/kxy/edXO3Dg4eHhjYb+/HL5oJ+fP3olH1v9CPDw8PCu8fLhPprcZ1N8fvf2W3h4eHi/gZcUwbMCPTnHw8PD+995m9eTTyYlNR4eHt7P8vLCN4lxN4Fvu1Qcy1rw8PDwLuwi/Z7z6/t7eHh4eKNd9WTaTSKDvIFgM6ovxomHh4d3gXe2CM6L2lnDVvL4vsla8PDw8Na8vJUqJ7VBxqyAjh4lHh4e3jXeqQas/JVZad4GJXh4eHg3eG1hfSp6SJaHzWeG/xvw8PDw1rzbNeosjBi2DuDh4eFd4CVDaReP/C77wh0PDw/vNbwWc2pb69RdDv9WeHh4eOUGWFu2JtHD5l6bDbN/53h4eHjXePWWfNlekE/6m4aGL76Fh4eHd4HXhg6z0jwpuJNIIl8w6l8ADw8PL+Yl024ewuYD2m+YRUsaHh4e3jVe20rVFruz2LfdBnv4jwEPDw/vAm+2wT9rEcgn93YxiGJcPDw8vDXvbLF7qgRvY4siwMXDw8Nb89pWgHwoeVicP9bku3h4eHi3eflQkhvnkWtbRu9DXjw8PLyzvHyrvo1W8wVmHwRHDQR4eHh4a15SIu+bpXLeJsDFw8PDew2v3fRKLt0W4vt4oggj8PDw8Na8tsWqDQXySTxZKuqFBA8PD+8C794Gf15eb7bTiu/i4eHhHeK9l8ep1qu87E7u8s0vhoeHh3eU106+swhjP923eDw8PLzbvHwx2AQTbdSbP6yo6QoPDw/vAm8WFrSB7GxJaJcuPDw8vN/MOzZ9rx9o1FmGh4eH93Je3iiQR7d5WZ8/lCIpwcPDw1vw8jAiGfpsSywPhZPx4+Hh4d3jzf7qtxN3PunPSvxj+3t4eHh4z675B8bV+T5qwtj3AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

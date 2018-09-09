@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>虚拟机与主机之间ping不通的解决方法 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,VirtualBox">
+    <meta name="description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+<meta name="keywords" content="Linux,VirtualBox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机与主机之间ping不通的解决方法">
+<meta property="og:url" content="http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通3.png">
+<meta property="og:updated_time" content="2018-09-09T05:52:27.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟机与主机之间ping不通的解决方法">
+<meta name="twitter:description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">虚拟机与主机之间ping不通的解决方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">虚拟机与主机之间ping不通的解决方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-05T11:40:54.000Z" itemprop="datePublished" class="page-time">
+  2018-02-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟机与主机之间ping不通的解决方法"><span class="post-toc-number">1.</span> <span class="post-toc-text">虚拟机与主机之间ping不通的解决方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#virtualbox"><span class="post-toc-number">2.</span> <span class="post-toc-text">VirtualBox</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启仅主机网络"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">开启仅主机网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启后的效果"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">开启后的效果</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">虚拟机与主机之间ping不通的解决方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-05 19:40:54" datetime="2018-02-05T11:40:54.000Z"  itemprop="datePublished">2018-02-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="虚拟机与主机之间ping不通的解决方法">虚拟机与主机之间ping不通的解决方法</h1>
+<p>最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。</p>
+<a id="more"></a>
+<h1 id="virtualbox">VirtualBox</h1>
+<p>由于本人使用的是VirtualBox，所以用作展示的也是VirtualBox。</p>
+<h2 id="开启仅主机网络">开启仅主机网络</h2>
+<div class="figure">
+<img src="/img/virtualbox/虚拟机与主机之间ping不通1.png">
+
+</div>
+<p>如图，先要确保虚拟机处于关闭状态，打开 局部设置-&gt;网络-&gt;网卡2，勾选<strong>启用网络连接</strong>，连接方式选择<strong>仅主机网络</strong>。</p>
+<h2 id="开启后的效果">开启后的效果</h2>
+<p>首先是展示虚拟机的ip地址</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/virtualbox/虚拟机与主机之间ping不通2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>展示Windows主机ping虚拟机的结果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/virtualbox/虚拟机与主机之间ping不通3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T05:52:27.808Z" itemprop="dateUpdated">2018-09-09 13:52:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法
+最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/04/01/工作-hexo-2018-04-01-hexo-d-出错/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">hexo d 出错</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">滤波器设计中的频率归一化问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法
+最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADOUlEQVR42u3aQY4iMRAEQP7/aVba064YILPskWgTfUIz0HY0h6KyfLvF1/3v9e/r1395/Ozj9XqtZ+9s77Z0YWNjY1+EfX95PbJfU5NNJHd79lhfr5hYsLGxsU9l50UrKR75Rp+t1ZbP3IKNjY39zex867NilhQtbGxsbOz1AtYu0LYQszYGGxsbGzsJlZJWZFdE1e7kF7M0bGxs7I9nzwa9n/n61+fb2NjY2B/GvpfXrk+tR0grFzY2NvZJ7DbW33tMJx8Mt8U1Km/Y2NjYB7HbWCd5/yzQnw0M8q8HGxsb+2z2SqFqi1NSrvL/tiNnbGxs7JPYs6BnVoTaUpeT6hKIjY2N/QXsNqbP62T+WJP9DJsQbGxs7OPY7QJ549G2FrNH3IZf2NjY2CexZ8l5cjRnNu6dDXTbZgkbGxv7JHb+4z5vY/LoZxYbzYYHP5w5xcbGxj6IvT4SmOU26+VzuGdsbGzsg9j5TWdHc9oB7a5xcjRaxsbGxj6InbQfs8exa8yQtyVLiRo2Njb2Bdl50Wr/kg8DkgHtrvJWPFFsbGzsS7F3/fRvw6C2uubD5jclGRsbG/sgdt5+5OVkpWglZTX5qoohBDY2NvbF2XnzMGtXZtvK398eCfrhpBI2Njb2xdkrgftK2NQOhvP3FIeEsLGxsY9gt+F7flAmL1RtGLQtSMLGxsY+iJ0H+jP2rJHYVp9nTQg2Njb2Rdjt8Zo8BsqP47TR/2wPt/p5YGNjY1+D3Zao9WlpGw+t3//pVAQbGxv7C9i7xr3JttoDQ21x/e+z2NjY2IeyZ9udNQmzR9AGW1EBw8bGxr44O4+T1o/1zMrkSvT/Zl1sbGzsI9h56crj+Dayb1fJY6mnq2BjY2Mfx25j+vXop42Q8lFE9MVgY2NjH8fOr7YtaUtjHjPNVsfGxsY+j92OS/NlZkPcdmC8q+HBxsbGvjp7VrTaVmS2uZXy+aZ1wcbGxj6OnRet/HjNrMGYNSSbEzVsbGzsQ9lJUWlLWjsGWB9LY2NjY2PPjtq0g97ZMZ2i4GFjY2Mfx84j+3yAmt9hFmDlj6aecmNjY2Nfir0SzeRbae8wK1GzIQc2Njb2Zdl/AAWR/WEau1FYAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>自适应滤波教我做人 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="自适应滤波教我做人 最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。 先说我结果吧，后天就是比赛开始了，但是我还是没有搞定问题，又面临着考试可能会挂科的压力，只能弃权了。 我觉得之所以会导致这个结果，跟我前期的规划失策是有一定原因的。 我将主要的精力全部放在LMS算法的实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自适应滤波教我做人">
+<meta property="og:url" content="http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="自适应滤波教我做人 最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。 先说我结果吧，后天就是比赛开始了，但是我还是没有搞定问题，又面临着考试可能会挂科的压力，只能弃权了。 我觉得之所以会导致这个结果，跟我前期的规划失策是有一定原因的。 我将主要的精力全部放在LMS算法的实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/LMS_filter.png">
+<meta property="og:updated_time" content="2018-09-09T03:14:28.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自适应滤波教我做人">
+<meta name="twitter:description" content="自适应滤波教我做人 最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。 先说我结果吧，后天就是比赛开始了，但是我还是没有搞定问题，又面临着考试可能会挂科的压力，只能弃权了。 我觉得之所以会导致这个结果，跟我前期的规划失策是有一定原因的。 我将主要的精力全部放在LMS算法的实">
+<meta name="twitter:image" content="http://greedyhao.cc/img/dsp_builder/LMS_filter.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">自适应滤波教我做人</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">自适应滤波教我做人</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-25T15:21:28.000Z" itemprop="datePublished" class="page-time">
+  2018-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/生活/">生活</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自适应滤波教我做人"><span class="post-toc-number">1.</span> <span class="post-toc-text">自适应滤波教我做人</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-生活-感悟-2018-05-25-自适应滤波教我做人"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">自适应滤波教我做人</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-05-25 23:21:28" datetime="2018-05-25T15:21:28.000Z"  itemprop="datePublished">2018-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/生活/">生活</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="自适应滤波教我做人">自适应滤波教我做人</h1>
+<p>最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。</p>
+<p>先说我结果吧，后天就是比赛开始了，但是我还是没有搞定问题，又面临着考试可能会挂科的压力，只能弃权了。</p>
+<p>我觉得之所以会导致这个结果，跟我前期的规划失策是有一定原因的。</p>
+<p>我将主要的精力全部放在LMS算法的实现上了；再着，FPGA对我来说是一个很大的挑战，因为之前从来没有用过，要在一个月内学会使用并做比赛，对我来说还是有着挺大的压力的；还有很重要的一点就是，我的心太大了，同时报了两个比赛，除了电赛还有另外一个科技创新的校内比赛，本以为很容易解决的，但是还是耽误了我很多时间，而且也是由于时间问题只能放弃。</p>
+<p>这次的比赛除了让我意识到我的规划有问题外，也让我知道了，一个人的力量还是有限的。在没有参加比赛前，我还是自信心爆棚的，在网上看了些论文，自以为就没有问题了，就直接随便拉了两个人报名，然后全部工作由我一个人来做。事实证明，还是很难的，特别是做自己不熟悉的东西，更是难上加难；找文档、找论文都花了我超多时间，如果有队友的话，这些时间可以剩出很多来，甚至我的项目进度还可以以并行的方式前进。就拿这次的比赛来说，我需要一个信号叠加、一个信号移相、一个自适应滤波三大模块，正好电赛有三个名额，如果有队友的话，完全可以分成多个任务，大家一起完成，</p>
+<p>断断续续做了差不多一个月的这个比赛，我就说说我除了教训，还获得了什么吧。</p>
+<p>首先自然是学会了使用FPGA的一点皮毛，Quartus这个庞大的软件基本被我啃了下来，基本会操作了，很感动。因为软件资料真的不算多，特别是我使用的最新quartus 18版，我在官网看的有的资料甚至是几天前才出的，有的资料也还没有更新，真的挺难受的。我把我自己排的许多坑全部都写出来了，<a href="https://www.mianbaoban.cn/blog/3868882-404616.html" target="_blank" rel="external">直面使用quartus遇到的问题</a>、<a href="https://www.mianbaoban.cn/blog/3868882-404626.html" target="_blank" rel="external">使用ModelSim遇到的问题</a>、<a href="https://www.mianbaoban.cn/blog/3868882-404627.html" target="_blank" rel="external">使用DSP Builder遇到的问题</a>，这些很多都是我在网上没有搜到，然后在官方手册里找了很久才找到的，也算是我为广大群体做的一点小贡献吧。可能我之后还会写一些具体的操作教程，因为我也注意到了我使用的开发板Cyclone IV相关的教程比较缺乏，不好上手，就好像这次困住我的地方就是A/D转换方面的问题，等我解决了后就会发出来。</p>
+<p>再者的话自然就是对信号处理有了更多的了解，了解到自适应滤波其实本质上也是一种基于统计学的方法，通过统计输入信号与期望信号之间的误差来调节滤波器的相关参数，自适应滤波分为自适应过程与滤波过程。我花了很多时间，但是也没有完全理解，最后终于在网上找到了一个解决方法，但是效果并不怎么好，是由两个七阶lms滤波器组成，但是却需要差不多8个周期才能收敛，而我在论文中看到的只需要两个周期，而且没有使用这么多资源。下面给张自适应滤波器的效果图吧。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/LMS_filter.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>再者的话，就是对数字信号有了更多的了解，一开始想着信号叠加和信号移相全部使用模拟电路做，但是后来了解到可以使用FPGA完成，就想使用数字电路来完成。可以说，这是导致我失败的一个很重要的原因，因为信号的移相需要使用到<a href="https://zh.wikipedia.org/zh-hans/%E7%9B%B4%E6%8E%A5%E6%95%B0%E5%AD%97%E5%90%88%E6%88%90" target="_blank" rel="external">Direct digital synthesizer(DDS)</a>，这是什么？它可以从一个单一的频率源生成任意波形和频率。原本我的想法是通过ADC得到输入信号的波形和频率，然后将移相后的波形通过DDS生成，再通过DAC输出，但是FPGA还不太熟，怎么检测波形我还不会，就一直给卡在这里了…</p>
+<p>总的来说，失败了也不错，只有挫折能让人保持清醒，而痛苦才能让我品尝到快乐。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T03:14:28.039Z" itemprop="dateUpdated">2018-09-09 11:14:28</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&title=《自适应滤波教我做人》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&title=《自适应滤波教我做人》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《自适应滤波教我做人》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/05/工作-stm32-2018-07-05-使用Cubemx移植FatFs到stm32/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">使用Cubemx移植FatFs到stm32</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/05/13/工作-alios-2018-05-15-解决Alios烧录导致esp32不断重启问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">解决Alios烧录导致esp32不断重启问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&title=《自适应滤波教我做人》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&title=《自适应滤波教我做人》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《自适应滤波教我做人》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvElEQVR42u3awU5jMQwFUP7/pxmJ1UjQ9l47KSzOW1VV9PAJUuza+fiIn8+v5/s3/3//fc2jld/Xt58PP3h4eHij0B89j/7Mc3CyHUkkz7fjecx4eHh4t3nPk8HzP5Ynkva4T7b7RVR4eHh4v8pLUsXZ4rh9Ax4eHt5f4yXHd9vUmMWAh4eH9xd4STMiTwybpkPyziu9Fjw8PLyYd6q0fefni/M9PDw8vMVUvR2MbRoTbcqJIsTDw8O7wGtbCZtDPG/7to2PF5Hj4eHhHeVtrknlVwc2JXIe1Q9vxsPDw7vGy8NK2qazbZpdfn2xEg8PD+8aLy+F84Da1NJuXzT0wsPDw7vAy3+/b0izDdq0d/Hw8PDu8dqCdTbCz4vv5PuiBMfDw8O7wNv8+M/TQ5Js2k2sm8t4eHh4h3jJ69oDfX+xYHah4Ye34eHh4V3gzcrifat3v2bWOMbDw8Pb82Yt1zwBtFu2aeDi4eHhvYeXD+OToPNDvN2szVANDw8P7wYvvw6VNHZnrdjZha3hBSw8PDy8NW926M+Cy4dhs9geltR4eHh4R3n7I3t2basduW3KfTw8PLxTvLbWTlYm75yFW19NwMPDw7vAaxusbbmcU1tMkkjw8PDwbvBmY6R3FserJISHh4d3gTdLDG0jo00A+TuLLjUeHh7eUV6yKCmU2/I3L9nbcryekuHh4eGVvHbA3x7KbZNituYhGA8PD++NvE3RnCePdgjXFtx4eHh4Z3mf5ZMX4pt0MksGRQMCDw8P79aop/7ZP+NtEk+R/fDw8PCO8jaHezHCLwdaszsA0XwPDw8P7xCvPaCT0nZWWO9bEh/5buHh4eG9nXe4o1zGFkWCh4eH96u8Ng2caubmkUTzPTw8PLxDvNlQKm/pJk2HfGXRYsbDw8O7wNuXwgmjvRww+2cMqXh4eHgp7x/yOe4D49FeCwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

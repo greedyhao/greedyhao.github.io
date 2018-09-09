@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>进程创建和运行 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="介绍进程的创建 运行和终止">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程创建和运行">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="介绍进程的创建 运行和终止">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-21T03:13:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程创建和运行">
+<meta name="twitter:description" content="介绍进程的创建 运行和终止">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">进程创建和运行</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">进程创建和运行</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-21T03:13:56.000Z" itemprop="datePublished" class="page-time">
+  2017-08-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建进程"><span class="post-toc-number">1.</span> <span class="post-toc-text">创建进程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行进程"><span class="post-toc-number">2.</span> <span class="post-toc-text">运行进程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#终止进程"><span class="post-toc-number">3.</span> <span class="post-toc-text">终止进程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考源</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2017-08-21-进程创建和运行"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">进程创建和运行</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-21 11:13:56" datetime="2017-08-21T03:13:56.000Z"  itemprop="datePublished">2017-08-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>简单的说，每个应用在运行时就会产生一个进程，这个进程就对这个应用负责，掌握这个应用的运行状态。</p>
+<p>可是为什么还要用一个进程来控制一个应用呢，下面将会简单的解释一下。</p>
+<a id="more"></a>
+<p>现在的应用对于资源的要求都是狮子大开口，开口就是几个G，一台电脑的内存一般也就几个G，总不能 一台电脑就跑这一个应用吧。为了解决这个问题，操作系统就使用了虚拟内存，让每个进程代表一个 应用，给每个进程一种自己独霸整台电脑的假象，然后操作系统进行上下文切换，只把这个进程正好 需要使用的资源放进内存；这样每个进程都有自己独有的资源。</p>
+<h1 id="创建进程">创建进程</h1>
+<p>创建进程需要一个系统调用 <strong>fork()</strong>，fork可以创建一个和当前进程映像一样的进程；成功时 创建子进程并返回子进程的pid，失败时不会创建子进程，返回-1并设置相应的errno。</p>
+<p>顺便介绍一下pid，pid是进程的ID，数据类型是pid_t，在Linux中被定义为int。可以调用 <strong>getpid()</strong> 来获得调用进程的pid，还可以通过调用 <strong>getppid()</strong> 来获得调用进程的父进程的pid。</p>
+<h1 id="运行进程">运行进程</h1>
+<p>运行进程需要调用 <strong>exec</strong> 系统调用，但是不存在单一的exec函数，他是由一系列的exec函数组成的。</p>
+<p>以一个最简单的调用 <strong>execl()</strong> 为例： + 成功的execl()调用改变 <strong>地址空间</strong> 和进程映像 + 所有的挂起的信号都会丢失 + 捕捉到的所有信号都会还原为默认处理方式 + 丢弃所有的内存锁 + 大多数进程的属性会还原成默认值（pid 父进程的pid 优先级 所属的用户和组 不会变） + 清空和进程内存地址空间相关的所有数据，包括所有映射的文件</p>
+<h1 id="终止进程">终止进程</h1>
+<p>终止进程使用的是 <strong>exit()</strong> 系统调用，参数用于表示进程的推出状态， <strong>EXIT_SUCCESS</strong> 和 <strong>EXIT_FAILURE</strong> 这两个可移植的宏分别表示成功和失败（也可以使用0和非0值来表示，不过 可移植性就差了）。</p>
+<p>简单的表示成功退出就使用 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit(EXIT_SUCCESS);</div></pre></td></tr></table></figure></p>
+<p>这个系统调用会先完成在用户空间需要做的事，再调用_exit()再处理内核中的事。</p>
+<p>在用户空间做的事 + 调用任何由 <strong>atexit()</strong> 或 <strong>on_exit()</strong> 注册的函数，按在系统中注册的相反顺序。（ 假如在exit()前运行了atexit(a) atexit(b)，那么在调用exit()后就会先运行b再运行a ） + 清空所有已打开的标准I/O流 + 删除有tmpfile()函数创建的所有临时文件</p>
+<p>内核会清理进程所创建的 不再使用的所有资源这包括但不局限于：分配内存 打开文件和System Ⅴ 的信号量。清理完成后，内核会摧毁进程，并告知父进程其子进程已经终止。</p>
+<h1 id="参考源">参考源</h1>
+<ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="external">Linux System Programming,Second Edition,by Robert Love(O'Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2017-08-21T03:13:56.000Z" itemprop="dateUpdated">2017-08-21 11:13:56</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&title=《进程创建和运行》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&title=《进程创建和运行》 — Zhuhao's Blog&source=简单的说，每个应用在运行时就会产生一个进程，这个进程就对这个应用负责，掌握这个应用的运行状态。
+可是为什么还要用一个进程来控制一个应用呢，下面将会简单的解..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《进程创建和运行》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/23/生活-讲故事-2017-08-23-强权和冲动无法教育孩子/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">强权和冲动无法教育孩子</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/19/工作-bluetooth-2017-08-19-配置HC-05/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">配置HC-05</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&title=《进程创建和运行》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&title=《进程创建和运行》 — Zhuhao's Blog&source=简单的说，每个应用在运行时就会产生一个进程，这个进程就对这个应用负责，掌握这个应用的运行状态。
+可是为什么还要用一个进程来控制一个应用呢，下面将会简单的解..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《进程创建和运行》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/21/工作-Linux-2017-08-21-进程创建和运行/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3a204CQRAFQP//pzHxzQjL6csAibVPBHWYWpOd5nR/fcXX7edKXv+98nX+/tX1amsXHh4eXmvr15tLXidrVvdzfWuiT8HDw8M7xssPg94jO/mU3oH0ZDU8PDy8t/KSA6O6oXlZj4eHh/fJvHlgMQ878PDw8D6Hl4QRSZFdjXR7hfuRrAUPDw8v5u02wF7z+m39PTw8vH/Pu7Wu5GDoNcNuqxceHh7eCd51q37S2r9+Pymde2FxYbt4eHh4LV51eHQSEyQbnTfhfr2Dh4eHd4BXDSDyIyEfI8iD494hhIeHh7fL6z30rwH5O5PhrXJJjYeHh3f423r+KK+2/HN2jnwS4OLh4eEd4CVxQFKJ5+FFr+rPy/o7/T08PDy8Jd5WcZzkHFuFcjmkwMPDw1vlVR+yyaJ5qb2cOvdmHPDw8PBavOpy+WBB71bOD5s7kxF4eHh4S7zJYTA/HnJkNerFw8PDO82rhrnJwZBvujpSUK2i8fDw8HZ51cZ8r/2fjxck41mFEh8PDw/vTbz8p9W4IX+/Go7cyVrw8PDwlni9+HXy6O+1tXq3Dw8PD+80b6vV1ExExrMBT9bEw8PDW+L1xkOrY6wTUrV5hoeHh3eaVw1tqwdJryWWD3VFJTseHh7eYV51XGA3mOiV40/+PXh4eHgHePNGfrXplX/K5PDAw8PDO8erxhDzIYPegZTsEA8PD+/1vCREyEcKct5WO+3hNwY8PDy8Jd6teCWP42ozrNpCy28rHh4e3gnepIVffXD34to88G3C8PDw8Fq8aimcLJrfxXyjvYMKDw8P7xyvmn/2ml7Vwnp+dOHh4eF9Aq83dJX/ba859/D38fDw8N7Kq0a082OjN6yAh4eH9xrepOk1L8GrLbRC8IGHh4d3gDcJW6sr5O3/rYMKDw8Pb5X3DVASzxTNRR5TAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

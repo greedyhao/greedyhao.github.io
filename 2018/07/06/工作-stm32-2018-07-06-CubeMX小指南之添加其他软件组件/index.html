@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>CubeMX小指南之添加其他软件组件 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="stm32">
+    <meta name="description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CubeMX小指南之添加其他软件组件">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_6.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_7.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_8.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T04:34:27.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CubeMX小指南之添加其他软件组件">
+<meta name="twitter:description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+<meta name="twitter:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CubeMX小指南之添加其他软件组件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CubeMX小指南之添加其他软件组件</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-06T05:38:47.000Z" itemprop="datePublished" class="page-time">
+  2018-07-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#cubemx小指南之添加其他软件组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">CubeMX小指南之添加其他软件组件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决additional-software-components中没有可添加的包的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决Additional Software Components中没有可添加的包的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#还是没有看见自己想要的包怎么办"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">还是没有看见自己想要的包怎么办</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么添加additional-software-components进自己的工程呢"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">怎么添加Additional Software Components进自己的工程呢</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#文中链接的提供"><span class="post-toc-number">3.</span> <span class="post-toc-text">文中链接的提供</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CubeMX小指南之添加其他软件组件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-06 13:38:47" datetime="2018-07-06T05:38:47.000Z"  itemprop="datePublished">2018-07-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="cubemx小指南之添加其他软件组件">CubeMX小指南之添加其他软件组件</h1>
+<p>写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>而我的是这样的</p>
+<div class="figure">
+<img src="/img/stm32/adding_additional_software_components_2.png">
+
+</div>
+<p>这一看就知道有问题嘛，凭什么我的pacK少这么多是吧。</p>
+<h1 id="解决additional-software-components中没有可添加的包的问题">解决Additional Software Components中没有可添加的包的问题</h1>
+<p>我找到的<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" target="_blank" rel="external">原解决方案链接在这里</a></p>
+<p>ps:公众号不能点击链接确实很麻烦，我会在文末附加上这个链接和我的博客地址，可以选择在文末复制这个链接或者到我的博客中读这篇文章。</p>
+<p><strong>解决方法如下：</strong></p>
+<p>首先是打开CubeMX</p>
+<ul>
+<li>在<strong>Help</strong>菜单下点击<strong>ManageEmbeddedSoftwarePackages</strong>（快捷键Alt+U）</li>
+<li>在<strong>EmbeddedSoftwarepackagesmanager</strong>窗口底部点击<strong>FromURL</strong></li>
+<li>在新的窗口点击<strong>New</strong></li>
+<li>输入Keilpacks的indexURL：<strong><a href="http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx" class="uri" target="_blank" rel="external">http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx</a></strong></li>
+<li>点击<strong>Check</strong>，然后你可以看见绿色的小勾</li>
+<li>点击<strong>Ok</strong>，然后会开始更新URL，这有点久，我等了几分钟</li>
+<li>这时候再打开AdditionalSoftwareComponents你就会发现多了很多包了</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<div class="figure">
+<img src="/img/stm32/adding_additional_software_components_4.png">
+
+</div>
+<h2 id="还是没有看见自己想要的包怎么办">还是没有看见自己想要的包怎么办</h2>
+<p>不急，就拿我自己来说吧，想添加rt-thread的支持，在刚刚添加完keil pack后，发现还是没有rt-thread的支持。说实话，我是觉得有点奇怪的，明明keil pack中是有rt-thread的index的。</p>
+<p>既然没有自动加入，那就手动加入吧。</p>
+<p>和前面添加keil pack的方法一样，在Keil pack index URL中找到了rt-thread的index URL:<strong><a href="http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc" class="uri" target="_blank" rel="external">http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc</a></strong>，然后添加进去，install一下，Additional Software Components中就有rt-thread了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="怎么添加additional-software-components进自己的工程呢">怎么添加Additional Software Components进自己的工程呢</h2>
+<p>以rt-thread为例，先进入Additional Software Components</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在左侧的Pack Vender中选择rt-thread，展开rt-thread Vender后，你会看见两个警告，大概意思是组件缺失，需要勾选上这三个组件的Selection，再返回到主界面时，就可以看到rt-thread了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/adding_additional_software_components_8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<h1 id="文中链接的提供">文中链接的提供</h1>
+<ul>
+<li>博客地址：<a href="http://greedyhao.cc/" class="uri">http://greedyhao.cc/</a></li>
+<li>AdditionalSoftware解决方案原文链接：<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" class="uri" target="_blank" rel="external">https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components</a></li>
+</ul>
+<div class="figure">
+<img src="/img/wechat_official_accounts.jpg">
+
+</div>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T04:34:27.056Z" itemprop="dateUpdated">2018-09-09 12:34:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&title=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&title=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">如何在Keil中提高代码的可读性</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/05/工作-stm32-2018-07-05-使用Cubemx移植FatFs到stm32/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用Cubemx移植FatFs到stm32</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&title=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&title=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CubeMX小指南之添加其他软件组件》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMUlEQVR42u3a0W7jMAwEwP7/T6evLVo7S1IGbGX8FPh8sUYBSnCpr6/4ep1eP59JPiffc37/6M7iCxsbG/sh7N5ScvzRsv7e731bdVuxsbGxd2WfL6v6svNFnP+v6padr/PwPjY2NvbHs5PCc16QosXFm46NjY2N3WPnr+8ttBoqYWNjY38yO4+KkjZjEvpUMZdnadjY2Ni3Z+dT0ft/vmS+jY2NjX1j9qt45eWkN/qtDnSbCmxsbOyN2HkBmByXqY6H82ZmtH5sbGzsLdjzo5bV4zXVBmPSXR1uDTY2NvZG7N7RnFWD296YYf4jYWNjY+/ETgpGdUGrRsjzH+Zw/djY2NgbseflZ16EeoUtP+4TZWnY2NjYj2X3Dsck0f88TqoW0fP3Ljh/hI2NjX1jdlIG5qUrL2PVuCpnFwa92NjY2A9hJy1HLxjqLa46Qq5WqMKJJGxsbOyHsPOmovd8vrm9kW2vmcHGxsbeiZ2cYElelgT0vdHsqiYkStSwsbGxH8te1SpUhwe9ba1GWuXtw8bGxn4gO//SedwzL1q9duUwWsLGxsZ+OHteZqpXvrnJtib/+s/3Y2NjY2/NXhXi59Qk5MqHE1EhxMbGxv4wdl5mqqPW5GBQ9WeI7mBjY2NvxM7Do7wNuK4hqT4TJVvY2NjYD2fnUU7SkFSPzvQGDJNG6FfdxsbGxt6C3YuQkhNA1edHFTgutNjY2Ni7spuhzCJMNfTPt+PNk9jY2NhbsOevn7QNkwHwJOTCxsbG3o/d612qB2smT+bUaBiMjY2NvRF7zsuHB5OoKC94hXKLjY2NvTW7GiHlAdDkc/7DJG/HxsbG3pVdHR5ELyiOCqrNRq+8YWNjY+/KTlqFVWPXfPSbIMvHerCxsbG3YL+KVx7ET0L8SbQUtVXY2NjYG7Grf/p7pSW/f3V5K+OxsbGxH8KuhkTVgpGXwLykJT/Jm03BxsbG3o59/ue+N/TNQ6tVbUkzS8PGxsb+MPbVh3LWbv3h92NjY2NjB+H7ZPwwL11v3oKNjY29HTspS73IKQ/38yYkD7MWjAewsbGxb88uxzGDzarG+r2NWxZFYWNjY9+d/Q3WuFPvtmv0VAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

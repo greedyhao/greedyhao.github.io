@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>如何阅读datasheet，以BQ24610为例 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Altium,PCB">
+    <meta name="description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+<meta name="keywords" content="Altium,PCB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何阅读datasheet，以BQ24610为例">
+<meta property="og:url" content="http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_6.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_7.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_9.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_10.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_11.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_12.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_13.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_14.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_15.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_16.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/pcb线宽与电流关系.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/pcb铜厚与电流关系.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_17.png">
+<meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_18.png">
+<meta property="og:updated_time" content="2018-09-09T05:52:27.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何阅读datasheet，以BQ24610为例">
+<meta name="twitter:description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/altium/BQ24610_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">如何阅读datasheet，以BQ24610为例</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">如何阅读datasheet，以BQ24610为例</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-06T11:53:46.000Z" itemprop="datePublished" class="page-time">
+  2018-04-06
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何阅读datasheet以bq24610为例"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何阅读datasheet，以BQ24610为例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原理图设计"><span class="post-toc-number">2.</span> <span class="post-toc-text">原理图设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考官方参考电路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">参考官方参考电路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#做细微的参数调整"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">做细微的参数调整</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完成设计"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">完成设计</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pcb设计"><span class="post-toc-number">3.</span> <span class="post-toc-text">PCB设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#官方建议"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">官方建议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pcb一般要求"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">PCB一般要求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#成品图"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">成品图</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-altium-2018-04-06-如何阅读datasheet"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">如何阅读datasheet，以BQ24610为例</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-06 19:53:46" datetime="2018-04-06T11:53:46.000Z"  itemprop="datePublished">2018-04-06</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="如何阅读datasheet以bq24610为例">如何阅读datasheet，以BQ24610为例</h1>
+<p>本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。</p>
+<a id="more"></a>
+<p>本次需要设计的是24V动力锂电池充电电路。</p>
+<h1 id="原理图设计">原理图设计</h1>
+<h2 id="参考官方参考电路">参考官方参考电路</h2>
+<p>为了快速设计电路，自然是参考官方参考电路，选择<strong>Typical Application</strong>。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="做细微的参数调整">做细微的参数调整</h2>
+<p>由于我们的需求是给24V的电池充电，所以需要稍微修改一下原理图，接下来需要查看的就是<strong>Feature Description</strong></p>
+<ul>
+<li>设置充电电压</li>
+</ul>
+<div class="figure">
+<img src="/img/altium/BQ24610_3.png">
+
+</div>
+<p>从图中可以看出，R1和R2是设置电池充电电压的地方。我需要的是24V充电，所以我分贝设置为100K和1.1M - 设置电池充电电流</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_4.png">
+
+</div>
+<p>Vset1和Rsr是用来调整充电电流的，虽然我也想把充电电流设置的高一点，但是我在淘宝上找不到能提供那么大电流的的24V的适配器，很失望。Rsr就用了10mR，Vset1是使用电阻分压得到的，我本来想设置为5A的，可是43.5K的电阻很贵，就采用了和官方一样的电阻值，设置为3A。 - 设置适配器充电电流</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_5.png">
+
+</div>
+<p>通过Vacset和Rac设置，前文也说了，由于适配器限制，本来这片芯片最大能承受10A充电电流的，也只能设置成3A，也使用官方提供的值了。 - 设置预充电电流</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_6.png">
+
+</div>
+<p>预充电就是当电池电压低于一个设置的阈值时，先用小电流对电池充电，使电池达到设置的阈值，这样可以激活电池，保证电池的寿命不会太快衰减。但需要注意的是，预充电30分钟后还没有达到阈值的话，充电芯片就会停止充电，通过状态引脚给出错误信息。 - 设置充电安全时间</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_7.png">
+
+</div>
+<p>通过Cttc这个电容可以设置充电的安全时间，也是一种保护电池的措施。我使用的也是官方的值。 - 系统供电方式</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_9.png">
+
+</div>
+<p>这里说的大概意思就是，VCC可以从电池或适配器供电，当VCC电压大于电池电压时，会关闭电池与系统之间的<strong>BATFET</strong>，使用VCC供电（一般也就是插着适配器的时候才会发生吧，使用适配器供电也很正常）。 - 充电和取消充电的情况</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_10.png">
+
+</div>
+<p>这里列举了什么情况下充电，什么情况下停止充电，有兴趣自己看看就好，对原理图绘制影响不大。 - 过热保护</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_11.png">
+
+</div>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_12.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这里提到用103AT的热敏电阻测量温度。 - 充电状态输出方式</p>
+<div class="figure">
+<img src="/img/altium/BQ24610_13.png">
+
+</div>
+<p>这张表体现了充电的状态对应的LED灯情况</p>
+<h2 id="完成设计">完成设计</h2>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_14.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>说实话，感觉这种设计感觉技术水平不高，还是那些使用分立元件那个年代的前辈厉害，现在都集成在IC中了，外围设计简单了太多。</p>
+<h1 id="pcb设计">PCB设计</h1>
+<h2 id="官方建议">官方建议</h2>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_15.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是官方提供的Layout的指导</p>
+<ul>
+<li>输入电容要尽可能的靠近开关MOSFET并使得和地之间的回路最小。这些元件需要放在同一层而不是不同层然后使用过孔连接（惨..没写这篇文章前还没注意到，我有的元件是放在bottom的，不过我用了多个过孔应该没关系的吧..）。</li>
+<li>IC应该被放在开关MOSFET的附近来保证控制信号是干净的（我放的好像有点远..)</li>
+<li>电感的输入端要尽可能的靠近开关MOSFET的输出端。覆铜面积要尽可能小以避免电磁干扰，但是要保证足够的宽度承载电流。这里不要用不同层的平行线的连接。保证和其他网络尽可能小的寄生电容（这是为了避免这里的高频信号影响其他位置的模拟电路）。</li>
+<li>采样电阻要靠近电感的输出端，布线时最好参考官方的这种设计</li>
+</ul>
+<p><img src="/img/altium/BQ24610_16.png"> - 输出电容要放置在靠近采样电阻的输出端和地之间。 - 输出电容的地要先和输入电容的地连接再和IC的地连接 - 模拟地要和电源地分离，并且用信号地连接充电器的电源地和模拟地。就在IC的下放使用覆铜连接模拟地，但是要避免电源管脚以减少容性和感性噪声耦合。在热焊盘上连接模拟地和电源地并作为信号地的连接点。或者使用0R的电阻连接模拟地和电源地（这种情况下热焊盘需要连接模拟地）。非常推荐在热焊盘下使用星形连接。 - 热焊盘的接地是非常重要的，要确保过孔是直接在IC下方的。 - 去耦电容要尽可能靠近IC - 过孔的数量和大小要满足电流的需要</p>
+<h2 id="pcb一般要求">PCB一般要求</h2>
+<p>除此之外还要注意电流与线宽、铜厚之间的关系</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/pcb线宽与电流关系.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<div class="figure">
+<img src="/img/altium/pcb铜厚与电流关系.png">
+
+</div>
+<h2 id="成品图">成品图</h2>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_17.png" alt="Top Layer" title="">
+                </div>
+                <div class="image-caption">Top Layer</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/altium/BQ24610_18.png" alt="Bottom Layer" title="">
+                </div>
+                <div class="image-caption">Bottom Layer</div>
+            </figure>
+<h1 id="总结">总结</h1>
+<p>画PCB还是需要有经验加持的，就拿我这次画板来说吧，之前没有经验，不懂如何看IC的datasheet，在老师的带领下才学会了查看datasheet。但是看datasheet还是不够认真，没有去看官方的一些建议，Layout时有许多细节没有处理好，只到我打板后这么久，写文章的时候才发现，官方建议中的第2、3、4、5、6、7、9都是不太符合要求的，但是板都打了..</p>
+<p>虽然板子存在很多问题，但是自己画的板还是想看看效果是怎么样的，可惜退了那个团队，测试板子就交给其他人了。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T05:52:27.812Z" itemprop="dateUpdated">2018-09-09 13:52:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Altium/">Altium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB/">PCB</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例
+本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决WSL无法运行32位程序问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/04/05/读书笔记-2018-04-05-《数学之美》阅读记录四/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《数学之美》阅读记录四</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例
+本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsElEQVR42u3aQW7jMBAEwPz/09nrArtyumdIwwFKJyOWJZYCkFTPfH3Fx/dfR3vO67+/vlp+99WBh4eHtxj6v8fTDZ4+J1d++tXrR/M0nqdz8PDw8G7zkqn59ZSdPI52aZk9UDw8PLzP5OVTdj2VB1tqPDw8vN/FSyb6/W83m3g8PDy89/Dy4CDZKOfn5CHv9awFDw8Pr9vBRlWkz/l8pb6Hh4eHt66qJxP37NtkK5wvA4+jxcPDw7vAyyfczYPYsNumKzw8PLzbvDxsbafptl2gDXOjIAMPDw/vMi/Z4CYhb7sY5PgWiYeHh3eD1w6obQjIy1qzglm7COHh4eHteZsooZ3Wk5aCfKGKvsXDw8O7wEui0jYsyGGzZelAZxkeHh7egpeHC+3G+hRpVqIr3gzw8PDwFrw2SM3Pyduz8s131IiAh4eH93befgFINsGzklu0fcfDw8O7xmuHm2ekeR0/CXbz9gU8PDy827xN42lb5m+XolXpCw8PD+8ar52CNzX6vIg1W2D+E+Pi4eHhHeXlk2yyJOyDhk3I+wMSDw8P7zJvtr2OotV4xs6bropiGB4eHt6aNwtJ2yHOGJt7Df9jeHh4eAveJgvdl8HquBYPDw/vjbz2BpuJft8i0DY04OHh4d3mJUvFqSat9gp5WFyUwfDw8PAWvFlzVR4K7AOOzXjw8PDw7vHaje/sCkl57OxDxMPDw7vNm8UT+3arTcTww8jx8PDwjvK+yyOB5cj8wRVpCh4eHt5lXlvaT7bCp87ZBMT1gYeHhzeqp+83u7OpvA1z6xcAPDw8vGu8trSf/2rWInBsAcPDw8P7GF4bNOTLyewujw8IDw8P78N4baFrxmiDYzw8PLz38PKiV4JMCmazbXcbNOPh4eHd4OUv+fsa042o4kCtDw8PDy8d2x/YpO4Dvy9aJwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>通信原理学习记录（一） | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="wireless">
+    <meta name="description" content="通信原理学习记录（一） 今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础了，对一些调制技术有了一定的认识和分析能力，因此，本学习的通信原理主要的难度在于数字通信技术。">
+<meta name="keywords" content="wireless">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通信原理学习记录（一）">
+<meta property="og:url" content="http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="通信原理学习记录（一） 今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础了，对一些调制技术有了一定的认识和分析能力，因此，本学习的通信原理主要的难度在于数字通信技术。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/wireless/wireless_overview.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T05:52:39.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通信原理学习记录（一）">
+<meta name="twitter:description" content="通信原理学习记录（一） 今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础了，对一些调制技术有了一定的认识和分析能力，因此，本学习的通信原理主要的难度在于数字通信技术。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wireless/wireless_overview.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">通信原理学习记录（一）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">通信原理学习记录（一）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-08T09:34:52.000Z" itemprop="datePublished" class="page-time">
+  2018-08-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通信原理学习记录一"><span class="post-toc-number">1.</span> <span class="post-toc-text">通信原理学习记录（一）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#信息及其度量"><span class="post-toc-number">2.</span> <span class="post-toc-text">信息及其度量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通信系统主要性能指标"><span class="post-toc-number">3.</span> <span class="post-toc-text">通信系统主要性能指标</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有效性"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">有效性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可靠性"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">可靠性</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-wireless-2018-08-08-通信原理学习记录（一）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">通信原理学习记录（一）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-08 17:34:52" datetime="2018-08-08T09:34:52.000Z"  itemprop="datePublished">2018-08-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="通信原理学习记录一">通信原理学习记录（一）</h1>
+<p>今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础了，对一些调制技术有了一定的认识和分析能力，因此，本学习的通信原理主要的难度在于数字通信技术。</p>
+<a id="more"></a>
+<p>为了更好的学习通信原理，提前学习是个不错的选择，在<a href="http://www.icourse163.org/learn/NUDT-316006?tid=1002694004&amp;from=study#/learn/content" target="_blank" rel="external">MOOC上有个通信原理的课程</a>，阅读原文提供传送门。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wireless/wireless_overview.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>一开始学习遇到了两个新的知识点：<strong>信息及其度量</strong>和<strong>通信系统主要性能指标</strong></p>
+<h1 id="信息及其度量"><a href="#信息及其度量"></a>信息及其度量</h1>
+<p>学过概率论的我们知道，事件的不确定程度可以用其出现的概率来描述。因此，消息中包含的信息量与消息发生的概率有关。消息出现的概率越小，蕴含的信息量越大。</p>
+<p>使用<span class="math inline">\(P(x)\)</span>表示消息发生的概率，<span class="math inline">\(I\)</span>表示消息中的信息量</p>
+<p><span class="math display">\[
+I = log_a\frac{1}{P(x)} = -log_aP(x)
+\]</span></p>
+<p>通常使用单位为比特，公式可以简写为</p>
+<p><span class="math display">\[
+I = log_2\frac{1}{P(x)} = -log_2P(x)
+\]</span></p>
+<p>这种方法是使用算术平均的方法计算，还有另外一种是使用熵的概念计算</p>
+<p><span class="math display">\[
+H(x) = -\sum_{i=1}^M P(x_i) log_2 P(x_i)
+\]</span></p>
+<p>对于较多消息的信息量的计算选择熵的方式更好，因为使用熵的方式计算信息量更加准确，而且也更加方便。</p>
+<p><strong>对信息度量的思考：</strong></p>
+<p>我总感觉信息度量与密码学之间存在着联系，最简单的密码是通过查表实现的，比如将所有字母位置移1个位置，如A加1变换为B。</p>
+<p>现在拥有一份这样加密的密文，统计发现其中某一个字母的出现次数最少，那么它拥有的信息量就最大，是不是就可以通过从这一个字母入手破解全篇的密文。</p>
+<p>当然，这只是我的猜测而已，目前还并没有学习密码学的相关知识，在网上搜信息度量与密码学的关系也没搜出什么，估计也是我搜索的姿势不对。</p>
+<h1 id="通信系统主要性能指标"><a href="#通信系统主要性能指标"></a>通信系统主要性能指标</h1>
+<p>主要性能指标与<strong>有效性</strong>和<strong>可靠性</strong>有关</p>
+<h2 id="有效性"><a href="#有效性"></a>有效性</h2>
+<p>有效性的衡量与频带利用率有关</p>
+<p>对于数字通信系统，频带利用率的定义为单位带宽内的传输速率</p>
+<p><span class="math display">\[
+\eta = \frac{R_B}{B} \ (Baud/Hz)
+~~
+or
+~~
+\eta_b = \frac{R_b}{B} \ (b/(s\cdot Hz))
+\]</span></p>
+<p>其中<span class="math inline">\(R_B\)</span>为码元传输速率，又称波特率。<span class="math inline">\(R_b\)</span>为信息传输速率，又称比特率。</p>
+<p><em>ps: 突然看到波特率也是很兴奋的，学习串口通信那么久，终于看到了波特率的身影了；还有比特率也是好久以前听说的</em></p>
+<p>码元速率与信息速率有以下关系</p>
+<p><span class="math display">\[
+R_b = R_B log_2 M \ (b/s)
+\]</span></p>
+<p>其中的M表示进制。例如，设码元速率为1200Baud，若采用八进制，则信息速率为3600b/s</p>
+<p><em>ps:之前一直不知道MCU的串口通信中的波特率为什么越高，传输速度越快，现在终于知道了</em></p>
+<h2 id="可靠性"><a href="#可靠性"></a>可靠性</h2>
+<p>模拟通信系统的可靠性场用接收端输出信号与噪声功率比(S/N)来度量</p>
+<p>数字通信系统的可靠性用差错概率来衡量。差错概率常用误码率和误信率表示。</p>
+<p>误码率<span class="math inline">\(P_e\)</span>为错误码元数与传输总码元数之比</p>
+<p>误信率<span class="math inline">\(P_b\)</span>为错误比特数与传输总比特数之比</p>
+<hr>
+<p>参考书籍：</p>
+<ul>
+<li>《通信原理》樊昌信第七版</li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T05:52:39.288Z" itemprop="dateUpdated">2018-09-09 13:52:39</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wireless/">wireless</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&title=《通信原理学习记录（一）》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&title=《通信原理学习记录（一）》 — Zhuhao's Blog&source=通信原理学习记录（一）
+今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通信原理学习记录（一）》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/08/11/工作-latex-2018-08-11-mathjax的基本操作/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mathjax的基本操作</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">LCD-TFT控制总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&title=《通信原理学习记录（一）》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&title=《通信原理学习记录（一）》 — Zhuhao's Blog&source=通信原理学习记录（一）
+今天刚刚开始学习通信原理，了解了通信原理的知识点，大概是要学习模拟通信与数字通信，模拟通信技术在之前的高频学习中已经有了一定的基础..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通信原理学习记录（一）》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIklEQVR42u3awW4iQQwE0Pz/T7PSXhGkyj1IGfPmhMIw9GsOFdv98xNfj//X81+er+d3Xz3n1evkW5LPXnBhY2Nj34TdPjq/J+flgHZtr34AbGxs7H3s94t4H07vvyCJt/azyTp/MWJjY2N/Jft8WUkEnj8BGxsbG7stIWbBdu0WYGNjY2O37f5Zsz55N28MJau6oJeGjY2N/efZ7aD3L7/+4HwbGxsb+0+yHwdXUk7U5UFcqJysHxsbG3sT+3375iTY2rIkD6ekORVtKzY2NvYKdhI5s9ZMcn/SJMqpxZqxsbGxF7FnTfyrYHXSlmXPsNmEjY2NfVv2+2KgbTPNOvN5LCVxW9Rh2NjY2Ddnzx7XhtZ5vOVRejQewMbGxr4hOwmzJN7aUidZ0GxrhhGLjY2NfVt28pX567yVn5cl+Uig+DGwsbGxV7BnATBbSluu5KT8L9jY2Nhb2bPQascJnwvOeuuxsbGx17FnvGR6fH68Jr8nXwk2Njb2JnY76E3Co8W3o9mTgmd4ZAcbGxv7JuxZQ+eqwz2zYzqzrcfGxsbexG4HrkkjfnZWaBaiw8IJGxsbexG7bQzNSotZjM02pXgCNjY29iL2rN/yiQM9edRFbSNsbGzsL2DnAXPeuG8LnlnTKnkCNjY29j52OzpNDu5cNRhui5+oRMHGxsZex86ps/HArMw4j9WXT8PGxsZexD45ENOOb9tjQOfD4LoJhY2NjX1Ddvsv/mwL8vDLjxCd/BjY2NjYu9knBUMbVwmpDblhLw0bGxv7tuzZYZ2TgUHeopqNENp7sLGxsTex8wBL7s8jcBaZJ/GGjY2NvZvdwmbFzLVbkAfqywDDxsbGXsGOJsDHRctsSFwARhZsbGzs+7If5TX74pOy5KQoern12NjY2IvYs95LMkZtwyl5na8HGxsb+9vYeWidBEbbonq/Qfl6fumiYWNjYy9i5yGRR1obXbPAGxZC2NjY2Nh5VBxHUbLOOmKxsbGxv5I9Ky3aMUBbqMwGz9jY2Nj72O1wt54wxNs6Gz/XsYqNjY29iN0ucVYMtID2OW34YWNjY69g/wP3yzntkEHZNgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

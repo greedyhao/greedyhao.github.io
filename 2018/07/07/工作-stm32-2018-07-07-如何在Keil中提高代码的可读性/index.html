@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>如何在Keil中提高代码的可读性 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="stm32">
+    <meta name="description" content="如何在Keil中提高代码的可读性 写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲伤。 所以，写代码前，最好先把代码的整体结构布置好，比如include放什么地方，define放什么地方，需要export的变量、函数放什么地方，最好又要保持自己所有的代码都保持这种模式，">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在Keil中提高代码的可读性">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="如何在Keil中提高代码的可读性 写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲伤。 所以，写代码前，最好先把代码的整体结构布置好，比如include放什么地方，define放什么地方，需要export的变量、函数放什么地方，最好又要保持自己所有的代码都保持这种模式，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/progamme_style_4.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/progamme_style_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/progamme_style_6.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/progamme_style_7.png">
+<meta property="og:updated_time" content="2018-09-09T04:38:31.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在Keil中提高代码的可读性">
+<meta name="twitter:description" content="如何在Keil中提高代码的可读性 写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲伤。 所以，写代码前，最好先把代码的整体结构布置好，比如include放什么地方，define放什么地方，需要export的变量、函数放什么地方，最好又要保持自己所有的代码都保持这种模式，">
+<meta name="twitter:image" content="http://greedyhao.cc/img/stm32/progamme_style_4.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">如何在Keil中提高代码的可读性</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">如何在Keil中提高代码的可读性</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-07T07:24:27.000Z" itemprop="datePublished" class="page-time">
+  2018-07-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何在keil中提高代码的可读性"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何在Keil中提高代码的可读性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#创建代码模板步骤如下"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建代码模板步骤如下</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用代码模板方法"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用代码模板方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#最后附上我创建的代码模板"><span class="post-toc-number">4.</span> <span class="post-toc-text">最后附上我创建的代码模板</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-stm32-2018-07-07-如何在Keil中提高代码的可读性"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">如何在Keil中提高代码的可读性</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-07 15:24:27" datetime="2018-07-07T07:24:27.000Z"  itemprop="datePublished">2018-07-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="如何在keil中提高代码的可读性">如何在Keil中提高代码的可读性</h1>
+<p>写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲伤。</p>
+<p>所以，写代码前，最好先把代码的整体结构布置好，比如include放什么地方，define放什么地方，需要export的变量、函数放什么地方，最好又要保持自己所有的代码都保持这种模式，这时候，创建一个代码模板就非常有效了。</p>
+<p>创建一个代码模板需要注意哪些方面呢？没有什么好的想法的话可以参考一下优秀的开源代码。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/progamme_style_4.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>上面的代码风格从左到右，分别是FreeRTOS、FatFs、ST的代码风格，都很优秀，而且这些优秀的代码的共同点是，注释跟代码量差不多，甚至超过代码量。</p>
+<p>因为的本身也在使用Keil，而且ST的注释很有逻辑，就选择了ST的注释风格。选择了注释风格后，就是创建代码模板了。</p>
+<h1 id="创建代码模板步骤如下">创建代码模板步骤如下</h1>
+<ul>
+<li>下载HAL库，并解压，打开Cube_FW_F7_V1.11.07533（也可以是其他文件夹下的），删除所有的代码，只留下注释</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/progamme_style_5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>在自己的工程中新建一个文件，复制到新建的文件中</li>
+<li>打开工具栏的<strong>Configuration</strong>，选择<strong>TextCompletion</strong></li>
+<li>新建一个<strong>Template</strong>，将模板复制进去</li>
+<li>重复以上步骤，创建头文件的代码模板</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/progamme_style_6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="使用代码模板方法">使用代码模板方法</h1>
+<ul>
+<li>新建一个文件，要包含在项目中</li>
+<li>在左侧的工具栏选择<strong>Templates</strong></li>
+<li>点击先前创建的代码模板</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/progamme_style_7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="最后附上我创建的代码模板">最后附上我创建的代码模板</h1>
+<p><strong>头文件的代码模板</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Define to prevent recursive inclusion -------------------------------------*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> </span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> </span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></div><div class="line"> <span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> </span></div><div class="line"><span class="comment">/* Includes ------------------------------------------------------------------*/</span></div><div class="line"><span class="comment">/** @addtogroup BSP</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @addtogroup Components</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line">  </div><div class="line"><span class="comment">/** @addtogroup ST7735</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/** @defgroup ST7735_Exported_Types</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line">   </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @defgroup ST7735_Exported_Constants</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line">      </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/** @defgroup ADAFRUIT_SPI_LCD_Exported_Functions</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></div><div class="line">&#125;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/*  */</span></span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/************************ (C) COPYRIGHT greedyhao *****END OF FILE****/</span></div></pre></td></tr></table></figure>
+<p><strong>源文件的代码模板</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Includes ------------------------------------------------------------------*/</span></div><div class="line"><span class="comment">/** @addtogroup BSP</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @addtogroup Components</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @addtogroup ST7735</span></div><div class="line"><span class="comment">  * @brief      This file provides a set of functions needed to drive the</span></div><div class="line"><span class="comment">  *             ST7735 LCD.</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/** @defgroup ST7735_Private_TypesDefinitions</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @defgroup ST7735_Private_Defines</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/** @defgroup ST7735_Private_Macros</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">  * @&#125;</span></div><div class="line"><span class="comment">  */</span>  </div><div class="line"><span class="comment">/** @defgroup ST7735_Private_Variables</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span> </div><div class="line"><span class="comment">/** @defgroup ST7735_Private_FunctionPrototypes</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span> </div><div class="line"><span class="comment">/** @defgroup ST7735_Private_Functions</span></div><div class="line"><span class="comment">  * @&#123;</span></div><div class="line"><span class="comment">  */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">* @&#125;</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="comment">/************************ (C) COPYRIGHT greedyhao *****END OF FILE****/</span></div></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T04:38:31.188Z" itemprop="dateUpdated">2018-09-09 12:38:31</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&title=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&title=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/08/系列-2018-07-08-c王国的诞生-零/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">c王国的诞生_零</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CubeMX小指南之添加其他软件组件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&title=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&title=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何在Keil中提高代码的可读性》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADP0lEQVR42u3aS47iQBAFwLn/pZltL8bwXqZHwtXhVctAuaKQOsnPnz/x9fpxzV59/6mf77m6f/Xq1fo3XNjY2NgPYb/eXvlWru683/r+EN/v83I1bGxs7OPY7x9wtXQbipLDnT09t2BjY2Njtw9OUoXZUWJjY2Njb9gJabPCe17+HmxsbOzfw86ThM122wLW7Fk319KwsbGxv56dd0W//+//0t/GxsbG/mL2q7zycZykEduOB82C4j8U2NjY2AexZ+X7fGSnHa+ZHdys/YCNjY19BjsJLe3mNqOZbahrd1JEVGxsbOxHsTeJxybwvN9DG0SL1bCxsbEPYrdJQjsEeVcLeTYktIrh2NjY2A9ht63TfZGoPY58rKe4j42Njf0L2LOf9clhzcZubh7iwcbGxj6OvW/0tsX6JFwNi0TJF4CNjY19EHtf0M+HZjbhc9PoXTUJsLGxsb+evU822qLPLC/YJDmXRSVsbGzsI9izRmke5NpkZpZ4RMlG+zFsbGzsx7Lzhm4bitog1K6QfAFFHoaNjY39EHY7cNny2tGfWQMgD43Fh7GxsbEfwk7CVR5a9oGtDWbtoM/ld46NjY39WHYyHJOM2rRBqC0ttcnMh51gY2NjH8fO27SzccnZkeUpUD6yednfxsbGxn4sexOW8sRj1uItALOEChsbG/sI9ixUtM3XTWFo39a9bPRiY2NjH8Fum69tWWcz9LNv+q6mk7CxsbEfwm4/kDcP8oLRrICVpysfOtvY2NjYD2fnP/3bwNOWhNrhnvxVbGxs7LPZbb6yDwxJ6Jodd7EmNjY29kHsWQm+LUjlZf1NOzlvUWNjY2Ofx85LPHeFnPzOZs0Ph4iNjY19HHtW6G+HaZJCf94SmCUq2NjY2L+NHZVjyvckSc7NjVtsbGzsQ9mv8sp/6G9C3b1H+aHRi42Njf1wdvuvPzmIu0Zwkp0kaUkbhrGxsbGfyJ6VezYt3llpaVYCizIwbGxs7CPYeeO2DUvJnc3AUDtIhI2NjY2dh6v9IE7etMhLWtjY2NjYbck+b9/O1hw2D7CxsbGPY2+au7OrTVTavX2IWdjY2NgHsdsCTRt+ZoM7eVM5D8DY2NjYx7H/AqFkPtrPtxNSAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

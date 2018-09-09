@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>简单说说卷积的作用 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="dsp">
+    <meta name="description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+<meta name="keywords" content="dsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单说说卷积的作用">
+<meta property="og:url" content="http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/思考卷积.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/chirp_bf.bmp">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/chirp_af.bmp">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T05:49:18.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单说说卷积的作用">
+<meta name="twitter:description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/dsp/思考卷积.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">简单说说卷积的作用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">简单说说卷积的作用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-11T22:53:32.000Z" itemprop="datePublished" class="page-time">
+  2018-08-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单说说卷积的作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">简单说说卷积的作用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#提供一种方便的频域处理方式"><span class="post-toc-number">2.</span> <span class="post-toc-text">提供一种方便的频域处理方式</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-dsp-2018-08-12-简单说说卷积的作用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">简单说说卷积的作用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-12 06:53:32" datetime="2018-08-11T22:53:32.000Z"  itemprop="datePublished">2018-08-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="简单说说卷积的作用">简单说说卷积的作用</h1>
+<p>卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。</p>
+<a id="more"></a>
+<p>不过闲着的时候，也会去想，卷积到底有什么作用。</p>
+<div class="figure">
+<img src="/img/dsp/思考卷积.jpg">
+
+</div>
+<h1 id="提供一种方便的频域处理方式"><a href="#提供一种方便的频域处理方式"></a>提供一种方便的频域处理方式</h1>
+<p><strong>时域卷积频域相乘</strong></p>
+<p>这条法则想必大家都知道，作用非常大，可以轻松的对信号的频域做处理</p>
+<p>简单的应用就是频域滤波</p>
+<p><span class="math display">\[
+g(x) =  \mathscr{F}^{-1}\left[H(x)F(x)\right]
+\]</span></p>
+<p>F(x)代表输入信号，H(x)代表滤波函数，g(x)代表滤波（输出）信号。</p>
+<p>转换到时域则是</p>
+<p><span class="math display">\[
+g(x) = h(x) \ast f(x)
+\]</span></p>
+<p>以下是一个声音信号处理的例子，给matlab自带鸟叫声加了一个低通滤波器。</p>
+<p>效果如下：</p>
+<p>滤波前：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/chirp_bf.bmp" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>滤波后：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/chirp_af.bmp" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">% 主函数</div><div class="line">close all;</div><div class="line">load chirp;</div><div class="line">Hd = getFilter; % 使用Filter Builder设计的FIR</div><div class="line">X = filter(Hd,y); % 等同于conv(y,Hd.Numerator)</div><div class="line"></div><div class="line">DrawFFT(y,Fs); % 自定义函数用于画频谱</div><div class="line">DrawFFT(X,Fs);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function Hd = getFilter</div><div class="line">%GETFILTER Returns a discrete-time filter object.</div><div class="line"></div><div class="line">% MATLAB Code</div><div class="line">% Generated by MATLAB(R) 9.4 and DSP System Toolbox 9.6.</div><div class="line">% Generated on: 11-Aug-2018 21:15:57</div><div class="line"></div><div class="line">Fpass = 2500;  % Passband Frequency</div><div class="line">Fstop = 3000;  % Stopband Frequency</div><div class="line">Apass = 1;     % Passband Ripple (dB)</div><div class="line">Astop = 60;    % Stopband Attenuation (dB)</div><div class="line">Fs    = 8192;  % Sampling Frequency</div><div class="line"></div><div class="line">h = fdesign.lowpass( &apos;fp,fst,ap,ast &apos;, Fpass, Fstop, Apass, Astop, Fs);</div><div class="line"></div><div class="line">Hd = design(h,  &apos;equiripple &apos;, ...</div><div class="line">     &apos;MinOrder &apos;,  &apos;any &apos;, ...</div><div class="line">     &apos;StopbandShape &apos;,  &apos;flat &apos;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function [  ] = DrawFFT( x, Fs )</div><div class="line">% DrawFFT 对输入信号进行快速傅里叶变换</div><div class="line">% 输入参数：x ：输入信号；   Fs：采样频率</div><div class="line">% by Yang Xiaokang , 2016-02</div><div class="line"></div><div class="line">L = length(x);</div><div class="line"></div><div class="line">NFFT = 2^nextpow2(L);          		%确定FFT变换的长度</div><div class="line">y = fft(x, NFFT)/L;</div><div class="line">f = Fs/2*linspace(0,1,NFFT/2+1);	%频率向量</div><div class="line"></div><div class="line">figure;</div><div class="line"></div><div class="line">plot(f, 2*abs(y(1:NFFT/2+1)));		%绘制频域图像</div><div class="line">title( &apos;幅度谱 &apos;);</div><div class="line">xlabel( &apos;Frequency (Hz) &apos;);</div><div class="line">ylabel( &apos;|y(f)| &apos;);</div><div class="line"></div><div class="line">end</div><div class="line"></div><div class="line">% 作者：TaylorSe</div><div class="line">% 链接：https://www.zhihu.com/question/46038488/answer/144244073</div><div class="line">% 来源：知乎</div><div class="line">% 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</div></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T05:49:18.867Z" itemprop="dateUpdated">2018-09-09 13:49:18</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dsp/">dsp</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用
+卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《简单说说卷积的作用》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">如何使用matlab进行频域分析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/08/11/工作-latex-2018-08-11-mathjax的基本操作/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mathjax的基本操作</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用
+卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《简单说说卷积的作用》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpElEQVR42u3aQW4bMRAEQP//0w6QU4JAUvcMKQtB7Umw1xSLBw7dnK+v+Pn+/SQ/+ffnyft//vbROI9GPvDg4eHhjab+6Hk+ldlC7Jc4mTMeHh7ebV4yXDLdZKOffU7mgIeHh/dpvPxr9guHh4eH9//xkvggKSrJ3+Lh4eF9Ji8B5NNqw4jke69nLXh4eHgxbxah/uzni/d7eHh4eItb9VmpmJWH5+0Cw3ni4eHhXeDlcW3eQJAcvmfRRnu1hoeHh3ebN2u0ykOENkpoF/ph4cHDw8M7ystj031LQbtMCe/FnPHw8PAu8GZDt41QeXmYFZsojMDDw8M7xMu377wAbBqt2mJQBLh4eHh413j5YfcUo12U/H08PDy8e7w2jJi9OWtHaFsN8PDw8N7J20QD+aVUG21sDtl4eHh47+ENL5kWLaqzklO3DuDh4eEd4m2mOGyEKsdpWxbw8PDwPoGXFIm2Pasdvy0YeHh4eLd5+dTzrXmzuedziAoSHh4e3lFeu93nIe8sjGhHe1E28PDw8C7wks16H9q2l14Jpogk8PDw8I7yZht9Pq1k4WblZ9VThoeHh7fg7f/53zcBzA7xdXnAw8PDu8ZrB80jhvzQ3Ea6xX8MeHh4eGteyzh1JbYHRFEvHh4e3gXePnJty0MbMZw9uOPh4eHtecm224a2LSxf4ny0vzoj8PDw8I7y2iFmpNn1WDTRYLHw8PDwzvK+yyffuGfn+n2cgYeHh3eblz+bIjGrV20wsULi4eHhlby8GLTvtGHBrLnqxfh4eHh413jJl80u7POJDrOT52Pi4eHhfQxvXzZmLVxvKgx4eHh4h3ibuDYvLWeLEB4eHt493n5b3y9EElskB/QrWQseHh5eeRmWN1ol7+cR8KbFAQ8PD+8C7xfe3JKX9sMIswAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>焊接总结 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="焊接总结 前段时间去做实习。 新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。 焊接一般的贴片封装 焊接步骤：  先在一边焊盘上锡 用镊子夹取需要焊接的元件并放置到焊盘 先在有锡的焊盘上固定元件的一头 再给元件的另一头上锡固定  经验总结 我一开始就是以这个步骤焊接的，不过在焊接完之后，以水平角度看板子上的元件发现，有虚焊的情况。 而且虚焊的情况主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="焊接总结">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="焊接总结 前段时间去做实习。 新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。 焊接一般的贴片封装 焊接步骤：  先在一边焊盘上锡 用镊子夹取需要焊接的元件并放置到焊盘 先在有锡的焊盘上固定元件的一头 再给元件的另一头上锡固定  经验总结 我一开始就是以这个步骤焊接的，不过在焊接完之后，以水平角度看板子上的元件发现，有虚焊的情况。 而且虚焊的情况主">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://greedyhao.cc/img/hardware/soldering_general_smd.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/hardware/soldering_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/hardware/soldering_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/hardware/soldering_qfp.gif">
+<meta property="og:updated_time" content="2018-09-09T04:54:00.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="焊接总结">
+<meta name="twitter:description" content="焊接总结 前段时间去做实习。 新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。 焊接一般的贴片封装 焊接步骤：  先在一边焊盘上锡 用镊子夹取需要焊接的元件并放置到焊盘 先在有锡的焊盘上固定元件的一头 再给元件的另一头上锡固定  经验总结 我一开始就是以这个步骤焊接的，不过在焊接完之后，以水平角度看板子上的元件发现，有虚焊的情况。 而且虚焊的情况主">
+<meta name="twitter:image" content="http://greedyhao.cc/img/hardware/soldering_general_smd.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">焊接总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">焊接总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-18T06:12:43.000Z" itemprop="datePublished" class="page-time">
+  2018-07-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Hardware/">Hardware</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#焊接总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">焊接总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#焊接一般的贴片封装"><span class="post-toc-number">2.</span> <span class="post-toc-text">焊接一般的贴片封装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#焊接步骤"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">焊接步骤：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#经验总结"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">经验总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#焊接qfp等管脚比较多的元件"><span class="post-toc-number">3.</span> <span class="post-toc-text">焊接QFP等管脚比较多的元件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#焊接步骤-1"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">焊接步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#经验总结-1"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">经验总结</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Hardware-2018-07-18-焊接总结"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">焊接总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-18 14:12:43" datetime="2018-07-18T06:12:43.000Z"  itemprop="datePublished">2018-07-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Hardware/">Hardware</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="焊接总结">焊接总结</h1>
+<p>前段时间去做实习。</p>
+<p>新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。</p>
+<h1 id="焊接一般的贴片封装">焊接一般的贴片封装</h1>
+<h2 id="焊接步骤">焊接步骤：</h2>
+<ul>
+<li>先在一边焊盘上锡</li>
+<li>用镊子夹取需要焊接的元件并放置到焊盘</li>
+<li>先在有锡的焊盘上固定元件的一头</li>
+<li>再给元件的另一头上锡固定</li>
+</ul>
+<h2 id="经验总结">经验总结</h2>
+<p>我一开始就是以这个步骤焊接的，不过在焊接完之后，以水平角度看板子上的元件发现，有虚焊的情况。</p>
+<p>而且虚焊的情况主要是发生在后上锡的一头，这主要应该是和我用烙铁头给元件另一头上锡的动作有问题有关。</p>
+<p>因此我改变了上锡的动作。原先焊插接件总是在焊完后习惯的把烙铁头顺着引脚，往上提。</p>
+<p>不过我发现这个动作在焊贴片的时候不太好，会导致锡沾不上焊盘；所以我将自己之前忘上提的动作改为了往下压的动作。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hardware/soldering_general_smd.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>另外就是，为了确保一开始焊的那头不会虚焊，可以在焊完后拔一拔，试试焊实了没有。虚焊的元件一拔就掉了。</p>
+<h1 id="焊接qfp等管脚比较多的元件">焊接QFP等管脚比较多的元件</h1>
+<h2 id="焊接步骤-1">焊接步骤</h2>
+<ul>
+<li>先在焊盘上上点锡固定元件</li>
+<li>堆锡</li>
+<li>刮锡</li>
+</ul>
+<h2 id="经验总结-1">经验总结</h2>
+<p>要这么做，一个好的烙铁头很重要！那种不沾锡的烙铁头就算了吧，会怀疑人生的。</p>
+<p>焊完后检查一下管脚是否有短路，有时候没注意就有那么两三个管脚还是短路在一起的。</p>
+<p>如果有锡刮不下来就上点助锡膏吧，没有这个东西搞不定的元件。</p>
+<p>上一些焊接的图吧</p>
+<p><img src="/img/hardware/soldering_1.png" alt="固定元件"><img src="/img/hardware/soldering_2.png" alt="堆锡"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/hardware/soldering_qfp.gif" alt="刮锡" title="">
+                </div>
+                <div class="image-caption">刮锡</div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最終更新：<time datetime="2018-09-09T04:54:00.122Z" itemprop="dateUpdated">2018-09-09 12:54:00</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&title=《焊接总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&title=《焊接总结》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《焊接总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/21/生活-small-talk-2018-07-21-说说我最近做了什么/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">说说我最近做了什么</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/09/工作-dsp-2018-07-09-解释为什么旋转的物体有时看着像在倒转/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">解释为什么旋转的物体有时看着像在倒转</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&title=《焊接总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&title=《焊接总结》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《焊接总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACo0lEQVR42u3a0W7CQAwEQP7/p6nU1zZhbZ8plSZPCEriCZLP3cvjER/P7+MxOH6e4eqdq2vNa8DDw8M7VcPz9shPnf998unPs129c1UzHh4e3jYvL/f+dNV37m9K9Xbj4eHhfRoveSefbKuDOB4eHt5/5OXj78ZSgYeHh/dpvCSMqMYTk7E4r+dY1oKHh4cX806Ntu98vbi/h4eHhzfYVe8tGBu3rFkhHh4e3gKvV2I+zs6H6V788eILeHh4eGPe2fhg0uiT7bcDwzceHh7eUd6kNSffqg7WSdMvxLh4eHh4C7zkMnkrz6+SjOz5gwh4eHh4e7zqgwLVFtwrtDdkvwhw8fDw8NZ495c81eJPne3Fp3h4eHgLvHwgrka09+WWt/9b0QYeHh7eBi+Pa/PQttyyg2/lyQoeHh7ee3i9ra+V1al1cy9vAR4eHt4yb7Iln4zF1eCjV9svWQseHh7eAq83LudLQpWavG7+x4CHh4d3lJdvgE3CiOQvJ2M3Hh4e3jYvL2ge2uZnW/kN8fDw8Nb6ZzIK93aXTm2GVRcYPDw8vLO8HFBt6HnjriILIzgeHh7eAi+//KSJJ+zqwwfN3xAPDw9vzJsXXd3Wmv8aSSV4eHh4e7yN0CHfVDu1wLyoDQ8PD2+Blw+y8/Di2Tqam154eHh4a7xqHFCNGPLHtvKoN7/FeHh4eHu8U4Pv5NPC2pUfeHh4eEd5vdE2b+h5K5/cystq8fDw8BZ41R7bi30nC1I1+BgtIXh4eHgxL18MEl7e+qthRzXCwMPDw9vmTR5+6jX66kjdi1Tw8PDwPoE32dqfD9zVm4uHh4f3t7y89Vcj4PyKiyM1Hh4e3kIYkReXb2KdDT5GMS4eHh7eoa2vyeNWvdiiugwceGwLDw8PL+V9AclWnHEUeCYmAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
