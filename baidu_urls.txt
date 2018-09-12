@@ -1,3 +1,3 @@
+http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/
 http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/
 http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/
-http://greedyhao.cc/2018/08/11/工作-latex-2018-08-11-mathjax的基本操作/
