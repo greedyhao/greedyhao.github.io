@@ -215,17 +215,17 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="直面使用quartus遇到各种的问题">直面使用quartus遇到各种的问题</h1>
 <h1 id="安装破解">安装破解</h1>
-<p><a href="http://bbs.eetop.cn/viewthread.php?tid=702705" target="_blank" rel="external">quartus prime 18 破解</a></p>
-<p>这个人还有一系列其他的破解软件，可以打开<a href="http://www.eetop.cn/blog/2901/mode-corpus.html" target="_blank" rel="external">他的空间</a>看看</p>
+<p><a href="http://bbs.eetop.cn/viewthread.php?tid=702705" target="_blank" rel="noopener">quartus prime 18 破解</a></p>
+<p>这个人还有一系列其他的破解软件，可以打开<a href="http://www.eetop.cn/blog/2901/mode-corpus.html" target="_blank" rel="noopener">他的空间</a>看看</p>
 <h1 id="cant-find-design-entity">can’t find design entity</h1>
 <p>在新建工程后，点击工程文件发现居然说无法打开？？？</p>
 <p>网上查说没破解成功，在我重新破解一次后发现不是这个问题。</p>
-<p>还好我有谷歌，还是让我找到了<a href="https://gojimmypi.blogspot.jp/2018/02/first-fpga-test-drive-with-altera.html" target="_blank" rel="external">解决方案</a></p>
+<p>还好我有谷歌，还是让我找到了<a href="https://gojimmypi.blogspot.jp/2018/02/first-fpga-test-drive-with-altera.html" target="_blank" rel="noopener">解决方案</a></p>
 <p>说是需要自己手动创建design entity，下面是具体解决方案</p>
 <h2 id="解决方案">解决方案</h2>
 <p>在使用<strong>Project Wizard</strong>创建好工程后，你以为就创建好工程了？</p>
 <p>双击“myFPGAgizmo”编辑代码，会弹出一个不太直观的错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Can&apos;t find design entity &quot;myFPGAgizmo&quot;.</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can&apos;t find design entity &quot;myFPGAgizmo&quot;.</span><br></pre></td></tr></table></figure>
 <p>大概会像下图这样</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -249,7 +249,7 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p><strong>要注意一下：</strong> module的名字要和”top level”文件名相同，而且要注意大小写，否则的话，就会报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Top level design entity &quot;myFPGAgizmo&quot; is undefined</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Top level design entity &quot;myFPGAgizmo&quot; is undefined</span><br></pre></td></tr></table></figure>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -258,14 +258,14 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>测试代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module myFPGAgizmo (x1, x2, f);</div><div class="line">  input x1, x2;</div><div class="line">  output f;</div><div class="line">  assign f = (x1 &amp; ~x2)|(~x1 &amp; x2);</div><div class="line">endmodule</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module myFPGAgizmo (x1, x2, f);</span><br><span class="line">  input x1, x2;</span><br><span class="line">  output f;</span><br><span class="line">  assign f = (x1 &amp; ~x2)|(~x1 &amp; x2);</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
 <h1 id="critical-warning-synopsys-design-constraints-file-file-not-found-xxx.sdc.-a-synopsys-design-constraints-file-is-required-by-the-timing-analyzer-to-get-proper-timing-constraints.-without-it-the-compiler-will-not-properly-optimize-the-design.">Critical Warning: Synopsys Design Constraints File file not found: ‘xxx.sdc’. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.</h1>
 <p>这是缺少了SDC文件，SDC文件在我看来是用来约束时序，配置时钟的。</p>
 <p>学过数电我们都知道，时序电路的时钟是非常关键的，如果没有配置时钟的话，Quartus默认会配置1GHz时钟，这很显然是没法工作的。</p>
 <p>解决方法就是<strong>File-&gt;New</strong>，然后的弹出窗口中选择<strong>Other Files-&gt;Synopsys Design Constraints File</strong>。配置好SDC文件保存时要注意，文件名字要和顶层文件名相同。</p>
-<p>相关的SDC文件的设置参考<a href="https://www.altera.com/documentation/psq1513989797346.html#mwh1412203473349" target="_blank" rel="external">Timing Analyzer User Guide</a></p>
+<p>相关的SDC文件的设置参考<a href="https://www.altera.com/documentation/psq1513989797346.html#mwh1412203473349" target="_blank" rel="noopener">Timing Analyzer User Guide</a></p>
 <p>一个简单的SDC例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">create_clock -period 20.00 -name adc_clk [get_ports adc_clk]</div><div class="line">derive_pll_clocks</div><div class="line">derive_clock_uncertainty</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create_clock -period 20.00 -name adc_clk [get_ports adc_clk]</span><br><span class="line">derive_pll_clocks</span><br><span class="line">derive_clock_uncertainty</span><br></pre></td></tr></table></figure>
 <h1 id="error-xxx-logic-function-of-type-xxx-and-instance-inst-is-already-defined-as-a-signal-name-or-another-logic-function">Error (xxx): Logic function of type xxx and instance “inst” is already defined as a signal name or another logic function</h1>
 <p>这是因为名字重复了。如下图，我一开始没有注意到，有的symbol是由名字的，刚创建出来的时候都是一样的，一编译就会出错，修改后就好了。</p>
 <div class="figure">

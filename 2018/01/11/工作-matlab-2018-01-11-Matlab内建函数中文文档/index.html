@@ -219,13 +219,13 @@ ga('send', 'pageview');
 <h2 id="plot">plot</h2>
 <h2 id="fplot">fplot</h2>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">fplot(f)</div><div class="line">fplot(f,xinterval)</div><div class="line">fplot(xt,yt)</div><div class="line">fplot(xt,yt,tinterval)</div><div class="line">fplot(___,LineSpec)</div><div class="line">fplot(___,Name,Value)</div><div class="line">fplot(ax,___)</div><div class="line">fp = fplot(___)</div><div class="line">[x,y] = fplot(___)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fplot(f)</span><br><span class="line">fplot(f,xinterval)</span><br><span class="line">fplot(xt,yt)</span><br><span class="line">fplot(xt,yt,tinterval)</span><br><span class="line">fplot(___,LineSpec)</span><br><span class="line">fplot(___,Name,Value)</span><br><span class="line">fplot(ax,___)</span><br><span class="line">fp = fplot(___)</span><br><span class="line">[x,y] = fplot(___)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>fplot(f) 在x轴以默认间隔[-5,5]画出输入的f函数</p>
 <p>fplot(f,xinterval) 对f增加了plot的间隔限制。xinterval=[xmin xmax]</p>
 <h2 id="stairs">stairs</h2>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">stairs(Y)</div><div class="line">stairs(X,Y)</div><div class="line">stairs(___,LineSpec)</div><div class="line">stairs(___,Name,Value)</div><div class="line">stairs(ax,___)</div><div class="line">h = stairs(___)</div><div class="line">[xb,yb] = stairs(___)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">stairs(Y)</span><br><span class="line">stairs(X,Y)</span><br><span class="line">stairs(___,LineSpec)</span><br><span class="line">stairs(___,Name,Value)</span><br><span class="line">stairs(ax,___)</span><br><span class="line">h = stairs(___)</span><br><span class="line">[xb,yb] = stairs(___)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>stairs(Y) 通过Y中的元素以阶梯状的方式plot</p>
 <ul>
@@ -236,7 +236,7 @@ ga('send', 'pageview');
 <h2 id="subplot">subplot</h2>
 <p>在平铺的位置创建轴线（画子图）</p>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">subplot(m,n,p)</div><div class="line">subplot(m,n,p,&apos;replace&apos;)</div><div class="line">subplot(m,n,p,&apos;align&apos;)</div><div class="line">subplot(&apos;Position&apos;,positionVector)</div><div class="line">subplot(m,n,p,ax)</div><div class="line">subplot(___,Name,Value)</div><div class="line">h = subplot(___)</div><div class="line">subplot(h)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">subplot(m,n,p)</span><br><span class="line">subplot(m,n,p,&apos;replace&apos;)</span><br><span class="line">subplot(m,n,p,&apos;align&apos;)</span><br><span class="line">subplot(&apos;Position&apos;,positionVector)</span><br><span class="line">subplot(m,n,p,ax)</span><br><span class="line">subplot(___,Name,Value)</span><br><span class="line">h = subplot(___)</span><br><span class="line">subplot(h)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>下面给出subplot的简单示例，方便了解用法 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -253,14 +253,14 @@ ga('send', 'pageview');
 <h2 id="axis">axis</h2>
 <p>限制坐标大小</p>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">axis(limits)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axis(limits)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>axis(limits) 设置当前坐标系限制。如果是笛卡尔坐标系，需要四个向量[xmin xmax ymin ymax]对x，y限制。如果是Z坐标系，需要六个向量。如果还要设置颜色限制，需要八个向量限制。如果是极坐标系，需要四个向量限制theta-axis和r-axis。</p>
 <h1 id="傅里叶家族">傅里叶家族</h1>
 <h2 id="fft">FFT</h2>
 <p>快速傅里叶变换</p>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Y = fft(X)</div><div class="line">Y = fft(X,n)</div><div class="line">Y = fft(X,n,dim)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Y = fft(X)</span><br><span class="line">Y = fft(X,n)</span><br><span class="line">Y = fft(X,n,dim)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>Y = fft(X) 利用快速傅里叶变换(FFT)算法计算X离散傅里叶变换(DFT)。</p>
 <ul>
@@ -282,9 +282,9 @@ ga('send', 'pageview');
 <h2 id="filter">　filter</h2>
 <p>1-D数字滤波器</p>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">y = filter(b,a,x)</div><div class="line">y = filter(b,a,x,zi)</div><div class="line">y = filter(b,a,x,zi,dim)</div><div class="line">[y,zf] = filter(___)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">y = filter(b,a,x)</span><br><span class="line">y = filter(b,a,x,zi)</span><br><span class="line">y = filter(b,a,x,zi,dim)</span><br><span class="line">[y,zf] = filter(___)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
-<p><a href="https://cn.mathworks.com/help/matlab/ref/filter.html#outputarg_y" target="_blank" rel="external">y</a> = filter(b,a,x) 过滤输入数据x使用<a href="https://cn.mathworks.com/help/matlab/ref/filter.html#buagwwg-2" target="_blank" rel="external">有理传递函数</a>定义的分子和分母系数b和a。</p>
+<p><a href="https://cn.mathworks.com/help/matlab/ref/filter.html#outputarg_y" target="_blank" rel="noopener">y</a> = filter(b,a,x) 过滤输入数据x使用<a href="https://cn.mathworks.com/help/matlab/ref/filter.html#buagwwg-2" target="_blank" rel="noopener">有理传递函数</a>定义的分子和分母系数b和a。</p>
 <p>如果a(1)不等于1，滤波器的系数由a(1)归一化。因此，a(1)必须是非零的。</p>
 <ul>
 <li>如果x是一个向量，那么过滤器将过滤后的数据作为与x相同大小的向量返回。</li>
@@ -300,12 +300,12 @@ ga('send', 'pageview');
 <h2 id="butter"><a href="#butter"></a>butter</h2>
 <p>巴特沃斯滤波器的设计</p>
 <p><strong>示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[b,a] = butter(n,Wn)</div><div class="line">[b,a] = butter(n,Wn,ftype)</div><div class="line">[z,p,k] = butter(___)</div><div class="line">[A,B,C,D] = butter(___)</div><div class="line">[___] = butter(___,&apos;s&apos;)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[b,a] = butter(n,Wn)</span><br><span class="line">[b,a] = butter(n,Wn,ftype)</span><br><span class="line">[z,p,k] = butter(___)</span><br><span class="line">[A,B,C,D] = butter(___)</span><br><span class="line">[___] = butter(___,&apos;s&apos;)</span><br></pre></td></tr></table></figure>
 <p><strong>描述</strong></p>
 <p>[b,a] = butter(n,Wn) 返回一个n阶低通数字巴特沃斯滤波器的传递函数系数，并将其截止频率归一化为 Wn。</p>
 <hr>
 <p>[b,a] = butter(n,Wn,ftype) 设计了一个低通、高通、带通或带带阻巴特沃斯滤波器，取决于ftype的值和Wn的元素个数。带通和带阻设计的结果是2n阶的。</p>
-<p>Note: 关于影响形成传递函数的数值问题的信息，请参见<a href="https://cn.mathworks.com/help/signal/ref/butter.html#bucsfmj" target="_blank" rel="external">限制</a>。</p>
+<p>Note: 关于影响形成传递函数的数值问题的信息，请参见<a href="https://cn.mathworks.com/help/signal/ref/butter.html#bucsfmj" target="_blank" rel="noopener">限制</a>。</p>
 <hr>
 <p>[z,p,k] = butter(___) 设计一个低通、高通、带通或带阻的数字巴特沃斯滤波器，并返回其零点、极点和增益。此语法可以包含之前语句中的输入的任何参数。</p>
 <hr>

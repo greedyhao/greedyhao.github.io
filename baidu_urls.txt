@@ -1,3 +1,3 @@
+http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/
 http://greedyhao.cc/2018/09/12/工作-fpga-2018-09-12-Vivado无法连接到开发板/
 http://greedyhao.cc/2018/09/12/工作-fpga-2018-09-12-Vivado启动遇见QSslSocket系列问题/
-http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/

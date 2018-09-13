@@ -226,7 +226,7 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>读写SDRAM的话，只需要用一个指向这个空间地址的指针，然后操作这个指针指向的内容就好了。一个简单的读的例子如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">uint32_t *pSDRAM;</div><div class="line"></div><div class="line">uint32_t RadomBuffer[10000];</div><div class="line"></div><div class="line">#&lt;span class=&quot;meta-keyword&quot;&gt;define&lt;/span&gt; SDRAM_BANK_ADDR     ((uint32_t)0xD0000000)</div><div class="line"></div><div class="line">*pSDRAM=RadomBuffer[count];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uint32_t *pSDRAM;</span><br><span class="line"></span><br><span class="line">uint32_t RadomBuffer[10000];</span><br><span class="line"></span><br><span class="line">#&lt;span class=&quot;meta-keyword&quot;&gt;define&lt;/span&gt; SDRAM_BANK_ADDR     ((uint32_t)0xD0000000)</span><br><span class="line"></span><br><span class="line">*pSDRAM=RadomBuffer[count];</span><br></pre></td></tr></table></figure>
 <hr>
 <figure class="image-bubble">
                 <div class="img-lightbox">

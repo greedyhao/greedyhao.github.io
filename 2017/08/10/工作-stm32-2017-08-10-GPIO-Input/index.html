@@ -208,9 +208,9 @@ ga('send', 'pageview');
 <p>程序很简单，就是读取按键是否按下，控制LED是否点亮。</p>
 <a id="more"></a>
 <h3 id="按键初始化程序">按键初始化程序</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">GPIO_InitTypeDef GPIO_InitStructure;</div><div class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|</div><div class="line">			RCC_APB2Periph_GPIOB,ENABLE);</div><div class="line"></div><div class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3| GPIO_Pin_4| GPIO_Pin_5| GPIO_Pin_6;</div><div class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</div><div class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|</span><br><span class="line">			RCC_APB2Periph_GPIOB,ENABLE);</span><br><span class="line"></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3| GPIO_Pin_4| GPIO_Pin_5| GPIO_Pin_6;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
 <h3 id="按键扫描程序">按键扫描程序</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">static u8 key_up = 1;</div><div class="line">if(mode)key_up = 1;</div><div class="line">if(key_up&amp;&amp;(KEY0 == 0||KEY1 == 0||KEY2 == 0||WK_UP == 0))</div><div class="line">&#123;</div><div class="line">		delay_ms(10);</div><div class="line">		key_up = 0;</div><div class="line">		if(KEY0 == 0)return KEY0_PRES;</div><div class="line">		else if(KEY1 == 0)return KEY1_PRES;</div><div class="line">		else if(KEY2 == 0)return KEY2_PRES;</div><div class="line">		else if(WK_UP == 0)return WKUP_PRES;</div><div class="line">&#125;else if(KEY0 == 1&amp;&amp;KEY1 == 1&amp;&amp;KEY2 == 1&amp;&amp;WK_UP == 1)key_up = 1;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static u8 key_up = 1;</span><br><span class="line">if(mode)key_up = 1;</span><br><span class="line">if(key_up&amp;&amp;(KEY0 == 0||KEY1 == 0||KEY2 == 0||WK_UP == 0))</span><br><span class="line">&#123;</span><br><span class="line">		delay_ms(10);</span><br><span class="line">		key_up = 0;</span><br><span class="line">		if(KEY0 == 0)return KEY0_PRES;</span><br><span class="line">		else if(KEY1 == 0)return KEY1_PRES;</span><br><span class="line">		else if(KEY2 == 0)return KEY2_PRES;</span><br><span class="line">		else if(WK_UP == 0)return WKUP_PRES;</span><br><span class="line">&#125;else if(KEY0 == 1&amp;&amp;KEY1 == 1&amp;&amp;KEY2 == 1&amp;&amp;WK_UP == 1)key_up = 1;</span><br></pre></td></tr></table></figure>
 <p>LED的程序就免了，就只是使用了PA的1，2，3引脚。</p>
 <p>程序仿真成功，但是烧录进单片机后，无法实现，问题筛查中。</p>
 <h3 id="问题描述">问题描述：</h3>
@@ -324,18 +324,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">开始学习stm32</h4>
+        <h4 class="title">利用github page搭建博客简易教程</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">利用github page搭建博客简易教程</h4>
+        <h4 class="title">开始学习stm32</h4>
       </a>
     </div>
   

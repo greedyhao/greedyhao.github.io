@@ -267,7 +267,7 @@ ga('send', 'pageview');
 <p>我就使用了一个六脚自锁开关，按下去就将GPIO0接地。</p>
 <h1 id="使用烧录软件进行烧录">使用烧录软件进行烧录</h1>
 <h2 id="使用flash下载工具烧录">使用Flash下载工具烧录</h2>
-<p>点击这里获取<a href="http://espressif.com/sites/default/files/tools/flash_download_tools_v3.6.1.0_0.zip" target="_blank" rel="external">Flash下载工具</a></p>
+<p>点击这里获取<a href="http://espressif.com/sites/default/files/tools/flash_download_tools_v3.6.1.0_0.zip" target="_blank" rel="noopener">Flash下载工具</a></p>
 <p>解压后进入../flash_download_tools_v3.6.1.0_0/FLASH_DOWNLOAD_TOOLS_V3.6.1.0，点击ESPFlashDownloadTool_v3.6.1.0.exe，</p>
 <p>选择对应的型号</p>
 <figure class="image-bubble">
@@ -299,12 +299,12 @@ ga('send', 'pageview');
 
 </div>
 <h2 id="使用arduino烧录">使用Arduino烧录</h2>
-<p>首先需要下载Arduino，需要1.6.x版本以上，因为下载Arduino需要科学上网，在<a href="http://www.arduino.cn/thread-5838-1-1.html" target="_blank" rel="external">Arduino中文社区</a>有提供网盘下载<a href="http://pan.baidu.com/s/1kUI1Pbh" target="_blank" rel="external">Arduino IDE 下载</a></p>
-<p>接下就是安装esp8266的库，这是<a href="https://github.com/esp8266/Arduino" target="_blank" rel="external">官方说明</a>。</p>
+<p>首先需要下载Arduino，需要1.6.x版本以上，因为下载Arduino需要科学上网，在<a href="http://www.arduino.cn/thread-5838-1-1.html" target="_blank" rel="noopener">Arduino中文社区</a>有提供网盘下载<a href="http://pan.baidu.com/s/1kUI1Pbh" target="_blank" rel="noopener">Arduino IDE 下载</a></p>
+<p>接下就是安装esp8266的库，这是<a href="https://github.com/esp8266/Arduino" target="_blank" rel="noopener">官方说明</a>。</p>
 <p><strong>第一种操作</strong></p>
 <ul>
 <li>安装好Arduino后打开</li>
-<li>选择文件&gt;首选项，在_附加开发板管理器网址_中输入_<a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json" class="uri" target="_blank" rel="external">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a>_</li>
+<li>选择文件&gt;首选项，在_附加开发板管理器网址_中输入_<a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json" class="uri" target="_blank" rel="noopener">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a>_</li>
 <li>选择项目&gt;加载库&gt;管理库，搜索esp8266并下载安装。</li>
 </ul>
 <p><strong>第二种操作</strong></p>
@@ -312,11 +312,11 @@ ga('send', 'pageview');
 <li>你需要安装git，进入你Arduino的安装位置，进入hardware</li>
 <li>克隆这个esp8266库到本地</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd hardware</div><div class="line">mkdir esp8266com</div><div class="line">cd esp8266com</div><div class="line">git clone https://github.com/esp8266/Arduino.git esp8266</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd hardware</span><br><span class="line">mkdir esp8266com</span><br><span class="line">cd esp8266com</span><br><span class="line">git clone https://github.com/esp8266/Arduino.git esp8266</span><br></pre></td></tr></table></figure>
 <ul>
 <li>下载binarytools（需要python2.7）</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd esp8266/tools</div><div class="line">python get.py</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd esp8266/tools</span><br><span class="line">python get.py</span><br></pre></td></tr></table></figure>
 <ul>
 <li>重启Arduino</li>
 </ul>

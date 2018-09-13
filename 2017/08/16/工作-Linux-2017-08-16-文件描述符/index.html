@@ -204,13 +204,13 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>刚开始学习Linux编程的朋友可能会不知道什么是文件描述符，我现在就简单的介绍一下。</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/usr/include/unistd.h</div><div class="line"></div><div class="line">...</div><div class="line">#define STDIN_FILENO 0 /* Standard input. */</div><div class="line">#define STDOUT_FILENO 1 /* Standard output. */</div><div class="line">#define STDERR_FILENO 2 /* Standard error output. */</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>虽然STDIN_FILENO和stdin效果很像，但是是两个不一样的东西，文件描述符的类型的 <strong>int</strong> ，而stdin 是 <strong>FILE*</strong> 类型，具体差别可以参考<a href="http://blog.csdn.net/yeyuangen/article/details/6781999" target="_blank" rel="external">STDIN_FILENO的作用及与stdin 的区别</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/usr/include/unistd.h</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">#define STDIN_FILENO 0 /* Standard input. */</span><br><span class="line">#define STDOUT_FILENO 1 /* Standard output. */</span><br><span class="line">#define STDERR_FILENO 2 /* Standard error output. */</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>虽然STDIN_FILENO和stdin效果很像，但是是两个不一样的东西，文件描述符的类型的 <strong>int</strong> ，而stdin 是 <strong>FILE*</strong> 类型，具体差别可以参考<a href="http://blog.csdn.net/yeyuangen/article/details/6781999" target="_blank" rel="noopener">STDIN_FILENO的作用及与stdin 的区别</a></p>
 <p>常见的对文件描述符的操作： read(), write()，open(),lseek(),select(),poll()</p>
 <h1 id="参考源">参考源</h1>
 <ul>
-<li><a href="http://blog.csdn.net/yeyuangen/article/details/6781999" target="_blank" rel="external">STDIN_FILENO的作用及与stdin 的区别</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6" target="_blank" rel="external">文件描述符--维基百科，自由的百科全书</a></li>
+<li><a href="http://blog.csdn.net/yeyuangen/article/details/6781999" target="_blank" rel="noopener">STDIN_FILENO的作用及与stdin 的区别</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6" target="_blank" rel="noopener">文件描述符--维基百科，自由的百科全书</a></li>
 </ul>
 
         </div>

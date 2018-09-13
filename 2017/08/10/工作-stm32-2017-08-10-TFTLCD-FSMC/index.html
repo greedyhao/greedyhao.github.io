@@ -215,7 +215,7 @@ ga('send', 'pageview');
 <ol style="list-style-type: decimal">
 <li>对自己使用的LCD屏了解的不多。这是由于我使用的是普中的stm32的开发板，但我看的书的开发板是正点原子的，两个开发板的LCD是不一样的。普中的LCD是8位 的数据位，而正点原子的是16位，这就导致我使用书中例程的程序时，开发板的LCD没有反应，真的好气啊！然后我找到了普中的例程，仔细的看了一遍，发现 程序中提到普中的LCD是8位的，需要分两次传数据。</li>
 </ol>
-<p>以下是对原子的例程的修改 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">void LCD_WR_REG(u16 regval)</div><div class="line">&#123;</div><div class="line">	LCD-&gt;LCD_REG=regval&lt;&lt;8;//写入要写的寄存器序号	 </div><div class="line">&#125;</div><div class="line"></div><div class="line">void LCD_WR_DATA(u16 data)</div><div class="line">&#123;										    	   </div><div class="line">	LCD-&gt;LCD_RAM=data&lt;&lt;8;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void LCD_WriteRAM(u16 RGB_Code)</div><div class="line">&#123;							    </div><div class="line">	LCD-&gt;LCD_RAM = RGB_Code&amp;0xFF00;//写十六位GRAM</div><div class="line">	LCD-&gt;LCD_RAM = RGB_Code&lt;&lt;8;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以下是对原子的例程的修改 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void LCD_WR_REG(u16 regval)</span><br><span class="line">&#123;</span><br><span class="line">	LCD-&gt;LCD_REG=regval&lt;&lt;8;//写入要写的寄存器序号	 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WR_DATA(u16 data)</span><br><span class="line">&#123;										    	   </span><br><span class="line">	LCD-&gt;LCD_RAM=data&lt;&lt;8;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WriteRAM(u16 RGB_Code)</span><br><span class="line">&#123;							    </span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&amp;0xFF00;//写十六位GRAM</span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&lt;&lt;8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>解决完LCD的初始化问题后，还有LCD刷屏的问题。发现原子的刷屏程序也是用不了，参考普中的例程发现，普中在设置光标位置时，还设置了光标的结束位置， 就是给了2AH指令和2BH指令4个参数，问题得以解决。</p></li>
 <li><p>在屏幕上打印文字。目前还在处理这个问题。问题解决。</p></li>
@@ -314,18 +314,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习PWM</h4>
+        <h4 class="title">学习GPIO输出</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习外部中断</h4>
+        <h4 class="title">学习窗口看门狗</h4>
       </a>
     </div>
   

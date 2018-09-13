@@ -204,19 +204,19 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <h1 id="any">any()</h1>
 <blockquote>
-<p>Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to: (返回True，如果iterable中的任何一个element是True。如果iterable是空的，返回False。等价与：) <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">any</span><span class="params">(iterable)</span>:</span></div><div class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</div><div class="line">        <span class="keyword">if</span> element:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure></p>
+<p>Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to: (返回True，如果iterable中的任何一个element是True。如果iterable是空的，返回False。等价与：) <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">any</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">if</span> element:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>对一个可迭代的对象，要想知道其中某一个元素是否符合某一个表达式，用 <strong>any()</strong>，最好不过了。</p>
 <h1 id="for">for</h1>
 <p>今天才知道，原来for循环还可以对方法进行循环，尽管之前就知道list中什么都可以放，可是放方法 的还是头会见到，学习的路果然是任重而道远。</p>
 <h1 id="实际运用">实际运用</h1>
-<p><a href="https://www.hackerrank.com/challenges/string-validators" target="_blank" rel="external">问题：</a> You are given a string S. Your task is to find out if the string S contains: alphanumeric characters, alphabetical characters, digits, lowercase and uppercase characters.</p>
+<p><a href="https://www.hackerrank.com/challenges/string-validators" target="_blank" rel="noopener">问题：</a> You are given a string S. Your task is to find out if the string S contains: alphanumeric characters, alphabetical characters, digits, lowercase and uppercase characters.</p>
 <p>给你一个string S。 你的任务是判断string S是否包含： 数字字母都有 按字母表顺序(Unicode) 有数字 有小写字母 有大写字母</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> method <span class="keyword">in</span> [str.isalnum, str.isalpha, str.isdigit, str.islower, str.isupper]:</div><div class="line">    <span class="keyword">print</span> any(method(c) <span class="keyword">for</span> c <span class="keyword">in</span> s)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> method <span class="keyword">in</span> [str.isalnum, str.isalpha, str.isdigit, str.islower, str.isupper]:</span><br><span class="line">    <span class="keyword">print</span> any(method(c) <span class="keyword">for</span> c <span class="keyword">in</span> s)</span><br></pre></td></tr></table></figure>
 <h1 id="参考源">参考源</h1>
 <ul>
-<li><a href="https://www.hackerrank.com/challenges/string-validators/forum" target="_blank" rel="external">hackerrank讨论区</a></li>
-<li><a href="https://docs.python.org/3/library/functions.html#any" target="_blank" rel="external">any的官方doc</a></li>
+<li><a href="https://www.hackerrank.com/challenges/string-validators/forum" target="_blank" rel="noopener">hackerrank讨论区</a></li>
+<li><a href="https://docs.python.org/3/library/functions.html#any" target="_blank" rel="noopener">any的官方doc</a></li>
 </ul>
 
         </div>

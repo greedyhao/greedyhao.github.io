@@ -216,8 +216,8 @@ ga('send', 'pageview');
 <h2 id="又遇到坑了">又遇到坑了</h2>
 <p>~<sub>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了， 浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了...~</sub></p>
 <p>我又发现自己之前的想法错了，我改的地方其实无关紧要</p>
-<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//重定义fputc函数</div><div class="line">int fputc(int ch, FILE *f)</div><div class="line">&#123;      </div><div class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </div><div class="line">	USART1-&gt;DR = (u8) ch;      </div><div class="line">	return ch;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">int fputc(int ch, FILE *f)</div><div class="line">&#123;      </div><div class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</div><div class="line">    USART_SendData(USART1,(uint8_t)ch);   </div><div class="line">	return ch;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我发现了我的<strong>真正的问题</strong>，原来是 uart_init() 函数名打错成 usart_init() ！！！</p>
 
         </div>
@@ -318,18 +318,18 @@ GPIO端口模式设置
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/11/工作-jekyll-2017-08-11-完整版搭建博客教学/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">利用github page搭建博客完整版教程</h4>
+        <h4 class="title">学习外部中断</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习独立看门狗</h4>
+        <h4 class="title">利用github page搭建博客简易教程</h4>
       </a>
     </div>
   

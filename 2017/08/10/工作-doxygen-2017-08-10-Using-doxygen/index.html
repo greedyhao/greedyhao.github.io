@@ -212,24 +212,24 @@ ga('send', 'pageview');
 <h2 id="安装与使用">安装与使用</h2>
 <ul>
 <li><strong>下载安装doxygen</strong></li>
-<li><p><a href="https://sourceforge.net/projects/doxygen/files/latest/download" target="_blank" rel="external">doxygen on win</a></p></li>
+<li><p><a href="https://sourceforge.net/projects/doxygen/files/latest/download" target="_blank" rel="noopener">doxygen on win</a></p></li>
 <li><strong>使用方法</strong></li>
 <li>windows下使用
 <ul>
-<li>你需要稍微了解一下<a href="https://www.zybuluo.com/yangfch3/note/173158" target="_blank" rel="external">windows命令行常用命令</a></li>
-<li>可以选择使用<a href="https://github.com/PowerShell/PowerShell" target="_blank" rel="external">powershell</a></li>
-<li><p>打开命令行，<strong>cd</strong>到你要生成文档的源文件的位置，在命令行输入 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">doxygen -g</div></pre></td></tr></table></figure></p></li>
-<li><p>成功后，当前目录生成一个<strong>Doxyfile</strong>的配置文件，并显示以下信息 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Configuration file `Doxyfile&apos; created.</div><div class="line">Now edit the configuration file and enter</div><div class="line"> doxygen Doxyfile</div><div class="line">to generate the documentation for your project</div></pre></td></tr></table></figure></p></li>
+<li>你需要稍微了解一下<a href="https://www.zybuluo.com/yangfch3/note/173158" target="_blank" rel="noopener">windows命令行常用命令</a></li>
+<li>可以选择使用<a href="https://github.com/PowerShell/PowerShell" target="_blank" rel="noopener">powershell</a></li>
+<li><p>打开命令行，<strong>cd</strong>到你要生成文档的源文件的位置，在命令行输入 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen -g</span><br></pre></td></tr></table></figure></p></li>
+<li><p>成功后，当前目录生成一个<strong>Doxyfile</strong>的配置文件，并显示以下信息 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Configuration file `Doxyfile&apos; created.</span><br><span class="line">Now edit the configuration file and enter</span><br><span class="line"> doxygen Doxyfile</span><br><span class="line">to generate the documentation for your project</span><br></pre></td></tr></table></figure></p></li>
 <li>接下来就可以对<strong>Doxyfile</strong>进行修改</li>
-<li><p>如果不需要PDF输出就把 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GENERATE_LATEX         = YES</div></pre></td></tr></table></figure></p></li>
+<li><p>如果不需要PDF输出就把 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = YES</span><br></pre></td></tr></table></figure></p></li>
 </ul>
-<p>修改为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GENERATE_LATEX         = NO</div></pre></td></tr></table></figure></p>
+<p>修改为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = NO</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>配置文件里有相关配置的描述，可以参考下</li>
-<li>修改配置文件结束后，就可以进行文档的输出了，在命令行输入以下命令 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">doxygen .\Doxyfile</div></pre></td></tr></table></figure></li>
+<li>修改配置文件结束后，就可以进行文档的输出了，在命令行输入以下命令 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen .\Doxyfile</span><br></pre></td></tr></table></figure></li>
 </ul></li>
 </ul>
-<p>使用方法参考<a href="http://cedar-renjun.github.io/2014/03/21/learn-doxygen-in-10-minutes/" target="_blank" rel="external">Doxygen 10 分钟入门教程</a></p>
+<p>使用方法参考<a href="http://cedar-renjun.github.io/2014/03/21/learn-doxygen-in-10-minutes/" target="_blank" rel="noopener">Doxygen 10 分钟入门教程</a></p>
 <h2 id="doxygen注释风格">doxygen注释风格</h2>
 <table>
 <thead>
@@ -293,12 +293,12 @@ ga('send', 'pageview');
 </tr>
 </tbody>
 </table>
-<p>参考来源<a href="http://ticktick.blog.51cto.com/823160/188674" target="_blank" rel="external">Doxygen注释风格</a> ## 可能出现的问题 1. 中文输出乱码</p>
+<p>参考来源<a href="http://ticktick.blog.51cto.com/823160/188674" target="_blank" rel="noopener">Doxygen注释风格</a> ## 可能出现的问题 1. 中文输出乱码</p>
 <pre><code>![](/img/doxygen/garbled1.png)</code></pre>
 <ul>
 <li>解决方法
 <ul>
-<li>修改<strong>Doxyfile</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INPUT_ENCODING = GB2312</div></pre></td></tr></table></figure></li>
+<li>修改<strong>Doxyfile</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT_ENCODING = GB2312</span><br></pre></td></tr></table></figure></li>
 </ul></li>
 </ul>
 <p>  - 修改后效果图 <img src="/img/doxygen/garbled2.png"></p>

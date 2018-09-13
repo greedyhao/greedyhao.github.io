@@ -30,25 +30,27 @@ ga('send', 'pageview');
     
     
     
-    <title>Vivado启动遇见QSslSocket系列问题 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>处理器在运行c代码前做了什么准备 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="FPGA,Xilinx">
-    <meta name="description" content="12345678910111213141516greedyhao@greedyhao-HP-Pavilion-Notebook:~$ vivado****** Vivado v2018.2 (64-bit)  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018  **** IP Build 2256618 on Thu Jun 14 22:1">
-<meta name="keywords" content="FPGA,Xilinx">
+    <meta name="keywords" content="x210">
+    <meta name="description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
+<meta name="keywords" content="x210">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vivado启动遇见QSslSocket系列问题">
-<meta property="og:url" content="http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/index.html">
+<meta property="og:title" content="处理器在运行c代码前做了什么准备">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="12345678910111213141516greedyhao@greedyhao-HP-Pavilion-Notebook:~$ vivado****** Vivado v2018.2 (64-bit)  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018  **** IP Build 2256618 on Thu Jun 14 22:1">
+<meta property="og:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-12T02:35:01.465Z">
+<meta property="og:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
+<meta property="og:updated_time" content="2018-09-13T02:02:09.310Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vivado启动遇见QSslSocket系列问题">
-<meta name="twitter:description" content="12345678910111213141516greedyhao@greedyhao-HP-Pavilion-Notebook:~$ vivado****** Vivado v2018.2 (64-bit)  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018  **** IP Build 2256618 on Thu Jun 14 22:1">
+<meta name="twitter:title" content="处理器在运行c代码前做了什么准备">
+<meta name="twitter:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,13 +131,13 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Vivado启动遇见QSslSocket系列问题</div>
+        <div class="flex-col header-title ellipsis">处理器在运行c代码前做了什么准备</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -151,11 +153,11 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Vivado启动遇见QSslSocket系列问题</h1>
+        <h1 class="title">处理器在运行c代码前做了什么准备</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-09-12T02:34:11.000Z" itemprop="datePublished" class="page-time">
-  2018-09-12
+                <time datetime="2018-09-13T01:56:04.000Z" itemprop="datePublished" class="page-time">
+  2018-09-13
 </time>
 
 
@@ -171,14 +173,21 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单描述一下生成机器代码过程"><span class="post-toc-number">1.</span> <span class="post-toc-text">简单描述一下生成机器代码过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译过程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">编译过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#链接过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">链接过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备c语言运行环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备c语言运行环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#篇外话"><span class="post-toc-number">3.</span> <span class="post-toc-text">篇外话</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-Vivado启动遇见QSslSocket系列问题"
+
+<article id="post-处理器在运行c代码前做了什么准备"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Vivado启动遇见QSslSocket系列问题</h1>
+        <h1 class="post-card-title">处理器在运行c代码前做了什么准备</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-09-12 10:34:11" datetime="2018-09-12T02:34:11.000Z"  itemprop="datePublished">2018-09-12</time>
+            <time class="post-time" title="2018-09-13 09:56:04" datetime="2018-09-13T01:56:04.000Z"  itemprop="datePublished">2018-09-13</time>
 
             
 
@@ -191,15 +200,39 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~$ vivado</div><div class="line"></div><div class="line">****** Vivado v2018.2 (64-bit)</div><div class="line">  **** SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018</div><div class="line">  **** IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018</div><div class="line">    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.</div><div class="line"></div><div class="line">start_gui</div><div class="line"></div><div class="line">QSslSocket: cannot resolve CRYPTO_num_locks</div><div class="line">QSslSocket: cannot resolve CRYPTO_set_id_callback</div><div class="line">QSslSocket: cannot resolve CRYPTO_set_locking_callback</div><div class="line">QSslSocket: cannot resolve sk_free</div><div class="line">QSslSocket: cannot resolve sk_num</div><div class="line">QSslSocket: cannot resolve sk_pop_free</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>我发现我每次启动vivado时，都会弹出这些错误信息，而且Hardware Manage的auto connect无法识别我的开发板ZYBO，就想着先解决这些报错信息。</p>
-<p>解决方法来自<a href="https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3001" target="_blank" rel="external">QSslSocket: cannot resolve SSLv3_client_method / SSLv3_server_method</a></p>
-<p>原文是这么说的</p>
-<blockquote>
-<p>For Debian Stretch users and others with the QSslSocket: cannot resolve $func issue, you just need to install the package libssl1.0-dev (or similar package in your distro).</p>
-</blockquote>
-<p>打开终端 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install libssl1.0-dev</div></pre></td></tr></table></figure></p>
-<p>安装完成后就会发现，不会再有报错信息出现了。</p>
+            <p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
+<a id="more"></a>
+<p>虽然早就知道c代码是先经过编译链接最后才放在机器上执行，但是在这么一个过程中究竟发生了什么，最近在学习嵌入式裸机开发中，才又有了更深入的了解。</p>
+<h1 id="简单描述一下生成机器代码过程">简单描述一下生成机器代码过程</h1>
+<h2 id="编译过程">编译过程</h2>
+<p>编译过程是以前就知道了的，预编译会对一些带#号的预编译命令处理，如#define等，编译器会对他们进行替换得到.i文件，然后进一步编译得到.o文件。</p>
+<h2 id="链接过程">链接过程</h2>
+<p>在将源文件编译成可执行文件时，有一个过程是链接。</p>
+<p>其实我以前就对这个链接过程感觉有些不解的，这个链接过程到底是怎么把这些.o文件链接在一起，是有一种什么样的规则呢，总不可能随便链接的吧，随便链接的话怎么解决依赖问题。</p>
+<p>直到之前了解了一下alios系统，在学习的过程中发现，在芯片架构的支持中，有一个elf文件，里面定义了一些地址，当时还不知道有什么用；最近学习裸机开发中，也遇到了这么一个类似的lds文件。</p>
+<p>通过学习，才知道，原来这种文件定义了各个段如代码段、数据段等的地址，这样编译器在链接的过程中，就知道了要把各种.o文件以什么样的顺序链接，链接在什么地址处。</p>
+<h1 id="准备c语言运行环境">准备c语言运行环境</h1>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/c_language/StartupCode.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是我在网上找的图，从图中可以看出，为了使c程序可以执行在目标处理器，链接的过程中，还混入了一些其他的东西，比如Startup Code。</p>
+<p>在Startup Code中，会做一系列的事，比如关中断、重定位、申请栈空间等等，具体过程和硬件相关。</p>
+<p>最后跳转到main()。</p>
+<p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p>
+<p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p>
+<h1 id="篇外话">篇外话</h1>
+<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了(⊙o⊙)</p>
+<p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" target="_blank" rel="noopener">C Startup</a></li>
+<li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li>
+<li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li>
+</ul>
 
         </div>
 
@@ -208,7 +241,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2018-09-12T02:35:01.465Z" itemprop="dateUpdated">2018-09-12 10:35:01</time>
+    Last updated: <time datetime="2018-09-13T02:02:09.310Z" itemprop="dateUpdated">2018-09-13 10:02:09</time>
 </span><br>
 
 
@@ -234,7 +267,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xilinx/">Xilinx</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x210/">x210</a></li></ul>
 
 
             
@@ -244,7 +277,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&title=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -254,22 +287,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&title=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -294,9 +327,9 @@ ga('send', 'pageview');
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/12/工作-fpga-2018-09-12-Vivado无法连接到开发板/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">如何使用matlab进行频域分析</h4>
+        <h4 class="title">Vivado无法连接到开发板</h4>
       </a>
     </div>
   
@@ -380,7 +413,7 @@ ga('send', 'pageview');
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -402,7 +435,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&title=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -412,22 +445,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&title=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vivado启动遇见QSslSocket系列问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/12/Vivado启动遇见QSslSocket系列问题/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -438,7 +471,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aQW7jMAwF0Nz/0hlgtgNrPkmx9eJ5Fbhxo6cAIkPy84mv79/r/NfkPU93/n39dH02Ljw8PLzW0s//7ry46gY9PZuvobAFeHh4eGu8fEFPH/y0BdWQkASeZM14eHh4b+CdAUkgScDzjcDDw8N7Dy8vQCSYZOl4eHh4b+YlhYAkVCSFg2p59/zp12oteHh4eAtdpPe8Xuzv4eHh4Q266nmoyANGtUT7HVx4eHh4G7zegvKBqsmW9bajORGGh4eHF/PyYmu1DJEf9Mk3UB3/eox7eHh4eFd5vVGA5ASuVgzy0kM5mcbDw8Nb4FUT7luNrslQQtTZw8PDw7vEi4aWBqltfvTnpYrzFkR1Fzw8PLwxLy9J3EqUeyXj5jrx8PDwrvKSo7mXOvfS62r6/p90HA8PD2+BN0+Uq+MC1eS4/Jvg7u8APDw8vLgIWy1VzLegl0ZHowN4eHh4V3nnAYI8mU6O9d6AV7KeKKXGw8PDu8rLW1/VLagm7nl6XR75wsPDw7vKmw9dVYu2SSqcFG2jLwkPDw9vmTdpa1XLr+XY1RsswMPDw1vj5YWGvFU2HxHolSrw8PDwfp43WVxy6PfCQLMkgYeHh3eVd25T5QvtFTKaxYX8PXh4eHgLvPyByRbk1GqbLXkKDw8Pb5s3SX+rpd7qnbxVhoeHh/czvN4QwGTUtTdi1UzW8fDw8K7yesEgX1y1qJHzouIyHh4e3jKvms7mBYjeINdkAAsPDw9vg/ctXr02WD5YMN9EPDw8vG3e3W77/ECvNr3y9eDh4eHd5eXBICmh9gJMtcxRCFR4eHh4a7zJAV0NEnnbrBpO8PDw8N7JS57qBZskla+WMPDw8PB+l5c0xqrNsMn9aJvw8PDw1njzwsFkdCC/kwcJPDw8vD3epNl/qxSbH/obQ1p4eHh4Me8PF7/FOmQ5q4AAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3a204DMQwFQP7/p4vEExLs9tiOS5EmT1Uv2UyQ4mD74yMej6+RfOf7N+9/dfVp9f0DAw8PD6+19Kvxc+pHMO7nz1dyxcufjoeHh7fHuz+Ik4dVMdXjPgk5eHh4eO/Gu0cm35zc+vHw8PD+I+8UvpeAwMPDw3s3XpKMyN+pzpYnHRZzLXh4eHgxb3Kd/avXi/U9PDw8vEFVvTeqLQW9ABOtBA8PD2+B10uwVheXtwhU2wuigIGHh4d3lJenYudJil7TQN7C9ctrPDw8vAXeqXJX8tv8St1L9ZaDBB4eHl6LNykvJVuQH+W955Yre3h4eHhj3tlJq1mQ/Lo82TI8PDy8PV41vTspa/VaAap4PDw8vD1eNUmaHNN5cSu6FrdKa3h4eHh7vGrDUxIeevMkf4fqNR0PDw/vLG/jQjwppPWaui5nwMPDw1vjVYv31fBQTTH0WhN+eS4eHh7eAq/azJSXxJKwMW87qF648fDw8Oa8PHmaX6wnqdgEloQZPDw8vG1eNZVQbX6azDNqLMDDw8P7I14veOQX6OTTXjjBw8PD2+BVD/d86afSsvkF+nIL8PDw8I7y8qRqs3jfCgOTVoNmzhgPDw+vddJWUwCPeFSbCSYbfWnBw8PDeyEvacnqtRFU5+9d/fHw8PBew8tTD0n6NTnW86RtM5jh4eHhHeVVD9lqMiIq8w94T9aDh4eHt8xLivd58MjTE5N2qycXdDw8PLyjvEdxVA/us2WtPEGMh4eHt8ebLKh3Xe61CyRrwMPDw3slb15kSi7K1QCQb9yTDcXDw8Nb4/UO6F4gqW7BKHTh4eHhvQ2vl6KdtyMkQeJAYMDDw8M7xOsVvU41KCSlODw8PLxX8npFr0lzwIGl324QHh4e3h6v+q9+XvqqLigPEnlSGA8PD+8o7xMj7AMnt6ayeAAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

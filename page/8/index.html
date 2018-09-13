@@ -167,6 +167,54 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-12-初始化发生冲突"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-11 15:00:00" datetime="2017-08-11T07:00:00.000Z"  itemprop="datePublished">2017-08-11</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/11/工作-stm32-2017-08-12-初始化发生冲突/">解决LCD初始化与串口初始化的冲突</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言
+我也是第一次发现这种情况。当我把我的程序烧进stm32发现stm32似乎死机了， 当我把一条条程序分别注释后才发现，忽然是指纹模块和FSMC的初始化发生了冲突， 而且冲突的很诡异，根本看不出哪里冲突了。
+    
+
+        <a href="/2017/08/11/工作-stm32-2017-08-12-初始化发生冲突/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-jekyll-2017-08-11-完整版搭建博客教学"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -215,7 +263,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-Usart"
+            <article id="post-工作-stm32-2017-08-10-GPIO-Output"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -233,7 +281,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
     </h3>
   
 
@@ -243,19 +291,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-使能串口
-编写中断处理函数
-
+        关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+2.初始化I/O参数,调用函数GPIO_Init()
+3.操作I/O
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -271,7 +313,7 @@ GPIO端口模式设置
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-IWDG"
+            <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -289,7 +331,7 @@ GPIO端口模式设置
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/">学习TFT-FSMC</a>
     </h3>
   
 
@@ -299,11 +341,115 @@ GPIO端口模式设置
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        看门狗简述
-独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
+        TFT简述
+这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-WWDG"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        基本步骤
+
+使能WWDG时钟（APB1）
+设置窗口值和分频值
+开启WWDG中断并分组
+设置计数器初始值并使能看门狗
+编写中断服务函数
+
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-TIM"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        定时器简述
+相信使用过51单片机的人对定时器都很熟悉了吧。
+顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
+在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -368,7 +514,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC"
+            <article id="post-工作-stm32-2017-08-10-IWDG"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -386,7 +532,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/">学习TFT-FSMC</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
     </h3>
   
 
@@ -396,11 +542,11 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        TFT简述
-这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。
+        看门狗简述
+独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -471,7 +617,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-WWDG"
+            <article id="post-工作-stm32-2017-08-10-GPIO-Usart"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -489,7 +635,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
     </h3>
   
 
@@ -499,17 +645,19 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        基本步骤
+        一般步骤
 
-使能WWDG时钟（APB1）
-设置窗口值和分频值
-开启WWDG中断并分组
-设置计数器初始值并使能看门狗
-编写中断服务函数
+串口时钟的使能，GPIO时钟使能
+串口复位
+GPIO端口模式设置
+串口参数初始化
+开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
+使能串口
+编写中断处理函数
 
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -517,154 +665,6 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-Output"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        关键信息
-1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
-2.初始化I/O参数,调用函数GPIO_Init()
-3.操作I/O
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-TIM"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
-在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-开始学习stm32"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/">开始学习stm32</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        说说我的教材吧
-我使用的是原子的stm32的书， 手上暂时没有其他的书了，就只能将就着用这本了，听说口碑还是不错的。
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
 
     </div>
     

@@ -208,10 +208,10 @@ ga('send', 'pageview');
 <p>随着知识难度的加深，对于数学的依赖也不断增加，数学涉及到很多公式，老是用截图的方法总觉得不方便，很早以前就听说了LaTeX，正好博客的主体支持mathjax，就学习一下，拿来使用。</p>
 <a id="more"></a>
 <p>我使用的是VSCode编辑，为了方便编辑，我安装了一个Markdown+Math的插件，这个插件可以渲染LaTeX的公式，打开预览就可以实时查看自己文章的效果。</p>
-<p><a href="https://pic.plover.com/MISC/symbols.pdf" target="_blank" rel="external">this shorter listing</a></p>
+<p><a href="https://pic.plover.com/MISC/symbols.pdf" target="_blank" rel="noopener">this shorter listing</a></p>
 <h2 id="实现分段函数">实现分段函数</h2>
 <p>这是我在网上搜索到的一个人总结的<strong>分段函数的写法</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$$ 函数名=\begin&#123;cases&#125;</div><div class="line">公式1 &amp; 条件1 \\</div><div class="line">公式2 &amp; 条件2 \\</div><div class="line">公式3 &amp; 条件3 </div><div class="line">\end&#123;cases&#125;$$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$$ 函数名=\begin&#123;cases&#125;</span><br><span class="line">公式1 &amp; 条件1 \\</span><br><span class="line">公式2 &amp; 条件2 \\</span><br><span class="line">公式3 &amp; 条件3 </span><br><span class="line">\end&#123;cases&#125;$$</span><br></pre></td></tr></table></figure>
 <p>**&amp;表示对齐，*</p>
 <p>一个通带为<span class="math inline">\(\omega_c\lt\pi\)</span>的理想低通滤波器的系统函数的示例如下</p>
 <p><span class="math display">\[
@@ -221,7 +221,7 @@ H_d(e^{j\omega})=\begin{cases}
 \end{cases}
 \]</span></p>
 <h2 id="公式推导过程">公式推导过程</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$$</div><div class="line">\begin &#123;aligned&#125;</div><div class="line">A&amp;=B \\</div><div class="line">&amp;=C \\</div><div class="line">&amp;=D</div><div class="line">\end &#123;aligned&#125;</div><div class="line">$$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\begin &#123;aligned&#125;</span><br><span class="line">A&amp;=B \\</span><br><span class="line">&amp;=C \\</span><br><span class="line">&amp;=D</span><br><span class="line">\end &#123;aligned&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 <p><span class="math display">\[
 \begin {aligned}
@@ -232,7 +232,7 @@ A&amp;=B \\\
 \]</span></p>
 <h2 id="并排显示两个公式">并排显示两个公式</h2>
 <p>可以使用~~ <sub>~</sub></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$$</div><div class="line">h(n)=\begin&#123;cases&#125;</div><div class="line">h_d(n) &amp; 0\le n\le M-1 \\</div><div class="line">0 &amp; elsewhere </div><div class="line">\end&#123;cases&#125;</div><div class="line">~~</div><div class="line">and</div><div class="line">~~</div><div class="line">\alpha = \frac&#123;M-1&#125;&#123;2&#125;</div><div class="line">$$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">h(n)=\begin&#123;cases&#125;</span><br><span class="line">h_d(n) &amp; 0\le n\le M-1 \\</span><br><span class="line">0 &amp; elsewhere </span><br><span class="line">\end&#123;cases&#125;</span><br><span class="line">~~</span><br><span class="line">and</span><br><span class="line">~~</span><br><span class="line">\alpha = \frac&#123;M-1&#125;&#123;2&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
 <p>效果如下：</p>
 <p><span class="math display">\[
 h(n)=\begin{cases}

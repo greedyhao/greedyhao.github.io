@@ -273,7 +273,7 @@ ga('send', 'pageview');
 <ul>
 <li>stm32居然有多个时钟源，这是我之前不知道的，多个时钟源的原因是为了节省资源，时钟越快功耗越大，同时抗电磁干扰能力也会越弱，而有些外设需要的时钟并不需要太快，所以stm32通过分频，不同的5个时钟源给不同的外设。</li>
 <li>结构体的使用。之前学习51单片机时，其实很多c语言的知识都没有用上的，一直不明白那些知识的用处。在我看stm32的固件库的时候，看见了很多函数的参数都是用结构体来传递的，这样的好处是参数的个数比较容易更改，只需要更改结构体中的参数个数就可以了。</li>
-<li>定义自己的类型。这也是我在看stm32的固件库才了解到的，虽然我很久以前就知道要定义自己的数据类型，但一直都很少用，因为作用不大，在stm32固件库中看见了大量的使用，固件库中所有的数据类型都是使用自己的定义，我觉得这样的好处是可以增加程序的易读性和兼容性。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/*stm32f10x.h*/</div><div class="line">...</div><div class="line">typedef struct</div><div class="line">&#123;</div><div class="line">  __IO uint16_t CR1;</div><div class="line">  uint16_t  RESERVED0;</div><div class="line">  __IO uint16_t CR2;</div><div class="line">  uint16_t  RESERVED1;</div><div class="line">...</div><div class="line">&#125; TIM_TypeDef;</div><div class="line">...</div><div class="line">/*stm32f10x_tim.h*/</div><div class="line">...</div><div class="line">void TIM_DeInit(TIM_TypeDef* TIMx);</div><div class="line">...</div></pre></td></tr></table></figure></li>
+<li>定义自己的类型。这也是我在看stm32的固件库才了解到的，虽然我很久以前就知道要定义自己的数据类型，但一直都很少用，因为作用不大，在stm32固件库中看见了大量的使用，固件库中所有的数据类型都是使用自己的定义，我觉得这样的好处是可以增加程序的易读性和兼容性。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/*stm32f10x.h*/</span><br><span class="line">...</span><br><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">  __IO uint16_t CR1;</span><br><span class="line">  uint16_t  RESERVED0;</span><br><span class="line">  __IO uint16_t CR2;</span><br><span class="line">  uint16_t  RESERVED1;</span><br><span class="line">...</span><br><span class="line">&#125; TIM_TypeDef;</span><br><span class="line">...</span><br><span class="line">/*stm32f10x_tim.h*/</span><br><span class="line">...</span><br><span class="line">void TIM_DeInit(TIM_TypeDef* TIMx);</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>这是固件库中的一段对结构体的用法和定义自己的数据类型。</p>
 
@@ -369,18 +369,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习定时器</h4>
+        <h4 class="title">学习GPIO输入</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习GPIO输入</h4>
+        <h4 class="title">安装sublime可能出现问题并解决</h4>
       </a>
     </div>
   
