@@ -263,7 +263,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-IWDG"
+            <article id="post-工作-stm32-2017-08-10-GPIO-Output"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -281,7 +281,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
     </h3>
   
 
@@ -291,11 +291,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        看门狗简述
-独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
+        关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+2.初始化I/O参数,调用函数GPIO_Init()
+3.操作I/O
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -367,7 +369,7 @@ GPIO端口模式设置
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-Output"
+            <article id="post-工作-stm32-2017-08-10-IWDG"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -385,7 +387,7 @@ GPIO端口模式设置
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
     </h3>
   
 
@@ -395,13 +397,11 @@ GPIO端口模式设置
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        关键信息
-1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
-2.初始化I/O参数,调用函数GPIO_Init()
-3.操作I/O
+        看门狗简述
+独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -451,60 +451,6 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     
 
         <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-WWDG"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        基本步骤
-
-使能WWDG时钟（APB1）
-设置窗口值和分频值
-开启WWDG中断并分组
-设置计数器初始值并使能看门狗
-编写中断服务函数
-
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>
@@ -603,6 +549,60 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     
 
         <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-WWDG"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        基本步骤
+
+使能WWDG时钟（APB1）
+设置窗口值和分频值
+开启WWDG中断并分组
+设置计数器初始值并使能看门狗
+编写中断服务函数
+
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
             Continue reading...
         </a>
     </div>

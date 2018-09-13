@@ -30,25 +30,27 @@ ga('send', 'pageview');
     
     
     
-    <title>学习串口 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>处理器在运行c代码前做了什么准备 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content="x210">
+    <meta name="description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
+<meta name="keywords" content="x210">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习串口">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/index.html">
+<meta property="og:title" content="处理器在运行c代码前做了什么准备">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta property="og:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-14T13:27:30.000Z">
+<meta property="og:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
+<meta property="og:updated_time" content="2018-09-13T02:06:11.142Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习串口">
-<meta name="twitter:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta name="twitter:title" content="处理器在运行c代码前做了什么准备">
+<meta name="twitter:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习串口</div>
+        <div class="flex-col header-title ellipsis">处理器在运行c代码前做了什么准备</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +153,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习串口</h1>
+        <h1 class="title">处理器在运行c代码前做了什么准备</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2018-09-13T01:56:04.000Z" itemprop="datePublished" class="page-time">
+  2018-09-13
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -176,22 +176,20 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一般步骤"><span class="post-toc-number">1.</span> <span class="post-toc-text">一般步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#又遇到坑了"><span class="post-toc-number">2.</span> <span class="post-toc-text">又遇到坑了</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单描述一下生成机器代码过程"><span class="post-toc-number">1.</span> <span class="post-toc-text">简单描述一下生成机器代码过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译过程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">编译过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#链接过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">链接过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备c语言运行环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备c语言运行环境</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#篇外话"><span class="post-toc-number">3.</span> <span class="post-toc-text">篇外话</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2017-08-10-GPIO-Usart"
+<article id="post-工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习串口</h1>
+        <h1 class="post-card-title">处理器在运行c代码前做了什么准备</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2018-09-13 09:56:04" datetime="2018-09-13T01:56:04.000Z"  itemprop="datePublished">2018-09-13</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -202,23 +200,42 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="一般步骤">一般步骤</h2>
-<ol style="list-style-type: decimal">
-<li>串口时钟的使能，GPIO时钟使能</li>
-<li>串口复位</li>
-<li>GPIO端口模式设置</li>
-<li>串口参数初始化</li>
-<li>开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤</li>
-<li>使能串口</li>
-<li>编写中断处理函数</li>
-</ol>
+            <p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
 <a id="more"></a>
-<h2 id="又遇到坑了">又遇到坑了</h2>
-<p>~<sub>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了， 浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了...~</sub></p>
-<p>我又发现自己之前的想法错了，我改的地方其实无关紧要</p>
-<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我发现了我的<strong>真正的问题</strong>，原来是 uart_init() 函数名打错成 usart_init() ！！！</p>
+<p>虽然早就知道c代码是先经过编译链接最后才放在机器上执行，但是在这么一个过程中究竟发生了什么，最近在学习嵌入式裸机开发中，才又有了更深入的了解。</p>
+<h1 id="简单描述一下生成机器代码过程">简单描述一下生成机器代码过程</h1>
+<h2 id="编译过程">编译过程</h2>
+<p>编译过程是以前就知道了的，预编译会对一些带#号的预编译命令处理，如#define等，编译器会对他们进行替换得到.i文件，然后进一步编译得到.o文件。</p>
+<h2 id="链接过程">链接过程</h2>
+<p>在将源文件编译成可执行文件时，有一个过程是链接。</p>
+<p>其实我以前就对这个链接过程感觉有些不解的，这个链接过程到底是怎么把这些.o文件链接在一起，是有一种什么样的规则呢，总不可能随便链接的吧，随便链接的话怎么解决依赖问题。</p>
+<p>直到之前了解了一下alios系统，在学习的过程中发现，在芯片架构的支持中，有一个elf文件，里面定义了一些地址，当时还不知道有什么用；最近学习裸机开发中，也遇到了这么一个类似的lds文件。</p>
+<p>通过学习，才知道，原来这种文件定义了各个段如代码段、数据段等的地址，这样编译器在链接的过程中，就知道了要把各种.o文件以什么样的顺序链接，链接在什么地址处。</p>
+<h1 id="准备c语言运行环境">准备c语言运行环境</h1>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/c_language/StartupCode.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是我在网上找的图，从图中可以看出，为了使c程序可以执行在目标处理器，链接的过程中，还混入了一些其他的东西，比如Startup Code。</p>
+<p>在Startup Code中，会做一系列的事，比如关中断、重定位、申请栈空间等等，具体过程和硬件相关。</p>
+<p>最后跳转到main()。</p>
+<p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p>
+<p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p>
+<h1 id="篇外话">篇外话</h1>
+<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了(⊙o⊙)</p>
+<p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" target="_blank" rel="noopener">C Startup</a></li>
+<li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li>
+<li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li>
+<li><a href="https://www.zhihu.com/question/49580321" target="_blank" rel="noopener">C 如何编译出一个不需要操作系统的程序？</a></li>
+<li><a href="http://www.cnblogs.com/pengdonglin137/p/3234367.html" target="_blank" rel="noopener">数据段、代码段、堆栈段、BSS段的区别</a></li>
+<li><a href="https://blog.csdn.net/koozxcv/article/details/49533731" target="_blank" rel="noopener">Linux进程的五个段（数据段、代码段、bss、堆栈段）</a></li>
+</ul>
 
         </div>
 
@@ -227,7 +244,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2017-08-14T13:27:30.000Z" itemprop="dateUpdated">2017-08-14 21:27:30</time>
+    Last updated: <time datetime="2018-09-13T02:06:11.142Z" itemprop="dateUpdated">2018-09-13 10:06:11</time>
 </span><br>
 
 
@@ -253,7 +270,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x210/">x210</a></li></ul>
 
 
             
@@ -263,7 +280,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -273,29 +290,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -315,21 +325,14 @@ GPIO端口模式设置
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习GPIO输出</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/12/工作-fpga-2018-09-12-Vivado无法连接到开发板/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习独立看门狗</h4>
+        <h4 class="title">Vivado无法连接到开发板</h4>
       </a>
     </div>
   
@@ -435,7 +438,7 @@ GPIO端口模式设置
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -445,29 +448,22 @@ GPIO端口模式设置
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -478,7 +474,7 @@ GPIO端口模式设置
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3a0XLiMAwFUP7/p7uv7HQTriQL2p2Tpw4UOyfMWObKj0d8fT1d3195fv3q3fx6HuH7mI+NCw8PD29w6/eT5dP3AMl95uPj4eHhbfOS4e5LQhWclJ/84V6+joeHh/cDePmy3lzKb/8fDw8P7//j3d909dHcFyc8PDy8z/LyhXgeVdzP/rGsBQ8PD6+2gy1HqJ/9e6W/h4eHhzfuqlebYfNm/9mDCHh4eHgbvF40MLnp3qPJ58XDw8N7D28SFsyPauXhRTUuwcPDw9vjVZfmySGAZOR8hKhE4eHh4R3lTRpXyTTzg1lJSXjxWwEPDw9vgXeq6VWNbicb7uhdPDw8vLfw8kX5bEjR20a/CCbw8PDwFnj5ZjePevOFO48k8uJRaM7h4eHhjXnV1lQvxu0t673mHB4eHt4er9e272248yJRLQmXr+Dh4eG9nZcv6Hlom2+gq2UGDw8P7z28SXnoFYwkROiFvKNkBQ8PDy/gnZp4Y1NeDW1fnCnDw8PDW+PlTf1JRNsLgvPw4q+TEXh4eHhrvLwZ34tcJw22ZBv9j0/h4eHhLfPyrW20nR0clsofxIsvAw8PD2+NV23kT9pX+Ta9OuZlYcDDw8M7yps05vPDBOWtcPGmy10+PDw8vKO8alBb3RxXR6h+AckIeHh4eHPe2WKQs3/lNhoPDw8vCGF7xwLyhb4a15apeHh4eGu8apNpEuDmLbe8PFzeAx4eHt5R3lfx6rXwq6HDPE0pHLrCw8PDK/J6G9ZJwTgVCvcOZuHh4eGd4s2LQcJIZrln9D6Fh4eHt8fLf+TnwUH+mHqBb6Ew4OHh4X2Ul5eT3gGFfPYopMDDw8P7AbzqMYJkK5y/mz9QPDw8vG1etZGflIH78avHF6qNNzw8PLw9XvVHft6+SoKJfKs9jyrw8PDwxrw/PoSccYi02uQAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD2klEQVR42u3cQXLbQAwEQP3/0841qUjUALOU40rz5JJFctF7gBdA+fGIr6/frle/vb7r7+v6O/mTrz953HHhwIEDB4441Omir5mSZe0IEoh8/Thw4MCB4w6O6zCmr3/15Pze6dp2SRcHDhw4cPw7HNNlXWPl38wDxoEDBw4cP4sjCSAJ7L4LBw4cOHB8L0fe/slTWvKcXWlvukm31Epx4MCBA8f7DtE4af2Unz+Uw3HgwIHjv+f4Gl550k2WMk14TQExig4HDhw4cNQceUKaDiKcLQjujlu7uHDgwIEDx1mOaUtp+tvkm7sC37HyHw4cOHDgKDjyFtGOctccmlbt+gT/x4kWBw4cOHAc4tgNN5w6sO1Kk7s3vqmV4sCBAweOguNscS0feutT9XTzmvYYDhw4cODIOZoyXNKUSnD7Ml+Tkt/Md+DAgQMHjhXHddo7NSjQHA6vtyEpWUbbhgMHDhw4ao4mreZ8SaqbJs58DVNiHDhw4MDRczQPzUPNxxqmDaRdcsWBAwcOHPdx5DecGmtrjmT5Ju2Omjhw4MCBo+foi4N5KbBJk3liblpoOHDgwIHjFEc+3HCq4dQXB6fjDslbcODAgQNHw3GqSNek7d29fevryV04cODAgeMQR3JbsqC8XDj9PDk0Ttf/hA8HDhw4cNQc0yLddEFRelsVHG9Mxjhw4MCBo+DIxw6mg3S7hDodd8iTcbRtOHDgwIHjEEdTvJsOGeTFu5xmV9wcHN5w4MCBA0fBsRtTa1LgLvFPi48RCg4cOHDgqDmaguButG68uFUhsioX4sCBAweOgiNp808D3g0rTNtLu2Llm5XjwIEDB46aY3romibIKf3ZgYaqmIgDBw4cOGqOvLG0Kxfu2khTpn7bcODAgQNHw9GEMW0INWMT/chFtGYcOHDgwHFmzd3/XRsGcypVTyHy0iQOHDhw4Gg4psFPw8uH5E4NJSTHv5ef48CBAweOmiN/TT5YcKq9tAu+2WAcOHDgwNFzJCNrTWBNykyGLZJQB2MQOHDgwIHjEMd0oGHaEMqJd0e7Xcp/siocOHDgwFFzJE2aJvhpuyhPyWffggMHDhw4TnE0Y9ZJAHnCa46F/fOjeQccOHDgwNFmonFzaHrMy5/WFAenzTMcOHDgwNFzTF+cBzYdPmjaV7tkP6iJ4sCBAweOIcepRJUs7o7tmf7t8BILBw4cOHB8nKNpGk0PhKfI8k9w4MCBA8fnOe4YdMjXUI3BJWvDgQMHDhyHOJKk1SwoHzuYNrR2n7w5wuHAgQMHjoJjejCbFg3zgKfJcjretxuMwIEDBw4cMccvJbr2SaXe0P8AAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

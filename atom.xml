@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-13T02:03:30.346Z</updated>
+  <updated>2018-09-13T02:06:11.142Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>处理器在运行c代码前做了什么准备</title>
-    <link href="http://greedyhao.cc/2018/09/13/%E5%A4%84%E7%90%86%E5%99%A8%E5%9C%A8%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E5%87%86%E5%A4%87/"/>
-    <id>http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/</id>
+    <link href="http://greedyhao.cc/2018/09/13/%E5%B7%A5%E4%BD%9C-c-language-2018-09-13-%E5%A4%84%E7%90%86%E5%99%A8%E5%9C%A8%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E5%87%86%E5%A4%87/"/>
+    <id>http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/</id>
     <published>2018-09-13T01:56:04.000Z</published>
-    <updated>2018-09-13T02:03:30.346Z</updated>
+    <updated>2018-09-13T02:06:11.142Z</updated>
     
     <content type="html"><![CDATA[<p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
 <a id="more"></a>
@@ -55,6 +55,8 @@
 <li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li>
 <li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li>
 <li><a href="https://www.zhihu.com/question/49580321" target="_blank" rel="noopener">C 如何编译出一个不需要操作系统的程序？</a></li>
+<li><a href="http://www.cnblogs.com/pengdonglin137/p/3234367.html" target="_blank" rel="noopener">数据段、代码段、堆栈段、BSS段的区别</a></li>
+<li><a href="https://blog.csdn.net/koozxcv/article/details/49533731" target="_blank" rel="noopener">Linux进程的五个段（数据段、代码段、bss、堆栈段）</a></li>
 </ul>
 ]]></content>
     
