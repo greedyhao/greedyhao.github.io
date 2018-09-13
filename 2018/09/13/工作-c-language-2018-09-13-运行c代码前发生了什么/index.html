@@ -30,7 +30,7 @@ ga('send', 'pageview');
     
     
     
-    <title>处理器在运行c代码前做了什么准备 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>运行c代码前发生了什么 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -40,15 +40,15 @@ ga('send', 'pageview');
     <meta name="description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta name="keywords" content="x210">
 <meta property="og:type" content="article">
-<meta property="og:title" content="处理器在运行c代码前做了什么准备">
-<meta property="og:url" content="http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/index.html">
+<meta property="og:title" content="运行c代码前发生了什么">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
 <meta property="og:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
-<meta property="og:updated_time" content="2018-09-13T02:03:30.346Z">
+<meta property="og:updated_time" content="2018-09-13T02:17:29.876Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="处理器在运行c代码前做了什么准备">
+<meta name="twitter:title" content="运行c代码前发生了什么">
 <meta name="twitter:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
     
@@ -131,13 +131,13 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">处理器在运行c代码前做了什么准备</div>
+        <div class="flex-col header-title ellipsis">运行c代码前发生了什么</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -153,7 +153,7 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">处理器在运行c代码前做了什么准备</h1>
+        <h1 class="title">运行c代码前发生了什么</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-09-13T01:56:04.000Z" itemprop="datePublished" class="page-time">
@@ -181,11 +181,11 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-处理器在运行c代码前做了什么准备"
+<article id="post-工作-c-language-2018-09-13-运行c代码前发生了什么"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">处理器在运行c代码前做了什么准备</h1>
+        <h1 class="post-card-title">运行c代码前发生了什么</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-09-13 09:56:04" datetime="2018-09-13T01:56:04.000Z"  itemprop="datePublished">2018-09-13</time>
 
@@ -225,7 +225,7 @@ ga('send', 'pageview');
 <p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p>
 <p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p>
 <h1 id="篇外话">篇外话</h1>
-<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了(⊙o⊙)</p>
+<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了O__O &quot;…，好好的一篇科普文变成了推荐阅读文(手动笑哭)</p>
 <p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
@@ -233,6 +233,8 @@ ga('send', 'pageview');
 <li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li>
 <li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li>
 <li><a href="https://www.zhihu.com/question/49580321" target="_blank" rel="noopener">C 如何编译出一个不需要操作系统的程序？</a></li>
+<li><a href="http://www.cnblogs.com/pengdonglin137/p/3234367.html" target="_blank" rel="noopener">数据段、代码段、堆栈段、BSS段的区别</a></li>
+<li><a href="https://blog.csdn.net/koozxcv/article/details/49533731" target="_blank" rel="noopener">Linux进程的五个段（数据段、代码段、bss、堆栈段）</a></li>
 </ul>
 
         </div>
@@ -242,7 +244,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-09-13T02:03:30.346Z" itemprop="dateUpdated">2018-09-13 10:03:30</time>
+    最終更新：<time datetime="2018-09-13T02:17:29.876Z" itemprop="dateUpdated">2018-09-13 10:17:29</time>
 </span><br>
 
 
@@ -278,7 +280,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -288,22 +290,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《运行c代码前发生了什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -414,7 +416,7 @@ ga('send', 'pageview');
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
@@ -436,7 +438,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -446,22 +448,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&title=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《处理器在运行c代码前做了什么准备》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《运行c代码前发生了什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/处理器在运行c代码前做了什么准备/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -472,7 +474,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3a204DMQwFQP7/p4vEExLs9tiOS5EmT1Uv2UyQ4mD74yMej6+RfOf7N+9/dfVp9f0DAw8PD6+19Kvxc+pHMO7nz1dyxcufjoeHh7fHuz+Ik4dVMdXjPgk5eHh4eO/Gu0cm35zc+vHw8PD+I+8UvpeAwMPDw3s3XpKMyN+pzpYnHRZzLXh4eHgxb3Kd/avXi/U9PDw8vEFVvTeqLQW9ABOtBA8PD2+B10uwVheXtwhU2wuigIGHh4d3lJenYudJil7TQN7C9ctrPDw8vAXeqXJX8tv8St1L9ZaDBB4eHl6LNykvJVuQH+W955Yre3h4eHhj3tlJq1mQ/Lo82TI8PDy8PV41vTspa/VaAap4PDw8vD1eNUmaHNN5cSu6FrdKa3h4eHh7vGrDUxIeevMkf4fqNR0PDw/vLG/jQjwppPWaui5nwMPDw1vjVYv31fBQTTH0WhN+eS4eHh7eAq/azJSXxJKwMW87qF648fDw8Oa8PHmaX6wnqdgEloQZPDw8vG1eNZVQbX6azDNqLMDDw8P7I14veOQX6OTTXjjBw8PD2+BVD/d86afSsvkF+nIL8PDw8I7y8qRqs3jfCgOTVoNmzhgPDw+vddJWUwCPeFSbCSYbfWnBw8PDeyEvacnqtRFU5+9d/fHw8PBew8tTD0n6NTnW86RtM5jh4eHhHeVVD9lqMiIq8w94T9aDh4eHt8xLivd58MjTE5N2qycXdDw8PLyjvEdxVA/us2WtPEGMh4eHt8ebLKh3Xe61CyRrwMPDw3slb15kSi7K1QCQb9yTDcXDw8Nb4/UO6F4gqW7BKHTh4eHhvQ2vl6KdtyMkQeJAYMDDw8M7xOsVvU41KCSlODw8PLxX8npFr0lzwIGl324QHh4e3h6v+q9+XvqqLigPEnlSGA8PD+8o7xMj7AMnt6ayeAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJUlEQVR42u3a0U7DQAwEwP7/T8MzgqZr+yoRd/JUlZLeXCQW2/d4xNfXr+v3T5PPf11e8989fGFjY2PfhD1ZyvUdnm1K8v71Gp7dp7A12NjY2OvY18vKlz4JpGvGdRKVtxgbGxv7g9l5tPSWlUcgNjY2NvbZAEuiKH/d225sbGzsT2bnjaFeWyf5rmrTfzRCwMbGxl7Ezqei///1W+bb2NjY2P+YPY+Tavs+P+KTxGRTgY2Njb2InQfAZCSQFy297+2tHxsbG3sTOz9Ac32LJHiqBUZOat4NGxsbewW7FzaT2KsWIcmDyR8DNjY29j72pFTIMdUmVG8YkIclNjY29g52XjxMipZTIZQ8kijMsLGxsRexJ8VDfhKmuqB5aVF9kNjY2Nhb2ZNmfV5O5JtVfQD5+9jY2Nj3ZSeLqzaV5uPe/EhQNUqxsbGxt7In7aR84+YD4HxbX7iwsbGx17En4RQdiOlVRYfGun/cARsbG3sR+x1LrB61yT9TPbhZfkjY2NjYN2dXx6vVQzbVQOo1jPLBAzY2NvYmdu8wZW+ImzN6m1guPLCxsbGXspN4mJcfeWmRbFy5kYSNjY29iJ1HVHUpeYunt8XVEujpdmBjY2PfnJ0sLh8Jl7tZrTtUDwk9PbiDjY2NfXN2dVmTxVUjZ9ICe9Egw8bGxl7E7g1f84jKBw+Tx5AMDF6UItjY2Ng3Z7+jbEg2rho/yeYW+mfY2NjYK9g5rxc886HCpHZ4MRjAxsbGXsSujlqrg9vqJubgPLR+vI+NjY29iD1v9yfvzxtPeasoH/piY2Nj72NX/7nPF3EqtKox9mLl2NjY2OvYSTjln8kjrUftlUPY2NjYu9mFmXDcJDp7fOdx9sLGxsZewX7faDZvIfW2ZtSWwsbGxl7E7v3Nr0Zgb0zbu8+p0TI2Njb2vdj5OLa6i71ozMfJo+EENjY29jp2ddCbt3uqY4DJeLjwvdjY2NjYcbzlx2iqMZnf84+HhI2Njf3B7LwMuC4nekFYHUJjY2Njfw67N4KtHvqZ/+6p8TA2Njb2JnavQZMPAJIAO9b0PxR+2NjY2DdhfwNfA+Nf/JUkNwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

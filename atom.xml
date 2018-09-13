@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-13T02:13:48.054Z</updated>
+  <updated>2018-09-13T02:17:29.876Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>处理器在运行c代码前做了什么准备</title>
-    <link href="http://greedyhao.cc/2018/09/13/%E5%B7%A5%E4%BD%9C-c-language-2018-09-13-%E5%A4%84%E7%90%86%E5%99%A8%E5%9C%A8%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E5%87%86%E5%A4%87/"/>
-    <id>http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/</id>
+    <title>运行c代码前发生了什么</title>
+    <link href="http://greedyhao.cc/2018/09/13/%E5%B7%A5%E4%BD%9C-c-language-2018-09-13-%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
+    <id>http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/</id>
     <published>2018-09-13T01:56:04.000Z</published>
-    <updated>2018-09-13T02:13:48.054Z</updated>
+    <updated>2018-09-13T02:17:29.876Z</updated>
     
     <content type="html"><![CDATA[<p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
 <a id="more"></a>
