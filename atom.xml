@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-13T02:06:11.142Z</updated>
+  <updated>2018-09-13T02:13:48.054Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://greedyhao.cc/2018/09/13/%E5%B7%A5%E4%BD%9C-c-language-2018-09-13-%E5%A4%84%E7%90%86%E5%99%A8%E5%9C%A8%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E5%87%86%E5%A4%87/"/>
     <id>http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-处理器在运行c代码前做了什么准备/</id>
     <published>2018-09-13T01:56:04.000Z</published>
-    <updated>2018-09-13T02:06:11.142Z</updated>
+    <updated>2018-09-13T02:13:48.054Z</updated>
     
     <content type="html"><![CDATA[<p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
 <a id="more"></a>
@@ -47,7 +47,7 @@
 <p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p>
 <p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p>
 <h1 id="篇外话">篇外话</h1>
-<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了(⊙o⊙)</p>
+<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了O__O &quot;…，好好的一篇科普文变成了推荐阅读文(手动笑哭)</p>
 <p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
