@@ -30,25 +30,25 @@ ga('send', 'pageview');
     
     
     
-    <title>pythonic的方式输入一个二维list | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>代码重定位 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="python,pythonic">
-    <meta name="description" content="以下内容来自hackerrank上的一个讨论">
-<meta name="keywords" content="python,pythonic">
+    <meta name="keywords" content="x210">
+    <meta name="description" content="代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。">
+<meta name="keywords" content="x210">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pythonic的方式输入一个二维list">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/index.html">
+<meta property="og:title" content="代码重定位">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="以下内容来自hackerrank上的一个讨论">
+<meta property="og:description" content="代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:05.000Z">
+<meta property="og:updated_time" content="2018-09-13T11:21:05.240Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pythonic的方式输入一个二维list">
-<meta name="twitter:description" content="以下内容来自hackerrank上的一个讨论">
+<meta name="twitter:title" content="代码重定位">
+<meta name="twitter:description" content="代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +129,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">pythonic的方式输入一个二维list</div>
+        <div class="flex-col header-title ellipsis">代码重定位</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +151,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">pythonic的方式输入一个二维list</h1>
+        <h1 class="title">代码重定位</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-13T01:20:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-13
+                <time datetime="2018-09-13T08:25:18.000Z" itemprop="datePublished" class="page-time">
+  2018-09-13
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -173,18 +171,23 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#长跳转与短跳转"><span class="post-toc-number">1.</span> <span class="post-toc-text">长跳转与短跳转</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#adr短加载和ldr长加载的不同"><span class="post-toc-number">2.</span> <span class="post-toc-text">adr短加载和ldr长加载的不同</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#清bss"><span class="post-toc-number">3.</span> <span class="post-toc-text">清bss</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#需要重定位的长度为代码段数据段"><span class="post-toc-number">4.</span> <span class="post-toc-text">需要重定位的长度为代码段＋数据段</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#两级流水线导致pc的值指向前两个字节"><span class="post-toc-number">5.</span> <span class="post-toc-text">两级流水线导致pc的值指向前２两个字节</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list"
+
+<article id="post-工作-x210-2018-09-13-代码重定位"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">pythonic的方式输入一个二维list</h1>
+        <h1 class="post-card-title">代码重定位</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-13 09:20:00" datetime="2017-08-13T01:20:00.000Z"  itemprop="datePublished">2017-08-13</time>
+            <time class="post-time" title="2018-09-13 16:25:18" datetime="2018-09-13T08:25:18.000Z"  itemprop="datePublished">2018-09-13</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -195,19 +198,21 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>以下内容来自hackerrank上的一个<a href="https://www.hackerrank.com/challenges/nested-list/forum" target="_blank" rel="noopener">讨论</a></p>
+            <p>代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。</p>
 <a id="more"></a>
-<p><strong>题目：</strong></p>
-<p>先输入一个整数（2~5）表示学生数，再连续输入学生姓名和成绩，输出成绩第二低的学生姓名。</p>
-<p>示例输入： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line">Harry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Berry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Tina</span><br><span class="line"><span class="number">37.2</span></span><br><span class="line">Akriti</span><br><span class="line"><span class="number">41</span></span><br><span class="line">Harsh</span><br><span class="line"><span class="number">39</span></span><br></pre></td></tr></table></figure></p>
-<p>示例输出： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Berry</span><br><span class="line">Harry</span><br></pre></td></tr></table></figure></p>
-<p>中间过程得到的一个list: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">students = [[<span class="string">'Harry'</span>, <span class="number">37.21</span>], [<span class="string">'Berry'</span>, <span class="number">37.21</span>], [<span class="string">'Tina'</span>, <span class="number">37.2</span>], [<span class="string">'Akriti'</span>, <span class="number">41</span>], [<span class="string">'Harsh'</span>, <span class="number">39</span>]]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">marksheet = []</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>,int(input())):</span><br><span class="line">    marksheet.append([input(), float(input())])</span><br><span class="line"></span><br><span class="line">second_lowest = sorted(list(set([marks <span class="keyword">for</span> name, marks <span class="keyword">in</span> marksheet])))[<span class="number">1</span>]</span><br><span class="line">print(<span class="string">'\n'</span>.join([a <span class="keyword">for</span> a,b <span class="keyword">in</span> sorted(marksheet) <span class="keyword">if</span> b == second_lowest]))</span><br></pre></td></tr></table></figure>
-<p>这是第一个人给出的解法，我刚看到觉得不错了，但是当我看到第二个人的解法才瞬间感觉到什么才 叫做pythonic</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = int(input())</span><br><span class="line">marksheet = [[input(), float(input())] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line">second_lowest = sorted(list(set([marks <span class="keyword">for</span> name, marks <span class="keyword">in</span> marksheet])))[<span class="number">1</span>]</span><br><span class="line">print(<span class="string">'\n'</span>.join([a <span class="keyword">for</span> a,b <span class="keyword">in</span> sorted(marksheet) <span class="keyword">if</span> b == second_lowest]))</span><br></pre></td></tr></table></figure>
-<p>第二个人对第一个人的marksheet的录入进行了简化，简化到只有一行。</p>
-<p>特别是他讲的一句话让我感触很大，python写代码就是要精简，如果长过了50行，你将很难Debug。</p>
-<p>原文在这。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.</span><br></pre></td></tr></table></figure></p>
+<p>那么为什么要这么做呢</p>
+<p>我们知道，越是高速的设备越贵，因此为了节约成本，这些高速设备空间都比较小，比如像S5PV210中的SRAM，只有96KB的大小，但是不需要初始化；SDRAM虽然可以做到很大，多以G做单位，但是需要软件初始化。</p>
+<p>产品中使用的bootloader可能可以裁剪到几十K的大小，但是如果想使用uboot的话，就会发现，才几十K的空间根本不够用；为了解决这个办法，只好使用重定位的方法，将uboot的代码重定位到容量比较大，速度又还过得去的SDRAM中，在SDRAM中运行系统。</p>
+<h1 id="长跳转与短跳转">长跳转与短跳转</h1>
+<p>在镜像后，运行时地址相关函数地址也会被映射到镜像地址处，要想执行镜像代码处的函数，就需要使用长跳转ldr，而不是短跳转bl。</p>
+<h1 id="adr短加载和ldr长加载的不同">adr短加载和ldr长加载的不同</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//file: .S</span><br><span class="line">...</span><br><span class="line">adr r0, _start</span><br><span class="line">ldr r1, =_start</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">//file: .dis</span><br><span class="line">...</span><br><span class="line">d002401c:	e24f0024 	sub	r0, pc, #36	; 0x24</span><br><span class="line">d0024020:	e59f1048 	ldr	r1, [pc, #72]	; d0024070 &lt;run_on_dram+0x10&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h1 id="清bss">清bss</h1>
+<p>把链接地址处把bss段清零，这是为了避免脏数据，万一连接处的bss段不为０，会导致c语言中的全局变量不为０。</p>
+<p>运行处的bss段不需要清0，编译器已经帮忙清0过了。</p>
+<h1 id="需要重定位的长度为代码段数据段">需要重定位的长度为代码段＋数据段</h1>
+<h1 id="两级流水线导致pc的值指向前两个字节">两级流水线导致pc的值指向前２两个字节</h1>
+<p>而且pc指针指向的是当前地址，而不是被链接到的地址，实际pc的地址为当前地址加两个字节</p>
 
         </div>
 
@@ -216,7 +221,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:05.000Z" itemprop="dateUpdated">2017-08-14 21:27:05</time>
+    最后更新时间：<time datetime="2018-09-13T11:21:05.240Z" itemprop="dateUpdated">2018-09-13 19:21:05</time>
 </span><br>
 
 
@@ -242,7 +247,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pythonic/">pythonic</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x210/">x210</a></li></ul>
 
 
             
@@ -252,7 +257,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&title=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&title=《代码重定位》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -262,22 +267,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&title=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&source=以下内容来自hackerrank上的一个讨论" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&title=《代码重定位》 — Zhuhao's Blog&source=代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码重定位》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -297,21 +302,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/13/工作-python-pythonic-2017-08-13-输出第二大的数/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">输出list中第二大的数</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/12/工作-python-pythonic-2017-08-12-list-comprehensions/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">list comprehensions</h4>
+        <h4 class="title">运行c代码前发生了什么</h4>
       </a>
     </div>
   
@@ -417,7 +415,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&title=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&title=《代码重定位》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -427,22 +425,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&title=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&source=以下内容来自hackerrank上的一个讨论" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&title=《代码重定位》 — Zhuhao's Blog&source=代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pythonic的方式输入一个二维list》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《代码重定位》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/13/工作-x210-2018-09-13-代码重定位/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -453,7 +451,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMklEQVR42u3aW07rQBAFwOx/09xf0IVwTrcjxUP5CzmOZ2qQaPrxeMTXx6crudNen9/w/7r5Hi6+sLGxsW/Czjf0fIGfnmkP6PkRPH8yeTM2Njb2qeyfGM+fycNM+/7Zp8la2NjY2Nj5d5MglPPyQ8fGxsbGbgNYm5xsAuE+WGJjY2Ofys5DSx6W9u2ETdPisloaNjY29tuzZ6HlPX9+SX8bGxsb+43Z+8GafMgmbxK3KUetwMbGxj6I3ZbgNwM9s5LTppD0y1rY2NjYR7ATRn4/J7WhaJ8yfbmDjY2NfRA7XyyBtaGopeY7jA4OGxsb+yB2sq22uDN7Q75KMnIUNRKwsbGxj2AnCUPbUp1hkvCW3/9l59jY2NhHs9vEIA9XV03UzA4dGxsb+zx2Hk5yZBvA8jub8PlNVwQbGxv7CHabJOTB6apWwawBXAxfYmNjY9+cnZeNZsgW1r552ELAxsbGPo69LyrlIz5JI7YdzalLWtjY2NgHsdsSUj4QswkwbUEqD4pRBoaNjY19BPuqsZhNQMoPIt8nNjY29nnszShMu622cbtJb+qZIGxsbOwj2Hka0KYrs3Zvcrh1IQkbGxv7OPasJTBruOYFoDbs5WnSLx0SbGxs7CPY+dBMPsqTj07m5a2iZoaNjY19NHvzT/xspGafzMxC4GW5CzY2Nvabsdsg1Jal2m1dOzZU5F7Y2NjYt2XPgsesDZAUjPKi0ksKSdjY2Ng3ZCebS0rzm03nLYrNt6LfPDY2NvYN2VcFsE1Yeiyu4YARNjY29kHsNlXYBLZN0jIrQq16I9jY2Ng3ZCehJW+yts2D56skDeOkYfBNAMPGxsY+iL15aXsEs8LT5tDr3gg2Njb2Ddkz/FWb25eT6m9hY2NjH8H+KK9k05tu86ydkAfFR1snw8bGxn57dvunv20bJIWeHPmcvTk4bGxs7LuzZ0Er31a70bbUlQQwbGxs7L/AngWGNlVIylivGAbCxsbGxs6LNZuBm7aF3IbYqMOAjY2N/QfYbWIwa0IkgW31PDY2NvZx7KSolPDadGWfoszWwsbGxj6JXZdjyk3PEoZh0T9uVGNjY2Mfwf4Hg9Jdybu3t58AAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3awYobMRAEUP//TyeQU8Jiu6pb2nXgzcl4Z2f0ZJBEdT8e8fXrz/X356/ffP3rs3vyO18/4diFh4eHNxr6syt5ZX4lA/16f/tePDw8vO/hJZtBfs9mgtrN440FDw8P70d5TxffEXgzxXh4eHj/C292IN48Hw8PD++TeUl8kGwMr5+Zhw7teA5kLXh4eHgxb1YA+9nP1+t7eHh4eKOqelvEajeMNsKox4mHh4d3gZcErLOBbloHkriheBoeHh7eBd6pQDZv2Eq2h6QUt9mi8PDw8Da85DX7kDdf6GfbVdGuioeHh7fg5U0AbSvVvnUgn6anCjw8PLwLvLbMvwkmkinLx3CgMwIPDw9vwcsP0200cKwpqgwyip0QDw8Pb8HLl+Z888gj1zacbSMPPDw8vBu8vPyfhAWzxql7DQ14eHh493irBTdYvs82GdRTgIeHh3eI15bBXg8o3ww2oXASB+Ph4eHd5uUvzgPcdsPIt4f8vXh4eHhnecnCuimAtc1SxW+SRM94eHh413h5FJsHrLOINp+sCImHh4d3jXfqcNwex2+0W/3zDR4eHt4F3qzQ1R6jo7D1QrENDw8P7wYvb5+axRZtJtAGx3WMi4eHh7fm5SX5Uwv3qfbTojUBDw8P7wKvXdaTrSKfoFlQW08iHh4e3mVeW6DaLN+zCarjYDw8PLyjvHZYbTFsw569903rFR4eHt5RXvJvswPxppDWhheP2S+Ah4eHF7xrtjTfjnfzA/qbacLDw8O7wJstuK8fdyqWbd+y2lTw8PDwSl67GeTLehsr7DeGYdMVHh4e3og3K/DPFvFZy8KsPQsPDw/vE3ibCKM9FrcRMB4eHt6n8TbLfXsgbqcJDw8P7/t57bK+CX83Q68P33h4eHgXePsCWBvg3tg2Zj8AHh4eXsn7DQG0K/BcJwDVAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
