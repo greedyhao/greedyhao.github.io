@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-13T11:21:05.240Z</updated>
+  <updated>2018-09-17T14:15:31.879Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zybo初体验</title>
+    <link href="http://greedyhao.cc/2018/09/17/%E5%B7%A5%E4%BD%9C-fpga-2018-09-17-zybo%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <id>http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/</id>
+    <published>2018-09-17T14:15:21.000Z</published>
+    <updated>2018-09-17T14:15:31.879Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。</p>
+<a id="more"></a>
+<p>学习肯定是从官方资料开始的，<em>The Zynq Book</em>了解下，作者都是牛人，他们的介绍看<a href="http://www.zynqbook.com/authors.html" target="_blank" rel="noopener">这里</a>，反正跟着大牛学就没有错，可以避免很多坑。</p>
+<p><em>The Zynq Book</em>系统的讲解了Zynq的相关知识，比如Zynq的架构、应用等，主要偏理论，它的配套书籍<em>The Zynq Book Tutorial</em>，就是实战内容了，可以跟着Tutorial动手，一步步完成实验，对学习使用Zynq和它的开发软件Vivado很有帮助。</p>
+<p>目前我刚刚学习完第一个练习，很开心，迫不及待的跑过来分享一下我的体验。</p>
+<p>首先，开发板越多人使用越好，最好要选择大公司，他们的生态比小公司生产的开发板要好很多。就像我这次，在第一个实验就出现了问题，明明按照Tutorial说明的实验步骤操作的，但是结果却不正确，搜索了很久找不到结果(可能是没找到点上)，然后去Digilent的论坛上发帖提问，才过了几个小时就有人解决了我的问题，原来是我配置GPIO借口时粗心了，配置到btns 4bits去了，导致程序不能正常工作。</p>
+<p>然后就是，Xilinx的体验感觉比Altera的体验要好。Altera的文档不好找，之前使用Altera，翻文档的经历不好受，想找的东西就是找不到；而且tutorial也做的不好。Xilinx做的就比Altera明显好得多了，对文档做了打包，用DocNav管理文档，而且文档有了更新下载很方便；最重要的是新手教程很不错，<em>The Zynq Book</em>很好用。</p>
+<p>最后献上我的体验效果 <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_led_blink.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<p>本文所提及的教程已经上传百度云，回复</p>
+<p><strong>下载|Zynq_Book</strong></p>
+<p>获取下载链接</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
+    
+  </entry>
   
   <entry>
     <title>代码重定位</title>
@@ -1596,46 +1651,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
     
       <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自适应滤波教我做人</title>
-    <link href="http://greedyhao.cc/2018/05/25/%E7%94%9F%E6%B4%BB-%E6%84%9F%E6%82%9F-2018-05-25-%E8%87%AA%E9%80%82%E5%BA%94%E6%BB%A4%E6%B3%A2%E6%95%99%E6%88%91%E5%81%9A%E4%BA%BA/"/>
-    <id>http://greedyhao.cc/2018/05/25/生活-感悟-2018-05-25-自适应滤波教我做人/</id>
-    <published>2018-05-25T15:21:28.000Z</published>
-    <updated>2018-09-09T03:14:28.039Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="自适应滤波教我做人">自适应滤波教我做人</h1>
-<p>最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。</p>
-<p>先说我结果吧，后天就是比赛开始了，但是我还是没有搞定问题，又面临着考试可能会挂科的压力，只能弃权了。</p>
-<p>我觉得之所以会导致这个结果，跟我前期的规划失策是有一定原因的。</p>
-<p>我将主要的精力全部放在LMS算法的实现上了；再着，FPGA对我来说是一个很大的挑战，因为之前从来没有用过，要在一个月内学会使用并做比赛，对我来说还是有着挺大的压力的；还有很重要的一点就是，我的心太大了，同时报了两个比赛，除了电赛还有另外一个科技创新的校内比赛，本以为很容易解决的，但是还是耽误了我很多时间，而且也是由于时间问题只能放弃。</p>
-<p>这次的比赛除了让我意识到我的规划有问题外，也让我知道了，一个人的力量还是有限的。在没有参加比赛前，我还是自信心爆棚的，在网上看了些论文，自以为就没有问题了，就直接随便拉了两个人报名，然后全部工作由我一个人来做。事实证明，还是很难的，特别是做自己不熟悉的东西，更是难上加难；找文档、找论文都花了我超多时间，如果有队友的话，这些时间可以剩出很多来，甚至我的项目进度还可以以并行的方式前进。就拿这次的比赛来说，我需要一个信号叠加、一个信号移相、一个自适应滤波三大模块，正好电赛有三个名额，如果有队友的话，完全可以分成多个任务，大家一起完成，</p>
-<p>断断续续做了差不多一个月的这个比赛，我就说说我除了教训，还获得了什么吧。</p>
-<p>首先自然是学会了使用FPGA的一点皮毛，Quartus这个庞大的软件基本被我啃了下来，基本会操作了，很感动。因为软件资料真的不算多，特别是我使用的最新quartus 18版，我在官网看的有的资料甚至是几天前才出的，有的资料也还没有更新，真的挺难受的。我把我自己排的许多坑全部都写出来了，<a href="https://www.mianbaoban.cn/blog/3868882-404616.html" target="_blank" rel="noopener">直面使用quartus遇到的问题</a>、<a href="https://www.mianbaoban.cn/blog/3868882-404626.html" target="_blank" rel="noopener">使用ModelSim遇到的问题</a>、<a href="https://www.mianbaoban.cn/blog/3868882-404627.html" target="_blank" rel="noopener">使用DSP Builder遇到的问题</a>，这些很多都是我在网上没有搜到，然后在官方手册里找了很久才找到的，也算是我为广大群体做的一点小贡献吧。可能我之后还会写一些具体的操作教程，因为我也注意到了我使用的开发板Cyclone IV相关的教程比较缺乏，不好上手，就好像这次困住我的地方就是A/D转换方面的问题，等我解决了后就会发出来。</p>
-<p>再者的话自然就是对信号处理有了更多的了解，了解到自适应滤波其实本质上也是一种基于统计学的方法，通过统计输入信号与期望信号之间的误差来调节滤波器的相关参数，自适应滤波分为自适应过程与滤波过程。我花了很多时间，但是也没有完全理解，最后终于在网上找到了一个解决方法，但是效果并不怎么好，是由两个七阶lms滤波器组成，但是却需要差不多8个周期才能收敛，而我在论文中看到的只需要两个周期，而且没有使用这么多资源。下面给张自适应滤波器的效果图吧。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/dsp_builder/LMS_filter.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>再者的话，就是对数字信号有了更多的了解，一开始想着信号叠加和信号移相全部使用模拟电路做，但是后来了解到可以使用FPGA完成，就想使用数字电路来完成。可以说，这是导致我失败的一个很重要的原因，因为信号的移相需要使用到<a href="https://zh.wikipedia.org/zh-hans/%E7%9B%B4%E6%8E%A5%E6%95%B0%E5%AD%97%E5%90%88%E6%88%90" target="_blank" rel="noopener">Direct digital synthesizer(DDS)</a>，这是什么？它可以从一个单一的频率源生成任意波形和频率。原本我的想法是通过ADC得到输入信号的波形和频率，然后将移相后的波形通过DDS生成，再通过DAC输出，但是FPGA还不太熟，怎么检测波形我还不会，就一直给卡在这里了…</p>
-<p>总的来说，失败了也不错，只有挫折能让人保持清醒，而痛苦才能让我品尝到快乐。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;自适应滤波教我做人&quot;&gt;自适应滤波教我做人&lt;/h1&gt;
-&lt;p&gt;最近准备参加电赛，校赛的要求是在2017年电赛国赛的题目中选择一个做。我看了题目，表示对自适应滤波比较感兴趣，正好之前也学习了解过一点信号处理的相关知识，就决定是自适应滤波了。&lt;/p&gt;
-&lt;p&gt;先说我结果吧，
-    
-    </summary>
-    
-      <category term="生活" scheme="http://greedyhao.cc/categories/%E7%94%9F%E6%B4%BB/"/>
-    
     
   </entry>
   

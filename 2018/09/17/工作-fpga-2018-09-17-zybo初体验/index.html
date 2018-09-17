@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>zybo初体验 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Xilinx,Zynq">
+    <meta name="description" content="前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。">
+<meta name="keywords" content="Xilinx,Zynq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zybo初体验">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/xilinx/zybo_E1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/xilinx/zybo_led_blink.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-17T14:15:31.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zybo初体验">
+<meta name="twitter:description" content="前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/xilinx/zybo_E1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">zybo初体验</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">zybo初体验</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-17T14:15:21.000Z" itemprop="datePublished" class="page-time">
+  2018-09-17
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-工作-fpga-2018-09-17-zybo初体验"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">zybo初体验</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-17 22:15:21" datetime="2018-09-17T14:15:21.000Z"  itemprop="datePublished">2018-09-17</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。</p>
+<a id="more"></a>
+<p>学习肯定是从官方资料开始的，<em>The Zynq Book</em>了解下，作者都是牛人，他们的介绍看<a href="http://www.zynqbook.com/authors.html" target="_blank" rel="noopener">这里</a>，反正跟着大牛学就没有错，可以避免很多坑。</p>
+<p><em>The Zynq Book</em>系统的讲解了Zynq的相关知识，比如Zynq的架构、应用等，主要偏理论，它的配套书籍<em>The Zynq Book Tutorial</em>，就是实战内容了，可以跟着Tutorial动手，一步步完成实验，对学习使用Zynq和它的开发软件Vivado很有帮助。</p>
+<p>目前我刚刚学习完第一个练习，很开心，迫不及待的跑过来分享一下我的体验。</p>
+<p>首先，开发板越多人使用越好，最好要选择大公司，他们的生态比小公司生产的开发板要好很多。就像我这次，在第一个实验就出现了问题，明明按照Tutorial说明的实验步骤操作的，但是结果却不正确，搜索了很久找不到结果(可能是没找到点上)，然后去Digilent的论坛上发帖提问，才过了几个小时就有人解决了我的问题，原来是我配置GPIO借口时粗心了，配置到btns 4bits去了，导致程序不能正常工作。</p>
+<p>然后就是，Xilinx的体验感觉比Altera的体验要好。Altera的文档不好找，之前使用Altera，翻文档的经历不好受，想找的东西就是找不到；而且tutorial也做的不好。Xilinx做的就比Altera明显好得多了，对文档做了打包，用DocNav管理文档，而且文档有了更新下载很方便；最重要的是新手教程很不错，<em>The Zynq Book</em>很好用。</p>
+<p>最后献上我的体验效果 <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_led_blink.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<p>本文所提及的教程已经上传百度云，回复</p>
+<p><strong>下载|Zynq_Book</strong></p>
+<p>获取下载链接</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-17T14:15:31.879Z" itemprop="dateUpdated">2018-09-17 22:15:31</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xilinx/">Xilinx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zynq/">Zynq</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&title=《zybo初体验》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&title=《zybo初体验》 — Zhuhao's Blog&source=前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《zybo初体验》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/13/工作-x210-2018-09-13-代码重定位/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">代码重定位</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&title=《zybo初体验》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&title=《zybo初体验》 — Zhuhao's Blog&source=前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《zybo初体验》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACxElEQVR42u3aQY7bQAwEQP//0w6QW5DY6iY19gYonYK1V1LNAjNMk49HfD1/X8mnz7+uV3d49Wlyt5svPDw8vNGrv7qSR77/rRk1/87FEuDh4eEd4yXbffv9/dafL9DLn+Ph4eF9lfd+688r231Zj4eHh/e/8N4XxG2IkB8beHh4eD+T18YKSRGcHAlt6HAwa8HDw8OLeZty9lv/Ptjfw8PDw1t01duW2OyJswZb9J54eHh4B3j7gDVpWeXtqzwiKe6Gh4eHd4C3GQJoHz8Dt+8T/T3x8PDwRrw8ct0X1vlGPyvZo2IaDw8Pb817XwS3MUF7kCRPaRtmRZiLh4eHN+K1DfjZwbAZBcjvc3Hu4eHh4d3Ky9tOeXSbfzorvqMSHA8PD+8ALy9SN/FEW6An75AX3Hh4eHj38vbDVXkwkW/rRY7yvujHw8PDO8y766b5cswGBYoyHQ8PD+8Ar40S2p/PDobZPaP5CDw8PLw1L9+g2xb+HjBrvF0EuHh4eHi38vK2Uxu/ngBHAwd4eHh4x3izYalZ06st0/NRg3+8Gx4eHt4x3j6izRcoD3Nn41YvZ8rw8PDwbuW1/8mftbtm4wibohwPDw/vBC8fe5qVue2dN2MEF++Gh4eHd5iXPLI9KvIyOh81yEcT8PDw8E7wklefgdtDKH9KvYh4eHh4t/JmTaw2tsiHTdvC/ZF/FQ8PD2/Na+Pa2X3ahlYbUlxk1Xh4eHjHeHnwmi/EJiAuTjY8PDy8j/Ce5ZUHqXnokAcZyeL+cX88PDy8A7zVebLYypNifTaq9ZhdeHh4eOVz2y1+FlK0Q66zgh4PDw/vk7w8Km3b9vlAQLtwUfiLh4eH92N490YGbRusOB7w8PDwvsqbldGz5lm7THh4eHif5yWRQbKt5xHGvvUVBcd4eHh4B3htAyx5QDsckMfH90YYeHh4eCXvF5aK5Cn8es7NAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
