@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-18T07:45:00.327Z</updated>
+  <updated>2018-09-18T07:47:10.899Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>shell获取当前工作目录</title>
-    <link href="http://greedyhao.cc/2018/09/18/%E5%B7%A5%E4%BD%9C-Linux-2018-09-18-shell%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95/"/>
-    <id>http://greedyhao.cc/2018/09/18/工作-Linux-2018-09-18-shell获取当前工作目录/</id>
+    <title>linux命令行运行第三方软件</title>
+    <link href="http://greedyhao.cc/2018/09/18/%E5%B7%A5%E4%BD%9C-Linux-2018-09-18-linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%89%E6%96%B9%E8%BD%AF%E4%BB%B6/"/>
+    <id>http://greedyhao.cc/2018/09/18/工作-Linux-2018-09-18-linux命令行运行第三方软件/</id>
     <published>2018-09-18T07:41:50.000Z</published>
-    <updated>2018-09-18T07:45:00.327Z</updated>
+    <updated>2018-09-18T07:47:10.899Z</updated>
     
     <content type="html"><![CDATA[<p>linux的宗旨是万物皆文件，所以很多不在源中的程序就是解包即用，但这样使用起来有些不方便，需要cd到可执行文件目录，然后再运行，显得有些麻烦。</p>
 <a id="more"></a>
@@ -53,7 +53,9 @@
     </summary>
     
     
-      <category term="shell" scheme="http://greedyhao.cc/tags/shell/"/>
+      <category term="Linux" scheme="http://greedyhao.cc/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://greedyhao.cc/tags/Shell/"/>
     
   </entry>
   
