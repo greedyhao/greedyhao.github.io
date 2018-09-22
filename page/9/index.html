@@ -167,6 +167,112 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Usart"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        一般步骤
+
+串口时钟的使能，GPIO时钟使能
+串口复位
+GPIO端口模式设置
+串口参数初始化
+开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
+使能串口
+编写中断处理函数
+
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Output"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+2.初始化I/O参数,调用函数GPIO_Init()
+3.操作I/O
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -215,7 +321,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-IWDG"
+            <article id="post-工作-stm32-2017-08-10-TIM"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -233,7 +339,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
     </h3>
   
 
@@ -243,11 +349,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        看门狗简述
-独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
+        定时器简述
+相信使用过51单片机的人对定时器都很熟悉了吧。
+顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
+在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -263,7 +371,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-EXTI"
+            <article id="post-工作-stm32-2017-08-10-WWDG"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -281,7 +389,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/">学习外部中断</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
     </h3>
   
 
@@ -293,16 +401,15 @@ ga('send', 'pageview');
     
         基本步骤
 
-初始化I/O口为输入
-开启AFIO时钟
-设置I/O口与中断线的映射关系
-初始化线上中断，设置触发条件等
-配置中断分组（NVIC），并使能中断
+使能WWDG时钟（APB1）
+设置窗口值和分频值
+开启WWDG中断并分组
+设置计数器初始值并使能看门狗
 编写中断服务函数
 
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -366,54 +473,6 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-Input"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/">学习GPIO输入</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        GPIO_Input
-程序很简单，就是读取按键是否按下，控制LED是否点亮。
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -455,6 +514,54 @@ ga('send', 'pageview');
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Input"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/">学习GPIO输入</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        GPIO_Input
+程序很简单，就是读取按键是否按下，控制LED是否点亮。
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
 
     </div>
     
@@ -552,102 +659,6 @@ ga('send', 'pageview');
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-altium-2017-08-10-绘制51最小系统板"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 16:49:00" datetime="2017-08-10T08:49:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/">从51最小系统开始</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        绘制51最小系统板
-我在之前从没有完整的画过51系统最小板，现在就来尝试。
-    
-
-        <a href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Altium/">Altium</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-altium-2017-08-10-Altium学习"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 16:48:00" datetime="2017-08-10T08:48:00.000Z"  itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-altium-2017-08-10-Altium学习/">Altium入门</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        准备开发环境
-这是必要的，本着有最新的就用最新的理念，我下载使用的是Altium Dsigned16,有钱买正版，没钱就破解，破解过程就不献丑了， 无非就是给AD16添加一个license而已。
-    
-
-        <a href="/2017/08/10/工作-altium-2017-08-10-Altium学习/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Altium/">Altium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
 
     </div>
     

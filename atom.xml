@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-18T08:30:46.514Z</updated>
+  <updated>2018-09-22T05:18:07.317Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,127 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ZynqBook实验二的实践</title>
+    <link href="http://greedyhao.cc/2018/09/21/%E5%B7%A5%E4%BD%9C-fpga-2018-09-21-ZynqBook%E5%AE%9E%E9%AA%8C%E4%BA%8C%E7%9A%84%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://greedyhao.cc/2018/09/21/工作-fpga-2018-09-21-ZynqBook实验二的实践/</id>
+    <published>2018-09-21T15:50:54.000Z</published>
+    <updated>2018-09-22T05:18:07.317Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先自然是跟着实验指导书做实验了</p>
+<a id="more"></a>
+<h1 id="实验2b">实验2B</h1>
+<p>然后发现别人添加另外一个gpio的方法是需要重新添加一个gpio的ip核的，而不是直接用同一个ip核的另外一个gpio口</p>
+<p><sub>而且感觉在SDK上编程的体验还是不太佳，没有代码自动补全能力</sub>~ ，网上搜索了一下，发现代码补全的能力是有的，快捷键<strong>alt+/</strong></p>
+<p>这个实验的目标是使用中断检测按键输入，然后控制led灯的变换，按键(btns)按下时，对应leds的那一位加1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">InterruptSystemSetup</span><span class="params">(XScuGic *XScuGicInstancePtr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// Enable interrupt</span></span><br><span class="line">	XGpio_InterruptEnable(&amp;BTNInst, BTN_INT);</span><br><span class="line">	XGpio_InterruptGlobalEnable(&amp;BTNInst);</span><br><span class="line">    ...</span><br><span class="line">	<span class="keyword">return</span> XST_SUCCESS;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IntcInitFunction</span><span class="params">(u16 DeviceId, XGpio *GpioInstancePtr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    status = XScuGic_Connect(&amp;INTCInst,</span><br><span class="line">                            INTC_GPIO_INTERRUPT_ID,</span><br><span class="line">                            (Xil_ExceptionHandler)BTN_Intr_Handler,</span><br><span class="line">                            (<span class="keyword">void</span> *)GpioInstancePtr);</span><br><span class="line">	<span class="keyword">if</span>(status != XST_SUCCESS) <span class="keyword">return</span> XST_FAILURE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable GPIO interrupts interrupt</span></span><br><span class="line">	XGpio_InterruptEnable(GpioInstancePtr, <span class="number">1</span>);</span><br><span class="line">	XGpio_InterruptGlobalEnable(GpioInstancePtr);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Enable GPIO and timer interrupts in the controller</span></span><br><span class="line">	XScuGic_Enable(&amp;INTCInst, INTC_GPIO_INTERRUPT_ID);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>zynq的ps这边使用中断和以前mcu开发时很像，也都是需要先对中断注册，然后开中断，最后才能使用。</p>
+<p>中断能用了，还要声明一个处理中断的函数，这个例程中的<em>BTN_Intr_Handler</em>就是一个处理中断的函数，在初始化中断的时候就注册好了。</p>
+<p>效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E2b.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="实验2b总结">实验2B总结</h2>
+<p>通过这个部分的实验，学会了如何在Vivado中，开启一个ip的中断，又是怎么与zynq的ps核连接。</p>
+<p>还学习到，要想在ps中使用这个中断，需要注册初始化这个中断和声明一个处理中断的函数。</p>
+<h1 id="实验2d">实验2D</h1>
+<p>这个实验是教我们添加更多的中断源，很现实的一个例子。</p>
+<p>目前来看，ps添加多个中断源，需要增加一个mask，通过判定加了mask后的中断号，来判定是哪一个外设产生的中断。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E2b.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这个实验添加了一个定时器中断源，在上一个实验的基础上使用了定时器中断，每三次定时器中断会让leds的值加1，控制定时器中断时间的，是<em>TMRInst</em>这个变量，每达到设置的0xF8000000这个值，触发一次中断</p>
+<p>效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E2d.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="实验2d总结">实验2D总结</h2>
+<p>学习了怎么添加多个中断源</p>
+<p>学习了xilinx中的定时器的使用</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先自然是跟着实验指导书做实验了&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="入门学习" scheme="http://greedyhao.cc/categories/%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ZynqBook实验一延伸部分</title>
+    <link href="http://greedyhao.cc/2018/09/21/%E5%B7%A5%E4%BD%9C-fpga-2018-09-21-ZynqBook%E5%AE%9E%E9%AA%8C%E4%B8%80%E5%BB%B6%E4%BC%B8%E9%83%A8%E5%88%86/"/>
+    <id>http://greedyhao.cc/2018/09/21/工作-fpga-2018-09-21-ZynqBook实验一延伸部分/</id>
+    <published>2018-09-21T14:46:44.000Z</published>
+    <updated>2018-09-22T05:18:12.709Z</updated>
+    
+    <content type="html"><![CDATA[<p>实验一的内容主要就是如何为zybo创建工程，然后如何烧写这第一个程序。尽管只是一个简单的LED闪烁的程序，但是对学习开发zybo的帮助还是很大的。</p>
+<a id="more"></a>
+<p>上次的实验，是直接使用zynqbook提供的代码，是让led 0 3位和1 2位的交替闪烁</p>
+<p>根据实验指导书建议的，自己修改led的闪烁方式</p>
+<p>我将它的闪烁方式改成了类似流水灯的闪烁方式、</p>
+<p>原理就是和一个移动的位异或，然后循环左移这个位</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Definitions */</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LED 0x0										<span class="comment">/* Initial LED value - X00X */</span></span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LEDOutputExample</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Loop forever blinking the LED. */</span></span><br><span class="line">			<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">                ...</span><br><span class="line">				<span class="comment">/* Flip LEDs. */</span></span><br><span class="line"><span class="comment">//				led = ~led;</span></span><br><span class="line">				led = led ^ (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line">				i++;</span><br><span class="line">				<span class="keyword">if</span> (i &gt;= <span class="number">4</span>) i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">				<span class="comment">/* Wait a small amount of time so that the LED blinking is visible. */</span></span><br><span class="line">				<span class="keyword">for</span> (Delay = <span class="number">0</span>; Delay &lt; LED_DELAY; Delay++);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> XST_SUCCESS; <span class="comment">/* Should be unreachable */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E1x.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>至于第三个建议扩展一个io的部分，我没有实现</p>
+<p>因为我在block design中添加gpio2后，在sdk中没有生成gpio2的定义</p>
+<p>于是我决定在第二个实验中寻找答案</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;实验一的内容主要就是如何为zybo创建工程，然后如何烧写这第一个程序。尽管只是一个简单的LED闪烁的程序，但是对学习开发zybo的帮助还是很大的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="入门学习" scheme="http://greedyhao.cc/categories/%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
+    
+  </entry>
   
   <entry>
     <title>linux命令行运行第三方软件</title>
@@ -68,7 +189,7 @@
     <link href="http://greedyhao.cc/2018/09/17/%E5%B7%A5%E4%BD%9C-fpga-2018-09-17-zybo%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
     <id>http://greedyhao.cc/2018/09/17/工作-fpga-2018-09-17-zybo初体验/</id>
     <published>2018-09-17T14:15:21.000Z</published>
-    <updated>2018-09-17T14:15:31.879Z</updated>
+    <updated>2018-09-22T05:18:03.881Z</updated>
     
     <content type="html"><![CDATA[<p>前段时间过生日，亲戚给了些钱让我自己买生日礼物，早就想搞一块zynq的板了，但是淘宝一看太贵，于是去咸鱼上淘了一块二手的ZYBO(谁知道是不是二手，反正看着挺新)来玩玩。</p>
 <a id="more"></a>
@@ -113,6 +234,8 @@
     
     
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
     
       <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
     
@@ -1394,192 +1517,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
       <category term="C王国的诞生" scheme="http://greedyhao.cc/categories/C%E7%8E%8B%E5%9B%BD%E7%9A%84%E8%AF%9E%E7%94%9F/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>如何在Keil中提高代码的可读性</title>
-    <link href="http://greedyhao.cc/2018/07/07/%E5%B7%A5%E4%BD%9C-stm32-2018-07-07-%E5%A6%82%E4%BD%95%E5%9C%A8Keil%E4%B8%AD%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7/"/>
-    <id>http://greedyhao.cc/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/</id>
-    <published>2018-07-07T07:24:27.000Z</published>
-    <updated>2018-09-09T04:38:31.188Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="如何在keil中提高代码的可读性">如何在Keil中提高代码的可读性</h1>
-<p>写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲伤。</p>
-<p>所以，写代码前，最好先把代码的整体结构布置好，比如include放什么地方，define放什么地方，需要export的变量、函数放什么地方，最好又要保持自己所有的代码都保持这种模式，这时候，创建一个代码模板就非常有效了。</p>
-<p>创建一个代码模板需要注意哪些方面呢？没有什么好的想法的话可以参考一下优秀的开源代码。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/progamme_style_4.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>上面的代码风格从左到右，分别是FreeRTOS、FatFs、ST的代码风格，都很优秀，而且这些优秀的代码的共同点是，注释跟代码量差不多，甚至超过代码量。</p>
-<p>因为的本身也在使用Keil，而且ST的注释很有逻辑，就选择了ST的注释风格。选择了注释风格后，就是创建代码模板了。</p>
-<h1 id="创建代码模板步骤如下">创建代码模板步骤如下</h1>
-<ul>
-<li>下载HAL库，并解压，打开Cube_FW_F7_V1.11.07533（也可以是其他文件夹下的），删除所有的代码，只留下注释</li>
-</ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/progamme_style_5.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<ul>
-<li>在自己的工程中新建一个文件，复制到新建的文件中</li>
-<li>打开工具栏的<strong>Configuration</strong>，选择<strong>TextCompletion</strong></li>
-<li>新建一个<strong>Template</strong>，将模板复制进去</li>
-<li>重复以上步骤，创建头文件的代码模板</li>
-</ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/progamme_style_6.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h1 id="使用代码模板方法">使用代码模板方法</h1>
-<ul>
-<li>新建一个文件，要包含在项目中</li>
-<li>在左侧的工具栏选择<strong>Templates</strong></li>
-<li>点击先前创建的代码模板</li>
-</ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/progamme_style_7.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h1 id="最后附上我创建的代码模板">最后附上我创建的代码模板</h1>
-<p><strong>头文件的代码模板</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Define to prevent recursive inclusion -------------------------------------*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"> <span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> </span></span><br><span class="line"><span class="comment">/* Includes ------------------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/** @addtogroup BSP</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @addtogroup Components</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line">  </span><br><span class="line"><span class="comment">/** @addtogroup ST7735</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/** @defgroup ST7735_Exported_Types</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Exported_Constants</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">      </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/** @defgroup ADAFRUIT_SPI_LCD_Exported_Functions</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/*  */</span></span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/************************ (C) COPYRIGHT greedyhao *****END OF FILE****/</span></span><br></pre></td></tr></table></figure>
-<p><strong>源文件的代码模板</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Includes ------------------------------------------------------------------*/</span></span><br><span class="line"><span class="comment">/** @addtogroup BSP</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @addtogroup Components</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @addtogroup ST7735</span></span><br><span class="line"><span class="comment">  * @brief      This file provides a set of functions needed to drive the</span></span><br><span class="line"><span class="comment">  *             ST7735 LCD.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_TypesDefinitions</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_Defines</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_Macros</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @&#125;</span></span><br><span class="line"><span class="comment">  */</span>  </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_Variables</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_FunctionPrototypes</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/** @defgroup ST7735_Private_Functions</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/************************ (C) COPYRIGHT greedyhao *****END OF FILE****/</span></span><br></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;如何在keil中提高代码的可读性&quot;&gt;如何在Keil中提高代码的可读性&lt;/h1&gt;
-&lt;p&gt;写代码犹如挖坑，挖坑容易，填坑难。一旦代码遇到BUG，需要慢慢调试时，你就会发现代码的可读性非常重要了，代码不整齐、命名不规范等等问题会导致代码像一团屎，看着恶心，检查起来更是悲
-    
-    </summary>
-    
-      <category term="工作" scheme="http://greedyhao.cc/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-      <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CubeMX小指南之添加其他软件组件</title>
-    <link href="http://greedyhao.cc/2018/07/06/%E5%B7%A5%E4%BD%9C-stm32-2018-07-06-CubeMX%E5%B0%8F%E6%8C%87%E5%8D%97%E4%B9%8B%E6%B7%BB%E5%8A%A0%E5%85%B6%E4%BB%96%E8%BD%AF%E4%BB%B6%E7%BB%84%E4%BB%B6/"/>
-    <id>http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/</id>
-    <published>2018-07-06T05:38:47.000Z</published>
-    <updated>2018-09-09T04:34:27.056Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="cubemx小指南之添加其他软件组件">CubeMX小指南之添加其他软件组件</h1>
-<p>写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_1.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>而我的是这样的</p>
-<div class="figure">
-<img src="/img/stm32/adding_additional_software_components_2.png">
-
-</div>
-<p>这一看就知道有问题嘛，凭什么我的pacK少这么多是吧。</p>
-<h1 id="解决additional-software-components中没有可添加的包的问题">解决Additional Software Components中没有可添加的包的问题</h1>
-<p>我找到的<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" target="_blank" rel="noopener">原解决方案链接在这里</a></p>
-<p>ps:公众号不能点击链接确实很麻烦，我会在文末附加上这个链接和我的博客地址，可以选择在文末复制这个链接或者到我的博客中读这篇文章。</p>
-<p><strong>解决方法如下：</strong></p>
-<p>首先是打开CubeMX</p>
-<ul>
-<li>在<strong>Help</strong>菜单下点击<strong>ManageEmbeddedSoftwarePackages</strong>（快捷键Alt+U）</li>
-<li>在<strong>EmbeddedSoftwarepackagesmanager</strong>窗口底部点击<strong>FromURL</strong></li>
-<li>在新的窗口点击<strong>New</strong></li>
-<li>输入Keilpacks的indexURL：<strong><a href="http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx" class="uri" target="_blank" rel="noopener">http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx</a></strong></li>
-<li>点击<strong>Check</strong>，然后你可以看见绿色的小勾</li>
-<li>点击<strong>Ok</strong>，然后会开始更新URL，这有点久，我等了几分钟</li>
-<li>这时候再打开AdditionalSoftwareComponents你就会发现多了很多包了</li>
-</ul>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_3.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<div class="figure">
-<img src="/img/stm32/adding_additional_software_components_4.png">
-
-</div>
-<h2 id="还是没有看见自己想要的包怎么办">还是没有看见自己想要的包怎么办</h2>
-<p>不急，就拿我自己来说吧，想添加rt-thread的支持，在刚刚添加完keil pack后，发现还是没有rt-thread的支持。说实话，我是觉得有点奇怪的，明明keil pack中是有rt-thread的index的。</p>
-<p>既然没有自动加入，那就手动加入吧。</p>
-<p>和前面添加keil pack的方法一样，在Keil pack index URL中找到了rt-thread的index URL:<strong><a href="http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc" class="uri" target="_blank" rel="noopener">http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc</a></strong>，然后添加进去，install一下，Additional Software Components中就有rt-thread了</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_5.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h2 id="怎么添加additional-software-components进自己的工程呢">怎么添加Additional Software Components进自己的工程呢</h2>
-<p>以rt-thread为例，先进入Additional Software Components</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_6.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>在左侧的Pack Vender中选择rt-thread，展开rt-thread Vender后，你会看见两个警告，大概意思是组件缺失，需要勾选上这三个组件的Selection，再返回到主界面时，就可以看到rt-thread了</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_7.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/adding_additional_software_components_8.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<hr>
-<h1 id="文中链接的提供">文中链接的提供</h1>
-<ul>
-<li>博客地址：<a href="http://greedyhao.cc/" class="uri">http://greedyhao.cc/</a></li>
-<li>AdditionalSoftware解决方案原文链接：<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" class="uri" target="_blank" rel="noopener">https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components</a></li>
-</ul>
-<div class="figure">
-<img src="/img/wechat_official_accounts.jpg">
-
-</div>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;cubemx小指南之添加其他软件组件&quot;&gt;CubeMX小指南之添加其他软件组件&lt;/h1&gt;
-&lt;p&gt;写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇
-    
-    </summary>
-    
-      <category term="工作" scheme="http://greedyhao.cc/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-      <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
     
   </entry>
   
