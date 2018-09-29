@@ -30,25 +30,27 @@ ga('send', 'pageview');
     
     
     
-    <title>学习定时器 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>对Xil_Out32未定义的引用 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content="Xilinx">
+    <meta name="description" content="第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。">
+<meta name="keywords" content="Xilinx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习定时器">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/index.html">
+<meta property="og:title" content="对Xil_Out32未定义的引用">
+<meta property="og:url" content="http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
+<meta property="og:description" content="第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:49.000Z">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-29T12:48:34.037Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习定时器">
-<meta name="twitter:description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
+<meta name="twitter:title" content="对Xil_Out32未定义的引用">
+<meta name="twitter:description" content="第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习定时器</div>
+        <div class="flex-col header-title ellipsis">对Xil_Out32未定义的引用</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +153,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习定时器</h1>
+        <h1 class="title">对Xil_Out32未定义的引用</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2018-09-29T12:48:10.000Z" itemprop="datePublished" class="page-time">
+  2018-09-29
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -173,25 +173,16 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时器简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">定时器简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时的计算时间"><span class="post-toc-number">3.</span> <span class="post-toc-text">定时的计算时间</span></a></li></ol>
-        </nav>
-    </aside>
 
-
-<article id="post-工作-stm32-2017-08-10-TIM"
+<article id="post-工作-fpga-2018-09-29-对Xil-Out32未定义的引用"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习定时器</h1>
+        <h1 class="post-card-title">对Xil_Out32未定义的引用</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2018-09-29 20:48:10" datetime="2018-09-29T12:48:10.000Z"  itemprop="datePublished">2018-09-29</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -202,22 +193,23 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="定时器简述">定时器简述</h2>
-<p>相信使用过51单片机的人对定时器都很熟悉了吧。</p>
-<p>顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等</p>
-<p>在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变</p>
+            <p>第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。</p>
 <a id="more"></a>
-<h2 id="基本步骤">基本步骤</h2>
-<ol style="list-style-type: decimal">
-<li>很通常的一个时钟使能（APB1）</li>
-<li>初始化定时器参数，设置自动重装值、预分频值、时钟分割、计数方式等(TIM_TimeBaseInitTypeDef)</li>
-<li>设置TIM3_DIER允许更新（TIM_ITConfig)</li>
-<li>TIMx中断优先级设置</li>
-<li>使能TIMx工作</li>
-<li>编写中断服务函数(TIMx_IRQHandler)</li>
-</ol>
-<h2 id="定时的计算时间">定时的计算时间</h2>
-<p>Tout=((arr+1)*(psc+1))/Tclk - arr：自动重转载值 - psc：预分频值 - Tout：溢出时间（μs) - Tclk：输入时钟频率</p>
+<p>在创建好工程，写完工程代码后，发现报错如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./src/led_controller_test_tut_4A.o：在函数‘main’中：</span><br><span class="line">/home/greedyhao/Projects/LearningAndWorking/led_controller/led_controller.sdk/LED_Controller_test/Debug/../src/led_controller_test_tut_4A.c:44：对‘Xil_Out32’未定义的引用</span><br><span class="line">collect2: error: ld returned 1 exit status</span><br><span class="line">makefile:39: recipe for target &apos;LED_Controller_test.elf&apos; failed</span><br><span class="line">make: *** [LED_Controller_test.elf] Error 1</span><br></pre></td></tr></table></figure>
+<p>一眼就知道<strong>Xil_Out32</strong>这个函数，绝对是官方定义的啊。</p>
+<p>找到它的定义在<em>xil_io.h</em>这个文件中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> INLINE <span class="keyword">void</span> <span class="title">Xil_Out32</span><span class="params">(UINTPTR Addr, u32 Value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在网上查到有人说，因为这个函数是static的，所以将这个头文件include到主函数的文件就可以了</p>
+<p>于是在主函数文件添加<strong>#include &quot;xil_io.h&quot;</strong>并保存好，工程正常</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -226,7 +218,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:49.000Z" itemprop="dateUpdated">2017-08-14 21:27:49</time>
+    最后更新时间：<time datetime="2018-09-29T12:48:34.037Z" itemprop="dateUpdated">2018-09-29 20:48:34</time>
 </span><br>
 
 
@@ -252,7 +244,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xilinx/">Xilinx</a></li></ul>
 
 
             
@@ -262,7 +254,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&title=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -272,24 +264,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&source=定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&title=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&source=第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习定时器》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -309,21 +299,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习独立看门狗</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/29/工作-fpga-2018-09-29-Vivado生成Bitstream失败的解决方法/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习串口</h4>
+        <h4 class="title">Vivado生成Bitstream失败的解决方法</h4>
       </a>
     </div>
   
@@ -429,7 +412,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&title=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -439,24 +422,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&source=定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&title=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&source=第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习定时器》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《对Xil_Out32未定义的引用》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -467,7 +448,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3a266CQBBEUf7/pzE5TyYKU9UF5tC958kg6ixMOtOXbZPX/rfeX78v5Z7zOz8/td2xYMCA8VjGfrr0Hzu6X/+U/ji+UGHAgDGA4QZZZdNusFa++fA6DBgwYMRHQCVww4ABA8a1AVfJIpMMFAYMGDBqSWztB9yk9/ZcHAYMGA9k1BoDv3l9e38DBgwY/56xm8st8bthvbgrGDBgtGYoRbGkuVjD146kMGDA6M3IS2z56IbeKpAwMGDAaMRwW49ueyAv6kktBBgwYLRmJENg7rbcsKsfFmHAgNGbURuJyJ+ZW3Rb7AEGDBgDGEkwTcpk+v2LPcCAAWMAQ0kO3RKYm6zWkmQYMGBMYySFfiUsKlusNR5gwIAxh5Ec7PQwWtv0ov0AAwaMkYyr2pZ2A1Iu6h02BmDAgNGO4S4Xc9WBUuHBgAGjK+PclDcale93r395FwYMGK0ZedHfHY/QxzjsxwcDBowxDP0smQRrPYk1ynAwYMBoykgGLNyRrzz4Lv4HGDBgtGa4pXm3MOeW2PRCHgwYMCYw3BGHJO08v9MdFIMBA8Ycxm6unJqE48N3YcCA0ZrhHvVq7Um3kVnDw4ABozdDCbLu0S1pahb3AAMGjAGMZEPJ9doDimqHMGDAaM1wmwHu+TRKoWHAgAHjN21IuVEhDbDCgAGjHcMNl8rwloJ3D5eLgAsDBoymjFoCqZfylQCtN1Ava2HCgAHjGYwXaMTRP9vkywkAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNUlEQVR42u3a0U7rMBAEUP7/p7mvV4KEmXWKanPyVBVIfFyJrWf34yO+PoPr6jev7vP/O19f3z/9608/XnFhY2Njb8KeYe6Xfr+4hHoPTp5+v1nY2NjY57GvHtkWicvHlCXnfuvbdWJjY2Nj3x8q2mPJrPitfDzY2NjY2DP2qwvY/YZiY2Nj/zX2LDZ6qlytYF6epWFjY2O/PTuPit7/9Uv629jY2NhvzP4sr+Rvky1LIv68pNUKbGxs7IPYs4inje9n92w3pW4/Y2NjYx/BzgcfZwuaHWweCIPutwMbGxv7IHYb6yet37wNMCtj6+0HbGxs7L/AXgl01stSvqFtIPXNCQwbGxt7c3ZSWuqMatQGyFsL9ad6FSphY2NjH8Se3ag9orQNhrYEFg0DbGxs7IPYbYifD8qsxP0rW5wcV7CxsbHPY89Ky/rozGNBf/yUH7I0bGxs7G3Z7Vf5PAbKty9hz14XU0vY2NjY27LbJkFbutYbwyub/sPnjI2Njb05ux2dWY+i2lKXl72ibYCNjY19NHulJZCP17SHk9noz+V9sLGxsQ9it1/xZ63cWVw1OwK1jQRsbGzsk9izG83awLNtSo40wxklbGxs7M3Z+e3aB+SlbiU2mrWZsbGxsU9ir4/U5OFRu/S8NLZNBWxsbOwz2MkfrBwPZrF+Hn4ld/jmd7CxsbEPZT81OtMeLVZK3WybsLGxsU9iz1oF7VFkfUwnD6Ta9WBjY2Pvzs5LSN5AnUX/+dhQO3j0zWtsbGzsg9h5uWoHZdpIaBZd5RtXDO5gY2Njb8tuh2zyQ0jeoJ0NALXRFTY2NvZ57JXjRztG89QgTh4qXb6DjY2NfTS7DY9mh4G22fDsZmFjY2Ofx352ICYP+mctgfVRHmxsbOwz2J/l9VTcPyuQs3CqPnthY2Njb8We/c/PDwZtKcobus/eARsbG3t39iyCXwmS8ghppYA90BXBxsbG3oqdF4ZZw3V2mEnK5zA+w8bGxsZeCHGSRa+PAf2wWmxsbOw/zJ4BkgUlm5WXruHIDjY2Nva27GebqXm7d6Wp/EtZGjY2Nvbbs9s4Ji82z4ZNbcDUrhkbGxt7Q/Y/LSpT79mzfWcAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

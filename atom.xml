@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-29T09:18:27.204Z</updated>
+  <updated>2018-09-29T12:48:34.037Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>对Xil_Out32未定义的引用</title>
+    <link href="http://greedyhao.cc/2018/09/29/%E5%B7%A5%E4%BD%9C-fpga-2018-09-29-%E5%AF%B9Xil-Out32%E6%9C%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%BC%95%E7%94%A8/"/>
+    <id>http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-对Xil-Out32未定义的引用/</id>
+    <published>2018-09-29T12:48:10.000Z</published>
+    <updated>2018-09-29T12:48:34.037Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。</p>
+<a id="more"></a>
+<p>在创建好工程，写完工程代码后，发现报错如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./src/led_controller_test_tut_4A.o：在函数‘main’中：</span><br><span class="line">/home/greedyhao/Projects/LearningAndWorking/led_controller/led_controller.sdk/LED_Controller_test/Debug/../src/led_controller_test_tut_4A.c:44：对‘Xil_Out32’未定义的引用</span><br><span class="line">collect2: error: ld returned 1 exit status</span><br><span class="line">makefile:39: recipe for target &apos;LED_Controller_test.elf&apos; failed</span><br><span class="line">make: *** [LED_Controller_test.elf] Error 1</span><br></pre></td></tr></table></figure>
+<p>一眼就知道<strong>Xil_Out32</strong>这个函数，绝对是官方定义的啊。</p>
+<p>找到它的定义在<em>xil_io.h</em>这个文件中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> INLINE <span class="keyword">void</span> <span class="title">Xil_Out32</span><span class="params">(UINTPTR Addr, u32 Value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在网上查到有人说，因为这个函数是static的，所以将这个头文件include到主函数的文件就可以了</p>
+<p>于是在主函数文件添加<strong>#include &quot;xil_io.h&quot;</strong>并保存好，工程正常</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一次在HLS中遇见一个官方的函数未定义问题，这就把解决方法记录下来。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+  </entry>
   
   <entry>
     <title>Vivado生成Bitstream失败的解决方法</title>
@@ -284,9 +321,9 @@
     
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
-      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
-    
       <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
     
   </entry>
   
@@ -1435,59 +1472,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
     
       <category term="dsp" scheme="http://greedyhao.cc/tags/dsp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SDRAM使用总结</title>
-    <link href="http://greedyhao.cc/2018/07/08/%E5%B7%A5%E4%BD%9C-stm32-2018-07-08-SDRAM%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/"/>
-    <id>http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/</id>
-    <published>2018-07-08T00:28:36.000Z</published>
-    <updated>2018-09-09T04:47:00.168Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="sdram使用总结">SDRAM使用总结</h1>
-<p>最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。</p>
-<p>SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。</p>
-<p>SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空间的指针，通过指针直接修改存储单元内容，FMC外设会自动完成数据访问过程。</p>
-<div class="figure">
-<img src="/img/stm32/fmc_map.png">
-
-</div>
-<p>为了使FMC完成这些数据访问操作，需要在程序一开始进行初始化过程，一共包括对GPIO管脚时钟的初始化、FMC的初始化、SDRAM时序初始化。</p>
-<p>SDRAM我觉得最重要的就是初始化过程了，初始化顺序一定要注意，一定要按照GPIO-&gt;FMC-&gt;SDRAM这个顺序初始化。</p>
-<p>使用CubeMX创建的stm32工程需要注意，SDRAM时序初始化不能放在HAL_SDRAM_MspInit里，因为CubeMX生成的程序初始化过程是这样的，MX_FMC_Init-&gt;HAL_SDRAM_Init-&gt;HAL_SDRAM_MspInit，如果SDRAM时序初始化放在HAL_SDRAM_MspInit里，会由于FMC还没有初始化成功而导致SDRAM时序初始化失败。</p>
-<p>我一开始就是由于不清楚这个初始化顺序，导致程序一直卡在SDRAM读写处。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/stm32/sdram_init_error.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>读写SDRAM的话，只需要用一个指向这个空间地址的指针，然后操作这个指针指向的内容就好了。一个简单的读的例子如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uint32_t *pSDRAM;</span><br><span class="line"></span><br><span class="line">uint32_t RadomBuffer[10000];</span><br><span class="line"></span><br><span class="line">#&lt;span class=&quot;meta-keyword&quot;&gt;define&lt;/span&gt; SDRAM_BANK_ADDR     ((uint32_t)0xD0000000)</span><br><span class="line"></span><br><span class="line">*pSDRAM=RadomBuffer[count];</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;sdram使用总结&quot;&gt;SDRAM使用总结&lt;/h1&gt;
-&lt;p&gt;最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。&lt;/p&gt;
-&lt;p&gt;SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够
-    
-    </summary>
-    
-      <category term="工作" scheme="http://greedyhao.cc/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-      <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
     
   </entry>
   
