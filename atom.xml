@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-22T05:18:07.317Z</updated>
+  <updated>2018-09-29T09:18:27.204Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vivado生成Bitstream失败的解决方法</title>
+    <link href="http://greedyhao.cc/2018/09/29/%E5%B7%A5%E4%BD%9C-fpga-2018-09-29-Vivado%E7%94%9F%E6%88%90Bitstream%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>http://greedyhao.cc/2018/09/29/工作-fpga-2018-09-29-Vivado生成Bitstream失败的解决方法/</id>
+    <published>2018-09-29T09:18:12.000Z</published>
+    <updated>2018-09-29T09:18:27.204Z</updated>
+    
+    <content type="html"><![CDATA[<p>跟着实验指导书，难得的又遇到问题了，在最后生成Bitstream的时候出错了，无法生成Bitstream。</p>
+<a id="more"></a>
+<p>报错信息如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DRC NSTD-1] Unspecified I/O Standard: 4 out of 134 logical ports use I/O standard (IOSTANDARD) value &apos;DEFAULT&apos;, instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY &#123;Warning&#125; [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: LEDs_out_0[3:0].</span><br><span class="line"></span><br><span class="line">[DRC UCIO-1] Unconstrained Logical Port: 4 out of 134 logical ports have no user assigned specific location constraint (LOC). ... Problem ports: LEDs_out_0[3:0].</span><br></pre></td></tr></table></figure>
+<p>在我绝望的时候在网上搜到了解决方法，问题还是出在了XDC文件上</p>
+<p>我是直接复制的实验指导书中的XDC文件中的内容，但是在生成ked_controller这个ip核的port的时候，生成的port的名字和实验中的并不一样。</p>
+<p>xdc文件内容如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">set_property PACKAGE_PIN M14            [get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property PACKAGE_PIN M15 			[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property PACKAGE_PIN G14 		    [get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property PACKAGE_PIN D18 			[get_ports &#123;LEDs_out[3]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[3]&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>注意下我的DRC报错信息就会发现一个重要的信息 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Problem ports: LEDs_out_0[3:0].</span><br></pre></td></tr></table></figure></p>
+<p>这报错的port似乎有点不对劲，和约束文件中声明的port不一样，这也是为什么报错说LEDs_out_0这个port unspecified的原因，因为你XDC中声明的是LEDs_out啊。</p>
+<p>解决方法很简单，把这个port的名字改了就好，更改方法如图。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/xilinx/zybo_E4a_BitERR.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;跟着实验指导书，难得的又遇到问题了，在最后生成Bitstream的时候出错了，无法生成Bitstream。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="入门学习" scheme="http://greedyhao.cc/categories/%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
+    
+  </entry>
   
   <entry>
     <title>ZynqBook实验二的实践</title>
@@ -235,9 +284,9 @@
     
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
-      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
-    
       <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
+    
+      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
     
   </entry>
   
@@ -1439,84 +1488,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
     
       <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>c王国的诞生_零</title>
-    <link href="http://greedyhao.cc/2018/07/08/%E7%B3%BB%E5%88%97-2018-07-08-c%E7%8E%8B%E5%9B%BD%E7%9A%84%E8%AF%9E%E7%94%9F-%E9%9B%B6/"/>
-    <id>http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/</id>
-    <published>2018-07-08T00:27:42.000Z</published>
-    <updated>2018-09-09T04:41:52.088Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="c王国的诞生_零">c王国的诞生_零</h1>
-<p>欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。</p>
-<p>这片世界的上方悬浮着，请输入世界基本规则！</p>
-<p>“就选麦克斯韦方程吧”赵无名说道。</p>
-<p>这片世界的基本规则诞生了，伟大的麦克斯韦方程！从此，这片世界开始运转起来了，这片世界的电子运动形成变换的电流，变换的电流又形成了磁场，这些众多的电磁场就成了这片世界的搬运工，承载着这片世界的所有信息。</p>
-<p>“总让这些电子乱跑可不行，玩游戏可是要钱的，得让他们给我做事才行”，正说着，赵无名给这片世界输入了布尔逻辑，并放入了晶体管来承载布尔规则；随后将这片世界从中间切割开来，上者为天，下者为地，再将大量的铜贯穿到地面作为电磁场的承载，将混乱的电磁场的一部分约束起来，保证其中的信息不会紊乱。</p>
-<p>晶体管是一种可以阻挡电子运动的大门，他一般分为双极性三极管、场效应三极管，一般有P和N两种型号，有三个端口，靠中间的端口控制另外两个端口的关断。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/讲故事/c王国的诞生/mos管原理.gif" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>从此以后，这片世界的大部分电子就被通过晶体管控制起来了，为了方便管理，将电子运动的反方向定义为电流运动的正方向，再定义电流运动方向上电势下降,通过电势差来控制晶体管的关断。</p>
-<p>再将不同的晶体管以不同的方式组合，就形成了最基本的门电路——与或非门电路，完美的诠释了布尔逻辑。再将与或非门电路相互组合，便形成了与非、或非、与或非、异或、异或非门等。使用这些门电路便可以实现逻辑运算。</p>
-<p>“使用门电路还是太麻烦了，连线都可以绕这块大陆十圈了，还是再对门电路做一层抽象吧。”无名说道，随后将不同功能的门电路组合成了译码器、编码器、数据选择器、加法器、触发器，再引入电容，制作时钟源；至此，就有了各种功能的逻辑电路，将不同功能的逻辑电路拼接，就可以制成不同位数的计算器。</p>
-<p>ps:早期的计算机就是用各种门电路制成的，而且当时的封装技术很差，各种元件体积很大，所以当时的计算机效率低，体积大</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/讲故事/c王国的诞生/Colossus.jpg" alt="巨像电脑" title="">
-                </div>
-                <div class="image-caption">巨像电脑</div>
-            </figure>
-<p>巨像电脑</p>
-<blockquote>
-<p>这是一个介绍手工制作CPU的视频：<a href="https://www.bilibili.com/video/av26382148/" class="uri" target="_blank" rel="noopener">https://www.bilibili.com/video/av26382148/</a> ，原文在<a href="https://eater.net/8bit/" class="uri" target="_blank" rel="noopener">https://eater.net/8bit/</a></p>
-</blockquote>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/讲故事/c王国的诞生/8位手工cpu.gif" alt="手工制作CPU" title="">
-                </div>
-                <div class="image-caption">手工制作CPU</div>
-            </figure>
-<p>“好吧，现在终于可以拥有自己的计算机了，不过每次都要手动开关这些晶体管来设置初值也太麻烦了，而且要记忆这么多的晶体管的功能太累了，我需要一个编译器。”</p>
-<p>编译器的作用是将一种语言编译成机器码，机器码的作用就是指导计算机进行布尔运算，控制电路关断的。而且编译器的一个非常伟大之处在于，降低了编程的门槛，使得普通人也可以学编程，而且可以不怎么需要了解计算机原理。</p>
-<p>ps:第一个编译器是由美国女性计算机科学家葛丽丝·霍普（Grace Murray Hopper）于1952年为A-0系统编写的，现代的编译器也可以追溯到A-0</p>
-<p>“好了，就这样吧，用这个编译器编译的语言就叫做C语言吧”</p>
-<hr>
-<p>想了解更多关于计算机原理的知识可以参考下面的链接</p>
-<ul>
-<li><a href="http://www.instructables.com/id/How-to-Build-an-8-Bit-Computer/" class="uri" target="_blank" rel="noopener">http://www.instructables.com/id/How-to-Build-an-8-Bit-Computer/</a></li>
-<li><a href="http://www.homebrewcpu.com/" class="uri" target="_blank" rel="noopener">http://www.homebrewcpu.com/</a></li>
-<li><a href="https://eater.net/8bit/" class="uri" target="_blank" rel="noopener">https://eater.net/8bit/</a></li>
-</ul>
-<hr>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;c王国的诞生_零&quot;&gt;c王国的诞生_零&lt;/h1&gt;
-&lt;p&gt;欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。&lt;/p&gt;
-&lt;p&gt;这片世界的上方悬浮着，请输入世界基本规则！&lt;/p&gt;
-&lt;p&gt;“就选麦克斯韦方程吧”赵无名
-    
-    </summary>
-    
-      <category term="C王国的诞生" scheme="http://greedyhao.cc/categories/C%E7%8E%8B%E5%9B%BD%E7%9A%84%E8%AF%9E%E7%94%9F/"/>
-    
     
   </entry>
   
