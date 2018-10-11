@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-09-29T12:48:34.037Z</updated>
+  <updated>2018-10-11T09:00:48.939Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sysgen-license-checkout-failed</title>
+    <link href="http://greedyhao.cc/2018/10/11/%E5%B7%A5%E4%BD%9C-fpga-2018-10-11-Sysgen-license-checkout-failed/"/>
+    <id>http://greedyhao.cc/2018/10/11/工作-fpga-2018-10-11-Sysgen-license-checkout-failed/</id>
+    <published>2018-10-11T09:00:45.000Z</published>
+    <updated>2018-10-11T09:00:48.939Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Reported by:</span><br><span class="line">Unspecified</span><br><span class="line"></span><br><span class="line">Details:</span><br><span class="line">Sysgen license checkout failed.</span><br><span class="line">XILINXD_LICENSE_FILE = C:/Xilinx/Vivado/2016.1/data/sysgen/hwcosim_compiler/pp_ethernet</span><br><span class="line">Environment variable LM_LICENSE_FILE is not set.</span><br><span class="line">License search path: C:\.Xilinx;C:\Xilinx\Vivado\2016.1\data\sysgen\hwcosim_compiler\pp_ethernet;C:\Xilinx\Vivado\2016.1\data\ipcore_licenses</span><br></pre></td></tr></table></figure>
+<p>这个错误是由于找不到license导致的</p>
+<p>由于我无法复原错误了，所以就去网上找了一个差不多的出错信息</p>
+<p>这个错误信息是windows下的，我的系统是ubuntu18.04，不过操作过程是差不多的</p>
+<p>在错误信息中，可以看见<strong>XILINXD_LICENSE_FILE</strong>的位置，cd到这个位置，把自己的license复制过来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x *.lic</span><br></pre></td></tr></table></figure>
+<p>再次运行Sysgen会发现，没有再报错了</p>
+<h1 id="windows下操作">windows下操作</h1>
+<p>找到你的<strong>XILINXD_LICENSE_FILE</strong>位置，然后找到你的vivado的license位置，把这个license复制到<strong>XILINXD_LICENSE_FILE</strong>位置</p>
+<h1 id="license下载">license下载</h1>
+<p>虽然说是支持正版，不过这种软件一般的个人还是负担不起的，主要还是靠公司买单。</p>
+<p>没钱的穷孩子可以下载<a href="https://github.com/greedyhao/some_useful_files/tree/master/vivado-license" target="_blank" rel="noopener">vivado-license全部功能破解</a></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+    
+    </summary>
+    
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+  </entry>
   
   <entry>
     <title>对Xil_Out32未定义的引用</title>
@@ -321,9 +361,9 @@
     
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
-      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
-    
       <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
+    
+      <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
     
   </entry>
   
@@ -449,9 +489,9 @@
     </summary>
     
     
-      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
-    
       <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
   </entry>
   
@@ -480,9 +520,9 @@
     </summary>
     
     
-      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
-    
       <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
   </entry>
   
@@ -1385,93 +1425,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
       <category term="Hardware" scheme="http://greedyhao.cc/categories/Hardware/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>解释为什么旋转的物体有时看着像在倒转</title>
-    <link href="http://greedyhao.cc/2018/07/09/%E5%B7%A5%E4%BD%9C-dsp-2018-07-09-%E8%A7%A3%E9%87%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%8B%E8%BD%AC%E7%9A%84%E7%89%A9%E4%BD%93%E6%9C%89%E6%97%B6%E7%9C%8B%E7%9D%80%E5%83%8F%E5%9C%A8%E5%80%92%E8%BD%AC/"/>
-    <id>http://greedyhao.cc/2018/07/09/工作-dsp-2018-07-09-解释为什么旋转的物体有时看着像在倒转/</id>
-    <published>2018-07-09T02:11:54.000Z</published>
-    <updated>2018-09-09T04:50:26.609Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="解释为什么旋转的物体有时看着像在倒转">解释为什么旋转的物体有时看着像在倒转</h1>
-<blockquote>
-<p>动态图的原视频可以点击阅读原文观看，是十个不错的Arduino项目</p>
-</blockquote>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/dsp/欠采样.gif" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<h1 id="描述现象">描述现象</h1>
-<p>相信大家都有过这么的经历，旋转的物体，有时候看着觉得在倒转。</p>
-<p>比如汽车的车轮，从静止开始发动汽车，这个过程中，汽车的车轮看起来就是从正转到反转或停止，当汽车减速的时候，汽车车轮看起来就又恢复成正转了。</p>
-<p>学过信号与系统的或许知道奈奎斯特采样定律————最小采样频率是信号频率的两倍。</p>
-<p>我在一开始也是不理解的，为什么刚刚好就要两倍，感觉很随意一样，别人家的黄金分割比都是小数0.618，听起来也酷，为什么香农家的是整数。</p>
-<p>虽然我也知道以低于两倍信号频率采样的时候，会欠采样，丢失信号信息，但是具体怎么个丢失法，也是不了解的，直到我开始学习数字信号处理（DSP），才总算是晓得了这么个东西。</p>
-<h1 id="解释原理">解释原理</h1>
-<blockquote>
-<p>以下材料来自中国大学MOOC <a href="https://www.icourse163.org/learn/UESTC-236010?tid=1002753005#/learn/announce" class="uri" target="_blank" rel="noopener">https://www.icourse163.org/learn/UESTC-236010?tid=1002753005#/learn/announce</a></p>
-</blockquote>
-<p>有点懒得自己用Matlab画图（其实是自己学的不够好），就使用我在网上学习的课程中使用的图来解释吧。</p>
-<p>图中是使用Fs=10Hz的信号对3Hz、7Hz、13Hz的信号采样的结果</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/dsp/欠采样_1.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>采样间隔为0.1s，采样得到的序列为g1[n]=cos(0.6πn) g2[n]=cos(1.4πn) g1[n]=cos(2.6πn)，从图中的采样点可以看出，采样点为三个信号的交点，所以采样得到的信号都是一样的，这种现象就是<strong>欠采样的效果：混叠现象</strong></p>
-<p>从频域上进行分析</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/dsp/欠采样_2.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>使用10Hz的信号采样的效果相当于，将一个信号在频谱上分别向左和右搬移了20π。对于7Hz的信号来说，14π-20π=-6π，-14π+20π=6π，而3Hz的信号的频谱也在-6π和6π，所以无法分别到底是3Hz的信号还是7Hz的信号。如果将采样结果还原，得到的也只有3Hz的信号。同理可得13Hz信号的结果。</p>
-<h1 id="解释现象">解释现象</h1>
-<p>一般来说，人眼能感受到的闪烁频率最高到60Hz，汽车车轮直径大概在737.6mm。也就是说，汽车车轮转动的频率超过30Hz，人眼就会出现“幻觉”了。</p>
-<p>根据路程-速度-时间的关系，可以知道这个出现“幻觉”的速度为：v=30_737.6_10^(-3)=22.128(m/s)=79.6608(km/s)</p>
-<p>所以说，一旦汽车的速度到了差不多80km/h的速度后，在人眼看来，车轮就有倒转的现象。</p>
-<h1 id="再现混叠现象">再现混叠现象</h1>
-<p>如果没条件把汽车架起来测试这个效果，可以选择平民化的测试方法。</p>
-<p>手机摄像头的采集视频的刷新速度比人眼低很多，可以用手机摄像头对着电风扇拍视频，可以明显的看见电风扇也出现了“倒转”现象。</p>
-<h1 id="解决方法">解决方法</h1>
-<p>在数字信号处理这个领域，为了解决这个问题，一般会在采样的前级加上一个抗混叠滤波器，通带为±二分之一的采样率，避免无法完全采样的频率“混叠”频谱。</p>
-<div class="figure">
-<img src="/img/dsp/flow_for_dsp.png">
-
-</div>
-<hr>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;解释为什么旋转的物体有时看着像在倒转&quot;&gt;解释为什么旋转的物体有时看着像在倒转&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;动态图的原视频可以点击阅读原文观看，是十个不错的Arduino项目&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;image
-    
-    </summary>
-    
-      <category term="工作" scheme="http://greedyhao.cc/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-      <category term="dsp" scheme="http://greedyhao.cc/tags/dsp/"/>
     
   </entry>
   
