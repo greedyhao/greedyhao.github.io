@@ -321,9 +321,9 @@
     
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
-      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
-    
       <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
+    
+      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
     
   </entry>
   
@@ -449,9 +449,9 @@
     </summary>
     
     
-      <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
-    
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
     
   </entry>
   
@@ -480,9 +480,9 @@
     </summary>
     
     
-      <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
-    
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="FPGA" scheme="http://greedyhao.cc/tags/FPGA/"/>
     
   </entry>
   
