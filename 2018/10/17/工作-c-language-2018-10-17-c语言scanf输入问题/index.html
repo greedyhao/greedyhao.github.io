@@ -30,25 +30,27 @@ ga('send', 'pageview');
     
     
     
-    <title>学习GPIO输出 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>c语言scanf输入问题 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content="c语言">
+    <meta name="description" content="经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。">
+<meta name="keywords" content="c语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习GPIO输出">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/index.html">
+<meta property="og:title" content="c语言scanf输入问题">
+<meta property="og:url" content="http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
+<meta property="og:description" content="经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:25.000Z">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-10-17T10:28:59.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习GPIO输出">
-<meta name="twitter:description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
+<meta name="twitter:title" content="c语言scanf输入问题">
+<meta name="twitter:description" content="经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习GPIO输出</div>
+        <div class="flex-col header-title ellipsis">c语言scanf输入问题</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +153,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习GPIO输出</h1>
+        <h1 class="title">c语言scanf输入问题</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2018-10-17T10:28:22.000Z" itemprop="datePublished" class="page-time">
+  2018-10-17
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -173,25 +173,16 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">关键信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化gpio的实例"><span class="post-toc-number">2.</span> <span class="post-toc-text">初始化GPIO的实例</span></a></li></ol>
-        </nav>
-    </aside>
 
-
-<article id="post-工作-stm32-2017-08-10-GPIO-Output"
+<article id="post-工作-c-language-2018-10-17-c语言scanf输入问题"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习GPIO输出</h1>
+        <h1 class="post-card-title">c语言scanf输入问题</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2018-10-17 18:28:22" datetime="2018-10-17T10:28:22.000Z"  itemprop="datePublished">2018-10-17</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -202,13 +193,25 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="关键信息">关键信息</h2>
-<p>1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()</p>
-<p>2.初始化I/O参数,调用函数GPIO_Init()</p>
-<p>3.操作I/O</p>
+            <p>经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。</p>
 <a id="more"></a>
-<h2 id="初始化gpio的实例">初始化GPIO的实例</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE); //使能I/O时钟</span><br><span class="line"></span><br><span class="line">GPIO_InitTypeDef GPIO_InitStructure;//创建一个初始化GPIO的结构体</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_2;//选择初始化的引脚</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//选择引脚模式</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//选择引脚速度</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);//初始化I/O参数</span><br><span class="line"></span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_1);//操作I/O</span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_2);//设置GPIOA的1，2引脚输出1</span><br></pre></td></tr></table></figure>
+<p>我将他们的代码放出来 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d,%d"</span>,&amp;a,&amp;b);</span><br><span class="line">    c = max(a,b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"max=%d\n"</span>,c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> z;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; y) z = x;</span><br><span class="line">    <span class="keyword">else</span> z = y;</span><br><span class="line">    <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行后输出结果 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ gcc error.c </span><br><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1，8</span><br><span class="line">max=1</span><br></pre></td></tr></table></figure></p>
+<p>这里输出结果视编译器不同而不同。</p>
+<p>之所以出现这样的问题，是因为输入数据的时候，格式化使用的逗号是中文导致的问题，重新使用英文逗号尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1,8</span><br><span class="line">max=8</span><br></pre></td></tr></table></figure>
+<p>会发现程序运行正常了</p>
+<p>在这里建议各位，在scanf格式化的时候，别使用逗号做分隔符，使用空格就可以避免类似的问题了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// scanf("%d,%d",&amp;a,&amp;b);</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;a,&amp;b);</span><br></pre></td></tr></table></figure>
+<p>修改后的程序使用示例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ gcc error.c </span><br><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1 8</span><br><span class="line">max=8</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -217,7 +220,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:25.000Z" itemprop="dateUpdated">2017-08-14 21:27:25</time>
+    最后更新时间：<time datetime="2018-10-17T10:28:59.212Z" itemprop="dateUpdated">2018-10-17 18:28:59</time>
 </span><br>
 
 
@@ -243,7 +246,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c语言/">c语言</a></li></ul>
 
 
             
@@ -253,7 +256,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&title=《c语言scanf输入问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -263,25 +266,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息
-1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
-2.初始化I/O参数,调用函数GPIO_Init()
-3.操作I/O" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&title=《c语言scanf输入问题》 — Zhuhao's Blog&source=经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习GPIO输出》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c语言scanf输入问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -301,21 +301,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习PWM</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" id="post-next" class="post-nav-link">
+      <a href="/2018/10/11/工作-fpga-2018-10-11-Sysgen-license-checkout-failed/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习GPIO输入</h4>
+        <h4 class="title">Sysgen-license-checkout-failed</h4>
       </a>
     </div>
   
@@ -421,7 +414,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&title=《c语言scanf输入问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -431,25 +424,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息
-1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
-2.初始化I/O参数,调用函数GPIO_Init()
-3.操作I/O" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&title=《c语言scanf输入问题》 — Zhuhao's Blog&source=经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习GPIO输出》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c语言scanf输入问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -460,7 +450,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3awW7iQBAE0Pz/T2elnFYCh6puD+HwfLIIEL9Bcrer5+srPr5/jv/PH195fP/j6/lf8/ffcODh4eGNLv3quHrP1aUkl5W8crWs+TXj4eHhneZtvvp30l0LlywrHh4e3qfxEvB+4WZNPB4eHt7n8zYxRF4S2lYeDw8P7528pPFNSHnz/XFZCx4eHl7Mmw3A/vb8+HwPDw8PbzRVb2+7vxeGvCTkBeDFdeLh4eEd4G2GW0kb3ZaZpL2u4108PDy8W3kzTBLstiHCZuRWpCx4eHh4a15+a97w2lhhFsi++A3x8PDw3shrB1pJQ5yXnNn2gsswAg8PD+8Yb3MrT5rdvImfxburXQl4eHh4o9lQ3l7PWufZZ+v/hYeHh3eAlzfE+wLQtuNtrFzvHcPDw8Mb8WaN7yxObQOF/FOX53h4eHjHeF/lsd9A0H5zW3Lw8PDwTvPycKEdjyUL0XbCRXuNh4eHd5iXb7FqSTlv39w/GYDh4eHhHeAlselsuNWGwndFyU+eGPDw8PCO8drodh83zDYlRAuEh4eH9xberBfNt1Ll4Bkvaqnx8PDwbuJtxk5tYWi3LAzjCTw8PLwDvNkganPegltqAcbDw8Nb8F6EoaNNA/mIKx+n1VsH8PDw8A7wElh+3o7H2k1d9U+Ch4eHd4C3/9LZ+Goz6Bq273h4eHg38faP+m0sm4QOmzHYsArh4eHh3TQMS4rHJp6Yjb6SNh0PDw/vHO+7PNomO1+aTcs+zKfx8PDwRrx2h1Lbdg/3LJQBxA1IPDw8vJLXhgV3RbdtrNBeGx4eHt5pXt4E57f4TawwKyR4eHh4n8mb3frvimjrEoWHh4f3p7zZ/baYwpVtelRO8PDw8I7xZpui8kFauxCbsdmTwoCHh4d3K2/zqD9rsmcx7qzVxsPDw7uV9w/L1JKXI15a6gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKklEQVR42u3aQY7iUAwFQO5/aWY9agWe7Y9ETGWFGCCpRBq3/fx4xMfz4rj65N/XyWf+fj7516uzHDiwsbGxb8J+vjyuTnD1TgJI3k94r6/qzUPCxsbGXsfulZmkpOXI/CyvH090XmxsbOyfZyclKikkyaWfbX6wsbGxsV/DJu1Hr/nBxsbGxq7+iZ+McnpDn15j8/FZGjY2NvbXs/NU9PtffyTfxsbGxv5i9qScTBqPyfipFx7895vY2NjYi9i9pZlTQW/y3ckg6U3AgI2Njb2CncereRtQfacaJ/fapELugY2Njb2CnaxInr1N1WI2CqGxsbGxf4ad8yYhcd5+VMthtKOEjY2NfXP2JBvtNRLVkjlfGxrhsbGxsb+e3TtxTpof8xuKjY2NvZudj93zViFh9xZ9eo+qjMfGxsa+IbsX9ybD/bykTYpT0jgVQgJsbGzsG7KTAjAZ6I8uZTByOlCxsbGxsb+ePWkVktvUG+LnSzn5COyRV11sbGzsW7EneyzVFZxeiNsrjZM2BhsbG/vu7OpSTt5sJCOkXoRQ/X1sbGzsfex8uF8tadWmYrLWkxRUbGxs7N3snDF5P/9u0mZUS2whA8HGxsa+Cbs3dv9EGDwpTuXIARsbG3sRu/rn+6Qg5UFC8gvz0oiNjY29jz1/nQ938jYj/1Y5eMDGxsZewc6LVtIYVC+iGtyeapmwsbGxN7Hzy6qu0fTChmpDMiqi2NjY2IvYedeSx6690VJh4SYuY81njo2NjX0Tdt5OHCgVcShbBZcbJ2xsbOxF7Jyal7H5YuU8Ei5UbGxsbOxF7N5aTDUYmLQ9+VApKsnY2NjY69jz5iFvGKpRQS8MfnODsLGxsX+GnYe1vZB4EjY8Jgc2Njb2CvazeJTT46M3N7mG6PFgY2NjL2JP/s/Pm408JM7blXyElDdL2NjY2Pdl90bwycpO7wb1mp88YMDGxsbeyq6u8lRHQtVVnjxCqAYS2NjY2Ni9pZxqYevdoPx2Y2NjY/8yexIkT8b31UH/m8eDjY2NvY6dNwy9cc/Z9Z1eu4KNjY29lX2gGBxtY3JkNbrAxsbGXsf+B3AcxHDKd4xgAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

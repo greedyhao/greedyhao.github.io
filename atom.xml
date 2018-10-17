@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-10-11T09:00:48.939Z</updated>
+  <updated>2018-10-17T10:28:59.212Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>c语言scanf输入问题</title>
+    <link href="http://greedyhao.cc/2018/10/17/%E5%B7%A5%E4%BD%9C-c-language-2018-10-17-c%E8%AF%AD%E8%A8%80scanf%E8%BE%93%E5%85%A5%E9%97%AE%E9%A2%98/"/>
+    <id>http://greedyhao.cc/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/</id>
+    <published>2018-10-17T10:28:22.000Z</published>
+    <updated>2018-10-17T10:28:59.212Z</updated>
+    
+    <content type="html"><![CDATA[<p>经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。</p>
+<a id="more"></a>
+<p>我将他们的代码放出来 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d,%d"</span>,&amp;a,&amp;b);</span><br><span class="line">    c = max(a,b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"max=%d\n"</span>,c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> z;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; y) z = x;</span><br><span class="line">    <span class="keyword">else</span> z = y;</span><br><span class="line">    <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行后输出结果 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ gcc error.c </span><br><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1，8</span><br><span class="line">max=1</span><br></pre></td></tr></table></figure></p>
+<p>这里输出结果视编译器不同而不同。</p>
+<p>之所以出现这样的问题，是因为输入数据的时候，格式化使用的逗号是中文导致的问题，重新使用英文逗号尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1,8</span><br><span class="line">max=8</span><br></pre></td></tr></table></figure>
+<p>会发现程序运行正常了</p>
+<p>在这里建议各位，在scanf格式化的时候，别使用逗号做分隔符，使用空格就可以避免类似的问题了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// scanf("%d,%d",&amp;a,&amp;b);</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;a,&amp;b);</span><br></pre></td></tr></table></figure>
+<p>修改后的程序使用示例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ gcc error.c </span><br><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:~/Desktop$ ./a.out </span><br><span class="line">1 8</span><br><span class="line">max=8</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;经常有学弟学妹问到一个max函数(从两个数中找出最大的数)的问题，现在统一作答。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="c语言" scheme="http://greedyhao.cc/tags/c%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>Sysgen-license-checkout-failed</title>
@@ -359,9 +398,9 @@
     </summary>
     
     
-      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
-    
       <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
+    
+      <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
     
       <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
     
@@ -1357,74 +1396,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
     
       <category term="small-talk" scheme="http://greedyhao.cc/tags/small-talk/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>焊接总结</title>
-    <link href="http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-%E7%84%8A%E6%8E%A5%E6%80%BB%E7%BB%93/"/>
-    <id>http://greedyhao.cc/2018/07/18/Hardware-2018-07-18-焊接总结/</id>
-    <published>2018-07-18T06:12:43.000Z</published>
-    <updated>2018-09-09T04:54:00.122Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="焊接总结">焊接总结</h1>
-<p>前段时间去做实习。</p>
-<p>新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。</p>
-<h1 id="焊接一般的贴片封装">焊接一般的贴片封装</h1>
-<h2 id="焊接步骤">焊接步骤：</h2>
-<ul>
-<li>先在一边焊盘上锡</li>
-<li>用镊子夹取需要焊接的元件并放置到焊盘</li>
-<li>先在有锡的焊盘上固定元件的一头</li>
-<li>再给元件的另一头上锡固定</li>
-</ul>
-<h2 id="经验总结">经验总结</h2>
-<p>我一开始就是以这个步骤焊接的，不过在焊接完之后，以水平角度看板子上的元件发现，有虚焊的情况。</p>
-<p>而且虚焊的情况主要是发生在后上锡的一头，这主要应该是和我用烙铁头给元件另一头上锡的动作有问题有关。</p>
-<p>因此我改变了上锡的动作。原先焊插接件总是在焊完后习惯的把烙铁头顺着引脚，往上提。</p>
-<p>不过我发现这个动作在焊贴片的时候不太好，会导致锡沾不上焊盘；所以我将自己之前忘上提的动作改为了往下压的动作。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hardware/soldering_general_smd.gif" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>另外就是，为了确保一开始焊的那头不会虚焊，可以在焊完后拔一拔，试试焊实了没有。虚焊的元件一拔就掉了。</p>
-<h1 id="焊接qfp等管脚比较多的元件">焊接QFP等管脚比较多的元件</h1>
-<h2 id="焊接步骤-1">焊接步骤</h2>
-<ul>
-<li>先在焊盘上上点锡固定元件</li>
-<li>堆锡</li>
-<li>刮锡</li>
-</ul>
-<h2 id="经验总结-1">经验总结</h2>
-<p>要这么做，一个好的烙铁头很重要！那种不沾锡的烙铁头就算了吧，会怀疑人生的。</p>
-<p>焊完后检查一下管脚是否有短路，有时候没注意就有那么两三个管脚还是短路在一起的。</p>
-<p>如果有锡刮不下来就上点助锡膏吧，没有这个东西搞不定的元件。</p>
-<p>上一些焊接的图吧</p>
-<p><img src="/img/hardware/soldering_1.png" alt="固定元件"><img src="/img/hardware/soldering_2.png" alt="堆锡"></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="/img/hardware/soldering_qfp.gif" alt="刮锡" title="">
-                </div>
-                <div class="image-caption">刮锡</div>
-            </figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;焊接总结&quot;&gt;焊接总结&lt;/h1&gt;
-&lt;p&gt;前段时间去做实习。&lt;/p&gt;
-&lt;p&gt;新来的嘛，自然不会给什么重要的事情做，就叫焊板；不过也好，很久没有动烙铁了，正好，可以再熟悉一下。&lt;/p&gt;
-&lt;h1 id=&quot;焊接一般的贴片封装&quot;&gt;焊接一般的贴片封装&lt;/h1&gt;
-&lt;h2 id=&quot;
-    
-    </summary>
-    
-      <category term="Hardware" scheme="http://greedyhao.cc/categories/Hardware/"/>
-    
     
   </entry>
   
