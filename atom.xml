@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2018-10-17T10:28:59.212Z</updated>
+  <updated>2018-10-21T07:52:13.841Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -14,6 +14,122 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>模拟连续时间傅里叶变换</title>
+    <link href="http://greedyhao.cc/2018/10/21/%E5%B7%A5%E4%BD%9C-dsp-2018-10-21-Matlab%E6%A8%A1%E6%8B%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/"/>
+    <id>http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/</id>
+    <published>2018-10-21T07:45:09.000Z</published>
+    <updated>2018-10-21T07:52:13.841Z</updated>
+    
+    <content type="html"><![CDATA[<p>傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。</p>
+<a id="more"></a>
+<blockquote>
+<p>以下大部分内容来自<em>Digital Signal Processing Using Matlab</em>和<em>数字信号处理教程 程佩青</em></p>
+</blockquote>
+<p>此次选择的软件平台为Matlab。</p>
+<p>由于Matlab无法处理无限长序列，所以需要处理的信号必须是有限长的。</p>
+<h1 id="连续时间傅里叶变换">连续时间傅里叶变换</h1>
+<p>傅里叶变换的公式为：</p>
+<p><span class="math display">\[
+X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt
+\]</span></p>
+<p>为了在计算机中模拟傅里叶变换，我们将积分变为求和的方式，上下限也从正无穷到负无穷变为一段长度M，dt需要尽可能小</p>
+<p><span class="math display">\[
+X_a(j\Omega) = \sum_m x_a(m\Delta t)e^{-j\Omega m\Delta t}\Delta t
+\]</span></p>
+<p>在Matlab中，函数的自变量因变量的集合都是使用矩阵来存储的，从矩阵的角度来看傅里叶变换的公式如下：</p>
+<p><span class="math display">\[
+[X_a(0)\ X_a(1)\ X_a(2)\ ..] = [x_a(0)\ x_a(1)\ x_a(2)\ ..]
+\left[
+\begin{matrix}
+ e^{-j\omega_0 t_0} &amp; e^{-j\omega_1 t_0} &amp; \cdots &amp; e^{-j\omega_K t_0}      \\
+ e^{-j\omega_0 t_1} &amp; e^{-j\omega_1 t_1} &amp; \cdots &amp; e^{-j\omega_K t_1}      \\
+ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+ e^{-j\omega_0 t_N} &amp; e^{-j\omega_1 t_N} &amp; \cdots &amp; e^{-j\omega_K t_N}      \\
+\end{matrix}
+\right]
+\]</span></p>
+<p>角频率向量定义为<span class="math inline">\(\omega=[\omega_0\ \omega_1\ ...\ \omega_K]\)</span></p>
+<p>时间向量定义为<span class="math inline">\(t=[t_0 :\Delta t: t_N]\)</span></p>
+<p>因此矩阵指数可写为<span class="math inline">\(-j*t&#39;*\omega\)</span></p>
+<p>整个傅里叶变换可写为 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="具体实现">具体实现</h2>
+<p>其实下面这个例子是<em>Digital Signal Processing Using Matlab</em>中的，来自P64页，不过想到都看到这里了还要读者翻书不太好，就一起放上来了。</p>
+<p>定义<span class="math inline">\(x_a(t) = e^{-1000|t|}\)</span></p>
+<p>先进行数学上的分析，</p>
+<p><span class="math display">\[
+\begin {aligned}
+X_a(j \Omega) &amp;= \int^\infty_{-\infty}x_a(t)e^{-j\Omega t}dt \\
+&amp;= \int^0_{-\infty}e^{1000t}e^{-j\Omega t}dt + \int^\infty_0 e^{-1000t}e^{-j\Omega t}dt \\
+&amp;= \frac{0.002}{1+(\frac{\Omega}{1000})^2}
+\end {aligned}
+\]</span></p>
+<p>MATLAB实现如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Continuous-time Fourier Transform</span></span><br><span class="line">Wmax = <span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">2000</span>;</span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">W = k*Wmax/K;</span><br><span class="line"></span><br><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br><span class="line">Xa = <span class="built_in">abs</span>(Xa);</span><br><span class="line"></span><br><span class="line">W = [-fliplr(W), W(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line">Xa = [fliplr(Xa), Xa(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>); </span><br><span class="line">plot(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'xa(t)'</span>);</span><br><span class="line">title(<span class="string">'Analog Signal'</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>); </span><br><span class="line">plot(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),Xa*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br><span class="line">title(<span class="string">'Continuous-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
+<p>运行效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/ctft_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>如果想确认变换的正确性，可以在运行完上面这个脚本后，在命令行输入</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plot(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),(<span class="number">0.002</span>./(<span class="number">1</span>+(W./<span class="number">1000</span>).^<span class="number">2</span>))*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br></pre></td></tr></table></figure>
+<p>运行效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/ctft_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>这时会发现，根据上面推导的变换公式直接plot出的图形和变换后得到的图形是一样的，这样可以确定变换的正确性。</p>
+<h2 id="存在问题">存在问题</h2>
+<p>目前存在的问题是，对于复函数的变换结果不正确。我想了很多天都找不出问题所在，只能暂时放弃，等以后有机会再研究。</p>
+<h1 id="离散时间傅里叶变换">离散时间傅里叶变换</h1>
+<p>下面是对上一个例子中的模拟输入信号做离散化，然后再进行离散傅里叶变换。</p>
+<p>为了体现Nyquist定理，将使用两种不同的采样频率 1. 使用Fs=5000sam/sec采样来获得x1(n) 2. 使用Fs=1000sam/sec采样来获得x2(n)</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Signal </span></span><br><span class="line">Ts = <span class="number">0.0002</span>;</span><br><span class="line">n = <span class="number">-25</span>:<span class="number">1</span>:<span class="number">25</span>;</span><br><span class="line">x = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(n*Ts));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Fourier transform</span></span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">w = <span class="built_in">pi</span>*k/K;</span><br><span class="line"></span><br><span class="line">X = x*<span class="built_in">exp</span>(-<span class="built_in">j</span>*n'*w); X = <span class="built_in">real</span>(X);</span><br><span class="line"></span><br><span class="line">w = [-fliplr(w), w(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line">X = [fliplr(X), X(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>);plot(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'x1(n)'</span>);</span><br><span class="line">title(<span class="string">'Discrete Signal'</span>);hold on;</span><br><span class="line"></span><br><span class="line">stem(n*Ts*<span class="number">1000</span>,<span class="built_in">real</span>(x));gtext(<span class="string">'Ts=0.2 msec'</span>);hold off;</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>);plot(w/<span class="built_in">pi</span>,X);</span><br><span class="line">xlabel(<span class="string">'Frequency in pi units'</span>);ylabel(<span class="string">'X1(w)'</span>);</span><br><span class="line">title(<span class="string">'Discrete-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="fs5000samsec">Fs=5000sam/sec</h2>
+<p>xa(t)的频率为2KHz，因此它的Nyquist频率为4KHz，而它的采样频率为5KHz，所以是满足Nyquist采样定律的，此时不会发生混叠。</p>
+<p>运行效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/dtft_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="fs1000samsec">Fs=1000sam/sec</h2>
+<p>这里使用的采样频率为1KHz，不满足Nyquist条件，因此会发生混叠。观察一下就会发生，1KHz采样得到的序列的频域波形和前面的频域波形不同，这就是混叠导致的，而且过低的采样率采集的信号的变换的不可逆的。</p>
+<p>运行效果如下： <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/dtft_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="dsp" scheme="http://greedyhao.cc/tags/dsp/"/>
+    
+      <category term="matlab" scheme="http://greedyhao.cc/tags/matlab/"/>
+    
+  </entry>
   
   <entry>
     <title>c语言scanf输入问题</title>
@@ -398,9 +514,9 @@
     </summary>
     
     
-      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
-    
       <category term="Xilinx" scheme="http://greedyhao.cc/tags/Xilinx/"/>
+    
+      <category term="Zynq" scheme="http://greedyhao.cc/tags/Zynq/"/>
     
       <category term="Zybo" scheme="http://greedyhao.cc/tags/Zybo/"/>
     
@@ -1348,54 +1464,6 @@ H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\
     
     
       <category term="dsp" scheme="http://greedyhao.cc/tags/dsp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>说说我最近做了什么</title>
-    <link href="http://greedyhao.cc/2018/07/21/%E7%94%9F%E6%B4%BB-small-talk-2018-07-21-%E8%AF%B4%E8%AF%B4%E6%88%91%E6%9C%80%E8%BF%91%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/"/>
-    <id>http://greedyhao.cc/2018/07/21/生活-small-talk-2018-07-21-说说我最近做了什么/</id>
-    <published>2018-07-21T01:46:17.000Z</published>
-    <updated>2018-09-09T04:56:41.518Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="说说我最近做了什么">说说我最近做了什么</h1>
-<p>每天早上学习半个小时到一个小时的时间英语，买了两本书《恋练有词》和《恋练不忘》两本书，配套朱伟老师的视频学习。不得不说，这个课程挺不错的，朱伟老师人很幽默，思路清晰，讲的知识点很到位，值得推荐。</p>
-<p>此外就是对数字信号处理的学习了，暂时计划是通过在中国大学MOOC上看视频，先快速过一遍，然后使用MATLAB配合书本进一步深入学习，最后如果能通过学习到的相关知识自己做一个示波器就更好了。</p>
-<p>时域-&gt;z域</p>
-<p>z变换 z逆变换</p>
-<p>DTFT DFS DFT</p>
-<p>FFT的方法</p>
-<p>数字滤波器的设计</p>
-<p>IIR的设计方法</p>
-<p>FIR的设计方法 窗函数</p>
-<p>目前已经完成第一阶段的目标（定力有点不好，拖了几天才看完），稍微了解了一点数字信号处理的知识。</p>
-<p>个人觉得数字信号处理的应用在于设计各种数字滤波器，而各种变换域的方法就是数字信号处理的分析，数字信号处理离不开分析与应用。</p>
-<p>数字滤波器的设计要一开始就要明确设计的目的，设计好通频、损耗等等</p>
-<p>分析上主要就是s域与z域同时间域之间的转换了，然后用FFT加速变换</p>
-<p>不过我觉得我第一阶段做的不够好，首先是有点拖，浪费了很多时间；其次就是没有把问题记录下来，这个问题很致命。在看视频的时候，经常会冒出来一些问题，比如说窗函数各自的作用是什么、巴特沃斯等逼近是什么原理等等，很多问题当时突然就冒出来，但是没有记录就忘了，要是能把问题记录下来，之后带着问题再看书，效果应该会好很多。</p>
-<p>在知乎上看到的，数字信号处理推荐的书籍，在公众号的菜单中有下载链接</p>
-<ul>
-<li>DigitalSignalProcessing(4thEdition)4thEditionbyJohnG.Proakis(Author)</li>
-<li>Oppenheim:DiscretSignalProcessingbyAlanV.Oppenheim</li>
-<li>数字信号处理教程程佩青</li>
-</ul>
-<hr>
-<div class="figure">
-<img src="/img/wechat_official_accounts.jpg">
-
-</div>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;说说我最近做了什么&quot;&gt;说说我最近做了什么&lt;/h1&gt;
-&lt;p&gt;每天早上学习半个小时到一个小时的时间英语，买了两本书《恋练有词》和《恋练不忘》两本书，配套朱伟老师的视频学习。不得不说，这个课程挺不错的，朱伟老师人很幽默，思路清晰，讲的知识点很到位，值得推荐。&lt;/p&gt;
-&lt;
-    
-    </summary>
-    
-    
-      <category term="small-talk" scheme="http://greedyhao.cc/tags/small-talk/"/>
     
   </entry>
   
