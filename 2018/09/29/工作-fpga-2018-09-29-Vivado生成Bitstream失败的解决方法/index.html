@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -67,7 +67,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -87,35 +87,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -177,13 +177,12 @@ ga('send', 'pageview');
 <div class="container body-wrap">
     
 
-<article id="post-工作-fpga-2018-09-29-Vivado生成Bitstream失败的解决方法"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-fpga-2018-09-29-Vivado生成Bitstream失败的解决方法" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">Vivado生成Bitstream失败的解决方法</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-09-29 17:18:12" datetime="2018-09-29T09:18:12.000Z"  itemprop="datePublished">2018-09-29</time>
+            <time class="post-time" title="2018-09-29 17:18:12" datetime="2018-09-29T09:18:12.000Z" itemprop="datePublished">2018-09-29</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/入门学习/">入门学习</a></li></ul>
@@ -191,7 +190,7 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
@@ -204,8 +203,8 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DRC NSTD-1] Unspecified I/O Standard: 4 out of 134 logical ports use I/O standard (IOSTANDARD) value &apos;DEFAULT&apos;, instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY &#123;Warning&#125; [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: LEDs_out_0[3:0].</span><br><span class="line"></span><br><span class="line">[DRC UCIO-1] Unconstrained Logical Port: 4 out of 134 logical ports have no user assigned specific location constraint (LOC). ... Problem ports: LEDs_out_0[3:0].</span><br></pre></td></tr></table></figure>
 <p>在我绝望的时候在网上搜到了解决方法，问题还是出在了XDC文件上</p>
 <p>我是直接复制的实验指导书中的XDC文件中的内容，但是在生成ked_controller这个ip核的port的时候，生成的port的名字和实验中的并不一样。</p>
-<p>xdc文件内容如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">set_property PACKAGE_PIN M14            [get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property PACKAGE_PIN M15 			[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property PACKAGE_PIN G14 		    [get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property PACKAGE_PIN D18 			[get_ports &#123;LEDs_out[3]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[3]&#125;]</span><br></pre></td></tr></table></figure></p>
-<p>注意下我的DRC报错信息就会发现一个重要的信息 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Problem ports: LEDs_out_0[3:0].</span><br></pre></td></tr></table></figure></p>
+<p>xdc文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">set_property PACKAGE_PIN M14            [get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[0]&#125;]</span><br><span class="line">set_property PACKAGE_PIN M15 			[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[1]&#125;]</span><br><span class="line">set_property PACKAGE_PIN G14 		    [get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[2]&#125;]</span><br><span class="line">set_property PACKAGE_PIN D18 			[get_ports &#123;LEDs_out[3]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 		[get_ports &#123;LEDs_out[3]&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>注意下我的DRC报错信息就会发现一个重要的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Problem ports: LEDs_out_0[3:0].</span><br></pre></td></tr></table></figure></p>
 <p>这报错的port似乎有点不对劲，和约束文件中声明的port不一样，这也是为什么报错说LEDs_out_0这个port unspecified的原因，因为你XDC中声明的是LEDs_out啊。</p>
 <p>解决方法很简单，把这个port的名字改了就好，更改方法如图。</p>
 <figure class="image-bubble">
@@ -223,7 +222,6 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-
         </div>
 
         <blockquote class="post-copyright">
@@ -377,8 +375,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -397,10 +394,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -524,7 +521,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

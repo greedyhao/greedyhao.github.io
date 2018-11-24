@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,20 +37,21 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="入门,doxygen">
-    <meta name="description" content="doxygen介绍 相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
+    <meta name="description" content="doxygen介绍相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
 <meta name="keywords" content="入门,doxygen">
 <meta property="og:type" content="article">
 <meta property="og:title" content="doxygen简明指南">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="doxygen介绍 相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
+<meta property="og:description" content="doxygen介绍相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/doxygen/garbled1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/doxygen/garbled2.png">
 <meta property="og:updated_time" content="2017-08-14T13:26:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="doxygen简明指南">
-<meta name="twitter:description" content="doxygen介绍 相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
-<meta name="twitter:image" content="http://greedyhao.cc/img/doxygen/garbled2.png">
+<meta name="twitter:description" content="doxygen介绍相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/doxygen/garbled1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -66,7 +67,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -86,35 +87,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -178,18 +179,17 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#doxygen介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">doxygen介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用目的"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用目的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装与使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装与使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#doxygen注释风格"><span class="post-toc-number">4.</span> <span class="post-toc-text">doxygen注释风格</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#doxygen介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">doxygen介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用目的"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用目的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装与使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装与使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#doxygen注释风格"><span class="post-toc-number">4.</span> <span class="post-toc-text">doxygen注释风格</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可能出现的问题"><span class="post-toc-number">5.</span> <span class="post-toc-text">可能出现的问题</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-doxygen-2017-08-10-Using-doxygen"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-doxygen-2017-08-10-Using-doxygen" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">doxygen简明指南</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 13:33:00" datetime="2017-08-10T05:33:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2017-08-10 13:33:00" datetime="2017-08-10T05:33:00.000Z" itemprop="datePublished">2017-08-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -197,111 +197,132 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="doxygen介绍">doxygen介绍</h2>
-<p>相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了<strong>doxygen</strong>才明白。</p>
+            <h2 id="doxygen介绍"><a href="#doxygen介绍" class="headerlink" title="doxygen介绍"></a>doxygen介绍</h2><p>相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。<br>我一直很疑惑，这些注释到底有什么用，直到我看到了<strong>doxygen</strong>才明白。</p>
 <a id="more"></a>
-<h2 id="使用目的">使用目的</h2>
-<p>doxygen会根据你代码中的注释，自动生成文档，可以是html,也可以是pdf。 这些文档可以让别人快速了解你的API，并使用它。</p>
-<h2 id="安装与使用">安装与使用</h2>
+<h2 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h2><p>doxygen会根据你代码中的注释，自动生成文档，可以是html,也可以是pdf。<br>这些文档可以让别人快速了解你的API，并使用它。</p>
+<h2 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h2><ul>
+<li><strong>下载安装doxygen</strong><ul>
+<li><a href="https://sourceforge.net/projects/doxygen/files/latest/download" target="_blank" rel="noopener">doxygen on win</a></li>
+</ul>
+</li>
+</ul>
 <ul>
-<li><strong>下载安装doxygen</strong></li>
-<li><p><a href="https://sourceforge.net/projects/doxygen/files/latest/download" target="_blank" rel="noopener">doxygen on win</a></p></li>
-<li><strong>使用方法</strong></li>
-<li>windows下使用
+<li><p><strong>使用方法</strong></p>
+<ul>
+<li><p>windows下使用</p>
 <ul>
 <li>你需要稍微了解一下<a href="https://www.zybuluo.com/yangfch3/note/173158" target="_blank" rel="noopener">windows命令行常用命令</a></li>
 <li>可以选择使用<a href="https://github.com/PowerShell/PowerShell" target="_blank" rel="noopener">powershell</a></li>
-<li><p>打开命令行，<strong>cd</strong>到你要生成文档的源文件的位置，在命令行输入 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen -g</span><br></pre></td></tr></table></figure></p></li>
-<li><p>成功后，当前目录生成一个<strong>Doxyfile</strong>的配置文件，并显示以下信息 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Configuration file `Doxyfile&apos; created.</span><br><span class="line">Now edit the configuration file and enter</span><br><span class="line"> doxygen Doxyfile</span><br><span class="line">to generate the documentation for your project</span><br></pre></td></tr></table></figure></p></li>
-<li>接下来就可以对<strong>Doxyfile</strong>进行修改</li>
-<li><p>如果不需要PDF输出就把 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = YES</span><br></pre></td></tr></table></figure></p></li>
+<li><p>打开命令行，<strong>cd</strong>到你要生成文档的源文件的位置，在命令行输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>成功后，当前目录生成一个<strong>Doxyfile</strong>的配置文件，并显示以下信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Configuration file `Doxyfile&apos; created.</span><br><span class="line">Now edit the configuration file and enter</span><br><span class="line"> doxygen Doxyfile</span><br><span class="line">to generate the documentation for your project</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来就可以对<strong>Doxyfile</strong>进行修改</p>
+<ul>
+<li>如果不需要PDF输出就把<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = YES</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>修改为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = NO</span><br></pre></td></tr></table></figure></p>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GENERATE_LATEX         = NO</span><br></pre></td></tr></table></figure>
 <ul>
 <li>配置文件里有相关配置的描述，可以参考下</li>
-<li>修改配置文件结束后，就可以进行文档的输出了，在命令行输入以下命令 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen .\Doxyfile</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+</ul>
+</li>
+<li>修改配置文件结束后，就可以进行文档的输出了，在命令行输入以下命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doxygen .\Doxyfile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p>使用方法参考<a href="http://cedar-renjun.github.io/2014/03/21/learn-doxygen-in-10-minutes/" target="_blank" rel="noopener">Doxygen 10 分钟入门教程</a></p>
-<h2 id="doxygen注释风格">doxygen注释风格</h2>
-<table>
+<h2 id="doxygen注释风格"><a href="#doxygen注释风格" class="headerlink" title="doxygen注释风格"></a>doxygen注释风格</h2><table>
 <thead>
-<tr class="header">
-<th align="left">命令        </th>
-<th align="left"> 说明</th>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"><span class="citation">@file</span></td>
-<td align="left">档案的批注说明</td>
+<tr>
+<td style="text-align:left">@file</td>
+<td style="text-align:left">档案的批注说明</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@author</span>  </td>
-<td align="left">作者信息</td>
+<tr>
+<td style="text-align:left">@author</td>
+<td style="text-align:left">作者信息</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@brief</span>    </td>
-<td align="left">简要说明</td>
+<tr>
+<td style="text-align:left">@brief</td>
+<td style="text-align:left">简要说明</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@param</span>    </td>
-<td align="left">参数说明<br>eg:参数a + ' ' + 作用</td>
+<tr>
+<td style="text-align:left">@param</td>
+<td style="text-align:left">参数说明<br>eg:参数a + ‘ ‘ + 作用</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@return</span></td>
-<td align="left">描述该函数的返回值情况</td>
+<tr>
+<td style="text-align:left">@return</td>
+<td style="text-align:left">描述该函数的返回值情况</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@retval</span></td>
-<td align="left">描述返回值类型</td>
+<tr>
+<td style="text-align:left">@retval</td>
+<td style="text-align:left">描述返回值类型</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@note</span></td>
-<td align="left">注解</td>
+<tr>
+<td style="text-align:left">@note</td>
+<td style="text-align:left">注解</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@attention</span>  </td>
-<td align="left">注意</td>
+<tr>
+<td style="text-align:left">@attention</td>
+<td style="text-align:left">注意</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@warning</span></td>
-<td align="left">警告信息</td>
+<tr>
+<td style="text-align:left">@warning</td>
+<td style="text-align:left">警告信息</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@enum</span></td>
-<td align="left">引用了某个枚举，Doxygen会在该枚举处产生一个链接</td>
+<tr>
+<td style="text-align:left">@enum</td>
+<td style="text-align:left">引用了某个枚举，Doxygen会在该枚举处产生一个链接</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@var</span></td>
-<td align="left">引用了某个变量，Doxygen会在该枚举处产生一个链接</td>
+<tr>
+<td style="text-align:left">@var</td>
+<td style="text-align:left">引用了某个变量，Doxygen会在该枚举处产生一个链接</td>
 </tr>
-<tr class="even">
-<td align="left"><span class="citation">@class</span></td>
-<td align="left">引用某个类</td>
+<tr>
+<td style="text-align:left">@class</td>
+<td style="text-align:left">引用某个类</td>
 </tr>
-<tr class="odd">
-<td align="left"><span class="citation">@exception</span>  </td>
-<td align="left">可能产生的异常描述                                </td>
+<tr>
+<td style="text-align:left">@exception</td>
+<td style="text-align:left">可能产生的异常描述</td>
 </tr>
 </tbody>
 </table>
-<p>参考来源<a href="http://ticktick.blog.51cto.com/823160/188674" target="_blank" rel="noopener">Doxygen注释风格</a> ## 可能出现的问题 1. 中文输出乱码</p>
-<pre><code>![](/img/doxygen/garbled1.png)</code></pre>
+<p>参考来源<a href="http://ticktick.blog.51cto.com/823160/188674" target="_blank" rel="noopener">Doxygen注释风格</a></p>
+<h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol>
+<li><p>中文输出乱码</p>
+<p><img src="/img/doxygen/garbled1.png" alt=""></p>
 <ul>
-<li>解决方法
+<li><p>解决方法</p>
 <ul>
-<li>修改<strong>Doxyfile</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT_ENCODING = GB2312</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<li>修改<strong>Doxyfile</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT_ENCODING = GB2312</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>  - 修改后效果图 <img src="/img/doxygen/garbled2.png"></p>
+</li>
+<li><p>修改后效果图<br><img src="/img/doxygen/garbled2.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
 
         </div>
 
@@ -356,8 +377,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/&title=《doxygen简明指南》 — Zhuhao's Blog&source=doxygen介绍
-相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/&title=《doxygen简明指南》 — Zhuhao's Blog&source=doxygen介绍相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -457,8 +477,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -477,10 +496,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -522,8 +541,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/&title=《doxygen简明指南》 — Zhuhao's Blog&source=doxygen介绍
-相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。 我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-doxygen-2017-08-10-Using-doxygen/&title=《doxygen简明指南》 — Zhuhao's Blog&source=doxygen介绍相信学习嵌入式开发的人都知道，在官方头文件中总是有很多酷炫的注释。我一直很疑惑，这些注释到底有什么用，直到我看到了doxygen才明白。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -605,7 +623,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -181,13 +181,12 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-工作-Linux-2017-08-26-多进程和多线程的区别"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-Linux-2017-08-26-多进程和多线程的区别" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">多进程和多线程的区别</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-26 22:12:52" datetime="2017-08-26T14:12:52.000Z"  itemprop="datePublished">2017-08-26</time>
+            <time class="post-time" title="2017-08-26 22:12:52" datetime="2017-08-26T14:12:52.000Z" itemprop="datePublished">2017-08-26</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,7 +194,7 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
@@ -205,20 +204,14 @@ ga('send', 'pageview');
             <p>对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。</p>
 <a id="more"></a>
 <p>对于进程的描述，我在<a href="http://greedyhao.cc/2017/08/21/%E5%B7%A5%E4%BD%9C-Linux-2017-08-21-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA%E5%92%8C%E8%BF%90%E8%A1%8C/">进程创建和运行</a>有过一些简单的描述，一点都不知道的可以参考一下。</p>
-<h1 id="多进程与多线程获得资源不同">多进程与多线程获得资源不同</h1>
-<p>内核提供给进程的虚拟内存与虚拟处理器，在多进程的情况下，可以让每一个进程都认为自己完全的占有整台电脑的资源。而在多线程的情况下，同易进程的多个线程之间共享同样的内存资源，但是独自占有处理器资源。</p>
-<h1 id="为什么使用多线程而不是多进程">为什么使用多线程而不是多进程</h1>
-<p>其实线程能做的事情进程也可以做，多进程的低延迟和高I/O吞吐也可以通过I/O多路复用，非阻塞I/O和异步I/O来实现。这些技术可以使进程并发，不会阻塞进程。</p>
-<h2 id="但是">但是</h2>
-<p>进程的上下文切换由于涉及把一个虚拟地址切换到另一个虚拟地址，所以代价比较大；而进程内的线程间切换由于共享同一个内存，代价几乎为0。在极端情况下，在某些ARM机器上，必须把整个CPU的缓存都清空。</p>
-<h2 id="多线程真正的优点">多线程真正的优点</h2>
-<p>为什么现在的应用越来越倾向与使用多线程，真正的原因就是多线程能够 <strong>真正的并发运行</strong> ，有多少处理器数就可以并行多少线程。在十多年前人们可能不在意多线程，因为当时的处理器数基本都只有一个，不像现在的处理器基本都是多核，手机的处理器甚至还有十核的，因此手机的应用基本都是多线程的，这样可以更好的利用资源。</p>
-<h1 id="多线程的缺点">多线程的缺点</h1>
-<p>多线程用起来是很爽，但是存在一个很大的问题：多线程的进程有多个事件在同时运行，而这些事件共享同一份内存，可能会同时读写同一个文件，一个不小心就会输出脏数据。</p>
+<h1 id="多进程与多线程获得资源不同"><a href="#多进程与多线程获得资源不同" class="headerlink" title="多进程与多线程获得资源不同"></a>多进程与多线程获得资源不同</h1><p>内核提供给进程的虚拟内存与虚拟处理器，在多进程的情况下，可以让每一个进程都认为自己完全的占有整台电脑的资源。而在多线程的情况下，同易进程的多个线程之间共享同样的内存资源，但是独自占有处理器资源。</p>
+<h1 id="为什么使用多线程而不是多进程"><a href="#为什么使用多线程而不是多进程" class="headerlink" title="为什么使用多线程而不是多进程"></a>为什么使用多线程而不是多进程</h1><p>其实线程能做的事情进程也可以做，多进程的低延迟和高I/O吞吐也可以通过I/O多路复用，非阻塞I/O和异步I/O来实现。这些技术可以使进程并发，不会阻塞进程。</p>
+<h2 id="但是"><a href="#但是" class="headerlink" title="但是"></a>但是</h2><p>进程的上下文切换由于涉及把一个虚拟地址切换到另一个虚拟地址，所以代价比较大；而进程内的线程间切换由于共享同一个内存，代价几乎为0。在极端情况下，在某些ARM机器上，必须把整个CPU的缓存都清空。</p>
+<h2 id="多线程真正的优点"><a href="#多线程真正的优点" class="headerlink" title="多线程真正的优点"></a>多线程真正的优点</h2><p>为什么现在的应用越来越倾向与使用多线程，真正的原因就是多线程能够 <strong>真正的并发运行</strong> ，有多少处理器数就可以并行多少线程。在十多年前人们可能不在意多线程，因为当时的处理器数基本都只有一个，不像现在的处理器基本都是多核，手机的处理器甚至还有十核的，因此手机的应用基本都是多线程的，这样可以更好的利用资源。</p>
+<h1 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h1><p>多线程用起来是很爽，但是存在一个很大的问题：多线程的进程有多个事件在同时运行，而这些事件共享同一份内存，可能会同时读写同一个文件，一个不小心就会输出脏数据。</p>
 <p>而且对多线程的程序的调试也是一个很让人头疼的问题（听说的，本人不清楚）</p>
-<h1 id="参考源">参考源</h1>
-<ul>
-<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O'Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
 </ul>
 
         </div>
@@ -374,8 +367,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -394,10 +386,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -521,7 +513,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

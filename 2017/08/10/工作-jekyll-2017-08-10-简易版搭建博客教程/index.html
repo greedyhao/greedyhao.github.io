@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="入门,jekyll">
-    <meta name="description" content="前言 之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
+    <meta name="description" content="前言之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
 <meta name="keywords" content="入门,jekyll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用github page搭建博客简易教程">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="前言 之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
+<meta property="og:description" content="前言之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/jekyll/创建github账户.png">
 <meta property="og:image" content="http://greedyhao.cc/img/jekyll/jekyllthem.png">
@@ -52,7 +52,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2017-08-14T13:26:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用github page搭建博客简易教程">
-<meta name="twitter:description" content="前言 之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
+<meta name="twitter:description" content="前言之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。 其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/jekyll/创建github账户.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -69,7 +69,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -89,35 +89,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -186,13 +186,12 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">利用github page搭建博客简易教程</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z" itemprop="datePublished">2017-08-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -200,52 +199,42 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="前言">前言</h1>
-<p>之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。</p>
-<p>其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都<br>不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。</p>
+<p>其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。<br>所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。</p>
 <a id="more"></a>
-<h1 id="搭建一个可以用的博客只用三步">搭建一个可以用的博客只用三步</h1>
-<ul>
-<li>第一步，按图中所示步骤<a href="https://github.com/join?source=header-repo" target="_blank" rel="noopener">创建github账户</a> <img src="/img/jekyll/创建github账户.png"></li>
-<li>第二步，去<a href="http://jekyllthemes.org/" target="_blank" rel="noopener">JekyllThemes</a>找一个自己喜欢的主题，点击Homepage按钮 进入github,然后fork下来。 <img src="/img/jekyll/jekyllthem.png" alt="example"></li>
-<li>第三步，回到你fork到的项目的地方，点击Setting，将Repository name，改为 你的github账户名.github.io，大功告成。</li>
+<h1 id="搭建一个可以用的博客只用三步"><a href="#搭建一个可以用的博客只用三步" class="headerlink" title="搭建一个可以用的博客只用三步"></a>搭建一个可以用的博客只用三步</h1><ul>
+<li>第一步，按图中所示步骤<a href="https://github.com/join?source=header-repo" target="_blank" rel="noopener">创建github账户</a><br><img src="/img/jekyll/创建github账户.png" alt=""></li>
+<li>第二步，去<a href="http://jekyllthemes.org/" target="_blank" rel="noopener">JekyllThemes</a>找一个自己喜欢的主题，点击Homepage按钮<br>进入github,然后fork下来。<br><img src="/img/jekyll/jekyllthem.png" alt="example"></li>
+<li><p>第三步，回到你fork到的项目的地方，点击Setting，将Repository name，改为<br>你的github账户名.github.io，大功告成。</p>
+<p><img src="/img/jekyll/rename_repo.png" alt=""></p>
+</li>
 </ul>
-<div class="figure">
-<img src="/img/jekyll/rename_repo.png">
-
-</div>
-<h1 id="测试博客">测试博客</h1>
-<p>在浏览器输入 你的github账户名.github.io，查看是否是你的预想一样，快去试试吧。</p>
-<h1 id="可能出现的问题">可能出现的问题</h1>
-<ol style="list-style-type: decimal">
-<li>没有和预想的一样，反而出现404的页面。</li>
-</ol>
-<ul>
-<li>解决方法
-<ul>
+<h1 id="测试博客"><a href="#测试博客" class="headerlink" title="测试博客"></a>测试博客</h1><p>在浏览器输入 你的github账户名.github.io，查看是否是你的预想一样，快去试试吧。</p>
+<h1 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h1><ol>
+<li>没有和预想的一样，反而出现404的页面。<ul>
+<li>解决方法<ul>
 <li>出现这种情况不用紧张，因为github page后台编译你的博客是需要时间的，第一次大概在10分钟左右。</li>
-<li>如果10分钟后还是404的页面可以浏览一下github绑定的邮箱，如果github page编译失败的话， 会把错误信息发给你的邮箱。 <img src="/img/jekyll/gp编译错误.png" alt="gp编译错误信息"></li>
-</ul></li>
+<li>如果10分钟后还是404的页面可以浏览一下github绑定的邮箱，如果github page编译失败的话，<br>会把错误信息发给你的邮箱。<br><img src="/img/jekyll/gp编译错误.png" alt="gp编译错误信息"></li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li>点击博客内的文章结果404。</li>
+</li>
+</ul>
+</li>
+<li>点击博客内的文章结果404。<ul>
+<li>解决方法<br> 和上面一个情况一样，等等就好了，一般发生在第一次编译的时候</li>
+</ul>
+</li>
+<li>fork使用另外一个主题后，博客主题任然停留在先前的主题<ul>
+<li>解决方法<br> 和第一种解决方法一样，等等先，如果是编译问题邮箱会收到错误信息，如果不是编译问题，过一会儿就好了。</li>
+</ul>
+</li>
 </ol>
-<ul>
-<li>解决方法 和上面一个情况一样，等等就好了，一般发生在第一次编译的时候</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>fork使用另外一个主题后，博客主题任然停留在先前的主题</li>
-</ol>
-<ul>
-<li>解决方法 和第一种解决方法一样，等等先，如果是编译问题邮箱会收到错误信息，如果不是编译问题，过一会儿就好了。</li>
-</ul>
 
         </div>
 
@@ -300,8 +289,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/&title=《利用github page搭建博客简易教程》 — Zhuhao's Blog&source=前言
-之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github pag..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/&title=《利用github page搭建博客简易教程》 — Zhuhao's Blog&source=前言之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都不好看了，又看到可以利用github page搭..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -339,18 +327,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">开始学习stm32</h4>
+        <h4 class="title">学习串口</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习GPIO输入</h4>
+        <h4 class="title">开始学习stm32</h4>
       </a>
     </div>
   
@@ -401,8 +389,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -421,10 +408,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -466,8 +453,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/&title=《利用github page搭建博客简易教程》 — Zhuhao's Blog&source=前言
-之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github pag..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/&title=《利用github page搭建博客简易教程》 — Zhuhao's Blog&source=前言之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都不好看了，又看到可以利用github page搭..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -549,7 +535,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

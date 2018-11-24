@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="Linux,WSL">
-    <meta name="description" content="解决WSL无法运行32位程序问题 ./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了">
+    <meta name="description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
 <meta name="keywords" content="Linux,WSL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决WSL无法运行32位程序问题">
 <meta property="og:url" content="http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="解决WSL无法运行32位程序问题 ./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了">
+<meta property="og:description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-09-09T05:52:27.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决WSL无法运行32位程序问题">
-<meta name="twitter:description" content="解决WSL无法运行32位程序问题 ./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了">
+<meta name="twitter:description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -174,45 +174,40 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决wsl无法运行32位程序问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决WSL无法运行32位程序问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装qemu-和-binfmt"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装qemu 和 binfmt</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#enable-i386-architecture-and-packages"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Enable i386 architecture and packages</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">测试</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决WSL无法运行32位程序问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决WSL无法运行32位程序问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装qemu-和-binfmt"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装qemu 和 binfmt</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Enable-i386-architecture-and-packages"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Enable i386 architecture and packages</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">测试</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-Linux-2018-04-15-解决WSL无法运行32位程序问题"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-Linux-2018-04-15-解决WSL无法运行32位程序问题" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">解决WSL无法运行32位程序问题</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-04-15 16:47:06" datetime="2018-04-15T08:47:06.000Z"  itemprop="datePublished">2018-04-15</time>
+            <time class="post-time" title="2018-04-15 16:47:06" datetime="2018-04-15T08:47:06.000Z" itemprop="datePublished">2018-04-15</time>
 
             
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="解决wsl无法运行32位程序问题">解决WSL无法运行32位程序问题</h1>
-<p>./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error</p>
+            <h1 id="解决WSL无法运行32位程序问题"><a href="#解决WSL无法运行32位程序问题" class="headerlink" title="解决WSL无法运行32位程序问题"></a>解决WSL无法运行32位程序问题</h1><p>./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error</p>
 <p>因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解决方法。</p>
 <a id="more"></a>
 <p><strong><a href="https://github.com/microsoft/wsl/issues/2468#issuecomment-374904520" target="_blank" rel="noopener">解决方案的原链接</a></strong></p>
 <p>微软官方说了，<a href="https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13377507-please-add-32-bit-elf-support-to-the-kernel" target="_blank" rel="noopener">WSL暂时不准备支持ELF-32的运行</a>。</p>
 <p>要求系统版本1709, build 16299 或以上。</p>
-<h2 id="安装qemu-和-binfmt">安装qemu 和 binfmt</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install qemu-user-static</span><br><span class="line">sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &apos;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&apos; --mask &apos;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="安装qemu-和-binfmt"><a href="#安装qemu-和-binfmt" class="headerlink" title="安装qemu 和 binfmt"></a>安装qemu 和 binfmt</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install qemu-user-static</span><br><span class="line">sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &apos;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&apos; --mask &apos;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&apos;</span><br></pre></td></tr></table></figure>
 <p><strong>注意：</strong> 每次重启WSL后如果需要i386的支持需要以下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service binfmt-support start</span><br></pre></td></tr></table></figure>
-<h2 id="enable-i386-architecture-and-packages">Enable i386 architecture and packages</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install gcc:i386</span><br></pre></td></tr></table></figure>
-<h2 id="测试">测试</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ file arm-none-linux-gnueabi-gcc</span><br><span class="line">arm-none-linux-gnueabi-gcc: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.2.5, stripped</span><br><span class="line">$ ./arm-none-linux-gnueabi-gcc -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">Target: arm-none-linux-gnueabi</span><br><span class="line">Configured with: /scratch/julian/2009q3-respin-linux-lite/src/gcc-4.4/configure --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu --target=arm-none-linux-gnueabi --enable-threads --disable-libmudflap --disable-libssp --disable-libstdcxx-pch --enable-extra-sgxxlite-multilibs --with-arch=armv5te --with-gnu-as --with-gnu-ld --with-specs=&apos;%&#123;funwind-tables|fno-unwind-tables|mabi=*|ffreestanding|nostdlib:;:-funwind-tables&#125; %&#123;O2:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125; %&#123;O*:%&#123;O|O0|O1|O2|Os:;:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125;&#125;&apos; --enable-languages=c,c++ --enable-shared --disable-lto --enable-symvers=gnu --enable-__cxa_atexit --with-pkgversion=&apos;Sourcery G++ Lite 2009q3-67&apos; --with-bugurl=https://support.codesourcery.com/GNUToolchain/ --disable-nls --prefix=/opt/codesourcery --with-sysroot=/opt/codesourcery/arm-none-linux-gnueabi/libc --with-build-sysroot=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/libc --with-gmp=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-mpfr=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-ppl=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-host-libstdcxx=&apos;-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm&apos; --with-cloog=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --disable-libgomp --enable-poison-system-directories --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 4.4.1 (Sourcery G++ Lite 2009q3-67)</span><br></pre></td></tr></table></figure>
+<h2 id="Enable-i386-architecture-and-packages"><a href="#Enable-i386-architecture-and-packages" class="headerlink" title="Enable i386 architecture and packages"></a>Enable i386 architecture and packages</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install gcc:i386</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ file arm-none-linux-gnueabi-gcc</span><br><span class="line">arm-none-linux-gnueabi-gcc: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.2.5, stripped</span><br><span class="line">$ ./arm-none-linux-gnueabi-gcc -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">Target: arm-none-linux-gnueabi</span><br><span class="line">Configured with: /scratch/julian/2009q3-respin-linux-lite/src/gcc-4.4/configure --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu --target=arm-none-linux-gnueabi --enable-threads --disable-libmudflap --disable-libssp --disable-libstdcxx-pch --enable-extra-sgxxlite-multilibs --with-arch=armv5te --with-gnu-as --with-gnu-ld --with-specs=&apos;%&#123;funwind-tables|fno-unwind-tables|mabi=*|ffreestanding|nostdlib:;:-funwind-tables&#125; %&#123;O2:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125; %&#123;O*:%&#123;O|O0|O1|O2|Os:;:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125;&#125;&apos; --enable-languages=c,c++ --enable-shared --disable-lto --enable-symvers=gnu --enable-__cxa_atexit --with-pkgversion=&apos;Sourcery G++ Lite 2009q3-67&apos; --with-bugurl=https://support.codesourcery.com/GNUToolchain/ --disable-nls --prefix=/opt/codesourcery --with-sysroot=/opt/codesourcery/arm-none-linux-gnueabi/libc --with-build-sysroot=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/libc --with-gmp=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-mpfr=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-ppl=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-host-libstdcxx=&apos;-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm&apos; --with-cloog=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --disable-libgomp --enable-poison-system-directories --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 4.4.1 (Sourcery G++ Lite 2009q3-67)</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -267,8 +262,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题
-./arm-none-linux-gnueabi-gcc: cannot execute binary file: Ex..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exe..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -368,8 +362,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -388,10 +381,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -433,8 +426,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题
-./arm-none-linux-gnueabi-gcc: cannot execute binary file: Ex..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exe..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -516,7 +508,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

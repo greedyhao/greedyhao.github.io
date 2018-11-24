@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,19 +37,19 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="LCD-TFT控制总结 最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+    <meta name="description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LCD-TFT控制总结">
 <meta property="og:url" content="http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="LCD-TFT控制总结 最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+<meta property="og:description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
 <meta property="og:updated_time" content="2018-09-09T05:52:27.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LCD-TFT控制总结">
-<meta name="twitter:description" content="LCD-TFT控制总结 最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+<meta name="twitter:description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -66,7 +66,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -86,35 +86,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -178,18 +178,17 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lcd-tft控制总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">LCD-TFT控制总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#说说如何找到问题的"><span class="post-toc-number">2.</span> <span class="post-toc-text">说说如何找到问题的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单介绍一下lcd使用到的外设资源"><span class="post-toc-number">3.</span> <span class="post-toc-text">简单介绍一下LCD使用到的外设资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ltdc"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">LTDC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dma2d"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">DMA2D</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fmc"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">FMC</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LCD-TFT控制总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">LCD-TFT控制总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#说说如何找到问题的"><span class="post-toc-number">2.</span> <span class="post-toc-text">说说如何找到问题的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单介绍一下LCD使用到的外设资源"><span class="post-toc-number">3.</span> <span class="post-toc-text">简单介绍一下LCD使用到的外设资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LTDC"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">LTDC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DMA2D"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">DMA2D</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FMC"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">FMC</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2018-07-31-LCD-TFT控制总结"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-stm32-2018-07-31-LCD-TFT控制总结" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">LCD-TFT控制总结</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-07-31 17:09:26" datetime="2018-07-31T09:09:26.000Z"  itemprop="datePublished">2018-07-31</time>
+            <time class="post-time" title="2018-07-31 17:09:26" datetime="2018-07-31T09:09:26.000Z" itemprop="datePublished">2018-07-31</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -197,18 +196,16 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="lcd-tft控制总结">LCD-TFT控制总结</h1>
-<p>最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。</p>
+            <h1 id="LCD-TFT控制总结"><a href="#LCD-TFT控制总结" class="headerlink" title="LCD-TFT控制总结"></a>LCD-TFT控制总结</h1><p>最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。</p>
 <a id="more"></a>
-<h1 id="说说如何找到问题的">说说如何找到问题的</h1>
-<p>找到问题的方法是我昨天才想到的，前些天就像无头苍蝇一样到处乱窜，花了很多时间，但是没有用对方法，都是无用功。</p>
+<h1 id="说说如何找到问题的"><a href="#说说如何找到问题的" class="headerlink" title="说说如何找到问题的"></a>说说如何找到问题的</h1><p>找到问题的方法是我昨天才想到的，前些天就像无头苍蝇一样到处乱窜，花了很多时间，但是没有用对方法，都是无用功。</p>
 <p>后来想到，LCD使用SDRAM最为显存，那么只需要读取SDRAM中的数据就知道为什么显示会有问题了。</p>
 <p>通过访问SDRAM中的显存的地址，就可以直接得到SDRAM中的数据。</p>
 <p>首先测试清屏函数，读取SDRAM中的数据在清屏前和清屏后的数据有什么不同。</p>
@@ -220,42 +217,40 @@ ga('send', 'pageview');
 <p>看看<strong>LL_FillBuffer</strong>这个函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LL_FillBuffer</span><span class="params">(<span class="keyword">uint32_t</span> LayerIndex, <span class="keyword">void</span> *pDst, <span class="keyword">uint32_t</span> xSize, <span class="keyword">uint32_t</span> ySize, <span class="keyword">uint32_t</span> OffLine, <span class="keyword">uint32_t</span> ColorIndex)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Dma2d_Handler.Init.Mode         = DMA2D_R2M;</span><br><span class="line">  <span class="keyword">if</span>(Ltdc_Handler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)</span><br><span class="line">  &#123; </span><br><span class="line">    Dma2d_Handler.Init.ColorMode    = DMA2D_RGB565;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(Ltdc_Handler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)</span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* DMA2D 初始化 */</span></span><br><span class="line">  <span class="keyword">if</span>(HAL_DMA2D_Init(&amp;Dma2d_Handler) == HAL_OK) </span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(HAL_DMA2D_ConfigLayer(&amp;Dma2d_Handler, LayerIndex) == HAL_OK) </span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> (HAL_DMA2D_Start(&amp;Dma2d_Handler, ColorIndex, (<span class="keyword">uint32_t</span>)pDst, xSize, ySize) == HAL_OK)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">/* DMA轮询传输 */</span>  </span><br><span class="line">        HAL_DMA2D_PollForTransfer(&amp;Dma2d_Handler, <span class="number">100</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>它这里操作的是<strong>Dma2d_Handler</strong>这个结构体，但是我用CubeMX生成代码使用的是<strong>hdma2d</strong>这个结构体，再我将<strong>Dma2d_Handler</strong>替换为<strong>hdma2d</strong>后，程序运行正常。</p>
-<h1 id="简单介绍一下lcd使用到的外设资源">简单介绍一下LCD使用到的外设资源</h1>
-<h2 id="ltdc">LTDC</h2>
-<p>液晶面板的信号线如下</p>
+<h1 id="简单介绍一下LCD使用到的外设资源"><a href="#简单介绍一下LCD使用到的外设资源" class="headerlink" title="简单介绍一下LCD使用到的外设资源"></a>简单介绍一下LCD使用到的外设资源</h1><h2 id="LTDC"><a href="#LTDC" class="headerlink" title="LTDC"></a>LTDC</h2><p>液晶面板的信号线如下</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>信号名称</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>R[7:0]</td>
 <td>红色数据</td>
 </tr>
-<tr class="even">
+<tr>
 <td>G[7:0]</td>
 <td>绿色数据</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>B[7:0]</td>
 <td>蓝色数据</td>
 </tr>
-<tr class="even">
+<tr>
 <td>CLK</td>
 <td>像素同步时钟信号</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>HSYNC</td>
 <td>水平同步信号</td>
 </tr>
-<tr class="even">
+<tr>
 <td>VSYNC</td>
 <td>垂直同步信号</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>DE</td>
 <td>数据使能信号</td>
 </tr>
@@ -263,12 +258,10 @@ ga('send', 'pageview');
 </table>
 <p>LTDC作为液晶控制器可以使用SDRAM中的部分空间作为显存，直接控制液晶面板。</p>
 <p>我们需要做的就是参考液晶屏的资料，将液晶屏的像素、控制时序等对LTDC进行初始化，LTDC就会自动对液晶屏进行刷新控制。</p>
-<h2 id="dma2d">DMA2D</h2>
-<p>DMA2D用于图像数据搬运、混合及格式转换</p>
+<h2 id="DMA2D"><a href="#DMA2D" class="headerlink" title="DMA2D"></a>DMA2D</h2><p>DMA2D用于图像数据搬运、混合及格式转换</p>
 <p>有四种模式：DMA2D_M2M、DMA2D_M2M_PFC、DMA2D_M2M_BLEND、DMA2D_R2M</p>
 <p>暂时只用过M2M和R2M，觉得M2M最好用了，将图片转为数组，开启存储器到存储器的DMA，通过<strong>HAL_DMA2D_Start_IT</strong>传输就好了。</p>
-<h2 id="fmc">FMC</h2>
-<p>FMC用于操作SDRAM，通过不断刷新SDRAM保证数据的正确性</p>
+<h2 id="FMC"><a href="#FMC" class="headerlink" title="FMC"></a>FMC</h2><p>FMC用于操作SDRAM，通过不断刷新SDRAM保证数据的正确性</p>
 <hr>
 <p>代码已上传<a href="https://github.com/greedyhao/stm32/tree/master/LCD" target="_blank" rel="noopener">github</a></p>
 <hr>
@@ -333,8 +326,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结
-最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -434,8 +426,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -454,10 +445,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -499,8 +490,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结
-最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -582,7 +572,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

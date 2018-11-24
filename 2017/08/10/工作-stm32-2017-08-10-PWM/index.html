@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="PWM简述 PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
+    <meta name="description" content="PWM简述PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习PWM">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-PWM/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="PWM简述 PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
+<meta property="og:description" content="PWM简述PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-08-14T13:27:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习PWM">
-<meta name="twitter:description" content="PWM简述 PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
+<meta name="twitter:description" content="PWM简述PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。 这是一个通过数字控制模拟电路的非常有效的办法。">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -176,18 +176,17 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pwm简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">PWM简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PWM简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">PWM简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2017-08-10-PWM"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-stm32-2017-08-10-PWM" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">学习PWM</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,19 +194,17 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="pwm简述">PWM简述</h2>
-<p>PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。</p>
+            <h2 id="PWM简述"><a href="#PWM简述" class="headerlink" title="PWM简述"></a>PWM简述</h2><p>PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。</p>
 <p>这是一个通过数字控制模拟电路的非常有效的办法。</p>
 <a id="more"></a>
-<h2 id="基本步骤">基本步骤</h2>
-<ol style="list-style-type: decimal">
+<h2 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h2><ol>
 <li>依然的，还是要开启时钟；开启TIM3和复用功能的时钟（RCC_APB1Periph_TIM3,RCC_APB2Periph_AFIO）</li>
 <li>设置重映射（这主要是看个人，因为我的开发板上的LED在PC口，但是TIM3_CHx默认在PA口，所以我要重映射）</li>
 <li>初始化TIMx</li>
@@ -269,8 +266,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-PWM/&title=《学习PWM》 — Zhuhao's Blog&source=PWM简述
-PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-PWM/&title=《学习PWM》 — Zhuhao's Blog&source=PWM简述PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了P..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -308,18 +304,18 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习GPIO输出</h4>
+        <h4 class="title">学习窗口看门狗</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习串口</h4>
+        <h4 class="title">学习TFT-FSMC</h4>
       </a>
     </div>
   
@@ -370,8 +366,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -390,10 +385,10 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -435,8 +430,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-PWM/&title=《学习PWM》 — Zhuhao's Blog&source=PWM简述
-PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-PWM/&title=《学习PWM》 — Zhuhao's Blog&source=PWM简述PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了P..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -518,7 +512,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

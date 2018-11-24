@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -66,7 +66,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -86,35 +86,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -174,19 +174,18 @@ ga('send', 'pageview');
 <div class="container body-wrap">
     
 
-<article id="post-工作-Linux-2018-09-18-linux命令行运行第三方软件"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-Linux-2018-09-18-linux命令行运行第三方软件" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">linux命令行运行第三方软件</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-09-18 15:41:50" datetime="2018-09-18T07:41:50.000Z"  itemprop="datePublished">2018-09-18</time>
+            <time class="post-time" title="2018-09-18 15:41:50" datetime="2018-09-18T07:41:50.000Z" itemprop="datePublished">2018-09-18</time>
 
             
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
@@ -196,12 +195,12 @@ ga('send', 'pageview');
             <p>linux的宗旨是万物皆文件，所以很多不在源中的程序就是解包即用，但这样使用起来有些不方便，需要cd到可执行文件目录，然后再运行，显得有些麻烦。</p>
 <a id="more"></a>
 <p>就以最近下载的一个软件为例</p>
-<p>它的执行命令为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
+<p>它的执行命令为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
 <p>保存到proxyee-down后，发现无法运行，就给权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x proxyee-down</span><br></pre></td></tr></table></figure>
 <p>但是发现这样的话，还是只能在这个jar包的位置才能正常执行这个文件</p>
 <p>想到shell下可以使用pwd查看当前目录</p>
-<p>于是首先先加上标记，告诉系统使用bash <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">java -jar $(<span class="built_in">pwd</span>)/proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
+<p>于是首先先加上标记，告诉系统使用bash<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">java -jar $(<span class="built_in">pwd</span>)/proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
 <p>但是发现pwd给的是当前目录，而不是脚本的目录，于是改用dirname</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">work_path=$(dirname $(readlink -f <span class="variable">$0</span>))</span><br><span class="line">java -jar <span class="variable">$&#123;work_path&#125;</span>/proxyee-down-main.jar</span><br></pre></td></tr></table></figure>
 <p>在命令行测试成功</p>
@@ -219,7 +218,6 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-
         </div>
 
         <blockquote class="post-copyright">
@@ -373,8 +371,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -393,10 +390,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -520,7 +517,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="入门,python">
-    <meta name="description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
+    <meta name="description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
 <meta name="keywords" content="入门,python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在循环中获取当前list索引">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-在循环中获取list索引/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
+<meta property="og:description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-08-14T13:26:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在循环中获取当前list索引">
-<meta name="twitter:description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
+<meta name="twitter:description" content="当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量存储当前循环进度？ 那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，这是官方文档">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -174,13 +174,12 @@ ga('send', 'pageview');
 <div class="container body-wrap">
     
 
-<article id="post-工作-python-入门-2017-08-13-在循环中获取list索引"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-python-入门-2017-08-13-在循环中获取list索引" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">在循环中获取当前list索引</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-13 10:20:00" datetime="2017-08-13T02:20:00.000Z"  itemprop="datePublished">2017-08-13</time>
+            <time class="post-time" title="2017-08-13 10:20:00" datetime="2017-08-13T02:20:00.000Z" itemprop="datePublished">2017-08-13</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -188,18 +187,21 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？</p>
+            <p>当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量<br>存储当前循环进度？</p>
 <p>那不可能，那样用python还有什么意思。这种情况就应当使用enumerate，<a href="https://docs.python.org/3/library/functions.html#enumerate" target="_blank" rel="noopener">这是官方文档</a></p>
 <a id="more"></a>
-<p>用例： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ints = [<span class="number">8</span>, <span class="number">23</span>, <span class="number">45</span>, <span class="number">12</span>, <span class="number">78</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx, val <span class="keyword">in</span> enumerate(ints):</span><br><span class="line">    <span class="keyword">print</span> idx, val</span><br></pre></td></tr></table></figure></p>
-<p><strong>参考源</strong> + <a href="https://taizilongxu.gitbooks.io/stackoverflow-about-python/content/21/README.html" target="_blank" rel="noopener">在循环中获取索引</a></p>
+<p>用例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ints = [<span class="number">8</span>, <span class="number">23</span>, <span class="number">45</span>, <span class="number">12</span>, <span class="number">78</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> idx, val <span class="keyword">in</span> enumerate(ints):</span><br><span class="line">    <span class="keyword">print</span> idx, val</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考源</strong></p>
+<ul>
+<li><a href="https://taizilongxu.gitbooks.io/stackoverflow-about-python/content/21/README.html" target="_blank" rel="noopener">在循环中获取索引</a></li>
+</ul>
 
         </div>
 
@@ -254,8 +256,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-在循环中获取list索引/&title=《在循环中获取当前list索引》 — Zhuhao's Blog&source=当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？
-那不可能，那样用python还有什么..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-在循环中获取list索引/&title=《在循环中获取当前list索引》 — Zhuhao's Blog&source=当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量存储当前循环进度？
+那不可能，那样用python还有什么意..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -355,8 +357,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -375,10 +376,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -420,8 +421,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-在循环中获取list索引/&title=《在循环中获取当前list索引》 — Zhuhao's Blog&source=当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量 存储当前循环进度？
-那不可能，那样用python还有什么..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-在循环中获取list索引/&title=《在循环中获取当前list索引》 — Zhuhao's Blog&source=当我们有的时候想在循环中顺便获取当前元素的索引怎么办呢，难道还像c java一样，还用个中间变量存储当前循环进度？
+那不可能，那样用python还有什么意..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -503,7 +504,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

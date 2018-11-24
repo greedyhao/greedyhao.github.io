@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -181,13 +181,12 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-工作-Linux-2017-08-15-linux内核缓存介绍"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-Linux-2017-08-15-linux内核缓存介绍" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">linux内核缓存介绍</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-15 20:48:19" datetime="2017-08-15T12:48:19.000Z"  itemprop="datePublished">2017-08-15</time>
+            <time class="post-time" title="2017-08-15 20:48:19" datetime="2017-08-15T12:48:19.000Z" itemprop="datePublished">2017-08-15</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,37 +194,30 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 <strong>内核</strong> 这个词的吧，今天就让 我来请大家吃一回&quot;猪肉&quot;，了解一下内核如何实现I/O。</p>
+            <p>正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 <strong>内核</strong> 这个词的吧，今天就让<br>我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。</p>
 <a id="more"></a>
 <p>实现内核I/o要靠三个主要的子系统: <strong>虚拟文件系统</strong> <strong>页缓存</strong> <strong>页回写</strong></p>
-<h1 id="虚拟文件系统">虚拟文件系统</h1>
-<p>先说说虚拟文件系统，也称作VFS，Linux中有句名言叫做， <strong>一切皆文件</strong> ，能达到这样的效果， 这个VFS功不可没。他可以让内核在 <strong>不了解也不要了解文件系统类型的情况下</strong> 调用调用文件系统 函数并操作文件系统数据。</p>
+<h1 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h1><p>先说说虚拟文件系统，也称作VFS，Linux中有句名言叫做， <strong>一切皆文件</strong> ，能达到这样的效果，<br>这个VFS功不可没。他可以让内核在 <strong>不了解也不要了解文件系统类型的情况下</strong> 调用调用文件系统<br>函数并操作文件系统数据。</p>
 <p>由此，系统调用可以读任意类型文件，工具可以直接从一个文件系统拷贝到令一个上。</p>
-<h1 id="页缓存">页缓存</h1>
-<p>缓存的存在是为了在CPU的高速和硬盘的低速之间起一个过渡作用，内核查找文件系统数据会先在缓存中 查找，找不到才会访问硬盘。</p>
+<h1 id="页缓存"><a href="#页缓存" class="headerlink" title="页缓存"></a>页缓存</h1><p>缓存的存在是为了在CPU的高速和硬盘的低速之间起一个过渡作用，内核查找文件系统数据会先在缓存中<br>查找，找不到才会访问硬盘。</p>
 <p>在这里要介绍两个重要的原理 <strong>时间局部性</strong> 和 <strong>空间局部性</strong>。</p>
-<h2 id="时间局部性">时间局部性</h2>
-<p>时间局部性原理认为，刚刚访问过的区域再被访问的可能性很大，所以在第一次访问时会对数据缓存， 虽然消耗内存，但是可以避免开销巨大的硬盘I/O。</p>
-<h2 id="空间局部性">空间局部性</h2>
-<p>空间局部性原理认为，访问数据往往是连续的，而且访问连续空间比随机访问更快，所以每次读操作 都会额外的读取几个比特，也叫做预读。</p>
-<h2 id="页缓存动态变化">页缓存动态变化</h2>
-<p>内存终究是有限的，不可能无限的缓存，所以也缓存需要动态变化。</p>
-<p>在页缓存被消耗完了之后，就会 <strong>裁剪</strong> 不常用的部分，然后 <strong>交换</strong> 给硬盘，腾出来的空间 留给常用的部分。Linux内核的启发式算法会处理这些问题。</p>
-<h1 id="页回写">页回写</h1>
-<p>数据从硬盘读出来，放在缓存中，自然还需要再写会硬盘，因为RAM中的东西会在断电之后丢失。</p>
-<p>像这些缓存中的数据被读写操作过后，和硬盘中的数据不一样了，就被叫做 <strong>脏数据</strong> ，脏数据需要 回写硬盘让他变干净，所以就有了页回写。</p>
-<p>回写是通过 <strong>flusher</strong> 的内核线程来执行的，当空闲内存低于设定的阈值或者脏缓冲区存在时间 超出设定时，就会触发回写。</p>
-<p>这里还是有个问题，就是万一还没有回写系统就断电了。那很可悲，这些数据就丢失了，所以关键应用 可以使用同步I/O来保证数据不会丢失。</p>
-<h1 id="参考源">参考源</h1>
-<ul>
-<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O'Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+<h2 id="时间局部性"><a href="#时间局部性" class="headerlink" title="时间局部性"></a>时间局部性</h2><p>时间局部性原理认为，刚刚访问过的区域再被访问的可能性很大，所以在第一次访问时会对数据缓存，<br>虽然消耗内存，但是可以避免开销巨大的硬盘I/O。</p>
+<h2 id="空间局部性"><a href="#空间局部性" class="headerlink" title="空间局部性"></a>空间局部性</h2><p>空间局部性原理认为，访问数据往往是连续的，而且访问连续空间比随机访问更快，所以每次读操作<br>都会额外的读取几个比特，也叫做预读。</p>
+<h2 id="页缓存动态变化"><a href="#页缓存动态变化" class="headerlink" title="页缓存动态变化"></a>页缓存动态变化</h2><p>内存终究是有限的，不可能无限的缓存，所以也缓存需要动态变化。</p>
+<p>在页缓存被消耗完了之后，就会 <strong>裁剪</strong> 不常用的部分，然后 <strong>交换</strong> 给硬盘，腾出来的空间<br>留给常用的部分。Linux内核的启发式算法会处理这些问题。</p>
+<h1 id="页回写"><a href="#页回写" class="headerlink" title="页回写"></a>页回写</h1><p>数据从硬盘读出来，放在缓存中，自然还需要再写会硬盘，因为RAM中的东西会在断电之后丢失。</p>
+<p>像这些缓存中的数据被读写操作过后，和硬盘中的数据不一样了，就被叫做 <strong>脏数据</strong> ，脏数据需要<br>回写硬盘让他变干净，所以就有了页回写。</p>
+<p>回写是通过 <strong>flusher</strong> 的内核线程来执行的，当空闲内存低于设定的阈值或者脏缓冲区存在时间<br>超出设定时，就会触发回写。</p>
+<p>这里还是有个问题，就是万一还没有回写系统就断电了。那很可悲，这些数据就丢失了，所以关键应用<br>可以使用同步I/O来保证数据不会丢失。</p>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
 </ul>
 
         </div>
@@ -281,7 +273,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让 我来请大家吃一回&quot;猪肉&quot;，了解一下内核如何实现I..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -381,8 +373,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -401,10 +392,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -446,7 +437,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让 我来请大家吃一回&quot;猪肉&quot;，了解一下内核如何实现I..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -528,7 +519,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

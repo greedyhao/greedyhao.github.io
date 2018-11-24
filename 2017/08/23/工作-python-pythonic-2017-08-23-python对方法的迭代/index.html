@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -181,13 +181,12 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-工作-python-pythonic-2017-08-23-python对方法的迭代"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-python-pythonic-2017-08-23-python对方法的迭代" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">python对方法的迭代</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-23 16:05:11" datetime="2017-08-23T08:05:11.000Z"  itemprop="datePublished">2017-08-23</time>
+            <time class="post-time" title="2017-08-23 16:05:11" datetime="2017-08-23T08:05:11.000Z" itemprop="datePublished">2017-08-23</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,26 +194,22 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="any">any()</h1>
-<blockquote>
-<p>Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to: (返回True，如果iterable中的任何一个element是True。如果iterable是空的，返回False。等价与：) <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">any</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">if</span> element:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
+            <h1 id="any"><a href="#any" class="headerlink" title="any()"></a>any()</h1><blockquote>
+<p>Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to:<br>(返回True，如果iterable中的任何一个element是True。如果iterable是空的，返回False。等价与：)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">any</span><span class="params">(iterable)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> iterable:</span><br><span class="line">        <span class="keyword">if</span> element:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>对一个可迭代的对象，要想知道其中某一个元素是否符合某一个表达式，用 <strong>any()</strong>，最好不过了。</p>
-<h1 id="for">for</h1>
-<p>今天才知道，原来for循环还可以对方法进行循环，尽管之前就知道list中什么都可以放，可是放方法 的还是头会见到，学习的路果然是任重而道远。</p>
-<h1 id="实际运用">实际运用</h1>
-<p><a href="https://www.hackerrank.com/challenges/string-validators" target="_blank" rel="noopener">问题：</a> You are given a string S. Your task is to find out if the string S contains: alphanumeric characters, alphabetical characters, digits, lowercase and uppercase characters.</p>
-<p>给你一个string S。 你的任务是判断string S是否包含： 数字字母都有 按字母表顺序(Unicode) 有数字 有小写字母 有大写字母</p>
+<h1 id="for"><a href="#for" class="headerlink" title="for"></a>for</h1><p>今天才知道，原来for循环还可以对方法进行循环，尽管之前就知道list中什么都可以放，可是放方法<br>的还是头会见到，学习的路果然是任重而道远。</p>
+<h1 id="实际运用"><a href="#实际运用" class="headerlink" title="实际运用"></a>实际运用</h1><p><a href="https://www.hackerrank.com/challenges/string-validators" target="_blank" rel="noopener">问题：</a><br>You are given a string S.<br>Your task is to find out if the string S contains: alphanumeric characters, alphabetical characters, digits, lowercase and uppercase characters.</p>
+<p>给你一个string S。<br>你的任务是判断string S是否包含： 数字字母都有 按字母表顺序(Unicode) 有数字 有小写字母 有大写字母</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> method <span class="keyword">in</span> [str.isalnum, str.isalpha, str.isdigit, str.islower, str.isupper]:</span><br><span class="line">    <span class="keyword">print</span> any(method(c) <span class="keyword">for</span> c <span class="keyword">in</span> s)</span><br></pre></td></tr></table></figure>
-<h1 id="参考源">参考源</h1>
-<ul>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
 <li><a href="https://www.hackerrank.com/challenges/string-validators/forum" target="_blank" rel="noopener">hackerrank讨论区</a></li>
 <li><a href="https://docs.python.org/3/library/functions.html#any" target="_blank" rel="noopener">any的官方doc</a></li>
 </ul>
@@ -372,8 +367,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -392,10 +386,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -519,7 +513,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

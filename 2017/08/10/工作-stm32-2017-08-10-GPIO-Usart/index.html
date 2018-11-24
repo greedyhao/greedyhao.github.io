@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+    <meta name="description" content="一般步骤 串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习串口">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta property="og:description" content="一般步骤 串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-08-14T13:27:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习串口">
-<meta name="twitter:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta name="twitter:description" content="一般步骤 串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -84,35 +84,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -181,13 +181,12 @@ ga('send', 'pageview');
     </aside>
 
 
-<article id="post-工作-stm32-2017-08-10-GPIO-Usart"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">学习串口</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z"  itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,15 +194,14 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="一般步骤">一般步骤</h2>
-<ol style="list-style-type: decimal">
+            <h2 id="一般步骤"><a href="#一般步骤" class="headerlink" title="一般步骤"></a>一般步骤</h2><ol>
 <li>串口时钟的使能，GPIO时钟使能</li>
 <li>串口复位</li>
 <li>GPIO端口模式设置</li>
@@ -213,11 +211,10 @@ ga('send', 'pageview');
 <li>编写中断处理函数</li>
 </ol>
 <a id="more"></a>
-<h2 id="又遇到坑了">又遇到坑了</h2>
-<p>~<sub>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了， 浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了...~</sub></p>
+<h2 id="又遇到坑了"><a href="#又遇到坑了" class="headerlink" title="又遇到坑了"></a>又遇到坑了</h2><p><del>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了，<br>浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了…\</del></p>
 <p>我又发现自己之前的想法错了，我改的地方其实无关紧要</p>
-<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>这是改之前</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>这是改之后</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我发现了我的<strong>真正的问题</strong>，原来是 uart_init() 函数名打错成 usart_init() ！！！</p>
 
         </div>
@@ -274,13 +271,12 @@ ga('send', 'pageview');
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
 串口时钟的使能，GPIO时钟使能
 串口复位
 GPIO端口模式设置
 串口参数初始化
 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+使..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -318,18 +314,18 @@ GPIO端口模式设置
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习PWM</h4>
+        <h4 class="title">学习定时器</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习窗口看门狗</h4>
+        <h4 class="title">利用github page搭建博客简易教程</h4>
       </a>
     </div>
   
@@ -380,8 +376,7 @@ GPIO端口模式设置
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -400,10 +395,10 @@ GPIO端口模式设置
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -446,13 +441,12 @@ GPIO端口模式设置
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
 串口时钟的使能，GPIO时钟使能
 串口复位
 GPIO端口模式设置
 串口参数初始化
 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+使..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -534,7 +528,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

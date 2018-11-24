@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+    <meta name="description" content="CubeMX小指南之添加其他软件组件写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CubeMX小指南之添加其他软件组件">
 <meta property="og:url" content="http://greedyhao.cc/2018/07/06/工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+<meta property="og:description" content="CubeMX小指南之添加其他软件组件写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_2.png">
@@ -57,7 +57,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T04:34:27.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CubeMX小指南之添加其他软件组件">
-<meta name="twitter:description" content="CubeMX小指南之添加其他软件组件 写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
+<meta name="twitter:description" content="CubeMX小指南之添加其他软件组件写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的">
 <meta name="twitter:image" content="http://greedyhao.cc/img/stm32/adding_additional_software_components_1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -74,7 +74,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu" class="hide">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -94,35 +94,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -186,18 +186,17 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#cubemx小指南之添加其他软件组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">CubeMX小指南之添加其他软件组件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决additional-software-components中没有可添加的包的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决Additional Software Components中没有可添加的包的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#还是没有看见自己想要的包怎么办"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">还是没有看见自己想要的包怎么办</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么添加additional-software-components进自己的工程呢"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">怎么添加Additional Software Components进自己的工程呢</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#文中链接的提供"><span class="post-toc-number">3.</span> <span class="post-toc-text">文中链接的提供</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#CubeMX小指南之添加其他软件组件"><span class="post-toc-number">1.</span> <span class="post-toc-text">CubeMX小指南之添加其他软件组件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决Additional-Software-Components中没有可添加的包的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决Additional Software Components中没有可添加的包的问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#还是没有看见自己想要的包怎么办"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">还是没有看见自己想要的包怎么办</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么添加Additional-Software-Components进自己的工程呢"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">怎么添加Additional Software Components进自己的工程呢</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#文中链接的提供"><span class="post-toc-number">3.</span> <span class="post-toc-text">文中链接的提供</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件"
-  class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-stm32-2018-07-06-CubeMX小指南之添加其他软件组件" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">CubeMX小指南之添加其他软件组件</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-07-06 13:38:47" datetime="2018-07-06T05:38:47.000Z"  itemprop="datePublished">2018-07-06</time>
+            <time class="post-time" title="2018-07-06 13:38:47" datetime="2018-07-06T05:38:47.000Z" itemprop="datePublished">2018-07-06</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -205,15 +204,14 @@ ga('send', 'pageview');
 
 
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="cubemx小指南之添加其他软件组件">CubeMX小指南之添加其他软件组件</h1>
-<p>写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的</p>
+            <h1 id="CubeMX小指南之添加其他软件组件"><a href="#CubeMX小指南之添加其他软件组件" class="headerlink" title="CubeMX小指南之添加其他软件组件"></a>CubeMX小指南之添加其他软件组件</h1><p>写这篇文章是因为我看到STM32CubeMX for STM32 configuration and initialization C code generation这篇官方的CubeMX的使用文档中的Adding Additional Software Components这部分时发现，资料中的是这样的</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -222,13 +220,9 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>而我的是这样的</p>
-<div class="figure">
-<img src="/img/stm32/adding_additional_software_components_2.png">
-
-</div>
+<p><img src="/img/stm32/adding_additional_software_components_2.png" alt=""></p>
 <p>这一看就知道有问题嘛，凭什么我的pacK少这么多是吧。</p>
-<h1 id="解决additional-software-components中没有可添加的包的问题">解决Additional Software Components中没有可添加的包的问题</h1>
-<p>我找到的<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" target="_blank" rel="noopener">原解决方案链接在这里</a></p>
+<h1 id="解决Additional-Software-Components中没有可添加的包的问题"><a href="#解决Additional-Software-Components中没有可添加的包的问题" class="headerlink" title="解决Additional Software Components中没有可添加的包的问题"></a>解决Additional Software Components中没有可添加的包的问题</h1><p>我找到的<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" target="_blank" rel="noopener">原解决方案链接在这里</a></p>
 <p>ps:公众号不能点击链接确实很麻烦，我会在文末附加上这个链接和我的博客地址，可以选择在文末复制这个链接或者到我的博客中读这篇文章。</p>
 <p><strong>解决方法如下：</strong></p>
 <p>首先是打开CubeMX</p>
@@ -236,7 +230,7 @@ ga('send', 'pageview');
 <li>在<strong>Help</strong>菜单下点击<strong>ManageEmbeddedSoftwarePackages</strong>（快捷键Alt+U）</li>
 <li>在<strong>EmbeddedSoftwarepackagesmanager</strong>窗口底部点击<strong>FromURL</strong></li>
 <li>在新的窗口点击<strong>New</strong></li>
-<li>输入Keilpacks的indexURL：<strong><a href="http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx" class="uri" target="_blank" rel="noopener">http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx</a></strong></li>
+<li>输入Keilpacks的indexURL：<strong><a href="http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx" target="_blank" rel="noopener">http://sadevicepacksprodus.blob.core.windows.net/idxfile/keil.pidx</a></strong></li>
 <li>点击<strong>Check</strong>，然后你可以看见绿色的小勾</li>
 <li>点击<strong>Ok</strong>，然后会开始更新URL，这有点久，我等了几分钟</li>
 <li>这时候再打开AdditionalSoftwareComponents你就会发现多了很多包了</li>
@@ -248,14 +242,10 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<div class="figure">
-<img src="/img/stm32/adding_additional_software_components_4.png">
-
-</div>
-<h2 id="还是没有看见自己想要的包怎么办">还是没有看见自己想要的包怎么办</h2>
-<p>不急，就拿我自己来说吧，想添加rt-thread的支持，在刚刚添加完keil pack后，发现还是没有rt-thread的支持。说实话，我是觉得有点奇怪的，明明keil pack中是有rt-thread的index的。</p>
+<p><img src="/img/stm32/adding_additional_software_components_4.png" alt=""></p>
+<h2 id="还是没有看见自己想要的包怎么办"><a href="#还是没有看见自己想要的包怎么办" class="headerlink" title="还是没有看见自己想要的包怎么办"></a>还是没有看见自己想要的包怎么办</h2><p>不急，就拿我自己来说吧，想添加rt-thread的支持，在刚刚添加完keil pack后，发现还是没有rt-thread的支持。说实话，我是觉得有点奇怪的，明明keil pack中是有rt-thread的index的。</p>
 <p>既然没有自动加入，那就手动加入吧。</p>
-<p>和前面添加keil pack的方法一样，在Keil pack index URL中找到了rt-thread的index URL:<strong><a href="http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc" class="uri" target="_blank" rel="noopener">http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc</a></strong>，然后添加进去，install一下，Additional Software Components中就有rt-thread了</p>
+<p>和前面添加keil pack的方法一样，在Keil pack index URL中找到了rt-thread的index URL:<strong><a href="http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc" target="_blank" rel="noopener">http://www.rt-thread.org/download/mdk/rt-thread.rtthread.pdsc</a></strong>，然后添加进去，install一下，Additional Software Components中就有rt-thread了</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -263,8 +253,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="怎么添加additional-software-components进自己的工程呢">怎么添加Additional Software Components进自己的工程呢</h2>
-<p>以rt-thread为例，先进入Additional Software Components</p>
+<h2 id="怎么添加Additional-Software-Components进自己的工程呢"><a href="#怎么添加Additional-Software-Components进自己的工程呢" class="headerlink" title="怎么添加Additional Software Components进自己的工程呢"></a>怎么添加Additional Software Components进自己的工程呢</h2><p>以rt-thread为例，先进入Additional Software Components</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -288,15 +277,11 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <hr>
-<h1 id="文中链接的提供">文中链接的提供</h1>
-<ul>
-<li>博客地址：<a href="http://greedyhao.cc/" class="uri">http://greedyhao.cc/</a></li>
-<li>AdditionalSoftware解决方案原文链接：<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" class="uri" target="_blank" rel="noopener">https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components</a></li>
+<h1 id="文中链接的提供"><a href="#文中链接的提供" class="headerlink" title="文中链接的提供"></a>文中链接的提供</h1><ul>
+<li>博客地址：<a href="http://greedyhao.cc/">http://greedyhao.cc/</a></li>
+<li>AdditionalSoftware解决方案原文链接：<a href="https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components" target="_blank" rel="noopener">https://community.st.com/docs/DOC-1987-cubemx-adding-additional-software-components</a></li>
 </ul>
-<div class="figure">
-<img src="/img/wechat_official_accounts.jpg">
-
-</div>
+<p><img src="/img/wechat_official_accounts.jpg" alt=""></p>
 
         </div>
 
@@ -451,8 +436,7 @@ ga('send', 'pageview');
         </div>
         
         <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
             <div class="reward-toggle-ctrol">
                 <span class="reward-toggle-item wechat">微信</span>
                 <span class="reward-toggle-label"></span>
@@ -471,10 +455,10 @@ ga('send', 'pageview');
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -598,7 +582,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 

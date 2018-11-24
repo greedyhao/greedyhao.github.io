@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     
 <!-- Google Analytics -->
 <script>
@@ -8,7 +8,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-104674648-1', 'auto');
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 <!-- End Google Analytics -->
 
 
@@ -62,7 +62,7 @@ ga('send', 'pageview');
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
+    <aside id="menu">
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -82,35 +82,35 @@ ga('send', 'pageview');
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/archives">
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags">
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="https://github.com/greedyhao" target="_blank" >
+              <a href="https://github.com/greedyhao" target="_blank">
                 <i class="icon icon-lg icon-github"></i>
                 Github
               </a>
@@ -167,11 +167,105 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-工作-wifi-2017-10-11-esp8266烧写固件"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-wifi-2017-10-20-esp8266-GPIO控制" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-10-11 07:41:43" datetime="2017-10-10T23:41:43.000Z"  itemprop="datePublished">2017-10-11</time>
+        <time class="post-time" title="2017-10-20 15:21:37" datetime="2017-10-20T07:21:37.000Z" itemprop="datePublished">2017-10-20</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/">esp8266_GPIO控制</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        esp8266_GPIO控制让esp8266连接上机智云后，要控制GPIO，说实话，在官方文档找不到相应的描述，浪费了我很多时间，最后还是在论坛上找到了类似的例子才解决这个问题，现在记录下来方便参考。
+GPIO初始化用过ARM微处理器的都知道，控制GPIO前，先要进行GPIO的初始化。下面上个GPIO13初始化的例子。
+123#include &lt;gpio.h&gt;//user_mai...
+    
+
+        <a href="/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/esp8266/">esp8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wifi/">wifi</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-wifi-2017-10-19-esp8266连接机智云平台" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-10-19 13:16:33" datetime="2017-10-19T05:16:33.000Z" itemprop="datePublished">2017-10-19</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/10/19/工作-wifi-2017-10-19-esp8266连接机智云平台/">esp8266连接机智云平台</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        esp8266连接机智云平台为了方便的控制esp8266，我需要选择一个合适的iot平台。我选择了机智云，主要是用起来方便，很多细节都不用我来操心。为了连接上机智云平台，首先需要给esp8266烧录gagent，烧录的教程看这里。
+下载GAgnet并烧录点击下载GAgent，下载完成后可以看见8Mbit 16Mbit 32Mbit版本，暂时我没有发现这几个版本有什么不同，我都烧过了，效果差不...
+    
+
+        <a href="/2017/10/19/工作-wifi-2017-10-19-esp8266连接机智云平台/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/esp8266/">esp8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wifi/">wifi</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-wifi-2017-10-11-esp8266烧写固件" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-10-11 07:41:43" datetime="2017-10-10T23:41:43.000Z" itemprop="datePublished">2017-10-11</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -195,14 +289,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        esp8266烧写固件
-这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。
+        esp8266烧写固件这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。
 tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可以参考。
 进入烧录模式
-
                 
                     
-                    ...
+                    
+ ...
     
 
         <a href="/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/" class="post-more waves-effect waves-button">
@@ -221,11 +314,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-09-25-对fork的进一步理解"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-Linux-2017-09-25-对fork的进一步理解" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-25 08:57:27" datetime="2017-09-25T00:57:27.000Z"  itemprop="datePublished">2017-09-25</time>
+        <time class="post-time" title="2017-09-25 08:57:27" datetime="2017-09-25T00:57:27.000Z" itemprop="datePublished">2017-09-25</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -249,8 +341,7 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        对fork的进一步理解
-最近在看Unix的源码，没想到让我对Linux的认知有了更深的理解。
+        对fork的进一步理解最近在看Unix的源码，没想到让我对Linux的认知有了更深的理解。
 上一张我在书上看到的图
 
                 
@@ -259,7 +350,7 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
                 
                 
             
-123456789101112#include &lt;sys...
+123456789101112#include &lt;sys/...
     
 
         <a href="/2017/09/25/工作-Linux-2017-09-25-对fork的进一步理解/" class="post-more waves-effect waves-button">
@@ -278,11 +369,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-c-language-2017-09-09-c语言速学版"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-c-language-2017-09-09-c语言速学版" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-09 22:08:36" datetime="2017-09-09T14:08:36.000Z"  itemprop="datePublished">2017-09-09</time>
+        <time class="post-time" title="2017-09-09 22:08:36" datetime="2017-09-09T14:08:36.000Z" itemprop="datePublished">2017-09-09</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -325,11 +415,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-c-language-2017-09-09-CodeBlocks创建c项目教程"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-c-language-2017-09-09-CodeBlocks创建c项目教程" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-09 21:49:57" datetime="2017-09-09T13:49:57.000Z"  itemprop="datePublished">2017-09-09</time>
+        <time class="post-time" title="2017-09-09 21:49:57" datetime="2017-09-09T13:49:57.000Z" itemprop="datePublished">2017-09-09</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -353,18 +442,18 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        新建一个空项目 
+        新建一个空项目
                 
                     
                     
                 
                 
-             
+            
                 
                     
                     
                 
-     ...
+       ...
     
 
         <a href="/2017/09/09/工作-c-language-2017-09-09-CodeBlocks创建c项目教程/" class="post-more waves-effect waves-button">
@@ -383,11 +472,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-09-08-内存空间分配"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-Linux-2017-09-08-内存空间分配" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-08 20:51:10" datetime="2017-09-08T12:51:10.000Z"  itemprop="datePublished">2017-09-08</time>
+        <time class="post-time" title="2017-09-08 20:51:10" datetime="2017-09-08T12:51:10.000Z" itemprop="datePublished">2017-09-08</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -430,11 +518,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-09-07-堆栈和堆的区别"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-Linux-2017-09-07-堆栈和堆的区别" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-07 09:39:00" datetime="2017-09-07T01:39:00.000Z"  itemprop="datePublished">2017-09-07</time>
+        <time class="post-time" title="2017-09-07 09:39:00" datetime="2017-09-07T01:39:00.000Z" itemprop="datePublished">2017-09-07</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -477,11 +564,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-altium-2017-09-05-记第一次失败的画板"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-altium-2017-09-05-记第一次失败的画板" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-09-05 13:30:40" datetime="2017-09-05T05:30:40.000Z"  itemprop="datePublished">2017-09-05</time>
+        <time class="post-time" title="2017-09-05 13:30:40" datetime="2017-09-05T05:30:40.000Z" itemprop="datePublished">2017-09-05</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -524,11 +610,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-08-28-解决多线程引发的问题"
-  class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-Linux-2017-08-28-解决多线程引发的问题" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2017-08-28 22:55:17" datetime="2017-08-28T14:55:17.000Z"  itemprop="datePublished">2017-08-28</time>
+        <time class="post-time" title="2017-08-28 22:55:17" datetime="2017-08-28T14:55:17.000Z" itemprop="datePublished">2017-08-28</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
@@ -570,100 +655,6 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
 
         </li>
     
-        <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-08-26-多进程和多线程的区别"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-26 22:12:52" datetime="2017-08-26T14:12:52.000Z"  itemprop="datePublished">2017-08-26</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/">多进程和多线程的区别</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。
-    
-
-        <a href="/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-Linux-2017-08-26-实际用户和有效用户的区别"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-26 11:48:14" datetime="2017-08-26T03:48:14.000Z"  itemprop="datePublished">2017-08-26</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/">实际用户和有效用户的区别</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        这段时间在看《Linux系统编程》，看到好几个对用户ID设置的接口，然后就对实际用户和有效用户 感觉到疑惑，在查询弄明白后，将在下面介绍。
-    
-
-        <a href="/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
@@ -680,10 +671,10 @@ tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可�
     <div class="top">
         
 <p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
+    <span id="busuanzi_container_site_uv" style="display:none">
         站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
+    <span id="busuanzi_container_site_pv" style="display:none">
         站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
@@ -807,7 +798,7 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 
