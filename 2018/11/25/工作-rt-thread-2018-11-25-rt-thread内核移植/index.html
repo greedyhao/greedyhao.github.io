@@ -50,7 +50,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/porting_rtt_2.png">
 <meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/porting_rtt_3.png">
 <meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/porting_rtt_4.png">
-<meta property="og:updated_time" content="2018-11-25T12:08:37.076Z">
+<meta property="og:updated_time" content="2018-11-25T12:15:11.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rt-thread内核移植">
 <meta name="twitter:description" content="分享一下我参加rtt培训的内容吧">
@@ -180,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rt-thread-nano版移植"><span class="post-toc-number">1.</span> <span class="post-toc-text">rt-thread nano版移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让内核运转起来"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">让内核运转起来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现OS-Tick"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现OS Tick</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现控制台打印"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现控制台打印</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现动态内存"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">实现动态内存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#此工程的代码地址"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">此工程的代码地址</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用env"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用env</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#此工程的代码地址-1"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">此工程的代码地址</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rt-thread-nano版移植"><span class="post-toc-number">1.</span> <span class="post-toc-text">rt-thread nano版移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让内核运转起来"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">让内核运转起来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现OS-Tick"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现OS Tick</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现控制台打印"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现控制台打印</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现动态内存"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">实现动态内存</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用env"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用env</span></a></li></ol>
         </nav>
     </aside>
 
@@ -257,7 +257,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="此工程的代码地址"><a href="#此工程的代码地址" class="headerlink" title="此工程的代码地址"></a>此工程的代码地址</h2><p><a href="https://github.com/greedyhao/rt-thread/tree/master/stm32f767-rt-thread-nano" target="_blank" rel="noopener"></a></p>
+<p><a href="https://github.com/greedyhao/rt-thread/tree/master/stm32f767-rt-thread-nano" target="_blank" rel="noopener">此工程的代码地址</a></p>
 <h1 id="使用env"><a href="#使用env" class="headerlink" title="使用env"></a>使用env</h1><p>我的板子是stm32f767，在bsp中找到了一个stm32f7-disco的移植，就拿来用了。修改了一下工程配置，发现串口管脚都相同，就关掉sdram直接用了</p>
 <p>效果如下：<br><figure class="image-bubble">
                 <div class="img-lightbox">
@@ -266,7 +266,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="此工程的代码地址-1"><a href="#此工程的代码地址-1" class="headerlink" title="此工程的代码地址"></a>此工程的代码地址</h2><p><a href="https://github.com/greedyhao/rt-thread/tree/master/stm32f767-fire" target="_blank" rel="noopener"></a></p>
+<p><a href="https://github.com/greedyhao/rt-thread/tree/master/stm32f767-fire" target="_blank" rel="noopener">此工程的代码地址</a></p>
 
         </div>
 
@@ -275,7 +275,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-25T12:08:37.076Z" itemprop="dateUpdated">2018-11-25 20:08:37</time>
+    最后更新时间：<time datetime="2018-11-25T12:15:11.577Z" itemprop="dateUpdated">2018-11-25 20:15:11</time>
 </span><br>
 
 
