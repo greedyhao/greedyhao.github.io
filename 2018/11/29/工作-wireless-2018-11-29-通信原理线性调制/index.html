@@ -238,11 +238,8 @@ ga('send', 'pageview');
             </figure>
 <p>消息突显在载波包络上</p>
 <p>通过调节消息信号的幅度，可以调节调幅指数，从而调节调制强度。调幅指数的定义如下</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-\beta_{AM} &= \frac{max[s_{AM}(t)]-A_c}{A_c} \\
-&= max|m(t)|
-\end {aligned}</script><p>不过调幅指数不能大于1，否则会发生上图中的过调制情况；过调制会导致承载消息的已调波变形，使得消息错误。</p>
+<p>$$<br>\begin {aligned}<br>\beta_{AM} &amp;= \frac{max[s_{AM}(t)]-A_c}{A_c} \\<br>&amp;= max|m(t)|<br>\end {aligned}<br>$$</p>
+<p>不过调幅指数不能大于1，否则会发生上图中的过调制情况；过调制会导致承载消息的已调波变形，使得消息错误。</p>
 <p><strong>发送与接收</strong></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -276,12 +273,8 @@ ga('send', 'pageview');
 <p><strong>接收方法</strong></p>
 <p>包络没有直接直接呈现消息信号，所以无法使用包络检波器</p>
 <p>可以通过乘以同频同相正弦函数调制回基频</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-&S_{DSB} \times \cos 2\pi f_c t \\
-&= A_c m(t) \cos^2 2\pi f_c t \\
-&= A_c m(t) \frac{1+\cos 4\pi f_c t}{2}
-\end {aligned}</script><p>分析公式可以知道，乘以一个同频同相正弦信号的结果就是会产生基频信号和4倍基频信号，再同过一个低通滤波器就可以得到我们想要的原信号了。</p>
+<p>$$<br>\begin {aligned}<br>&amp;S_{DSB} \times \cos 2\pi f_c t \\<br>&amp;= A_c m(t) \cos^2 2\pi f_c t \\<br>&amp;= A_c m(t) \frac{1+\cos 4\pi f_c t}{2}<br>\end {aligned}<br>$$</p>
+<p>分析公式可以知道，乘以一个同频同相正弦信号的结果就是会产生基频信号和4倍基频信号，再同过一个低通滤波器就可以得到我们想要的原信号了。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -346,40 +339,23 @@ ga('send', 'pageview');
 <p>相移法是在时域处理的，所以需要在时域讨论SSB</p>
 <p>目前我们知道的是，DSB的时域表达式</p>
 <p>设调制信号为</p>
-<script type="math/tex; mode=display">
-m(t) = A_m\cos\omega_m t</script><p>载波为</p>
-<script type="math/tex; mode=display">
-c(t) = \cos\omega_c t</script><p>则DSB表达式为</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-s_{DSB}(t) &= A_m \cos\omega_m t\cos\omega_c t \\
-&= \frac{1}{2} A_m \cos (\omega_c+\omega_m)t + \frac{1}{2} A_m \cos (\omega_c-\omega_m)t
-\end {aligned}</script><p>保留上边带则有</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-s_{USB}(t) &= \frac{1}{2} A_m \cos (\omega_c+\omega_m)t \\
-&= \frac{1}{2}A_m \cos\omega_m t\cos\omega_c t-\frac{1}{2}A_m \sin\omega_m t\sin\omega_c t
-\end {aligned}</script><p>保留下边带则有</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-s_{LSB}(t) &= \frac{1}{2} A_m \cos (\omega_c-\omega_m)t \\
-&= \frac{1}{2}A_m \cos\omega_m t\cos\omega_c t+\frac{1}{2}A_m \sin\omega_m t\sin\omega_c t
-\end {aligned}</script><p>综合起来</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-s_{SSB}(t) &= \frac{1}{2}m(t)\cos\omega_c t-\frac{1}{2}\hat{m}(t)\sin\omega_c t
-\end {aligned}</script><p>式中$\hat{m}(t)$为希尔伯特变换，相当于正弦信号相移pi/2</p>
+<p>$$<br>m(t) = A_m\cos\omega_m t<br>$$</p>
+<p>载波为</p>
+<p>$$<br>c(t) = \cos\omega_c t<br>$$</p>
+<p>则DSB表达式为</p>
+<p>$$<br>\begin {aligned}<br>s_{DSB}(t) &amp;= A_m \cos\omega_m t\cos\omega_c t \\<br>&amp;= \frac{1}{2} A_m \cos (\omega_c+\omega_m)t + \frac{1}{2} A_m \cos (\omega_c-\omega_m)t<br>\end {aligned}<br>$$</p>
+<p>保留上边带则有</p>
+<p>$$<br>\begin {aligned}<br>s_{USB}(t) &amp;= \frac{1}{2} A_m \cos (\omega_c+\omega_m)t \\<br>&amp;= \frac{1}{2}A_m \cos\omega_m t\cos\omega_c t-\frac{1}{2}A_m \sin\omega_m t\sin\omega_c t<br>\end {aligned}<br>$$</p>
+<p>保留下边带则有</p>
+<p>$$<br>\begin {aligned}<br>s_{LSB}(t) &amp;= \frac{1}{2} A_m \cos (\omega_c-\omega_m)t \\<br>&amp;= \frac{1}{2}A_m \cos\omega_m t\cos\omega_c t+\frac{1}{2}A_m \sin\omega_m t\sin\omega_c t<br>\end {aligned}<br>$$</p>
+<p>综合起来</p>
+<p>$$<br>\begin {aligned}<br>s_{SSB}(t) &amp;= \frac{1}{2}m(t)\cos\omega_c t-\frac{1}{2}\hat{m}(t)\sin\omega_c t<br>\end {aligned}<br>$$</p>
+<p>式中$\hat{m}(t)$为希尔伯特变换，相当于正弦信号相移pi/2</p>
 <p>为了验证SSB时域表达式的正确性，我们可以从频域进行分析</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-S_{SSB}(f) &= \frac{M(f-f_c)+M(f+f_c)}{2} - \frac{-j\hat{M}(f-f_c)-j\hat{M}(f+f_c)}{2}
-\end {aligned}</script><p>希尔伯特变换的相关信息如下</p>
-<script type="math/tex; mode=display">
-\begin {aligned}
-&\hat{m}(t) = m(t)*\frac{1}{\pi t} \\
-&\hat{M}(f) = M(f)x[-j sgn(f)]\\
-&j\hat{M}(f) = -j^2 M(f)sgn(f)\\
-\end {aligned}</script><p>在频域中，做希尔伯特变换相当于乘以了一个符号函数，SSB过程图示如下</p>
+<p>$$<br>\begin {aligned}<br>S_{SSB}(f) &amp;= \frac{M(f-f_c)+M(f+f_c)}{2} - \frac{-j\hat{M}(f-f_c)-j\hat{M}(f+f_c)}{2}<br>\end {aligned}<br>$$</p>
+<p>希尔伯特变换的相关信息如下</p>
+<p>$$<br>\begin {aligned}<br>&amp;\hat{m}(t) = m(t)*\frac{1}{\pi t} \\<br>&amp;\hat{M}(f) = M(f)x[-j sgn(f)]\\<br>&amp;j\hat{M}(f) = -j^2 M(f)sgn(f)\\<br>\end {aligned}<br>$$</p>
+<p>在频域中，做希尔伯特变换相当于乘以了一个符号函数，SSB过程图示如下</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>

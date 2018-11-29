@@ -211,7 +211,7 @@ ga('send', 'pageview');
 <p>通带为$\omega_c\lt\pi$的理想低通滤波器的系统函数为</p>
 <p>$$<br>H_d(e^{j\omega})=\begin{cases}<br>1\cdotp e^{j\alpha\omega} &amp; |\omega|\le\omega_e \<br>0 &amp; \omega_e\lt\pi<br>\end{cases}<br>$$</p>
 <p>反变换求它的冲激响应为</p>
-<p>$$<br>\begin {aligned}<br>h_d(n)<br>&amp; = \mathcal{F}^{-1}\bigl[H_d(e^{j\omega})\bigr] = \frac{1}{2\pi} \int_{-\pi}^\pi H_d(e^{j\omega})e^{j\omega n}d\omega \\<br>&amp; = \frac{1}{2\pi} \int_{-\omega_e}^{\omega_e} 1\cdot e^{-j\alpha\omega} e^{j\omega n}d\omega \\<br>&amp; = \frac{\sin\left[\omega_e(n-\alpha)\right]}{\pi(n-\alpha)}<br>\end {aligned}<br>$$</p>
+<p>$$<br>\begin {aligned}<br>h_d(n)<br>&amp; = \mathcal{F}^{-1}\bigl[H_d(e^{j\omega})\bigr] = \frac{1}{2\pi} \int_{-\pi}^\pi H_d(e^{j\omega})e^{j\omega n}d\omega \\\<br>&amp; = \frac{1}{2\pi} \int_{-\omega_e}^{\omega_e} 1\cdot e^{-j\alpha\omega} e^{j\omega n}d\omega \\\<br>&amp; = \frac{\sin\left[\omega_e(n-\alpha)\right]}{\pi(n-\alpha)}<br>\end {aligned}<br>$$</p>
 <p>可以看出，这是一个sinc函数</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -222,16 +222,16 @@ ga('send', 'pageview');
             </figure>
 <p>可以看出，$h_d(n)$的冲激响应在时域上是无限长的，不符合FIR滤波器的要求，所以需要对它截断，也就是加窗。</p>
 <p>为了得到一个长度为M的因果的线性相位的FIR滤波器$h(n)$，我们需要</p>
-<p>$$<br>h(n)=\begin{cases}<br>h_d(n) &amp; 0\le n\le M-1 \\<br>0 &amp; elsewhere<br>\end{cases}<br>~~<br>and<br>~~<br>\alpha = \frac{M-1}{2}<br>$$</p>
+<p>$$<br>h(n)=\begin{cases}<br>h_d(n) &amp; 0\le n\le M-1 \\\<br>0 &amp; elsewhere<br>\end{cases}<br>~~<br>and<br>~~<br>\alpha = \frac{M-1}{2}<br>$$</p>
 <p>也就是让$h_d(n)$的$0\le n\le M-1$之外的值全为0，这就是加窗。这个过程可以表示为</p>
 <p>$$<br>h(n) = h_d(n)w(n)<br>$$</p>
 <p>$w(n)$即为窗函数</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>some\ symmetric\ function\ with\ respect\ to \\<br>\alpha\ over\ 0\le n\le M-1 \\<br>0,\ otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>some\ symmetric\ function\ with\ respect\ to \\\<br>\alpha\ over\ 0\le n\le M-1 \\\<br>0,\ otherwise<br>\end{cases}<br>$$</p>
 <p>在这里我们将$w(n)$定义为</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>1 &amp; 0\le n\le M-1 \<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>1 &amp; 0\le n\le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>再看看频域，使用$H(e^{j\omega})$表示因果FIR滤波器的响应，$H_d(e^{j\omega})$表示理想滤波器，$W(e^{j\omega})$表示窗函数响应。</p>
 <p>时域相乘，频域卷积，这里是圆周卷积。(圆周卷积以后也会介绍)</p>
-<p>$$<br>\begin {aligned}<br>H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \<br>&amp; = \frac{1}{2\pi}\int_{-\pi}^\pi W(e^{j\omega})H(e^{j(\omega - \lambda)})<br>\end {aligned}<br>$$</p>
+<p>$$<br>\begin {aligned}<br>H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \\<br>&amp; = \frac{1}{2\pi}\int_{-\pi}^\pi W(e^{j\omega})H(e^{j(\omega - \lambda)})<br>\end {aligned}<br>$$</p>
 <p>我想在MATLAB中模拟这个加窗的过程，但是一直弄不出来，就把书上的图拿过来吧。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">

@@ -244,7 +244,7 @@ ga('send', 'pageview');
 </ul>
 <p>至于为什么要这么多种窗呢？那是因为不同的窗特性不一样，比如最简单的矩形窗，虽然完成了截断工作，但是通带衰减大、阻带衰减小，导致能量的浪费；而之后的多种窗则或多或少的弥补了这些缺点。</p>
 <h3 id="矩形窗"><a href="#矩形窗" class="headerlink" title="矩形窗"></a>矩形窗</h3><p>矩形窗的定义为</p>
-<p>$$<br>w(n) = \begin{cases}<br>1, &amp; 0\le n \le M-1 \\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) = \begin{cases}<br>1, &amp; 0\le n \le M-1 \\\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>频率响应函数为</p>
 <p>$$<br>W(e^{j\omega}) = W(\omega)e^{j\theta(\omega)} =<br>\frac{\sin(\omega M /2)}{\sin(\omega /2)}e^{-j\frac{N-1}{2}\omega}<br>$$</p>
 <p>因此</p>
@@ -269,7 +269,7 @@ ga('send', 'pageview');
 <p>对比主瓣的幅值，旁瓣幅值峰值为</p>
 <p>$$<br>\frac{2}{3\pi} \approx 21.22\% \equiv 13 dB<br>$$</p>
 <h3 id="三角形窗"><a href="#三角形窗" class="headerlink" title="三角形窗"></a>三角形窗</h3><p>由于吉布斯现象，矩形窗存在一个0到1的越变；而三角形窗则提供了一个比较缓慢的变化，它的定义式为：</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>\frac{2n}{M-1}, &amp; 0\le n \le\frac{M-1}{2} \\<br>2-\frac{2n}{M-1}, &amp; \frac{M-1}{2}\le n\le M-1 \\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>\frac{2n}{M-1}, &amp; 0\le n \le\frac{M-1}{2} \\\<br>2-\frac{2n}{M-1}, &amp; \frac{M-1}{2}\le n\le M-1 \\\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>谱密度函数表达式如下，’≈’仅当$M\gg 1$时成立</p>
 <p>$$<br>W(\omega) \approx \frac{2}{M} \frac{\sin(M\omega/4)}{\sin(\omega/4)}<br>$$</p>
 <p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为25dB</p>
@@ -281,7 +281,7 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <h3 id="汉宁窗（Hanning）"><a href="#汉宁窗（Hanning）" class="headerlink" title="汉宁窗（Hanning）"></a>汉宁窗（Hanning）</h3><p>这是一个升余弦窗，被定义为</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>0.5\left[1-\cos\left(\frac{2\pi n}{M-1}\right)\right] &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>0.5\left[1-\cos\left(\frac{2\pi n}{M-1}\right)\right] &amp; 0\le n \le M-1 \\\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为31dB</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -291,7 +291,7 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <h3 id="海明窗（Hamming）"><a href="#海明窗（Hamming）" class="headerlink" title="海明窗（Hamming）"></a>海明窗（Hamming）</h3><p>海明窗和汉宁窗很像，不同的是它有一部分是不连续的，被定义为</p>
-<p>$$<br>w(n)=<br>\begin{cases}<br>0.54 - 0.46\cos\left(\frac{2\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n)=<br>\begin{cases}<br>0.54 - 0.46\cos\left(\frac{2\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为41d</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -301,7 +301,7 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <h3 id="布莱克曼窗（Blackman）"><a href="#布莱克曼窗（Blackman）" class="headerlink" title="布莱克曼窗（Blackman）"></a>布莱克曼窗（Blackman）</h3><p>这个窗函数和前两个窗函数很像，不过增加了升余弦的二次谐波分量，被定义为</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>0.42 - 0.5\cos\left(\frac{2\pi n}{M-1}\right) + 0.08\cos\left(\frac{4\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>0.42 - 0.5\cos\left(\frac{2\pi n}{M-1}\right) + 0.08\cos\left(\frac{4\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
 <p>主瓣宽度为$12\pi /M$，旁瓣峰值衰减为57dB</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
