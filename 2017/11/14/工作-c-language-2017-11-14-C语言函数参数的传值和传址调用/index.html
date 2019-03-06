@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>C语言函数参数的传值和传址调用 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="c语言">
+    <meta name="description" content="C语言函数参数的传值和传址调用大家都知道，c语言一般的参数都是传值调用的，但有时候也有例外，下面就分析一下什么时候传值调用，什么时候传址调用。 传值调用标量参数都是传值调用，不会对标量产生任何影响 1234567891011#include &amp;lt;stdio.h&amp;gt;void add_one(int value) &amp;#123;    value += 1;&amp;#125;int main(int">
+<meta name="keywords" content="c语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言函数参数的传值和传址调用">
+<meta property="og:url" content="http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="C语言函数参数的传值和传址调用大家都知道，c语言一般的参数都是传值调用的，但有时候也有例外，下面就分析一下什么时候传值调用，什么时候传址调用。 传值调用标量参数都是传值调用，不会对标量产生任何影响 1234567891011#include &amp;lt;stdio.h&amp;gt;void add_one(int value) &amp;#123;    value += 1;&amp;#125;int main(int">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-08T14:04:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言函数参数的传值和传址调用">
+<meta name="twitter:description" content="C语言函数参数的传值和传址调用大家都知道，c语言一般的参数都是传值调用的，但有时候也有例外，下面就分析一下什么时候传值调用，什么时候传址调用。 传值调用标量参数都是传值调用，不会对标量产生任何影响 1234567891011#include &amp;lt;stdio.h&amp;gt;void add_one(int value) &amp;#123;    value += 1;&amp;#125;int main(int">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">C语言函数参数的传值和传址调用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">C语言函数参数的传值和传址调用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-11-14T00:36:58.000Z" itemprop="datePublished" class="page-time">
+  2017-11-14
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#C语言函数参数的传值和传址调用"><span class="post-toc-number">1.</span> <span class="post-toc-text">C语言函数参数的传值和传址调用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传值调用"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">传值调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传址调用"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">传址调用</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-c-language-2017-11-14-C语言函数参数的传值和传址调用" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">C语言函数参数的传值和传址调用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-11-14 08:36:58" datetime="2017-11-14T00:36:58.000Z" itemprop="datePublished">2017-11-14</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="C语言函数参数的传值和传址调用"><a href="#C语言函数参数的传值和传址调用" class="headerlink" title="C语言函数参数的传值和传址调用"></a>C语言函数参数的传值和传址调用</h1><p>大家都知道，c语言一般的参数都是传值调用的，但有时候也有例外，下面就分析一下什么时候传值调用，什么时候传址调用。</p>
+<h2 id="传值调用"><a href="#传值调用" class="headerlink" title="传值调用"></a>传值调用</h2><p>标量参数都是传值调用，不会对标量产生任何影响</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_one</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">    value += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"传值前value=%d\n"</span>, value);</span><br><span class="line">    add_one(value);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"传值后value=%d\n"</span>, value);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">传值前value=10</span><br><span class="line">传值后value=10</span><br><span class="line">Process returned 0 (0x0)   execution time : 0.110 s</span><br><span class="line">Press any key to continue.</span><br></pre></td></tr></table></figure>
+<h2 id="传址调用"><a href="#传址调用" class="headerlink" title="传址调用"></a>传址调用</h2><p>数组和指针参数是传址调用，相当于传递了一个包含参数地址的指针，在函数中对数组或指针的任何操作会间接的改变数组和指针的本身</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  SIZE   4</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clr_nums</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        nums[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clr_string</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">string</span>)</span> </span>&#123;</span><br><span class="line">    *<span class="built_in">string</span> = <span class="string">"      "</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nums[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> *<span class="built_in">string</span> = <span class="string">"Hello"</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"传址前\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"nums= "</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"string=%s\n"</span>, <span class="built_in">string</span>);</span><br><span class="line">    clr_nums(nums, SIZE);</span><br><span class="line">    clr_string(&amp;<span class="built_in">string</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"传址后\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"nums= "</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"string=%s\n"</span>, <span class="built_in">string</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">传址前</span><br><span class="line">nums= 1 2 3 4 string=Hello</span><br><span class="line">传址后</span><br><span class="line">nums= 0 0 0 0 string=</span><br><span class="line">Process returned 0 (0x0)   execution time : 0.111 s</span><br><span class="line">Press any key to continue.</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-08T14:04:13.000Z" itemprop="dateUpdated">2018-09-08 22:04:13</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c语言/">c语言</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&title=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&title=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/11/15/工作-c-language-2017-11-15-数组指针和指针数组的区别/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">数组指针和指针数组的区别</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">esp8266_GPIO控制</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&title=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&title=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《C语言函数参数的传值和传址调用》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLUlEQVR42u3ay27iQBAF0Pz/TzPbkRLIvVVGwp3TK2Qju0+zKOrx9RWvx3/r9Xeeff/xbSXv+v6EdlerhY2NjX0T9uPlyjed3E0+Jys/3Ke7wsbGxj6OnW80CWDJcSSk/GhyCzY2Njb2VYA2ydn8PNjY2NjYyXaTK7O0pL2CjY2N/TfZbRDaHEpbPMoD21tqadjY2Ngfz867op//+S39bWxsbOwPZs/CSf7XfzZ8M0tgCgU2Njb2Qey2iTsb5Xm99XYMKC8k/dJgwMbGxj6CnYeftty/CUV5A3jWkMbGxsY+iZ1Q9yFtn4QkO5wNA2FjY2Pfnd1uYhZs2rC0L2PVM0rY2NjYR7BnXeI8UG2SnLyYVcRqbGxs7KPZm6ZvkhJskpO2zPTDFWxsbOyj2Xk6kTduZ2WmfVry9Do2Njb2cex2u7PSfB4U65mjIOH5YWQHGxsb+wh2O/KSl+Pzlm293WuHdbCxsbEPYifBKSnHFw3X9TNXTWVsbGzsI9hXNVavKj/tR3yi/WBjY2Mfzc4DzD6FaINcXjz65S42Njb2Qex85CUv+ucBpm0ezMaDEhc2Njb2fdltCb6tybTJw+ZY83CLjY2NfSp7cxDJK2cBbNNajiaVsLGxsY9gzxqu+d08vLXPTNoST1MRbGxs7CPYs2L9BVNCowRmVqIq+h7Y2NjYN2S34zL78LNp3LZH/3QP2NjY2AexrxrNSYLZJvy8o+mLjY2NfRJ7PygzG8HJk6Jr2xLY2NjYJ7FbcL6Vq4Z72hUFM2xsbOyD2HlJqMXkhzhr67YJTJ2BYWNjY9+K3Q7BJIWn9kre1m0bGE/vYmNjYx/Hbv/ct83d9vhmB1G3eLGxsbH/ALtNEtpNzA5oNspTBDBsbGzsm7Af5UqKSm2havPk/EDrRi82Njb2TdizALBh522GPHAOi0rY2NjYB7H3rdmrCkybwaD8yLCxsbFPZScDMS2vLRjNmruvj+PpFWxsbGzsUVrSvnGWZkRZFzY2Njb2otE7K9+3hf43piLY2NjYH8nOE4C88NSO+CSlpTYR+iUVwcbGxj6CnQeD2d18fKdFbt6OjY2NfQT7H/Y3h/MxtfpDAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>解决WSL无法运行32位程序问题 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,WSL">
+    <meta name="description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
+<meta name="keywords" content="Linux,WSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决WSL无法运行32位程序问题">
+<meta property="og:url" content="http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-09T05:52:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决WSL无法运行32位程序问题">
+<meta name="twitter:description" content="解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">解决WSL无法运行32位程序问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">解决WSL无法运行32位程序问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-15T08:47:06.000Z" itemprop="datePublished" class="page-time">
+  2018-04-15
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#解决WSL无法运行32位程序问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决WSL无法运行32位程序问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装qemu-和-binfmt"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装qemu 和 binfmt</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Enable-i386-architecture-and-packages"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Enable i386 architecture and packages</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">测试</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2018-04-15-解决WSL无法运行32位程序问题" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">解决WSL无法运行32位程序问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-15 16:47:06" datetime="2018-04-15T08:47:06.000Z" itemprop="datePublished">2018-04-15</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="解决WSL无法运行32位程序问题"><a href="#解决WSL无法运行32位程序问题" class="headerlink" title="解决WSL无法运行32位程序问题"></a>解决WSL无法运行32位程序问题</h1><p>./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error</p>
+<p>因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解决方法。</p>
+<a id="more"></a>
+<p><strong><a href="https://github.com/microsoft/wsl/issues/2468#issuecomment-374904520" target="_blank" rel="noopener">解决方案的原链接</a></strong></p>
+<p>微软官方说了，<a href="https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13377507-please-add-32-bit-elf-support-to-the-kernel" target="_blank" rel="noopener">WSL暂时不准备支持ELF-32的运行</a>。</p>
+<p>要求系统版本1709, build 16299 或以上。</p>
+<h2 id="安装qemu-和-binfmt"><a href="#安装qemu-和-binfmt" class="headerlink" title="安装qemu 和 binfmt"></a>安装qemu 和 binfmt</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install qemu-user-static</span><br><span class="line">sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic &apos;\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00&apos; --mask &apos;\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff&apos;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> 每次重启WSL后如果需要i386的支持需要以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service binfmt-support start</span><br></pre></td></tr></table></figure>
+<h2 id="Enable-i386-architecture-and-packages"><a href="#Enable-i386-architecture-and-packages" class="headerlink" title="Enable i386 architecture and packages"></a>Enable i386 architecture and packages</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install gcc:i386</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ file arm-none-linux-gnueabi-gcc</span><br><span class="line">arm-none-linux-gnueabi-gcc: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.2.5, stripped</span><br><span class="line">$ ./arm-none-linux-gnueabi-gcc -v</span><br><span class="line">Using built-in specs.</span><br><span class="line">Target: arm-none-linux-gnueabi</span><br><span class="line">Configured with: /scratch/julian/2009q3-respin-linux-lite/src/gcc-4.4/configure --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu --target=arm-none-linux-gnueabi --enable-threads --disable-libmudflap --disable-libssp --disable-libstdcxx-pch --enable-extra-sgxxlite-multilibs --with-arch=armv5te --with-gnu-as --with-gnu-ld --with-specs=&apos;%&#123;funwind-tables|fno-unwind-tables|mabi=*|ffreestanding|nostdlib:;:-funwind-tables&#125; %&#123;O2:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125; %&#123;O*:%&#123;O|O0|O1|O2|Os:;:%&#123;!fno-remove-local-statics: -fremove-local-statics&#125;&#125;&#125;&apos; --enable-languages=c,c++ --enable-shared --disable-lto --enable-symvers=gnu --enable-__cxa_atexit --with-pkgversion=&apos;Sourcery G++ Lite 2009q3-67&apos; --with-bugurl=https://support.codesourcery.com/GNUToolchain/ --disable-nls --prefix=/opt/codesourcery --with-sysroot=/opt/codesourcery/arm-none-linux-gnueabi/libc --with-build-sysroot=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/libc --with-gmp=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-mpfr=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-ppl=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --with-host-libstdcxx=&apos;-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm&apos; --with-cloog=/scratch/julian/2009q3-respin-linux-lite/obj/host-libs-2009q3-67-arm-none-linux-gnueabi-i686-pc-linux-gnu/usr --disable-libgomp --enable-poison-system-directories --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin --with-build-time-tools=/scratch/julian/2009q3-respin-linux-lite/install/arm-none-linux-gnueabi/bin</span><br><span class="line">Thread model: posix</span><br><span class="line">gcc version 4.4.1 (Sourcery G++ Lite 2009q3-67)</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T05:52:27.000Z" itemprop="dateUpdated">2018-09-09 13:52:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WSL/">WSL</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exe..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/05/11/工作-fpga-2018-05-11-直面使用quartus遇到各种的问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">直面使用quartus遇到各种的问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何阅读datasheet，以BQ24610为例</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&title=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&source=解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exe..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决WSL无法运行32位程序问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/04/15/工作-Linux-2018-04-15-解决WSL无法运行32位程序问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMklEQVR42u3aUVLjQAwEUO5/6ewBlphuyVTFw/NXCmxn3vDRSJqvr/h6/Xe9u+f62euf5E9dP3vbhY2Njf0Q9uvyyheRLCuhbrYsWQ82Njb2qezrQGrDKYmchNRuVhGu2NjY2H+YnUddWzbkT+WhiI2NjY2dv7oNtk005vdgY2Nj/x32rDF0vU1tK+q6IGkHD7f10rCxsbE/np1PRT//86/Mt7GxsbE/mP0qr6QkSBpAeWtpP9z9Zm3Y2NjYB7FnTaJ2JNCWK5styLcSGxsb+yT2dRt9dowmeWc+Tp4VTsWz2NjY2Aexc1jefE8Klc17NoGKjY2N/XR2WwzkX7YpJNoxc72t2NjY2Mexc2Tb9E/eP4u3vAn1zf3Y2NjYB7HbiGqHtXn7aT/E/QG5SWZsbGzsj2fPGu75QPeuce+sw7/aDmxsbOyPZ2+GuPmByM3YIImx5M1ve2nY2NjYR7DbFny+rPbgzp4arR8bGxv7UHYbHvnS2yUO2/1tFw0bGxv7IPasZZ+H02xk20ZpUVZhY2NjH8duQ66NtFnwzNpS0SZiY2NjH8dOHshHBZsh7mxU0K4EGxsb+yT27J/+5POsVTQrWmaDamxsbOwz2O0RyfbwTT48SMqbJLRWg15sbGzsh7Nn7fu2FGlDa/Mtb1eOjY2NfRw7B7cRtTk50w6Miz8eNjY29kHsvMXTtulnhU07uJ2VQ9jY2NgnsZOvny1r1jCaHRKqCxtsbGzsg9j5oPT6njyK8rZRfmBoFmzY2NjY57ET2KwB1G5oS8qj92t2KzY2NvZD2O1CZz/fHMpphw1FHYaNjY19NLsduM5Gs20xM4vVtxUYNjY29kHsfLi7WeLmkFDebPphPdjY2Nh/gJ0EWxEY8cj2N4YERYBhY2NjP4r9Kq92ce2b7xoqR0UINjY29hHszcGXvEjYNKrygz5J4VTjsbGxsR/CzqMlP3zzWl9tmdSuGRsbG/s8dhsMSVDNio0b8hYbGxsbe9Ton40N7h08FNuNjY2NjT0aIcyaU7Ngq4/sYGNjYz+cnY9g298mrZ8Ek3/7zb00bGxs7I9n31sGtC2eDbLdJmxsbOzj2P8A8blT70aIXs0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

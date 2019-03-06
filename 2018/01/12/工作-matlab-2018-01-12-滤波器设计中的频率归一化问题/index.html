@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>滤波器设计中的频率归一化问题 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Matlab,数字滤波">
+    <meta name="description" content="滤波器设计中的频率归一化问题滤波器介绍滤波器的设计就是设计滤波器的系数[b,a] 归一化的介绍信号处理工具箱中经常使用的是nyquist频率，它被定义为采样频率的一半，在滤波器的阶数选择和设计中的截止频率均使用nyquist频率进行归一化处理。 滤波器设计的介绍本文示例中的滤波器的通频带设计为butter(5,[20/(fs/2) 20/(fs/2)])，5为滤波器阶数，20为你需要设置通过频率的">
+<meta name="keywords" content="Matlab,数字滤波">
+<meta property="og:type" content="article">
+<meta property="og:title" content="滤波器设计中的频率归一化问题">
+<meta property="og:url" content="http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="滤波器设计中的频率归一化问题滤波器介绍滤波器的设计就是设计滤波器的系数[b,a] 归一化的介绍信号处理工具箱中经常使用的是nyquist频率，它被定义为采样频率的一半，在滤波器的阶数选择和设计中的截止频率均使用nyquist频率进行归一化处理。 滤波器设计的介绍本文示例中的滤波器的通频带设计为butter(5,[20/(fs/2) 20/(fs/2)])，5为滤波器阶数，20为你需要设置通过频率的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/滤波器的设计.png">
+<meta property="og:updated_time" content="2018-09-08T14:23:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="滤波器设计中的频率归一化问题">
+<meta name="twitter:description" content="滤波器设计中的频率归一化问题滤波器介绍滤波器的设计就是设计滤波器的系数[b,a] 归一化的介绍信号处理工具箱中经常使用的是nyquist频率，它被定义为采样频率的一半，在滤波器的阶数选择和设计中的截止频率均使用nyquist频率进行归一化处理。 滤波器设计的介绍本文示例中的滤波器的通频带设计为butter(5,[20/(fs/2) 20/(fs/2)])，5为滤波器阶数，20为你需要设置通过频率的">
+<meta name="twitter:image" content="http://greedyhao.cc/img/matlab/滤波器的设计.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">滤波器设计中的频率归一化问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">滤波器设计中的频率归一化问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-12T07:16:17.000Z" itemprop="datePublished" class="page-time">
+  2018-01-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#滤波器设计中的频率归一化问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">滤波器设计中的频率归一化问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#滤波器介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">滤波器介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#归一化的介绍"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">归一化的介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#滤波器设计的介绍"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">滤波器设计的介绍</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实例分析滤波器"><span class="post-toc-number">3.</span> <span class="post-toc-text">实例分析滤波器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#滤波器效果图及分析"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">滤波器效果图及分析</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-matlab-2018-01-12-滤波器设计中的频率归一化问题" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">滤波器设计中的频率归一化问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-12 15:16:17" datetime="2018-01-12T07:16:17.000Z" itemprop="datePublished">2018-01-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="滤波器设计中的频率归一化问题"><a href="#滤波器设计中的频率归一化问题" class="headerlink" title="滤波器设计中的频率归一化问题"></a>滤波器设计中的频率归一化问题</h1><h1 id="滤波器介绍"><a href="#滤波器介绍" class="headerlink" title="滤波器介绍"></a>滤波器介绍</h1><p>滤波器的设计就是设计滤波器的系数[b,a]</p>
+<h2 id="归一化的介绍"><a href="#归一化的介绍" class="headerlink" title="归一化的介绍"></a>归一化的介绍</h2><p>信号处理工具箱中经常使用的是nyquist频率，它被定义为采样频率的一半，在滤波器的阶数选择和设计中的截止频率均使用nyquist频率进行归一化处理。</p>
+<h2 id="滤波器设计的介绍"><a href="#滤波器设计的介绍" class="headerlink" title="滤波器设计的介绍"></a>滤波器设计的介绍</h2><p>本文示例中的滤波器的通频带设计为butter(5,[20/(fs/2) 20/(fs/2)])，5为滤波器阶数，20为你需要设置通过频率的上限或下限，fs为你的采样频率，本文使用nyquist频率进行归一化处理，所以对fs除以2。</p>
+<p>如果采样频率Fs=1000Hz，设计一个5阶、通带为100-200Hz的带通滤波器，那么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[b,a]=butter(5,[0.2 0.4])=butter(5,[100/(1000/2) 200/(1000/2) ])</span><br></pre></td></tr></table></figure>
+<h1 id="实例分析滤波器"><a href="#实例分析滤波器" class="headerlink" title="实例分析滤波器"></a>实例分析滤波器</h1><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>下面是一个简单的滤波器的设计源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fs = 50;% 采样频率</span><br><span class="line">Wn=[20/(fs/2) 20/(fs/2)];% 设置通频带</span><br><span class="line">N=5;% n阶滤波器</span><br><span class="line">[b,a]=butter(N,Wn);</span><br><span class="line">t = 0:1/fs:10-1/fs;                     </span><br><span class="line">x = sin(2*pi*15*t) + sin(2*pi*20*t);% 产生一个频率分量为15Hz和20Hz的正弦信号</span><br><span class="line">X = fft(x,4096);% 频域分析</span><br><span class="line">f = (0:length(X)-1)*fs/length(X);</span><br><span class="line">subplot(221);plot(t,x);title(&apos;滤波前信号的波形(a)&apos;);</span><br><span class="line">subplot(222);plot(f,abs(X));title(&apos;滤波前信号的频谱(b)&apos;);</span><br><span class="line">y=filter(b,a,x);</span><br><span class="line">Y=fft(y,4096);</span><br><span class="line">subplot(223);plot(t,y);title(&apos;滤波后信号的波形(c)&apos;);</span><br><span class="line">subplot(224);plot(f,abs(Y));title(&apos;滤波后信号的频谱(d)&apos;);</span><br></pre></td></tr></table></figure>
+<h2 id="滤波器效果图及分析"><a href="#滤波器效果图及分析" class="headerlink" title="滤波器效果图及分析"></a>滤波器效果图及分析</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/滤波器的设计.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>图a和图b是未处理的信号波形，从b图可以看出这个正弦信号有两个频率分量</p>
+<p>图c和图d是处理后的信号波形，从d图可以看出此时只有20Hz这一个频率分量了</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-08T14:23:27.000Z" itemprop="dateUpdated">2018-09-08 22:23:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数字滤波/">数字滤波</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&title=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&title=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">虚拟机与主机之间ping不通的解决方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/11/工作-matlab-2018-01-11-Matlab内建函数中文文档/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Matlab内建函数中文文档</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&title=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&title=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《滤波器设计中的频率归一化问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/01/12/工作-matlab-2018-01-12-滤波器设计中的频率归一化问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3aQXLCMBAEQP7/afIAgplZ2SmstE8pILIaH5ad1eMRX8831+tnXv8+XvP49eM75vcaXtjY2Ng3YT8Pr9fPrG/u+JPHe3v3bm7BxsbG3pWdbLQtHsdF7hiQrz/cJzY2NjZ2iUmKUFLkklKKjY2NjZ0sl29rpTS2e8DGxsb+z+wkVMoZSYF5BlceOV2YpWFjY2N/PTufin7/35fMt7GxsbG/mP0sr3zE2xbCc8fMHxTY2NjYG7HzAnBuxDM7uDO7y9t7YWNjY2/ETg7ZtFFRfnAnKUUrXUZ0AAgbGxt7O3ay0ZWmYhbl5+1N/cVhY2Njb8FOopx20TYeakfFs0AKGxsbeyd23ga0he24CK18Pn8kb1/HxsbG3oid/9DPt5uPfpPi145y82ALGxsbew92e6RmJTbKG4/1Ee+H17GxsbG3Y8+O6ayPYPOh7KyBeXsXbGxs7I3Ys1Jx3Rh45QjOsLBhY2Njb8HOY6M8BspXXjnQs/IAsLGxsXdit0Wr3VA7jm0L3tJsBBsbG/vm7HOXS9qPFjN7AB/excbGxt6InfNmsVFeP/MQaraHD6ESNjY29m3ZKz/023FvPqxtI62lIAkbGxv75uy2nZgd0FkZDORlaTgqwMbGxr45Ox/unhUq5cd0Vo7vfBhRYGNjY2/EbkOclZamZfzN6BcbGxv77uz2R/wsoP+jeCgut9jY2Ng7sfMf7mcNetdbnbxoRQUVGxsb++bsNipK4v520+0A+FFev6yJjY2NvRF7Fs0Xy13Qoqw0MNjY2Nh7s5PwKP+5n5er2fC4bZmG8xBsbGzsm7BnA922tLQFqW1y8vYJGxsbe2/2WZuYlZ98CJ0XxWhIgI2Njb0F+9yIvy1jSVOxMiqI4iRsbGzsG7LXA6O2aWlHAgkvKZnY2NjYu7LXD75cETDlD2C9EGJjY2Pvwc6LVl6c2qM8s6+mPTyEjY2NvTe7DX1mgX4bOZ37JWJjY2Nj54yzBgbtfYsHho2Njf2P2bPwPW9g2hXaUAwbGxt7V3Y73M0LyWzldkRxYZaGjY2N/fXsEwKa0X+1xz1nX9PxQ8LGxsa+OfsHj1hT70kqDvUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

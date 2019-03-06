@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>SDRAM使用总结 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="stm32">
+    <meta name="description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDRAM使用总结">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/fmc_map.png">
+<meta property="og:image" content="http://greedyhao.cc/img/stm32/sdram_init_error.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T04:47:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SDRAM使用总结">
+<meta name="twitter:description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+<meta name="twitter:image" content="http://greedyhao.cc/img/stm32/fmc_map.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SDRAM使用总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SDRAM使用总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-08T00:28:36.000Z" itemprop="datePublished" class="page-time">
+  2018-07-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SDRAM使用总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">SDRAM使用总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-stm32-2018-07-08-SDRAM使用总结" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SDRAM使用总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-08 08:28:36" datetime="2018-07-08T00:28:36.000Z" itemprop="datePublished">2018-07-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="SDRAM使用总结"><a href="#SDRAM使用总结" class="headerlink" title="SDRAM使用总结"></a>SDRAM使用总结</h1><p>最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。</p>
+<p>SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。</p>
+<p>SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空间的指针，通过指针直接修改存储单元内容，FMC外设会自动完成数据访问过程。</p>
+<p><img src="/img/stm32/fmc_map.png" alt=""></p>
+<p>为了使FMC完成这些数据访问操作，需要在程序一开始进行初始化过程，一共包括对GPIO管脚时钟的初始化、FMC的初始化、SDRAM时序初始化。</p>
+<p>SDRAM我觉得最重要的就是初始化过程了，初始化顺序一定要注意，一定要按照GPIO-&gt;FMC-&gt;SDRAM这个顺序初始化。</p>
+<p>使用CubeMX创建的stm32工程需要注意，SDRAM时序初始化不能放在HAL_SDRAM_MspInit里，因为CubeMX生成的程序初始化过程是这样的，MX_FMC_Init-&gt;HAL_SDRAM_Init-&gt;HAL_SDRAM_MspInit，如果SDRAM时序初始化放在HAL_SDRAM_MspInit里，会由于FMC还没有初始化成功而导致SDRAM时序初始化失败。</p>
+<p>我一开始就是由于不清楚这个初始化顺序，导致程序一直卡在SDRAM读写处。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/stm32/sdram_init_error.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>读写SDRAM的话，只需要用一个指向这个空间地址的指针，然后操作这个指针指向的内容就好了。一个简单的读的例子如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uint32_t *pSDRAM;</span><br><span class="line"></span><br><span class="line">uint32_t RadomBuffer[10000];</span><br><span class="line"></span><br><span class="line">#&lt;span class=&quot;meta-keyword&quot;&gt;define&lt;/span&gt; SDRAM_BANK_ADDR     ((uint32_t)0xD0000000)</span><br><span class="line"></span><br><span class="line">*pSDRAM=RadomBuffer[count];</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T04:47:00.000Z" itemprop="dateUpdated">2018-09-09 12:47:00</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&title=《SDRAM使用总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&title=《SDRAM使用总结》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SDRAM使用总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/09/工作-dsp-2018-07-09-解释为什么旋转的物体有时看着像在倒转/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解释为什么旋转的物体有时看着像在倒转</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/08/系列-2018-07-08-c王国的诞生-零/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">c王国的诞生_零</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&title=《SDRAM使用总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&title=《SDRAM使用总结》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SDRAM使用总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aS27jQAwFwNz/0pntDAzJ75HqxAOUVoZ/6upFkyL59RVf339dr++/vk6+8/1yXf3q/v8fuPDw8PAWS7+65f2nV1uQ/Ntsc5M14+Hh4Z3mtQf6/fE9O9bbDbpfMx4eHt6n8e4P9/sF5WEm+Tc8PDy8/4vXHuhJkEiCAR4eHt4n8JJiRFtmTYoOeanieK0FDw8PL+blhdTPeX2kv4eHh4e37qrP2lf5kd0GoXq1eHh4eAd4s9ZUwmuLuW1xpBgOw8PDw3uUNyuMzsoWs62Z3RcPDw/vd3lJErwpsw6j2aaCgoeHh/cQL1niqoU/GjtIfls8K+Dh4eE9xJu17dszuS1V5MHj8lM8PDy8A7zZQ36eOrcF3E0IudwmPDw8vB/hJQn3rKCwGTJok3U8PDy8E7z8aN60/JOFzpLmN001PDw8vB/ktUXYvOiQB6EIcB/A8PDw8A7wNilvXixol5Jg6rYcHh4e3kO8fA82g1N5Ur7/z+JLeHh4eA/xkhiSj4225Yb9ANaboSs8PDy8NW/WpG9T203rK9niB4ZW8fDw8Ba8vJGfB4/Z0ttix+Wa8fDw8B7l5SnvrCybw9qmWj10hYeHh/cor/5ZWW7YlzzadV42wPDw8PDWvKeaWDPYfhChCG94eHh4h3ltabUND/VEWFmqeBMY8PDw8Na8JGGdHeg5aVMcebN+PDw8vMO82eL2C203ungkwMPDwzvGaxPiWWK9KUYksGGXDw8PDy/mzUJCchxvmmqbwvE/d8fDw8M7wGsT1qSVNQsGbbCZbSseHh7eU7zZLdvku92Oti13icfDw8M7xpsNB2yS4yTkPFDMxcPDw/sA3rm8Pn+/Tqnx8PDwfpWXjE+1SfY9YzbChYeHh3eat2nk56OrmwR9+CkeHh7eAV77kP/UKOpT7AcuPDw8vPT6A5Ymh1wLfzINAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

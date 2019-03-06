@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>安装sublime可能出现问题并解决 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,入门">
+    <meta name="description" content="安装sublime-text-3添加sublime text 3的仓库：sudo add-apt-repository ppa:webupd8team/sublime-text-3根据提示按ENTER 继续，建立信任数据库">
+<meta name="keywords" content="Linux,入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装sublime可能出现问题并解决">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="安装sublime-text-3添加sublime text 3的仓库：sudo add-apt-repository ppa:webupd8team/sublime-text-3根据提示按ENTER 继续，建立信任数据库">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-14T13:28:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装sublime可能出现问题并解决">
+<meta name="twitter:description" content="安装sublime-text-3添加sublime text 3的仓库：sudo add-apt-repository ppa:webupd8team/sublime-text-3根据提示按ENTER 继续，建立信任数据库">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">安装sublime可能出现问题并解决</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">安装sublime可能出现问题并解决</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-10T09:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-08-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装sublime-text-3"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装sublime-text-3</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装Packeage-Control（这步开始出现问题）"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Packeage Control（这步开始出现问题）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决无法输入中文问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决无法输入中文问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决Sublime包管理Package-Control-报错-There-Are-No-Packages-Available-For-Installation"><span class="post-toc-number">4.</span> <span class="post-toc-text">解决Sublime包管理Package Control 报错 There Are No Packages Available For Installation</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">参考源</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">安装sublime可能出现问题并解决</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-10 17:00:00" datetime="2017-08-10T09:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="安装sublime-text-3"><a href="#安装sublime-text-3" class="headerlink" title="安装sublime-text-3"></a>安装sublime-text-3</h2><p>添加sublime text 3的仓库：<br>sudo add-apt-repository ppa:webupd8team/sublime-text-3<br>根据提示按ENTER 继续，建立信任数据库</p>
+<a id="more"></a>
+<p>更新软件库<br>sudo apt update</p>
+<p>安装Sublime Text 3<br>sudo apt install sublime-text-installer<br>等待软件安装成功……</p>
+<h2 id="安装Packeage-Control（这步开始出现问题）"><a href="#安装Packeage-Control（这步开始出现问题）" class="headerlink" title="安装Packeage Control（这步开始出现问题）"></a>安装Packeage Control（<strong>这步开始出现问题</strong>）</h2><p><strong>第一种解决方法（在我这不成功）</strong></p>
+<p>在bash中输入subl后，按<strong>ctrl</strong> + <strong>`</strong>，调出命令输入窗口，然后输入以下命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request,os,hashlib;</span><br><span class="line">h = &apos;2915d1851351e5ee549c20394736b442&apos; + &apos;8bc59f460fa1548d1514676163dafc88&apos;;</span><br><span class="line">pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path();</span><br><span class="line">urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) );</span><br><span class="line">by = urllib.request.urlopen( &apos;http://packagecontrol.io/&apos; + pf.replace(&apos; &apos;, &apos;%20&apos;)).read();</span><br><span class="line">dh = hashlib.sha256(by).hexdigest();</span><br><span class="line">print(&apos;Error validating download (got %s instead of %s), please try manual install&apos; % (dh, h))</span><br><span class="line">if dh != h else open(os.path.join( ipp, pf), &apos;wb&apos; ).write(by)</span><br></pre></td></tr></table></figure>
+<p>但是我这里尝试这种方法不成功，调试信息如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 1248, in do_open</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 1065, in request</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 1103, in _send_request</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 1061, in endheaders</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 906, in _send_output</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 844, in send</span><br><span class="line">File &quot;./python3.3/http/client.py&quot;, line 822, in connect</span><br><span class="line">File &quot;./python3.3/socket.py&quot;, line 435, in create_connection</span><br><span class="line">File &quot;./python3.3/socket.py&quot;, line 426, in create_connection</span><br><span class="line">ConnectionRefusedError: [Errno 111] Connection refused</span><br><span class="line"></span><br><span class="line">File &quot;/home/dlyman/.config/sublime-text-3/Packages/tern_for_sublime/tern.py&quot;, line 264, in f</span><br><span class="line">req = opener.open(&quot;http://&quot; + localhost + &quot;:&quot; + str(port) + &quot;/&quot;, json.dumps(doc).encode(&quot;utf-8&quot;), 1)</span><br><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 469, in open</span><br><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 487, in _open</span><br><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 447, in _call_chain</span><br><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 1274, in http_open</span><br><span class="line">File &quot;./python3.3/urllib/request.py&quot;, line 1251, in do_open</span><br><span class="line">urllib.error.URLError: &lt;urlopen error [Errno 111] Connection refused&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>手动进行安装</strong></p>
+<p>需要从git下载Package Control主文件到~/.config/sublime-text-3/Packages/</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.config/sublime-text-3/Packages/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/wbond/package_control_channel.git Package\ Control</span><br></pre></td></tr></table></figure>
+<p>然后进行下列步骤：</p>
+<ol>
+<li>点击Preferences &gt; Browse Packages菜单</li>
+<li>进入打开的目录的上层目录，然后再进入Installed Packages目录</li>
+<li><a href="https://sublime.wbond.net/Package%20Control.sublime-package" target="_blank" rel="noopener">下载</a><br>Package Control.sublime-package，并将该文件复制到Installed Packages目录</li>
+<li>重启Sublime Text</li>
+</ol>
+<h2 id="解决无法输入中文问题"><a href="#解决无法输入中文问题" class="headerlink" title="解决无法输入中文问题"></a>解决无法输入中文问题</h2><p><strong>推荐的解决方法</strong></p>
+<ul>
+<li>Update and then upgrade your system to the newest</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把这个repo克隆到你的电脑 :</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/lyfeyaj/sublime-text-imfix.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>到 <code>sublime-text-imfix</code> 目录:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> sublime-text-imfix</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行下面这条命令 :</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sublime-imfix</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Done! 重启sublime即可完成</li>
+</ul>
+<h2 id="解决Sublime包管理Package-Control-报错-There-Are-No-Packages-Available-For-Installation"><a href="#解决Sublime包管理Package-Control-报错-There-Are-No-Packages-Available-For-Installation" class="headerlink" title="解决Sublime包管理Package Control 报错 There Are No Packages Available For Installation"></a>解决Sublime包管理Package Control 报错 There Are No Packages Available For Installation</h2><p><strong>解决1：</strong></p>
+<p>网上说是因为IPV6的问题，导致无法访问sublime的官网,于是在host中添加如下对应ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#sublime</span><br><span class="line">#50.116.34.243       sublime.wbond.net</span><br></pre></td></tr></table></figure>
+<p>如解决1没有解决这个问题可以去 <a href="https://www.cnblogs.com/ae6623/p/5338049.html" target="_blank" rel="noopener">查找其他解决方法</a></p>
+<h3 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h3><ul>
+<li><a href="http://blog.csdn.net/cywosp/article/details/32721011" target="_blank" rel="noopener">http://blog.csdn.net/cywosp/article/details/32721011</a></li>
+<li><a href="https://github.com/lyfeyaj/sublime-text-imfix" target="_blank" rel="noopener">https://github.com/lyfeyaj/sublime-text-imfix</a></li>
+<li><a href="http://www.dongcoder.com/detail-488469.html" target="_blank" rel="noopener">http://www.dongcoder.com/detail-488469.html</a></li>
+<li><a href="http://www.jianshu.com/p/a85bb1043f69" target="_blank" rel="noopener">http://www.jianshu.com/p/a85bb1043f69</a></li>
+<li><a href="https://www.cnblogs.com/ae6623/p/5338049.html" target="_blank" rel="noopener">https://www.cnblogs.com/ae6623/p/5338049.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-14T13:28:02.000Z" itemprop="dateUpdated">2017-08-14 21:28:02</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&title=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&title=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&source=安装sublime-text-3添加sublime text 3的仓库：sudo add-apt-repository ppa:webupd8team/s..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">开始学习stm32</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">从51最小系统开始</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&title=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&title=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&source=安装sublime-text-3添加sublime text 3的仓库：sudo add-apt-repository ppa:webupd8team/s..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《安装sublime可能出现问题并解决》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9ElEQVR42u3ay2rjQBAFUP//T3tgVgOx5XurWkkGjlZGTlrdR4FKPR6P+Hr+va7vP/+5vt75+u27n3m38rvfur7zuOPCgQMHDhzBUa+3fn3IZKPXB0tWbp+SvJgXT8GBAwcOHIc4ZkE0+ZzTtAF4ttsPZ8eBAwcOHN/IkYfn683lHHkyloRwHDhw4MDx2zjao84KdqeYcODAgQPHz3LkwbJYuuzvtIE5b3HdUivFgQMHDhyfuzmPNmj9L59vnO/AgQMHDhxlgS8fSmtDVzsYMdtzcTocOHDgwLHmSFKjZIvJSMGsOJj//OwV1v0rHDhw4MAx4miLd22w3LSsVkG0zVZx4MCBA8eik5IcoA3D7UhBO0LRpnn5GXHgwIEDx4ZjUxxMhgxmR23Ty9kTX6yJAwcOHDiOcuSPaQuFszJisqskwBfr48CBAweOQxxtU2c2rHBH2yn/dyF6nThw4MCBY8Gxrybug1ySpM2KfXWxEgcOHDhw3MCRb+UUVjsA0Tax8jVx4MCBA8eeYxPM8s3lSVS7zmwndcUUBw4cOHCUHPvxhc39TcKWD0/kQDhw4MCBY8MxS8xmSdSp1K4dvyhCNQ4cOHDgWHO0h5k1ivKBgwSlTQ7zdXDgwIEDx55jFmI3g27tU9oV8mZY9H8HDhw4cOBYrJmnPZtgNhs4mL2wAwMNOHDgwIHj6Kjc9ef82zwlyynbMB89HQcOHDhwrDlOBdpNOpe0ppIBhTbQFlVSHDhw4MAx4pgV1/Kxhs36CfqpgQwcOHDgwLHnmAW5NsHbhORknc0wxIsSIQ4cOHDgGHFs0rNNsrQ5WMtUEOPAgQMHjqMcs8GFPG1LnpK0tWZ3krFvHDhw4MCx52iXzltB+YhDi9UWE9tyJA4cOHDg2HO0oWizuRlxztS2uz6EWxw4cODAUXJs0qp9YEuSw3bEbZWU4sCBAweOQ/W9fQKWxPNZsW+TKD6Dq85oceDAgQNHzJGnbbPiXbu5fM3NPuteHA4cOHDguOTYDBPkaVteZNyMQbSv9sPfBQ4cOHDgWHPMkq5NGa4tTbaNrmOdNxw4cODAUXJsUq/NOm0xMUntkustPQ4cOHDgWHPsC22zoYTNpu9+Fg4cOHDg2DzrWV6zUmCe5rVjCrN07u3pcODAgQPHmmMT9vLA1hYf243uhxtw4MCBA8dZjja4to2ipP2TDyscGFy4psSBAwcOHIc4NulQOx5RVC7LF5AH5re7woEDBw4c38iR/1YS9tpQel/SiAMHDhw4fg9He7wELgm6M4hoDAIHDhw4cBziSBKwGUq+6f23ybOiFA4HDhw4cCw4ThXs8umJfbFvFlCTFhoOHDhw4Fhw/AHoemg6B26qxQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

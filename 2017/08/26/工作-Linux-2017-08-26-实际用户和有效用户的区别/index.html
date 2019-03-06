@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>实际用户和有效用户的区别 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="介绍实际用户和有效用户的区别">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实际用户和有效用户的区别">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="介绍实际用户和有效用户的区别">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-26T03:49:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实际用户和有效用户的区别">
+<meta name="twitter:description" content="介绍实际用户和有效用户的区别">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">实际用户和有效用户的区别</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">实际用户和有效用户的区别</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-26T03:48:14.000Z" itemprop="datePublished" class="page-time">
+  2017-08-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#从理论上介绍一下两者区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">从理论上介绍一下两者区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实际用户"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">实际用户</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有效用户"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">有效用户</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#改变uid-gid"><span class="post-toc-number">2.</span> <span class="post-toc-text">改变uid/gid</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#获得uid-gid"><span class="post-toc-number">3.</span> <span class="post-toc-text">获得uid/gid</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通过实例来展现uid-euid区别"><span class="post-toc-number">4.</span> <span class="post-toc-text">通过实例来展现uid/euid区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#特别说明"><span class="post-toc-number">5.</span> <span class="post-toc-text">特别说明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考源</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2017-08-26-实际用户和有效用户的区别" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">实际用户和有效用户的区别</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-26 11:48:14" datetime="2017-08-26T03:48:14.000Z" itemprop="datePublished">2017-08-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这段时间在看《Linux系统编程》，看到好几个对用户ID设置的接口，然后就对实际用户和有效用户<br>感觉到疑惑，在查询弄明白后，将在下面介绍。</p>
+<a id="more"></a>
+<h1 id="从理论上介绍一下两者区别"><a href="#从理论上介绍一下两者区别" class="headerlink" title="从理论上介绍一下两者区别"></a>从理论上介绍一下两者区别</h1><h2 id="实际用户"><a href="#实际用户" class="headerlink" title="实际用户"></a>实际用户</h2><p>实际用户ID是指运行这个进程的用户uid。这个用户uid会被设置为父进程的实际用户ID，并且在exec<br>系统调用中都不会发生改变。一般情况下，<strong>登录进程会将用户登录那个shell的实际用户ID设置为<br>登录用户的uid，并且这个用户所有进程的实际用户ID都会继承这个值。</strong> 超级用户可能会把实际用户<br>ID设置修改为任意值，但是其他用户不可以。</p>
+<h2 id="有效用户"><a href="#有效用户" class="headerlink" title="有效用户"></a>有效用户</h2><p>有效用户ID是当前进程所使用的用户ID。 <strong>权限认证一般是使用这个值。</strong> 初始时，这个ID等于<br>实际用户ID。</p>
+<h1 id="改变uid-gid"><a href="#改变uid-gid" class="headerlink" title="改变uid/gid"></a>改变uid/gid</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setuid</span> <span class="params">(<span class="keyword">uid_t</span> uid)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setgid</span> <span class="params">(<span class="keyword">guid_t</span> guid)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>调用setuid()会设置当前进程的有效用户ID。root用户可以为uid提供任何值；非root用户只允许<br>将实际用户ID和保留用户ID设置为uid。</p>
+<h1 id="获得uid-gid"><a href="#获得uid-gid" class="headerlink" title="获得uid/gid"></a>获得uid/gid</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">uid_t</span> getuid (<span class="keyword">void</span>);</span><br><span class="line"><span class="keyword">gid_t</span> getgid (<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<p>使用getuid和getgid可以分别获得当前进程的uid和gid。</p>
+<h1 id="通过实例来展现uid-euid区别"><a href="#通过实例来展现uid-euid区别" class="headerlink" title="通过实例来展现uid/euid区别"></a>通过实例来展现uid/euid区别</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"uid=%d\n"</span>, getuid());</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"gid=%d\n"</span>, getgid());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译运行的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hao@hao1:~/linux/5.6$ ./uid</span><br><span class="line">uid=1000</span><br><span class="line">gid=1000</span><br><span class="line">hao@hao1:~/linux/5.6$ sudo ./uid</span><br><span class="line">uid=0</span><br><span class="line">gid=0</span><br></pre></td></tr></table></figure>
+<p>第一次运行的时候，使用的是普通用户，uid=1000，gid=1000，由于没有使用setgid对gid进行改变，<br>所以uid = gid。第二次运行的时候，使用的是超级权限(root)，所以uid=0，gid=0。</p>
+<h1 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h1><ul>
+<li>有效用户ID(euid)代表它的属主，限制进程的权限。</li>
+<li>在没有seteuid的情况下，uid = euid，guid同理。</li>
+<li>当进程以root权限调用setuid()后，root权限会被丢弃，所以root权限下，使用setuid()更加安全。</li>
+</ul>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-26T03:49:05.000Z" itemprop="dateUpdated">2017-08-26 11:49:05</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&title=《实际用户和有效用户的区别》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&title=《实际用户和有效用户的区别》 — Zhuhao's Blog&source=这段时间在看《Linux系统编程》，看到好几个对用户ID设置的接口，然后就对实际用户和有效用户感觉到疑惑，在查询弄明白后，将在下面介绍。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实际用户和有效用户的区别》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">多进程和多线程的区别</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/23/工作-python-pythonic-2017-08-23-python对方法的迭代/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">python对方法的迭代</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&title=《实际用户和有效用户的区别》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&title=《实际用户和有效用户的区别》 — Zhuhao's Blog&source=这段时间在看《Linux系统编程》，看到好几个对用户ID设置的接口，然后就对实际用户和有效用户感觉到疑惑，在查询弄明白后，将在下面介绍。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实际用户和有效用户的区别》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMUlEQVR42u3a227qMBAFUP7/pzmvlVrC3uPkiJjlpwpS18tIHebyeMTr+WP9fOX4md+v/373927JDsfPn7awsbGxb8J+Hq5Xx8qfTC7u1bvtNSUWbGxs7F3ZydbHhzve56wQlV/lGyM2Njb2F7OvSBhe7ZYnKtjY2NjYbaGnBR8ft710bGxsbOxZUSkPWm2oW2kSXF5Lw8bGxv54dt4V/fyfL+lvY2NjY38w+3nqStKGfNznrMD2xzmxsbGxN2K3QaI9btL0TYr+LTI6GzY2NvYW7ORLfEK94nAr40FvXsfGxsbeiL3S0F0Zvpnhk6J/kSBhY2Njb8RuA9gVTYWkqJSXlmZpEjY2NvYd2e0/+jZstKlCApuNAb3simBjY2Nvwb4i8MwaAHmwbE++9MvY2NjYH8y+ItnIC/pJCakNn3mLGhsbG3sP9nr9KW++rhSG2quJWrzY2NjYW7Dzr++zslE+EtRi2tYyNjY29jewZ+OMK8OUs2SmHf18zB7CxsbGviF7pZWbj92cFZbaPd/U0rCxsbFvy56lFm0pajaO04bAotmMjY2NvRG7Ld+vjM7MUo6zPow37V5sbGzsLdjtME1ebEp2aINQ29IYdhWwsbGxP549Sx7WE5I8zKw3D7CxsbG/gd2W9fMS//9Z+aDPH7U0bGxs7JuzV9quK+y2XHVh0oKNjY19c/YsVUiar0st2LLdi42NjY0dfWWPGwlJqyAPUW0zOLoabGxs7I3YebFm5Y+119eWkE6gYmNjY9+W3ZaK2kGcYoxm9OQJ/W1sbGzsLdhtOjEr3680FVremzCGjY2NvRF7pWSfJCezS0kufRZcsbGxsfdj5wGgPUoSbFZay8dXXGRg2NjY2Ddnt/i2MdxWcvKQNktjsLGxsfdjP8uVAM4KM+2l54EQGxsbeyf2eoF+1jZebx7kidMs7GFjY2Pfi90GrVnYWxnKaT+SaDdsbGzs7dhtkMgj4XrS8hitqL+NjY2N/WXsvAHcPrMymjPcGRsbG/sr2SuJRFuQOivtiUZ2sLGxsbdgz5q766X/9cRjOAyEjY2NvRF7VhjKW79tsjErFa3siY2NjX1b9j/zqehM6QXp5wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

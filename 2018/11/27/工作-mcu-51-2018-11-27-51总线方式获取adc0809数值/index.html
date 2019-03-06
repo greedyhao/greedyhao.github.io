@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>51总线方式获取adc0809数值 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="最近单片机有一个实验挺有意思的，使用51单片机以总线的方式读取adc0809的数据 先补充点关于单片机总线的预备知识，我一开始不了解总线的时候做这个实验也是很懵逼的。 单片机的三总线结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51总线方式获取adc0809数值">
+<meta property="og:url" content="http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="最近单片机有一个实验挺有意思的，使用51单片机以总线的方式读取adc0809的数据 先补充点关于单片机总线的预备知识，我一开始不了解总线的时候做这个实验也是很懵逼的。 单片机的三总线结构">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_arch.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_seq.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_sch.png">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_err_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_err_1.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/mcu/51/51bus_err_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-11-27T13:36:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="51总线方式获取adc0809数值">
+<meta name="twitter:description" content="最近单片机有一个实验挺有意思的，使用51单片机以总线的方式读取adc0809的数据 先补充点关于单片机总线的预备知识，我一开始不了解总线的时候做这个实验也是很懵逼的。 单片机的三总线结构">
+<meta name="twitter:image" content="http://greedyhao.cc/img/mcu/51/51bus_arch.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">51总线方式获取adc0809数值</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">51总线方式获取adc0809数值</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-27T13:32:55.000Z" itemprop="datePublished" class="page-time">
+  2018-11-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#单片机的三总线结构"><span class="post-toc-number">1.</span> <span class="post-toc-text">单片机的三总线结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实操练习"><span class="post-toc-number">2.</span> <span class="post-toc-text">实操练习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解释电路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">解释电路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">遇到的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#程序代码"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">程序代码</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-mcu-51-2018-11-27-51总线方式获取adc0809数值" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">51总线方式获取adc0809数值</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-27 21:32:55" datetime="2018-11-27T13:32:55.000Z" itemprop="datePublished">2018-11-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>最近单片机有一个实验挺有意思的，使用51单片机以总线的方式读取adc0809的数据</p>
+<p>先补充点关于单片机总线的预备知识，我一开始不了解总线的时候做这个实验也是很懵逼的。</p>
+<h1 id="单片机的三总线结构"><a href="#单片机的三总线结构" class="headerlink" title="单片机的三总线结构"></a>单片机的三总线结构</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_arch.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>51单片机有三条总线：数据总线、地址总线、控制总线</p>
+<p>从图中可以看出，8位数据总线由P0组成，16位地址总线由P0和P2组成，控制总线由P3和相关引脚组成</p>
+<p>采用总线的方式可以简化编程，节省I/O口，便于外设扩展</p>
+<p>但是数据口和地址口在P0是怎么复用的呢，这就需要看到时序了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_seq.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>从图中可以看出，P0口是数据/地址分时复用的，这是P0口内部的复用结构完成的</p>
+<h1 id="实操练习"><a href="#实操练习" class="headerlink" title="实操练习"></a>实操练习</h1><p>51单片机与adc0809接线原理图如下<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_sch.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="解释电路"><a href="#解释电路" class="headerlink" title="解释电路"></a>解释电路</h2><p>P2.7口用作adc0809的选择线</p>
+<p>P0.0~P0.2所接的A B C是adc0809的IN0通道选择线</p>
+<p>接下来就是计算adc0809的地址了</p>
+<p>P2 P0</p>
+<p>0xxx xxxx xxxx x000</p>
+<p>因此地址为0x7ff8</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>本来应该显示5v的位置只显示1.144v，而且在电阻增大的过程中，显示的值先减小后增大又减小，具体情况如图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_err_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_err_1.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>实在没有办法的情况下，借别的同学的代码来看，没发现自己的程序在时序、地址上的错误。</p>
+<p>琢磨了单片机的数值变换的现象后，突然觉得是不是保存ad转换数值的变量溢出了，然后就发现我的变量类型是int，而别人的变量类型是long int</p>
+<p>在将保存ad转换的变量类型修改过后，程序就运行正常了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/mcu/51/51bus_err_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;reg51.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;absacc.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> uchar;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> uint8;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">int</span> uint16;</span><br><span class="line"></span><br><span class="line">uchar led_mod[] = &#123;	<span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,	<span class="comment">//!&lt; 数码管编码</span></span><br><span class="line">					<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,	</span><br><span class="line">					<span class="number">0x7f</span>,<span class="number">0x6f</span>,<span class="number">0x77</span>,<span class="number">0x7c</span>,</span><br><span class="line">					<span class="number">0x39</span>,<span class="number">0x5e</span>,<span class="number">0x79</span>,<span class="number">0x71</span>&#125;;</span><br><span class="line">							</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> AD_IN0 XBYTE [0x7ff8]</span></span><br><span class="line"></span><br><span class="line">sbit EOC = P3^<span class="number">5</span>;</span><br><span class="line">sbit CLK = P3^<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">sbit seg1 = P2^<span class="number">0</span>;</span><br><span class="line">sbit seg2 = P2^<span class="number">1</span>;</span><br><span class="line">sbit seg3 = P2^<span class="number">2</span>;</span><br><span class="line">sbit seg4 = P2^<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">uint16 adc_data = <span class="number">0</span>;    <span class="comment">//&gt; 保存ad转换结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 延迟函数</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay_ms</span><span class="params">(uint8 time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    uint8 j;</span><br><span class="line">    <span class="keyword">for</span> (; time&gt;<span class="number">0</span>; time--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">114</span>; j&gt;<span class="number">0</span>; j--);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 定时器初始化</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	TMOD |= <span class="number">0x02</span>;													</span><br><span class="line">	TH0 = <span class="number">200</span>;			<span class="comment">//&gt; 产生方波周期2us			</span></span><br><span class="line">	TL0 = <span class="number">200</span>;								</span><br><span class="line">	                                       </span><br><span class="line">	ET0 = <span class="number">1</span>;                                      </span><br><span class="line">	TR0 = <span class="number">1</span>;                                      </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 数码管动态显示函数</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	adc_data = adc_data*<span class="number">1000</span>/<span class="number">51</span>;				<span class="comment">//&gt; 分辨率为5/256约为1/51</span></span><br><span class="line">	P1 = <span class="number">0x00</span>;</span><br><span class="line">	P1 = led_mod[adc_data/<span class="number">1000</span>]|<span class="number">0x80</span>;</span><br><span class="line">	seg1 = <span class="number">0</span>;</span><br><span class="line">	delay_ms(<span class="number">2</span>);</span><br><span class="line">	seg1 = <span class="number">1</span>;</span><br><span class="line">	P1 = <span class="number">0x00</span>;</span><br><span class="line">	P1 = led_mod[(adc_data%<span class="number">1000</span>)/<span class="number">100</span>];</span><br><span class="line">	seg2 = <span class="number">0</span>;</span><br><span class="line">	delay_ms(<span class="number">2</span>);</span><br><span class="line">	seg2 = <span class="number">1</span>;</span><br><span class="line">	P1 = <span class="number">0x00</span>;</span><br><span class="line">	P1 = led_mod[(adc_data%<span class="number">100</span>)/<span class="number">10</span>];</span><br><span class="line">	seg3 = <span class="number">0</span>;</span><br><span class="line">	delay_ms(<span class="number">2</span>);</span><br><span class="line">	seg3 = <span class="number">1</span>;</span><br><span class="line">	P1 = <span class="number">0x00</span>;</span><br><span class="line">	P1 = led_mod[adc_data%<span class="number">10</span>];</span><br><span class="line">	seg4 = <span class="number">0</span>;</span><br><span class="line">	delay_ms(<span class="number">2</span>);</span><br><span class="line">	seg4 = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	timer_init();</span><br><span class="line">	EA = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		AD_IN0 = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(EOC == <span class="number">0</span>);</span><br><span class="line">		adc_data = AD_IN0;</span><br><span class="line">		display();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 产生时钟周期</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer0</span><span class="params">()</span> interrupt 1                   </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	CLK = ~CLK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-27T13:36:01.000Z" itemprop="dateUpdated">2018-11-27 21:36:01</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&title=《51总线方式获取adc0809数值》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&title=《51总线方式获取adc0809数值》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《51总线方式获取adc0809数值》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/29/工作-wireless-2018-11-29-通信原理线性调制/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">通信原理线性调制</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/25/工作-rt-thread-2018-11-25-rt-thread内核移植/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">rt-thread内核移植</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&title=《51总线方式获取adc0809数值》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&title=《51总线方式获取adc0809数值》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《51总线方式获取adc0809数值》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/11/27/工作-mcu-51-2018-11-27-51总线方式获取adc0809数值/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIUlEQVR42u3a0WrrMBAE0P7/T+e+FoqTmV1fSJTjp+Ikso4MHbSrn5/4evy6/t75e//vb6/GfP6s56Ndfee2CxsbG/tD2I+nVzKVZLSrSefsdiFezBkbGxv7OPbzgEmm2E6ihe3niY2NjY2dY9ppJeGXzw0bGxsbe8NuJ5csxPNyFTY2NjZ2vklICvSzT/PoapsWN9TSsLGxsd+enXdF3//v/9LfxsbGxn5j9qO8NnHSNnfbQC1GwMbGxj6InQfArJDULlMen22AYWNjY5/KTh7clu+ThWijaLZxulwabGxs7IPY+9jYH69px0k2PCs8NjY29kexk8LNfl3z8lAbeM+X4/K32NjY2Mexk0LPvnnQjtMuVlGowsbGxj6IPSvHPNbXrDh1VxkLGxsb+1T2Jk7aUEnGb5dgeB8bGxv7w9ltXLWYfHIzQNtIGKY0NjY29huz7yo25W3d/XLnDYn2+BE2Njb2p7M3DdRNbGx4+QsbvmFsbGzst2dvGrSziJoxNkd2LotK2NjY2Eew21J+C2uXdd9UGM4HGxsb+2PZbZwkk04enATSrKQVbUuwsbGxj2PPGrqb9uqsTdsex3zR38bGxsY+iN0WjNoW7127peR+cmFjY2N/Azv6cRw5+Qh3BeSLmMTGxsb+Gna7ecgBOWPW1n2xKNjY2NjHsTclm1lxp31We6joxX1sbGzsg9ib+NnU25M7+fjtoR9sbGzsk9h5w7UNlbwslY/fHtC5fJHY2NjYB7Hzf/1tTSav5wwLQ6MXg42Njf0N7KRZW+xyYuqmSTArgWFjY2Ofx84PxOSMTSzln84WBRsbG/t72PlRyPab+RHMtp0QzRAbGxv7OPYe2R7K2ZS0NsUsbGxs7JPYj/LKJ5EcxMwLWMnmpG4MYGNjYx/BbgOgPXwzC7N2a7T5FBsbG/sM9v5hs2M0yTfzY0NJHGJjY2OfzU6G3i9BG5P5ZmNYWsLGxsb+YnYSS+2mZTaH/FNsbGxs7FlLILmThFP7/RcvCRsbG/s4dt6CzRu9N5R+bt2oYGNjY5/Kbssx+6CabWnuaiFgY2NjH8T+B91luparpZiCAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

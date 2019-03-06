@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>多进程和多线程的区别 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多进程和多线程的区别">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-26T15:18:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多进程和多线程的区别">
+<meta name="twitter:description" content="对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">多进程和多线程的区别</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">多进程和多线程的区别</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-26T14:12:52.000Z" itemprop="datePublished" class="page-time">
+  2017-08-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多进程与多线程获得资源不同"><span class="post-toc-number">1.</span> <span class="post-toc-text">多进程与多线程获得资源不同</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#为什么使用多线程而不是多进程"><span class="post-toc-number">2.</span> <span class="post-toc-text">为什么使用多线程而不是多进程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#但是"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">但是</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多线程真正的优点"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">多线程真正的优点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#多线程的缺点"><span class="post-toc-number">3.</span> <span class="post-toc-text">多线程的缺点</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考源</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2017-08-26-多进程和多线程的区别" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">多进程和多线程的区别</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-26 22:12:52" datetime="2017-08-26T14:12:52.000Z" itemprop="datePublished">2017-08-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。</p>
+<a id="more"></a>
+<p>对于进程的描述，我在<a href="http://greedyhao.cc/2017/08/21/%E5%B7%A5%E4%BD%9C-Linux-2017-08-21-%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA%E5%92%8C%E8%BF%90%E8%A1%8C/">进程创建和运行</a>有过一些简单的描述，一点都不知道的可以参考一下。</p>
+<h1 id="多进程与多线程获得资源不同"><a href="#多进程与多线程获得资源不同" class="headerlink" title="多进程与多线程获得资源不同"></a>多进程与多线程获得资源不同</h1><p>内核提供给进程的虚拟内存与虚拟处理器，在多进程的情况下，可以让每一个进程都认为自己完全的占有整台电脑的资源。而在多线程的情况下，同易进程的多个线程之间共享同样的内存资源，但是独自占有处理器资源。</p>
+<h1 id="为什么使用多线程而不是多进程"><a href="#为什么使用多线程而不是多进程" class="headerlink" title="为什么使用多线程而不是多进程"></a>为什么使用多线程而不是多进程</h1><p>其实线程能做的事情进程也可以做，多进程的低延迟和高I/O吞吐也可以通过I/O多路复用，非阻塞I/O和异步I/O来实现。这些技术可以使进程并发，不会阻塞进程。</p>
+<h2 id="但是"><a href="#但是" class="headerlink" title="但是"></a>但是</h2><p>进程的上下文切换由于涉及把一个虚拟地址切换到另一个虚拟地址，所以代价比较大；而进程内的线程间切换由于共享同一个内存，代价几乎为0。在极端情况下，在某些ARM机器上，必须把整个CPU的缓存都清空。</p>
+<h2 id="多线程真正的优点"><a href="#多线程真正的优点" class="headerlink" title="多线程真正的优点"></a>多线程真正的优点</h2><p>为什么现在的应用越来越倾向与使用多线程，真正的原因就是多线程能够 <strong>真正的并发运行</strong> ，有多少处理器数就可以并行多少线程。在十多年前人们可能不在意多线程，因为当时的处理器数基本都只有一个，不像现在的处理器基本都是多核，手机的处理器甚至还有十核的，因此手机的应用基本都是多线程的，这样可以更好的利用资源。</p>
+<h1 id="多线程的缺点"><a href="#多线程的缺点" class="headerlink" title="多线程的缺点"></a>多线程的缺点</h1><p>多线程用起来是很爽，但是存在一个很大的问题：多线程的进程有多个事件在同时运行，而这些事件共享同一份内存，可能会同时读写同一个文件，一个不小心就会输出脏数据。</p>
+<p>而且对多线程的程序的调试也是一个很让人头疼的问题（听说的，本人不清楚）</p>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-26T15:18:14.000Z" itemprop="dateUpdated">2017-08-26 23:18:14</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&title=《多进程和多线程的区别》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&title=《多进程和多线程的区别》 — Zhuhao's Blog&source=对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多进程和多线程的区别》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/28/工作-Linux-2017-08-28-解决多线程引发的问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决多线程引发的问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/26/工作-Linux-2017-08-26-实际用户和有效用户的区别/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">实际用户和有效用户的区别</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&title=《多进程和多线程的区别》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&title=《多进程和多线程的区别》 — Zhuhao's Blog&source=对于线程进程，相必大家都很熟悉，但是很多人对线程和进程具体有什么不同还是不清楚，不知道为什么很多时候要用多线程而不是多进程。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多进程和多线程的区别》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/26/工作-Linux-2017-08-26-多进程和多线程的区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPklEQVR42u3awW7qUAwE0P7/T/O2lfpCZ3xTCczJCgUactyFsSdfX/Hx+HF8P3/1+ur4eeX2TP7u0YGNjY39JuzkFq8uffXJ5+efl+n5Xd1VbmxsbOx97OeN4fKPn77bFjEBJ0WPmhw2Njb2B7PbJjQbJxJ2/i3Y2NjY2M8v3ZajLUTSxrCxsbGxkyVODs7LNCtucp+37dKwsbGxX56dp6Kv//pP8m1sbGzsF2Y/RkfbwNoV0skgFN0/NjY29iJ22ySS2817R1KIWfeJhiJsbGzsRezZ6idvbLOby8+3UQc2Njb2JvbJz/2k8cxIJ5uf6PrY2NjYi9izR2dmfTIZcvJBKIkHigkMGxsbewW7HS2SdU87Ksxa47BA2NjY2CvYLTL/uZ+XMtp4xZ9PGhs2Njb2Jva9X5/HvXmQkDewNqLGxsbG3sGehbj5wzf5zeWDRLvkuvw/Y2NjY69g52HAyeCRtMOkBbaxNDY2NvansdtIIKniLHgYTlSz0QgbGxt7BXv2Ez8fafJbPx8zioAZGxsbewX7rjh2Fv3OVlFt5Pyfb8HGxsZexM6XNUU/PGhvs+XUozywsbGxN7Fn4Wu+lG8jhHx5VOces9kLGxsb++XZ7UJntmyajSsnYXMdEmBjY2O/LfuuNlOnyn9wFP8SbGxs7NXsk3A3Xznlq6i2jUV3iI2Njb2I3Q4heXhwFMHGg0ceGxRBLzY2NvZbsZOL5q1o9mDNveunqO1hY2NjL2K3zWa2vj9aAJXduH5SCRsbG/vN2fljMXmTyz+T82Zx8mVBsbGxsdex2+i3XQPN4oG2BPUQgo2Njb2CfbKynwWxbflOGt4vV8DGxsZewT5ZALWDx/lyqo0WolEEGxsb+83Z+Q/32aMz0UhwviQq4wRsbGzsTexHebSlyQuXBAD5ozy/rKKwsbGxF7FP2sBsCJk9vjMbS04CCWxsbOz3Yp83rbbGRXYRxxh1ibGxsbHXsduHYE6WTbORph0qonwbGxsb+8PY+fgxO3NXG4uujI2Njf2R7FnQm5fsZOdTb8uwsbGx17FPwtQ2VMjj4ZPo4uZdGjY2NvYLs9sm18au7bAxWxUlTXH4ZdjY2Nivy/4HPr7UmIb9HuwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

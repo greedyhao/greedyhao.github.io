@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>c王国的诞生_零 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="c王国的诞生_零欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。 这片世界的上方悬浮着，请输入世界基本规则！ “就选麦克斯韦方程吧”赵无名说道。 这片世界的基本规则诞生了，伟大的麦克斯韦方程！从此，这片世界开始运转起来了，这片世界的电子运动形成变换的电流，变换的电流又形成了磁场，这些众多的电磁场就成了这片世界的搬运工，承载着这片世界的所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c王国的诞生_零">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="c王国的诞生_零欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。 这片世界的上方悬浮着，请输入世界基本规则！ “就选麦克斯韦方程吧”赵无名说道。 这片世界的基本规则诞生了，伟大的麦克斯韦方程！从此，这片世界开始运转起来了，这片世界的电子运动形成变换的电流，变换的电流又形成了磁场，这些众多的电磁场就成了这片世界的搬运工，承载着这片世界的所有">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/讲故事/c王国的诞生/mos管原理.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/讲故事/c王国的诞生/Colossus.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/讲故事/c王国的诞生/8位手工cpu.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T04:41:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c王国的诞生_零">
+<meta name="twitter:description" content="c王国的诞生_零欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。 这片世界的上方悬浮着，请输入世界基本规则！ “就选麦克斯韦方程吧”赵无名说道。 这片世界的基本规则诞生了，伟大的麦克斯韦方程！从此，这片世界开始运转起来了，这片世界的电子运动形成变换的电流，变换的电流又形成了磁场，这些众多的电磁场就成了这片世界的搬运工，承载着这片世界的所有">
+<meta name="twitter:image" content="http://greedyhao.cc/img/讲故事/c王国的诞生/mos管原理.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">c王国的诞生_零</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">c王国的诞生_零</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-08T00:27:42.000Z" itemprop="datePublished" class="page-time">
+  2018-07-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/C王国的诞生/">C王国的诞生</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#c王国的诞生-零"><span class="post-toc-number">1.</span> <span class="post-toc-text">c王国的诞生_零</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-系列-2018-07-08-c王国的诞生-零" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">c王国的诞生_零</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-08 08:27:42" datetime="2018-07-08T00:27:42.000Z" itemprop="datePublished">2018-07-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/C王国的诞生/">C王国的诞生</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="c王国的诞生-零"><a href="#c王国的诞生-零" class="headerlink" title="c王国的诞生_零"></a>c王国的诞生_零</h1><p>欢迎来到创造世界游戏。在创世者赵无名面前的是一个刚刚被创造出来的世界，不过由于没有导入规则，一切都是静止的。</p>
+<p>这片世界的上方悬浮着，请输入世界基本规则！</p>
+<p>“就选麦克斯韦方程吧”赵无名说道。</p>
+<p>这片世界的基本规则诞生了，伟大的麦克斯韦方程！从此，这片世界开始运转起来了，这片世界的电子运动形成变换的电流，变换的电流又形成了磁场，这些众多的电磁场就成了这片世界的搬运工，承载着这片世界的所有信息。</p>
+<p>“总让这些电子乱跑可不行，玩游戏可是要钱的，得让他们给我做事才行”，正说着，赵无名给这片世界输入了布尔逻辑，并放入了晶体管来承载布尔规则；随后将这片世界从中间切割开来，上者为天，下者为地，再将大量的铜贯穿到地面作为电磁场的承载，将混乱的电磁场的一部分约束起来，保证其中的信息不会紊乱。</p>
+<p>晶体管是一种可以阻挡电子运动的大门，他一般分为双极性三极管、场效应三极管，一般有P和N两种型号，有三个端口，靠中间的端口控制另外两个端口的关断。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/讲故事/c王国的诞生/mos管原理.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>从此以后，这片世界的大部分电子就被通过晶体管控制起来了，为了方便管理，将电子运动的反方向定义为电流运动的正方向，再定义电流运动方向上电势下降,通过电势差来控制晶体管的关断。</p>
+<p>再将不同的晶体管以不同的方式组合，就形成了最基本的门电路——与或非门电路，完美的诠释了布尔逻辑。再将与或非门电路相互组合，便形成了与非、或非、与或非、异或、异或非门等。使用这些门电路便可以实现逻辑运算。</p>
+<p>“使用门电路还是太麻烦了，连线都可以绕这块大陆十圈了，还是再对门电路做一层抽象吧。”无名说道，随后将不同功能的门电路组合成了译码器、编码器、数据选择器、加法器、触发器，再引入电容，制作时钟源；至此，就有了各种功能的逻辑电路，将不同功能的逻辑电路拼接，就可以制成不同位数的计算器。</p>
+<p>ps:早期的计算机就是用各种门电路制成的，而且当时的封装技术很差，各种元件体积很大，所以当时的计算机效率低，体积大</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/讲故事/c王国的诞生/Colossus.jpg" alt="巨像电脑" title="">
+                </div>
+                <div class="image-caption">巨像电脑</div>
+            </figure>
+<p>巨像电脑</p>
+<blockquote>
+<p>这是一个介绍手工制作CPU的视频：<a href="https://www.bilibili.com/video/av26382148/" target="_blank" rel="noopener">https://www.bilibili.com/video/av26382148/</a> ，原文在<a href="https://eater.net/8bit/" target="_blank" rel="noopener">https://eater.net/8bit/</a></p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/讲故事/c王国的诞生/8位手工cpu.gif" alt="手工制作CPU" title="">
+                </div>
+                <div class="image-caption">手工制作CPU</div>
+            </figure>
+<p>“好吧，现在终于可以拥有自己的计算机了，不过每次都要手动开关这些晶体管来设置初值也太麻烦了，而且要记忆这么多的晶体管的功能太累了，我需要一个编译器。”</p>
+<p>编译器的作用是将一种语言编译成机器码，机器码的作用就是指导计算机进行布尔运算，控制电路关断的。而且编译器的一个非常伟大之处在于，降低了编程的门槛，使得普通人也可以学编程，而且可以不怎么需要了解计算机原理。</p>
+<p>ps:第一个编译器是由美国女性计算机科学家葛丽丝·霍普（Grace Murray Hopper）于1952年为A-0系统编写的，现代的编译器也可以追溯到A-0</p>
+<p>“好了，就这样吧，用这个编译器编译的语言就叫做C语言吧”</p>
+<hr>
+<p>想了解更多关于计算机原理的知识可以参考下面的链接</p>
+<ul>
+<li><a href="http://www.instructables.com/id/How-to-Build-an-8-Bit-Computer/" target="_blank" rel="noopener">http://www.instructables.com/id/How-to-Build-an-8-Bit-Computer/</a></li>
+<li><a href="http://www.homebrewcpu.com/" target="_blank" rel="noopener">http://www.homebrewcpu.com/</a></li>
+<li><a href="https://eater.net/8bit/" target="_blank" rel="noopener">https://eater.net/8bit/</a></li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T04:41:52.000Z" itemprop="dateUpdated">2018-09-09 12:41:52</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&title=《c王国的诞生_零》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&title=《c王国的诞生_零》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c王国的诞生_零》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SDRAM使用总结</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/07/工作-stm32-2018-07-07-如何在Keil中提高代码的可读性/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何在Keil中提高代码的可读性</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&title=《c王国的诞生_零》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&title=《c王国的诞生_零》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《c王国的诞生_零》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/08/系列-2018-07-08-c王国的诞生-零/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aMY7jMBAEwP3/p/eAi/YC6bqHHKyDUmQItsRiwKF7+PUVX99/r5+ff96Zff/9/vszL194eHh4o6E/XbNXvk9B8qv3CUrGjIeHh7fNSxb3dlnPP7djKCYODw8P71d5J4P4z/I92tbj4eHhfT6v3f7emhQ8PDy8z+QlYcR5WHASGa9nLXh4eHgx72Q7+1uf1/t7eHh4eKOu+snmeNb6SgpDMU48PDy8BV4yoBmm3YK/T0GyfY/KAx4eHt4xb7YEt69sQ422YDy68PDw8BZ47Z//9+31e2l5H0pbPIoigYeHh3eVl7ey2iHm2+6c2pYHPDw8vG3erW3xCSAvPNEk4uHh4S3z7rajzstMvvl+fDIeHh7eAi9vdLXUnJdHuidHE/Dw8PBu8RJrHte27bG2SOTBLh4eHt4er/hjHw+rbaHNWlz5E/Dw8PD2eG1TP+833T3ClUxEVP3w8PDwRrz89XeD1Da8aO8X842Hh4dX8tqlNolQ8xe0hwPqioeHh4e3wCusowNVeahxdzP9z5YaDw8Pb4GXhwJt7DvbcLeV7fEOHh4e3jJvdlarbXcdHQIIDihkFQMPDw/vDu/kcMDJgaq2nBTxMR4eHt4aL29ZJeWk3aDPAo4o/sDDw8Nb4LWPyBf69pBB/p0ciYeHh7fHOw9bT4bYFoPZMQU8PDy8u7w8wD3ZWOfU2XGrRwseHh7eGq9tO7VlIx9c8tuimOHh4eFd5X2XV35coB1QfpSqiEvw8PDwFnizkKINF2YRxsa04uHh4d3izYrBLLrNJy4ZZ/QWPDw8vDVem2FEEWr5nGHX7h2Jh4eH9zG8WUCQb5Hb914uDHh4eHiXeOeYu/eTaAMPDw9vj5cDZrHCxvOjfBoPDw9vgXfeACuigdHiPitFeHh4eAu8P+qNSt/fVFnJAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

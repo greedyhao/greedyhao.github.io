@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>esp8266烧写固件 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="esp8266,wifi">
+    <meta name="description" content="esp8266烧写固件这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。 tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可以参考。 进入烧录模式">
+<meta name="keywords" content="esp8266,wifi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266烧写固件">
+<meta property="og:url" content="http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="esp8266烧写固件这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。 tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可以参考。 进入烧录模式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/接线示意图.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/ESP烧录板1.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/ESP烧录板2.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Flash下载工具1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Flash下载工具2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Flash下载工具3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Flash下载工具4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Arduino下载1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Arduino下载2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wifi/esp8266/Arduino下载3.png">
+<meta property="og:updated_time" content="2018-09-08T13:05:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266烧写固件">
+<meta name="twitter:description" content="esp8266烧写固件这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。 tips: 本人使用的是esp-07，但是其他的型号也是差不多的，可以参考。 进入烧录模式">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wifi/esp8266/接线示意图.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">esp8266烧写固件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">esp8266烧写固件</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-10T23:41:43.000Z" itemprop="datePublished" class="page-time">
+  2017-10-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#esp8266烧写固件"><span class="post-toc-number">1.</span> <span class="post-toc-text">esp8266烧写固件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#进入烧录模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">进入烧录模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用烧录软件进行烧录"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用烧录软件进行烧录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Flash下载工具烧录"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">使用Flash下载工具烧录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Arduino烧录"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">使用Arduino烧录</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-wifi-2017-10-11-esp8266烧写固件" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">esp8266烧写固件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-11 07:41:43" datetime="2017-10-10T23:41:43.000Z" itemprop="datePublished">2017-10-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="esp8266烧写固件"><a href="#esp8266烧写固件" class="headerlink" title="esp8266烧写固件"></a>esp8266烧写固件</h1><p>这段时间想用esp8266做一个wifi探针，顺便想做智能家居，但是碰上了烧写固件的难题，花了我挺多时间去学习，于是写下来，给大家做一个参考，也可以留作备忘。</p>
+<p><strong>tips:</strong> 本人使用的是esp-07，但是其他的型号也是差不多的，可以参考。</p>
+<h1 id="进入烧录模式"><a href="#进入烧录模式" class="headerlink" title="进入烧录模式"></a>进入烧录模式</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/接线示意图.png" alt="接线示意图" title="">
+                </div>
+                <div class="image-caption">接线示意图</div>
+            </figure>
+<table>
+<thead>
+<tr>
+<th>GPIO15</th>
+<th>GPIO0</th>
+<th>GPIO2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H</td>
+<td>X</td>
+<td>X</td>
+<td>SDIO/SPI WIFI</td>
+</tr>
+<tr>
+<td>L</td>
+<td>L</td>
+<td>H</td>
+<td>Uart Download</td>
+</tr>
+<tr>
+<td>L</td>
+<td>H</td>
+<td>H</td>
+<td>Flash Boot</td>
+</tr>
+</tbody>
+</table>
+<p><strong>tips:</strong> H表示高电平，L表示低电平，X表示电平无影响</p>
+<p>转换到烧录模式唯一需要动的就是GPIO0，其他的都不需要动，电阻也不需要加。我刚开始还以为要加电阻还有那复杂的连线，发现不行后，看了好多遍资料才明白原来只用在上电前拉低GPIO。</p>
+<p>本着不做重复的事情的原则，就制作了一个esp8266的烧录板，上个图给大家看看，烙铁很少用，所以走锡有点丑。</p>
+<p><img src="/img/wifi/esp8266/ESP烧录板1.jpg" alt=""></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/ESP烧录板2.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我就使用了一个六脚自锁开关，按下去就将GPIO0接地。</p>
+<h1 id="使用烧录软件进行烧录"><a href="#使用烧录软件进行烧录" class="headerlink" title="使用烧录软件进行烧录"></a>使用烧录软件进行烧录</h1><h2 id="使用Flash下载工具烧录"><a href="#使用Flash下载工具烧录" class="headerlink" title="使用Flash下载工具烧录"></a>使用Flash下载工具烧录</h2><p>点击这里获取<a href="http://espressif.com/sites/default/files/tools/flash_download_tools_v3.6.1.0_0.zip" target="_blank" rel="noopener">Flash下载工具</a></p>
+<p>解压后进入../flash_download_tools_v3.6.1.0_0/FLASH_DOWNLOAD_TOOLS_V3.6.1.0，点击ESPFlashDownloadTool_v3.6.1.0.exe，</p>
+<p>选择对应的型号</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/Flash下载工具1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这种combine的包直接烧在0x0位置就好；SPI速度选最快40MHz，如果烧录失败再降低速度；SPI MODE选择DIO；FLASH SIZE按照你的型号选择，不知道就选个8Mbit吧；下面的COM选择你esp8266的端口；波特率115200。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/Flash下载工具2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>烧录中…</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/Flash下载工具3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>烧录完成！</p>
+<p><img src="/img/wifi/esp8266/Flash下载工具4.png" alt=""></p>
+<h2 id="使用Arduino烧录"><a href="#使用Arduino烧录" class="headerlink" title="使用Arduino烧录"></a>使用Arduino烧录</h2><p>首先需要下载Arduino，需要1.6.x版本以上，因为下载Arduino需要科学上网，在<a href="http://www.arduino.cn/thread-5838-1-1.html" target="_blank" rel="noopener">Arduino中文社区</a>有提供网盘下载<a href="http://pan.baidu.com/s/1kUI1Pbh" target="_blank" rel="noopener">Arduino IDE 下载</a></p>
+<p>接下就是安装esp8266的库，这是<a href="https://github.com/esp8266/Arduino" target="_blank" rel="noopener">官方说明</a>。</p>
+<p><strong>第一种操作</strong></p>
+<ul>
+<li>安装好Arduino后打开</li>
+<li>选择文件&gt;首选项，在<em>附加开发板管理器网址</em>中输入_<a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json" target="_blank" rel="noopener">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a>_</li>
+<li>选择项目&gt;加载库&gt;管理库，搜索esp8266并下载安装。</li>
+</ul>
+<p><strong>第二种操作</strong></p>
+<ul>
+<li>你需要安装git，进入你Arduino的安装位置，进入hardware</li>
+<li>克隆这个esp8266库到本地</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd hardware</span><br><span class="line">mkdir esp8266com</span><br><span class="line">cd esp8266com</span><br><span class="line">git clone https://github.com/esp8266/Arduino.git esp8266</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载binarytools（需要python2.7）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd esp8266/tools</span><br><span class="line">python get.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启Arduino</li>
+</ul>
+<p>让esp8266进入烧录模式，选择对应的esp型号</p>
+<p><img src="/img/wifi/esp8266/Arduino下载1.png" alt=""></p>
+<p>点击上传按钮进行烧录<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/Arduino下载2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>烧录成功</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wifi/esp8266/Arduino下载3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-08T13:05:40.000Z" itemprop="dateUpdated">2018-09-08 21:05:40</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/esp8266/">esp8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wifi/">wifi</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&title=《esp8266烧写固件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&title=《esp8266烧写固件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《esp8266烧写固件》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/19/工作-wifi-2017-10-19-esp8266连接机智云平台/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">esp8266连接机智云平台</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/09/25/工作-Linux-2017-09-25-对fork的进一步理解/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">对fork的进一步理解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&title=《esp8266烧写固件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&title=《esp8266烧写固件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《esp8266烧写固件》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/10/11/工作-wifi-2017-10-11-esp8266烧写固件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3a0a7aQAwFQP7/p6nUp1ZqkmN7zUXV5AkFSHYWKTa2X6/4eP8+rs7/eVx9K3n36rhfw4EDDw8Pr7X03qWvPpmcqa6kuh14eHh427z7YHD/WE9Cxf3r5KGfbxAeHh7e9/By5ISBh4eH9z/x8hT5Ic0t3gsPDw/vO3mTP/9JAn2/BXlhd7HWgoeHhxfzJunsT71e7O/h4eHhDbrq1WCQDxPkCfFoVXh4eHgLvEmB9T7BzZtheQJdHUTAw8PD2+DlBYLe+bzE0BtNeBhrwMPDw1vg5X/y7y/RbE3FQwn5Cgv9PTw8PLwBL29T9dLcBDYJGNGfATw8PLyjvHKSWiwKJIl4/u5oMgIPDw9vgVe9aBIGDgxFtdaJh4eH9xletRhRDSp5eTcf/HpIr/Hw8PCO8pKG/Txg5HfpFXAvfyo8PDy8BV41Ya22yvJNyQNSM03Hw8PDW+PNl/huHdX0PQ8zeHh4eBu86gM6v001YPTC0kMKjoeHh3eUVy0iTBpa1SCRlyQu14OHh4e3xsuLocn5ZKGntuzh7nh4eHhrvGqC20usqw/63rjVX2fw8PDwFnjVptSkWFANA/NmGx4eHt7neb1y7XxwKhnGKlep8fDw8BZ4eXioDkVV75KPF0TjCHh4eHhrvOpA1UbhIG90NdtgeHh4eId4vWQ3AVfbXdURrmMkPDw8vCKvV07Nm1h58IhS5GIww8PDw9vj5TfuMapB5VTowsPDwzvLexePXvkgKRz0yrsP24SHh4e3wGtGkvG3Jgl3Ug5+nVooHh4eXlDnrF66WnJNtmAeGPDw8PA+w6s+vqu8XnioBqGHMi4eHh7e1/A2AkZvW//xeTw8PLwf5fXGp/KNmFwZDw8P7/O8alOqOmaaDFdVPxkl33h4eHgLvLMNsN44wjycJAk6Hh4e3pj3C+kcSt+2i677AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

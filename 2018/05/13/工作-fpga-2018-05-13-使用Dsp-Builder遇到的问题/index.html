@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>使用Dsp_Builder遇到的问题 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="FPGA">
+    <meta name="description" content="使用Dsp_Builder遇到的问题找不到DSP Builder的库到你的quartus安装路径下找到DSP Builder，比如我的就在D:\Softwares\intelFPGA\18.0\quartus\dsp_builder，点击dsp_builder.bat，可以选择把dsp_builder.bat发送快捷方式到桌面方便点击。 在弹出的matlab中的命令框中输入，就可以看见如图所示的库">
+<meta name="keywords" content="FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Dsp_Builder遇到的问题">
+<meta property="og:url" content="http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="使用Dsp_Builder遇到的问题找不到DSP Builder的库到你的quartus安装路径下找到DSP Builder，比如我的就在D:\Softwares\intelFPGA\18.0\quartus\dsp_builder，点击dsp_builder.bat，可以选择把dsp_builder.bat发送快捷方式到桌面方便点击。 在弹出的matlab中的命令框中输入，就可以看见如图所示的库">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/dsp_builder_library.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/license_error.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/edit_path.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/license_error_solve.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/create_subsystem_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/create_subsystem_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/create_subsystem_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/create_subsystem_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp_builder/create_subsystem_5.png">
+<meta property="og:updated_time" content="2018-09-09T03:04:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Dsp_Builder遇到的问题">
+<meta name="twitter:description" content="使用Dsp_Builder遇到的问题找不到DSP Builder的库到你的quartus安装路径下找到DSP Builder，比如我的就在D:\Softwares\intelFPGA\18.0\quartus\dsp_builder，点击dsp_builder.bat，可以选择把dsp_builder.bat发送快捷方式到桌面方便点击。 在弹出的matlab中的命令框中输入，就可以看见如图所示的库">
+<meta name="twitter:image" content="http://greedyhao.cc/img/dsp_builder/dsp_builder_library.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用Dsp_Builder遇到的问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用Dsp_Builder遇到的问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-13T09:27:43.000Z" itemprop="datePublished" class="page-time">
+  2018-05-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/问题总结/">问题总结</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用Dsp-Builder遇到的问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用Dsp_Builder遇到的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#找不到DSP-Builder的库"><span class="post-toc-number">2.</span> <span class="post-toc-text">找不到DSP Builder的库</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DSP-Builder-license-问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">DSP Builder license 问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用Subsystem分层设计"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用Subsystem分层设计</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用Dsp_Builder遇到的问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-05-13 17:27:43" datetime="2018-05-13T09:27:43.000Z" itemprop="datePublished">2018-05-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/问题总结/">问题总结</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="使用Dsp-Builder遇到的问题"><a href="#使用Dsp-Builder遇到的问题" class="headerlink" title="使用Dsp_Builder遇到的问题"></a>使用Dsp_Builder遇到的问题</h1><h1 id="找不到DSP-Builder的库"><a href="#找不到DSP-Builder的库" class="headerlink" title="找不到DSP Builder的库"></a>找不到DSP Builder的库</h1><p>到你的quartus安装路径下找到DSP Builder，比如我的就在D:\Softwares\intelFPGA\18.0\quartus\dsp_builder，点击dsp_builder.bat，可以选择把dsp_builder.bat发送快捷方式到桌面方便点击。</p>
+<p>在弹出的matlab中的命令框中输入，就可以看见如图所示的库了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slLibraryBrowser</span><br></pre></td></tr></table></figure>
+<p> <img src="/img/dsp_builder/dsp_builder_library.png" alt=""></p>
+<h1 id="DSP-Builder-license-问题"><a href="#DSP-Builder-license-问题" class="headerlink" title="DSP Builder license 问题"></a>DSP Builder license 问题</h1><p>之前破解没有破解完全，没有get到作者说的设置环境变量是什么意思，知道今天要用DSP Builder编译项目时才知道。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/license_error.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>需要在系统变量中添加LM_LICENSE_FILE和之前license.dat的地址</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/edit_path.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>修改后重启DSP Builder，编译成功</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/license_error_solve.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="使用Subsystem分层设计"><a href="#使用Subsystem分层设计" class="headerlink" title="使用Subsystem分层设计"></a>使用Subsystem分层设计</h1><p>右键一个symbol，可以看见<strong>Create Subsystem</strong>选项，不用在意是什么symbol，只要input output的port是自己需要的就好了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/create_subsystem_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/create_subsystem_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这里可以看见元器件的子系统，然后可以进行修改</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/create_subsystem_3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><img src="/img/dsp_builder/create_subsystem_4.png" alt=""></p>
+<p>最终效果图如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp_builder/create_subsystem_5.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T03:04:37.000Z" itemprop="dateUpdated">2018-09-09 11:04:37</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&title=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&title=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/05/13/工作-alios-2018-05-15-解决Alios烧录导致esp32不断重启问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决Alios烧录导致esp32不断重启问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/05/13/工作-fpga-2018-05-13-使用ModelSim遇到的问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用ModelSim遇到的问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&title=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&title=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用Dsp_Builder遇到的问题》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用Dsp-Builder遇到的问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJklEQVR42u3aQW7jQAwEwPz/095rgCB2syljrUnpZMTKaEo+EGzO11d8Pb5d3//y27c/78lXfv7E7inlhY2NjX0T9uPplWzitw39trnk82aFaG/Y2NjYx7G7xyQPzsvVdM3nZfWFERsbG/sPs/NGJS+N+TpdCcTGxsbG7gpY0lR0r/Kj6zY2Njb2f2J3ZSZpOfJ1OszbszRsbGzsj2fnU9HP//yW+TY2Njb2B7Mfw6sbAExbhWlJGyuwsbGxD2JvIp4kYMp53X+t9o+NjY19HDuPh7qt543NdM1p0cXGxsY+iT1dOhkATGP6aRlLSulgHoKNjY19c/YUlhzcma6T76QbBkS/PDY2NvbN2dMjMvnRmX2olDQtXUnGxsbGPoO9GetuGoNuPJznZNjY2Nh/h/2OcCcf0E5Hxe+4ExsbG/sMdhcDdSWtGxV0g+QXT8TGxsY+iB3VtzjuSQDTJ07vGT8FGxsb+7bsaXiUlIduhW4kfEETgo2NjX0Ee99m7NuY7ttybICNjY19HLuLlrpBbP5Spo1HvkNsbGzsk9ibkKg7vnNV2ZuWRmxsbOxT2dNjN90gIS85z3+AZCfJQAIbGxv7JPa1YVCy6a5tuGpXL355bGxs7NuyuzZjPxLev7guAsPGxsY+iZ1sPSkGeZDUDY+TY52DHwkbGxv7IPZVbcD+ME3eDnUB1iDlwsbGxr4Ve9oq5IWtC4ymLU2Z+WNjY2MfxO6K0P5AT/5Spi99MCrGxsbGPpTdHbiZbj1/BVdFVC9CJWxsbOwj2FdFQs8HBsnfuxHFtBxiY2Nj/wV2d+dmVJy3MfmY+UUrgo2NjX00e1+oNjHQvnBG4wFsbGzsg9j7WCdvBjakJAJLXjQ2Njb2GezH8MrHrtMmJD/cMy5UXROCjY2NfRP2ZrubwjZtXTYj4aQMY2NjY9+dPY3gk0aie03TwUASQpXVGxsbG/uG7H18vxk2TIfHm0YIGxsbG3sf2ST35yVtOn7GxsbGxu4yqimji58GQ2JsbGzs49hJeejim30rkoRH0+Oe2NjY2Cexu+ZhMySYfpsf5RkUMGxsbOwT2P8A7YH4dH8ao/EAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>如何使用matlab进行频域分析 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="DSP,Matlab">
+    <meta name="description" content="如何使用matlab进行频域分析Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。 本文讨论使用Matlab对信号进行频域分析的方法。">
+<meta name="keywords" content="DSP,Matlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用matlab进行频域分析">
+<meta property="og:url" content="http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="如何使用matlab进行频域分析Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。 本文讨论使用Matlab对信号进行频域分析的方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-10-22T07:44:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何使用matlab进行频域分析">
+<meta name="twitter:description" content="如何使用matlab进行频域分析Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。 本文讨论使用Matlab对信号进行频域分析的方法。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/matlab/how_to_use_fft_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">如何使用matlab进行频域分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">如何使用matlab进行频域分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-24T11:33:08.000Z" itemprop="datePublished" class="page-time">
+  2018-08-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何使用matlab进行频域分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何使用matlab进行频域分析</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#FFT"><span class="post-toc-number">2.</span> <span class="post-toc-text">FFT</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一个简单的例子"><span class="post-toc-number">3.</span> <span class="post-toc-text">一个简单的例子</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用FFT命令"><span class="post-toc-number">4.</span> <span class="post-toc-text">使用FFT命令</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#为FFT定义一个函数来获取双边频谱"><span class="post-toc-number">5.</span> <span class="post-toc-text">为FFT定义一个函数来获取双边频谱</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#为FFT定义一个函数来获取右边频谱"><span class="post-toc-number">6.</span> <span class="post-toc-text">为FFT定义一个函数来获取右边频谱</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-dsp-2018-08-24-如何使用matlab进行频域分析" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">如何使用matlab进行频域分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-24 19:33:08" datetime="2018-08-24T11:33:08.000Z" itemprop="datePublished">2018-08-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="如何使用matlab进行频域分析"><a href="#如何使用matlab进行频域分析" class="headerlink" title="如何使用matlab进行频域分析"></a>如何使用matlab进行频域分析</h1><p>Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。</p>
+<p>本文讨论使用Matlab对信号进行频域分析的方法。</p>
+<a id="more"></a>
+<p>说到频域，不可避免的会提到傅里叶变换，傅里叶变换提供了一个将信号从时域转变到频域的方法。之所以要有信号的频域分析，是因为很多信号在时域不明显的特征可以在频域下得到很好的展现，可以更加容易的进行分析和处理。</p>
+<h1 id="FFT"><a href="#FFT" class="headerlink" title="FFT"></a><a href="#FFT"></a>FFT</h1><p>Matlab提供的傅里叶变换的函数是FFT，中文名叫做快速傅里叶变换。快速傅里叶变换的提出是伟大的，使得处理器处理数字信号的能力大大提升，也使我们生活向数字化迈了一大步。</p>
+<p>接下来就谈谈如何使用这个函数。</p>
+<p>fft使用很简单，但是一般信号都有x和y两个向量，而fft只会处理y向量，所以想让频域分析变得有意义，那么就需要用户自己处理x向量</p>
+<h1 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a><a href="#一个简单的例子"></a>一个简单的例子</h1><p>从一个简单正弦信号开始吧，正弦信号定义为：</p>
+<p>$$<br>y(t) = 2\sin (2\pi f_0 t)<br>$$</p>
+<p>我们现在通过以下代码在Matlab中画出这个正弦曲线</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fo = 4;   %frequency of the sine wave</span><br><span class="line">Fs = 100; %sampling rate</span><br><span class="line">Ts = 1/Fs; %sampling time interval</span><br><span class="line">t = 0:Ts:1-Ts; %sampling period</span><br><span class="line">n = length(t); %number of samples</span><br><span class="line">y = 2*sin(2*pi*fo*t); %the sine curve	</span><br><span class="line"></span><br><span class="line">%plot the cosine curve in the time domain</span><br><span class="line">sinePlot = figure;</span><br><span class="line">plot(t,y)</span><br><span class="line">xlabel(&apos;time (seconds)&apos;)</span><br><span class="line">ylabel(&apos;y(t)&apos;)</span><br><span class="line">title(&apos;Sample Sine Wave&apos;)</span><br><span class="line">grid</span><br></pre></td></tr></table></figure>
+<p>这就是我们得到的：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/how_to_use_fft_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>当我们对这条曲线fft时，我们希望在频域得到以下频谱（基于傅里叶变换理论，我们希望看见一个幅值为1的峰值在-4Hz处，另一个在+4Hz处）</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/how_to_use_fft_3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="使用FFT命令"><a href="#使用FFT命令" class="headerlink" title="使用FFT命令"></a><a href="#使用FFT命令"></a>使用FFT命令</h1><p>我们知道目标是什么了，那么现在使用Matlab的内建的FFT函数来重新生成频谱</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">%plot the frequency spectrum using the MATLAB fft command</span><br><span class="line">matlabFFT = figure;  %create a new figure</span><br><span class="line">YfreqDomain = fft(y); %take the fft of our sin wave, y(t)</span><br><span class="line"></span><br><span class="line">stem(abs(YfreqDomain));  %use abs command to get the magnitude</span><br><span class="line">%similary, we would use angle command to get the phase plot!</span><br><span class="line">%we&apos;ll discuss phase in another post though!</span><br><span class="line"></span><br><span class="line">xlabel(&apos;Sample Number&apos;)</span><br><span class="line">ylabel(&apos;Amplitude&apos;)</span><br><span class="line">title(&apos;Using the Matlab fft command&apos;)</span><br><span class="line">grid</span><br><span class="line">axis([0,100,0,120])</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/how_to_use_fft_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>但是注意一下，这并不是我们真正想要的，有一些信息是缺失的</strong></p>
+<ul>
+<li>x轴本来应该给我们提供频率信息，但是你能读出频率吗？</li>
+<li>幅度都是100</li>
+<li>没有让频谱中心为0</li>
+</ul>
+<h1 id="为FFT定义一个函数来获取双边频谱"><a href="#为FFT定义一个函数来获取双边频谱" class="headerlink" title="为FFT定义一个函数来获取双边频谱"></a><a href="#为FFT定义一个函数来获取双边频谱"></a>为FFT定义一个函数来获取双边频谱</h1><p>以下代码可以简化获取双边频谱的过程，复制并保存到你的.m文件中</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[X,freq]</span>=<span class="title">centeredFFT</span><span class="params">(x,Fs)</span></span></span><br><span class="line"><span class="comment">%this is a custom function that helps in plotting the two-sided spectrum</span></span><br><span class="line"><span class="comment">%x is the signal that is to be transformed</span></span><br><span class="line"><span class="comment">%Fs is the sampling rate</span></span><br><span class="line">N=<span class="built_in">length</span>(x);</span><br><span class="line"><span class="comment">%this part of the code generates that frequency axis</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">mod</span>(N,<span class="number">2</span>)==<span class="number">0</span></span><br><span class="line">    k=-N/<span class="number">2</span>:N/<span class="number">2</span><span class="number">-1</span>; <span class="comment">% N even</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    k=-(N<span class="number">-1</span>)/<span class="number">2</span>:(N<span class="number">-1</span>)/<span class="number">2</span>; <span class="comment">% N odd</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">T=N/Fs;</span><br><span class="line">freq=k/T;  <span class="comment">%the frequency axis</span></span><br><span class="line"><span class="comment">%takes the fft of the signal, and adjusts the amplitude accordingly</span></span><br><span class="line">X=fft(x)/N; <span class="comment">% normalize the data</span></span><br><span class="line">X=fftshift(X); <span class="comment">%shifts the fft data so that it is centered</span></span><br></pre></td></tr></table></figure>
+<p>这个函数输出正确的频域范围和变换后的信号，它需要输入需要变换的信号和采样率。</p>
+<p>接下来使用前文的正弦信号做一个简单的示例，注意你的示例.m文件要和centeredFFT.m文件在一个目录下</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[YfreqDomain,frequencyRange] = centeredFFT(y,Fs);</span><br><span class="line">centeredFFT = <span class="built_in">figure</span>;</span><br><span class="line"><span class="comment">%remember to take the abs of YfreqDomain to get the magnitude!</span></span><br><span class="line">stem(frequencyRange,<span class="built_in">abs</span>(YfreqDomain));</span><br><span class="line">xlabel(<span class="string">'Freq (Hz)'</span>)</span><br><span class="line">ylabel(<span class="string">'Amplitude'</span>)</span><br><span class="line">title(<span class="string">'Using the centeredFFT function'</span>)</span><br><span class="line">grid</span><br><span class="line">axis([<span class="number">-6</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">1.5</span>])</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/how_to_use_fft_3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这张图就满足了我们的需求,我们得到了在+4和-4处的峰值，而且幅值为1.</p>
+<h1 id="为FFT定义一个函数来获取右边频谱"><a href="#为FFT定义一个函数来获取右边频谱" class="headerlink" title="为FFT定义一个函数来获取右边频谱"></a><a href="#为FFT定义一个函数来获取右边频谱"></a>为FFT定义一个函数来获取右边频谱</h1><p>从上图可以看出，FFT变换得到的频谱是左右对称的，因此，我们只需要其中一边就能获得信号的所有信息，我们一般保留正频率一侧。</p>
+<p>以下的函数对上面的自定义函数做了一些修改，让它可以帮助我们只画出信号的正频率一侧</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[X,freq]</span>=<span class="title">positiveFFT</span><span class="params">(x,Fs)</span></span></span><br><span class="line">N=<span class="built_in">length</span>(x); <span class="comment">%get the number of points</span></span><br><span class="line">k=<span class="number">0</span>:N<span class="number">-1</span>;     <span class="comment">%create a vector from 0 to N-1</span></span><br><span class="line">T=N/Fs;      <span class="comment">%get the frequency interval</span></span><br><span class="line">freq=k/T;    <span class="comment">%create the frequency range</span></span><br><span class="line">X=fft(x)/N; <span class="comment">% normalize the data</span></span><br><span class="line"><span class="comment">%only want the first half of the FFT, since it is redundant</span></span><br><span class="line">cutOff = <span class="built_in">ceil</span>(N/<span class="number">2</span>);</span><br><span class="line"><span class="comment">%take only the first half of the spectrum</span></span><br><span class="line">X = X(<span class="number">1</span>:cutOff);</span><br><span class="line">freq = freq(<span class="number">1</span>:cutOff);</span><br></pre></td></tr></table></figure>
+<p>和前面一样，使用正弦信号做一个示例，下面是示例代码</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[YfreqDomain,frequencyRange] = positiveFFT(y,Fs);</span><br><span class="line">positiveFFT = <span class="built_in">figure</span>;</span><br><span class="line">stem(frequencyRange,<span class="built_in">abs</span>(YfreqDomain));</span><br><span class="line">set(positiveFFT,<span class="string">'Position'</span>,[<span class="number">500</span>,<span class="number">500</span>,<span class="number">500</span>,<span class="number">300</span>])</span><br><span class="line">xlabel(<span class="string">'Freq (Hz)'</span>)</span><br><span class="line">ylabel(<span class="string">'Amplitude'</span>)</span><br><span class="line">title(<span class="string">'Using the positiveFFT function'</span>)</span><br><span class="line">grid</span><br><span class="line">axis([<span class="number">0</span>,<span class="number">20</span>,<span class="number">0</span>,<span class="number">1.5</span>])</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/matlab/how_to_use_fft_4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<p>本文内容主要来自Matlab官方FFT教程，但是我找不到原链接了，就把我电脑上的文件上传到了百度云盘，公众号后台回复</p>
+<p><strong>下载|FFT_tutorial</strong></p>
+<p>获取下载链接</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-10-22T07:44:31.000Z" itemprop="dateUpdated">2018-10-22 15:44:31</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DSP/">DSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab/">Matlab</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&title=《如何使用matlab进行频域分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&title=《如何使用matlab进行频域分析》 — Zhuhao's Blog&source=如何使用matlab进行频域分析Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。
+本文讨论使用Matlab对信号进..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何使用matlab进行频域分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/12/工作-fpga-2018-09-12-Vivado启动遇见QSslSocket系列问题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Vivado启动遇见QSslSocket系列问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">简单说说卷积的作用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&title=《如何使用matlab进行频域分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&title=《如何使用matlab进行频域分析》 — Zhuhao's Blog&source=如何使用matlab进行频域分析Matlab可以说是一个非常有用且功能齐全的工具，在通信、自控、金融等方面有广泛的应用。
+本文讨论使用Matlab对信号进..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何使用matlab进行频域分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/08/24/工作-dsp-2018-08-24-如何使用matlab进行频域分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADF0lEQVR42u3aQXLjMAwEwPz/09lrDitlANBVEdQ6uWSbUdOHCQB+fcXX94/r6v79dbXm/f2r18k6By5sbGzsh7CTx00w959PNjHZ4mSboq3HxsbGXsfOgySJmWQL7u9Xt6kcctjY2NgvZlejKy8VJt/CxsbGxj7V3EliKVkt325sbGxs7LypVA2wvGjpxV7e/MLGxsbezZ78u//XXn9kvo2NjY39h9nfxau6Tq/p0wvUggIbGxt7ETsPgHw7PjEMyEudvGjBxsbG3sHOG/29wzpJW38+JM4DDxsbG3srO3/0U484icbJ8CDCYGNjYz+KnY9mJ0dnPrdaNVb/U4FhY2NjP5ydx1U+BshJ+Wp5IykSYWNjYy9i3z9crwDIi5x8+06Nk6OqCBsbG/uB7Lxx30P2WlSnyhJsbGzs3ez8uExeQiSh2Ox+nTpghI2Njb2InTzEZMiavHu/Zv53qyMHbGxs7B3sT1CrRUh1O5Jn/uUHwMbGxl7Hzr+cDxLySKv2vfKf5/JpsbGxsRexezFWHfdWO/M9HjY2Nvab2fPwmLTpJwdxJoGKjY2NvY9dPTQzL0uqI4FJKwobGxt7K3vS0KluTTWoJkc5f9lobGxs7EXseVMpgVUPa/aCrdxCwsbGxl7B7gVMdZ1q8VMtmcqbiI2Njb2OXW3fTwYDp9pSecmBjY2N/Qb22VCpRuOpcqjQisLGxsZeyk6a78mm9KIrf7d3zOhyKoKNjY39cHbeEuq1jSbHa6rxWV4TGxsbex37HpkUCXmJMg+2A20pbGxs7HXs3nLV+JkctUnw+Q+GjY2NvY89D7BkDJwMCSYHhgqHe7CxsbHXsScHcZL203yQPBkVRLmNjY2N/UD2d/HqxdjkfsJrHtnBxsbGXsGeH3ypNnryYKuWQ9VPYmNjY29iny0w8tKlGpCTcQU2Njb2G9jJUHYSctXvJhs0akVhY2Njv5h9qvCoDnF7h3UuIxYbGxv79ewJfj4GqPbGsLGxsd/ATho9yQZVWz/57GI+0MXGxsbeyq42aHphVn3c6mg533RsbGzsRex/JDnjX0FMiW4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

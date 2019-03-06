@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>如何入门python | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="入门,python">
+    <meta name="description" content="在我学习python过程中发现很多教程都不尽人意，就自己写了一份。">
+<meta name="keywords" content="入门,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何入门python">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="在我学习python过程中发现很多教程都不尽人意，就自己写了一份。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-17T07:45:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何入门python">
+<meta name="twitter:description" content="在我学习python过程中发现很多教程都不尽人意，就自己写了一份。">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">如何入门python</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">如何入门python</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-13T05:10:00.000Z" itemprop="datePublished" class="page-time">
+  2017-08-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开始"><span class="post-toc-number">1.</span> <span class="post-toc-text">开始</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pythonic"><span class="post-toc-number">2.</span> <span class="post-toc-text">pythonic</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#推荐"><span class="post-toc-number">3.</span> <span class="post-toc-text">推荐</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-python-入门-2017-08-13-如何学习python" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">如何入门python</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-13 13:10:00" datetime="2017-08-13T05:10:00.000Z" itemprop="datePublished">2017-08-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>对于如何入门python，网上太多教程，但是很多教程对于初学者并不友好，很多写教程的人都是直接<br>看别人推荐什么书自己就推荐什么书，这样的教程初学者看了可能想打人；还有的教程作者与初学者<br>站的高度不一样，导致初学者看着觉得吃力。</p>
+<p>感慨这样的情况，又恰好我也刚开始学习python不久，更其他初学者背景相同，又自认为有些许经<br>验可以供其它初学者参考，便将其写下来，并且会在今后不断完善，且即时更正出现错误的地方。</p>
+<a id="more"></a>
+<p>对于学习一个知识，我 <strong>不推荐看视频</strong>， 主要是浪费时间，特别是遇到语速慢的，视频加速都<br>不能拯救了。推荐的学习方法 <strong>看书</strong>、<strong>看博客</strong>、<strong>在线练习</strong>。</p>
+<p>假设你在学习python之前学习过c java的话，在学习python的时候，<strong>要抛弃之前的编程习惯</strong>，<br>python这门语言如果当成c java来用那就很尴尬了，那样不能体现python的优美，会让你想死。<br>把我以前看到过的一句金言送给各位:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Debugging is twice as hard as writing the code in the first place. Therefore,</span><br><span class="line">if you write the code as cleverly as possible, you are, by definition, not smart</span><br><span class="line"> enough to debug it.</span><br></pre></td></tr></table></figure></p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>使用python写程序就应当使用pythonic的方式，不过在使自己的程序pythonic之前，先要学会<br>python的一些基本常识，<a href="https://www.gitbook.com/book/lenkimo/byte-of-python-chinese-edition/details" target="_blank" rel="noopener">简明 Python 教程</a><br>送给你们，这本书是电子版的，缺点是不能拿着读，但是好处是它的一直有在维护的，如果什么地方<br>有问题，维护这本书的人会即时更改，刚开始学习，首先肯定要保证走的路线是正确的。</p>
+<p>为了让自己学的更扎实，你可以选择去 <strong>在线练习</strong> ，推荐去<a href="https://www.codecademy.com/learn/all" target="_blank" rel="noopener">codecademy</a>或者<br><a href="http://www.mengma.com/" target="_blank" rel="noopener">萌码</a>，因为这两个地方的题目我感觉难度比较低，就是感觉有点消耗时间，不过可以用不看<br>视频节省出来的时间来抵消。</p>
+<h1 id="pythonic"><a href="#pythonic" class="headerlink" title="pythonic"></a>pythonic</h1><p>开了一个好头以后就要让自己的程序变得pythonic了，推荐去<a href="https://www.hackerrank.com/" target="_blank" rel="noopener">hackerrank</a><br>这个网站去看看，顺便刷一下题，帮助学习python。而且这个网站是英文的，你也可以顺便锻炼你的<br>英文水平。<strong>注意</strong>，每做完一道题，一定要去这道题的的评论区看看，一般都会有收获的。<br>另外，我也会把我在评论区看到的不错的内容写下来，放在我的<a href="http://greedyhao.cc/tags/pythonic/">pythonic目录下</a>，<br>我会不断更新，可以多关注一下。</p>
+<p>要想让程序pythonic，我觉得还是要多看看官方文档，多了解些python的<a href="https://docs.python.org/3/library/functions.html#built-in-functions" target="_blank" rel="noopener">Built-in Functions</a>，<br>不要老想着自己造轮子，自己一个人的力量能有一群人的力量大吗？</p>
+<h1 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h1><p><strong>看书</strong></p>
+<ul>
+<li><a href="https://www.gitbook.com/book/lenkimo/byte-of-python-chinese-edition/details" target="_blank" rel="noopener">简明 Python 教程</a></li>
+<li><a href="https://book.douban.com/subject/26709315/" target="_blank" rel="noopener">Effecitive Python</a></li>
+</ul>
+<p><strong>博客</strong></p>
+<ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="noopener">廖学峰的Python教程</a></li>
+</ul>
+<p><strong>在线练习</strong></p>
+<ul>
+<li><a href="https://www.codecademy.com/learn/all" target="_blank" rel="noopener">codecademy</a></li>
+<li><a href="https://www.hackerrank.com/" target="_blank" rel="noopener">hackerrank</a></li>
+<li><a href="http://www.mengma.com/" target="_blank" rel="noopener">萌码</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-17T07:45:33.000Z" itemprop="dateUpdated">2017-08-17 15:45:33</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&title=《如何入门python》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&title=《如何入门python》 — Zhuhao's Blog&source=对于如何入门python，网上太多教程，但是很多教程对于初学者并不友好，很多写教程的人都是直接看别人推荐什么书自己就推荐什么书，这样的教程初学者看了可能想..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何入门python》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/14/工作-hexo-2017-08-14-解决博客无法被搜索到/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">解决博客无法被搜索到</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/13/工作-python-入门-2017-08-13-改变小数点位数/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">改变小数点位数的方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&title=《如何入门python》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&title=《如何入门python》 — Zhuhao's Blog&source=对于如何入门python，网上太多教程，但是很多教程对于初学者并不友好，很多写教程的人都是直接看别人推荐什么书自己就推荐什么书，这样的教程初学者看了可能想..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何入门python》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/13/工作-python-入门-2017-08-13-如何学习python/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aQW6EMAwF0N7/0tNtFx34tmM6lR6rijKBB1JifefrKz5eP47kfP7b/L7J9c0DDw8Pb/Do74bLzyf/rT5udWQ8PDy8Z3jvBn13zfWg+QuajHb9zHh4eHifybu+frJIJKPh4eHh/RdeXhxfn69GGHh4eHifxktihZyaPEryDMlScSxrwcPDw5tmp4VF4vm/V/p7eHh4eOOuel40T8LZ5PpX68DDw8Pb4PVK3rzMnWzbSs5Ez4mHh4e3wEum6bzUzsH5aJPmGR4eHt5Z3rzJ1Cu7exFDuQmHh4eHt8bLJ/pqsZssNr3iO/okeHh4eI/wkkm5Gk9MJvdjGwLw8PDwDvF6E3Fv6p9sw8rDjrcpNR4eHt4Crzqt59fncXBvsSm0vvDw8PDGvOSBelNz9fVVX2u0MODh4eE9wsuL7HzrQK8Nll9/s3UADw8P7ygvjxWq4WweNPReWTnswMPDwzvE67XtezFEHgT3mnPlL4aHh4fX4vUCiHwrQG/LVL7MFIppPDw8vEO86o8nm6sK8WvrKxViXDw8PLw1XrWpnxTl1W1bk5gYDw8Pb5uXTO69TVH5S+y9oCiZxsPDw1vgVQvrvBTOg4zqUnEzGh4eHt4abzIpTwLZPPZtlu94eHh4C7zrgW5a8oNiulqg52d+GRMPDw/vEV4S6fZaU/mEPo+Y8fDw8J7hJe38pEGVBw2TNlv0qfDw8PCWeWeDhsksnSwMhTYYHh4e3iHeq3jkpW1+fb5IlFtueHh4eAu86oQ7KaDzxn+y/PSWDTw8PLxTvF6Bm1PzGDd/Qfk2Ajw8PLw93vw2yVReDYvnCxgeHh7ep/Gq03f1LtVlKQuu8fDw8P6e1yu1c8YoaMbDw8Nb4yVhRHVDQN6Umm/YinZG4OHh4R3iVTcz5S38vIU2WYqO9ffw8PDw7o9v/AKccb5uiv0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

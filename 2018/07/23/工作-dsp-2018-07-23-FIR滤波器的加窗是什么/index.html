@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>FIR滤波器的加窗是什么 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="dsp">
+    <meta name="description" content="FIR滤波器的加窗是什么窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。">
+<meta name="keywords" content="dsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FIR滤波器的加窗是什么">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="FIR滤波器的加窗是什么窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sinc_function_%28both%29.svg/1280px-Sinc_function_%28both%29.svg.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/windowing_operation.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/rect_fr.jpg">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T06:22:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FIR滤波器的加窗是什么">
+<meta name="twitter:description" content="FIR滤波器的加窗是什么窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sinc_function_%28both%29.svg/1280px-Sinc_function_%28both%29.svg.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">FIR滤波器的加窗是什么</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">FIR滤波器的加窗是什么</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-23T06:09:58.000Z" itemprop="datePublished" class="page-time">
+  2018-07-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#FIR滤波器的加窗是什么"><span class="post-toc-number">1.</span> <span class="post-toc-text">FIR滤波器的加窗是什么</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-dsp-2018-07-23-FIR滤波器的加窗是什么" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">FIR滤波器的加窗是什么</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-23 14:09:58" datetime="2018-07-23T06:09:58.000Z" itemprop="datePublished">2018-07-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="FIR滤波器的加窗是什么"><a href="#FIR滤波器的加窗是什么" class="headerlink" title="FIR滤波器的加窗是什么"></a>FIR滤波器的加窗是什么</h1><p>窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。</p>
+<a id="more"></a>
+<p>通带为$\omega_c\lt\pi$的理想低通滤波器的系统函数为</p>
+<p>$$<br>H_d(e^{j\omega})=\begin{cases}<br>1\cdotp e^{j\alpha\omega} &amp; |\omega|\le\omega_e \<br>0 &amp; \omega_e\lt\pi<br>\end{cases}<br>$$</p>
+<p>反变换求它的冲激响应为</p>
+<p>$$<br>\begin {aligned}<br>h_d(n)<br>&amp; = \mathcal{F}^{-1}\bigl[H_d(e^{j\omega})\bigr] = \frac{1}{2\pi} \int_{-\pi}^\pi H_d(e^{j\omega})e^{j\omega n}d\omega \\<br>&amp; = \frac{1}{2\pi} \int_{-\omega_e}^{\omega_e} 1\cdot e^{-j\alpha\omega} e^{j\omega n}d\omega \\<br>&amp; = \frac{\sin\left[\omega_e(n-\alpha)\right]}{\pi(n-\alpha)}<br>\end {aligned}<br>$$</p>
+<p>可以看出，这是一个sinc函数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sinc_function_%28both%29.svg/1280px-Sinc_function_%28both%29.svg.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看出，$h_d(n)$的冲激响应在时域上是无限长的，不符合FIR滤波器的要求，所以需要对它截断，也就是加窗。</p>
+<p>为了得到一个长度为M的因果的线性相位的FIR滤波器$h(n)$，我们需要</p>
+<p>$$<br>h(n)=\begin{cases}<br>h_d(n) &amp; 0\le n\le M-1 \\<br>0 &amp; elsewhere<br>\end{cases}<br>~~<br>and<br>~~<br>\alpha = \frac{M-1}{2}<br>$$</p>
+<p>也就是让$h_d(n)$的$0\le n\le M-1$之外的值全为0，这就是加窗。这个过程可以表示为</p>
+<p>$$<br>h(n) = h_d(n)w(n)<br>$$</p>
+<p>$w(n)$即为窗函数</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>some\ symmetric\ function\ with\ respect\ to \\<br>\alpha\ over\ 0\le n\le M-1 \\<br>0,\ otherwise<br>\end{cases}<br>$$</p>
+<p>在这里我们将$w(n)$定义为</p>
+<p>$$<br>w(n) =<br>\begin{cases}<br>1 &amp; 0\le n\le M-1 \<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
+<p>再看看频域，使用$H(e^{j\omega})$表示因果FIR滤波器的响应，$H_d(e^{j\omega})$表示理想滤波器，$W(e^{j\omega})$表示窗函数响应。</p>
+<p>时域相乘，频域卷积，这里是圆周卷积。(圆周卷积以后也会介绍)</p>
+<p>$$<br>\begin {aligned}<br>H(e^{j\omega}) &amp; = H_d(e^{j\omega})\bigodot W(e^{j\omega}) \<br>&amp; = \frac{1}{2\pi}\int_{-\pi}^\pi W(e^{j\omega})H(e^{j(\omega - \lambda)})<br>\end {aligned}<br>$$</p>
+<p>我想在MATLAB中模拟这个加窗的过程，但是一直弄不出来，就把书上的图拿过来吧。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/windowing_operation.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我不知道为什么我卷积出来的频域波形和窗函数的频域波形是一样的，很尴尬。</p>
+<p>不过窗函数的原理基本还是理解了，直接生成书上卷积出来的频域波形不难，在matlab中直接生成一个FIR滤波器（相当于加了矩形窗），然后求它的频响。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/rect_fr.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alpha = (M-1)/2;</span><br><span class="line">n = [0:1:(M-1)];</span><br><span class="line">m = n - alpha + eps;        % add smallest number to avoid divide by zero</span><br><span class="line">hd = sin(wc*m) ./ (pi*m);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wc = 0.2*pi;</span><br><span class="line">M = 60;</span><br><span class="line">hd = ideal_lp(wc,M);</span><br><span class="line">w_rect = (rectwin(M))&amp;#39;;</span><br><span class="line">h = hd .* w_rect;</span><br><span class="line">fvtool(h);</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考书籍：</p>
+<ul>
+<li>_DigitalSignalProcessingUsingMatlabv4.0_JohnG.Proakis</li>
+<li>《数字信号处理教程》程佩青</li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T06:22:27.000Z" itemprop="dateUpdated">2018-09-09 14:22:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dsp/">dsp</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&title=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&title=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&source=FIR滤波器的加窗是什么窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">几种常见窗函数的特性</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/21/生活-small-talk-2018-07-21-说说我最近做了什么/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">说说我最近做了什么</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&title=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&title=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&source=FIR滤波器的加窗是什么窗函数法是一种设计FIR滤波器的方法，FIR全称为Finite impulse response，即有限冲激响应滤波器。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《FIR滤波器的加窗是什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/23/工作-dsp-2018-07-23-FIR滤波器的加窗是什么/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3a0WrkMAwF0P7/T3ehb2VxeiVZMy2cPC1p8ORkwRLX+viIr8+v6/n+539X8nz+zOn5CxceHh5e69VP12np6jPP7OeVk095XB8PDw9vjdfboJ+XzldIClK1qODh4eH9Bt6pGPRKy6Stx8PDw/srvOqLVtvoeTnBw8PDeyUv2dYn5SGJM24VJDw8PLxt3qSdfde/F8/38PDw8Aan6tUtvhf4PscWozfEw8PDW+BVI4Pq6MBzTJBQn8FRwcDDw8Nb4OVBQD5Wtdcu58NeeHh4eK/hJaUi+Wv1fhLUVj8rHh4e3h5vcrBUbX97RaharvDw8PD2eNVNvNfUVocGeiMFxwAXDw8P7ypv78eq231vEiD6oHh4eHhXeb34NT9jmsQK+eDX8dfx8PDw1nh5eUjuVCPgSdiBh4eH9y7eJGbNN/3J6/aO4vDw8PD2eHmL3Gt2J3HG6EPj4eHhLfCqjXVv781f6/ljlcMIPDw8vDXeZKEkmOgdhuXFpjyAhYeHhzfgVbfXu+NT+f3mYAEeHh7eMq/X7OYbej6IMBn/+nYHDw8Pb5nXO7BPtvLq6+aHYT98Mjw8PLwF3mRcoBdb9BrlW/8ZeHh4eHNetV3uNcTVklAdKTiuhoeHh7fA60Wu+ZFYdairVxh+KEJ4eHh4C7xe6HBrqDQfO5iw8fDw8O7y8ia4iqkWkl7I28yq8fDw8C7xem1rb+NOWnA8PDy838abN75JHFyFVUPb42p4eHh4C7z5EX5+bDaPbvNSVL7w8PDwirzecNVkAKt6Jy8MeHh4eK/kbWzQ+QcaNcRJJIGHh4f3Vl41im2my60icaEw4OHh4V3l5QFrtSmvDmA9vwMeHh7ea3i9H7s1XlA9Wivk03h4eHgLvHn7m5eN6uZeLUJNKh4eHl7K+wecd88UxnSf+QAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

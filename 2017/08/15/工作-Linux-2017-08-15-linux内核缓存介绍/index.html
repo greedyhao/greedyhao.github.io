@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>linux内核缓存介绍 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="简单的介绍一下内核如何实现IO">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux内核缓存介绍">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="简单的介绍一下内核如何实现IO">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-21T03:13:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux内核缓存介绍">
+<meta name="twitter:description" content="简单的介绍一下内核如何实现IO">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">linux内核缓存介绍</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">linux内核缓存介绍</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-15T12:48:19.000Z" itemprop="datePublished" class="page-time">
+  2017-08-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟文件系统"><span class="post-toc-number">1.</span> <span class="post-toc-text">虚拟文件系统</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#页缓存"><span class="post-toc-number">2.</span> <span class="post-toc-text">页缓存</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#时间局部性"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">时间局部性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#空间局部性"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">空间局部性</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#页缓存动态变化"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">页缓存动态变化</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#页回写"><span class="post-toc-number">3.</span> <span class="post-toc-text">页回写</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考源</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2017-08-15-linux内核缓存介绍" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">linux内核缓存介绍</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-15 20:48:19" datetime="2017-08-15T12:48:19.000Z" itemprop="datePublished">2017-08-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 <strong>内核</strong> 这个词的吧，今天就让<br>我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。</p>
+<a id="more"></a>
+<p>实现内核I/o要靠三个主要的子系统: <strong>虚拟文件系统</strong> <strong>页缓存</strong> <strong>页回写</strong></p>
+<h1 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h1><p>先说说虚拟文件系统，也称作VFS，Linux中有句名言叫做， <strong>一切皆文件</strong> ，能达到这样的效果，<br>这个VFS功不可没。他可以让内核在 <strong>不了解也不要了解文件系统类型的情况下</strong> 调用调用文件系统<br>函数并操作文件系统数据。</p>
+<p>由此，系统调用可以读任意类型文件，工具可以直接从一个文件系统拷贝到令一个上。</p>
+<h1 id="页缓存"><a href="#页缓存" class="headerlink" title="页缓存"></a>页缓存</h1><p>缓存的存在是为了在CPU的高速和硬盘的低速之间起一个过渡作用，内核查找文件系统数据会先在缓存中<br>查找，找不到才会访问硬盘。</p>
+<p>在这里要介绍两个重要的原理 <strong>时间局部性</strong> 和 <strong>空间局部性</strong>。</p>
+<h2 id="时间局部性"><a href="#时间局部性" class="headerlink" title="时间局部性"></a>时间局部性</h2><p>时间局部性原理认为，刚刚访问过的区域再被访问的可能性很大，所以在第一次访问时会对数据缓存，<br>虽然消耗内存，但是可以避免开销巨大的硬盘I/O。</p>
+<h2 id="空间局部性"><a href="#空间局部性" class="headerlink" title="空间局部性"></a>空间局部性</h2><p>空间局部性原理认为，访问数据往往是连续的，而且访问连续空间比随机访问更快，所以每次读操作<br>都会额外的读取几个比特，也叫做预读。</p>
+<h2 id="页缓存动态变化"><a href="#页缓存动态变化" class="headerlink" title="页缓存动态变化"></a>页缓存动态变化</h2><p>内存终究是有限的，不可能无限的缓存，所以也缓存需要动态变化。</p>
+<p>在页缓存被消耗完了之后，就会 <strong>裁剪</strong> 不常用的部分，然后 <strong>交换</strong> 给硬盘，腾出来的空间<br>留给常用的部分。Linux内核的启发式算法会处理这些问题。</p>
+<h1 id="页回写"><a href="#页回写" class="headerlink" title="页回写"></a>页回写</h1><p>数据从硬盘读出来，放在缓存中，自然还需要再写会硬盘，因为RAM中的东西会在断电之后丢失。</p>
+<p>像这些缓存中的数据被读写操作过后，和硬盘中的数据不一样了，就被叫做 <strong>脏数据</strong> ，脏数据需要<br>回写硬盘让他变干净，所以就有了页回写。</p>
+<p>回写是通过 <strong>flusher</strong> 的内核线程来执行的，当空闲内存低于设定的阈值或者脏缓冲区存在时间<br>超出设定时，就会触发回写。</p>
+<p>这里还是有个问题，就是万一还没有回写系统就断电了。那很可悲，这些数据就丢失了，所以关键应用<br>可以使用同步I/O来保证数据不会丢失。</p>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-21T03:13:37.000Z" itemprop="dateUpdated">2017-08-21 11:13:37</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux内核缓存介绍》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/16/工作-Linux-2017-08-16-文件描述符/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">文件描述符</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/14/工作-hexo-2017-08-14-利用hexo搭建博客/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">利用hexo搭建博客</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&title=《linux内核缓存介绍》 — Zhuhao's Blog&source=正所谓没吃过猪肉也看过猪跑，会看这篇文章的想必都是听说过 内核 这个词的吧，今天就让我来请大家吃一回”猪肉”，了解一下内核如何实现I/O。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《linux内核缓存介绍》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/15/工作-Linux-2017-08-15-linux内核缓存介绍/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3awa7CMAwEQP7/p3lXJGhY2wnwpOmpgkIyPSTR2rdbfN0frsdPru6rn6zHfb7ffOHh4eENpv58rZ9ZT2iNST5JXtCbWeHh4eEd4+WLck5NRplsP9EoeHh4eD/Am2wD+YKebFR4eHh4/4u3XuiTb5MD9Nc2Bjw8PLyAly/E8+N1Tlq/7s1ZCx4eHl7My4f/nfsj9T08PDy8cVU9KYblh+kktpgEGS9mi4eHh3eANylNVY/aVVIeXrx5Eg8PD28rb7Ioj6LVOPzNg48X93h4eHgHeNXi0zxm3YVvhrZ4eHh4Y17e/JQcc/NCVPWQXW3SwsPDwzvNS8KFHrUacESTzrcWPDw8vGO88oJbPI73mgB6G8aLrAUPDw/vMK+3bSQbRq8hoDdW+X3j4eHhFXn5MTdf3AvLd+twH8UfeHh4eMd41SHzAn+vwFYArF8NHh4e3gHeJJzNQ9hJspp/ezkTPDw8vK28vMRVjVyr3yaH8nLJDQ8PD+8Yrxeh7op997YdRD1leHh4eANe9dF8itWIofcP0Uzw8PDwtvKSNqak6aq6SVQDi2o4goeHh3eOlwejE1iv1aD3D1EkgYeHh7eJNznsJkt5r61qEk/g4eHhneP1Sly95qrq0bnadNVE4uHh4bV4yQC72g7ONV3h4eHhfYbXCxTyOLW6qfSO0ZfP4+Hh4R3jJVcV2QsdeoHC5Sh4eHh4H+dNAoJq+NtLTd5sbHh4eHhbeffilZevJhtAM03Bw8PD+whvUgBbF8aqlbdJ/LHhwsPDwyvyqgFEXiQrRAbFZoXCVoSHh4d3jDeZSvUovN4wJmEuHh4e3m/y8mNudYq9fy50k+Hh4eF9lTcphlUZ1YgZDw8P7zO8XutAUsLPfztvurrcGPDw8PC28nqH3fmk8+B4czUPDw8Pr8/7A+wpzxSfRuxFAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

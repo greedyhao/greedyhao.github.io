@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>Linux_I/O_Scheduler | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="介绍Linux I/O 调度器，顺便从软件层面来解释固态硬盘为什么更快的原因。">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux_I&#x2F;O_Scheduler">
+<meta property="og:url" content="http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="介绍Linux I/O 调度器，顺便从软件层面来解释固态硬盘为什么更快的原因。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-19T02:47:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux_I&#x2F;O_Scheduler">
+<meta name="twitter:description" content="介绍Linux I/O 调度器，顺便从软件层面来解释固态硬盘为什么更快的原因。">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux_I/O_Scheduler</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Linux_I/O_Scheduler</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-19T02:26:51.000Z" itemprop="datePublished" class="page-time">
+  2017-08-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#这个I-O调度器有什么用"><span class="post-toc-number">1.</span> <span class="post-toc-text">这个I/O调度器有什么用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#改进读请求"><span class="post-toc-number">2.</span> <span class="post-toc-text">改进读请求</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deadline"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Deadline</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Anticipatory"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Anticipatory</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CFQ"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">CFQ</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Noop"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Noop</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#固态驱动器比机械硬盘快的原因"><span class="post-toc-number">3.</span> <span class="post-toc-text">固态驱动器比机械硬盘快的原因</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考源"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考源</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2017-08-19-Linux-IO-Scheduler" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux_I/O_Scheduler</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-19 10:26:51" datetime="2017-08-19T02:26:51.000Z" itemprop="datePublished">2017-08-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>修改Linux的I/O调度器可以通过修改/sys/block/device/queue/scheduler来完成，有效选项<br>可以是as cfq deadline 和 noop，下面将介绍这几种调度器。</p>
+<a id="more"></a>
+<h1 id="这个I-O调度器有什么用"><a href="#这个I-O调度器有什么用" class="headerlink" title="这个I/O调度器有什么用"></a>这个I/O调度器有什么用</h1><p>先告诉大家一个数据，单次硬盘寻址平均需要8毫秒以上，但却是CPU周期的2500万倍。</p>
+<p>为了解决硬盘与其他设备之间的巨大差异，便通过I/O调度器的基本功能 <strong>合并</strong> 和 <strong>排序</strong>，<br>来尽量减少磁盘寻址次数和移动距离（因为这是I/O中耗时最久的）。</p>
+<h1 id="改进读请求"><a href="#改进读请求" class="headerlink" title="改进读请求"></a>改进读请求</h1><blockquote>
+<p>每次读请求必须返回最新的数据因此，当请求的数据不在页缓存中时，读请求在数据从硬盘读出前会<br>一直阻塞–这可能是一个相当漫长的操作。我们将这种性能损失称为读延时</p>
+</blockquote>
+<p>读请求之间存在依赖，打开这个文件可能需要先打开另外一个文件，这么样的话，我们可能需要硬盘再转一圈去寻址，<br>这样的话，读延时就太严重了。</p>
+<p>因此最先想到的解决方法就是对这些寻址进行排序，让磁头的移动距离最小。</p>
+<p>但是这样又出现了另一个问题，还是依赖的问题。在将寻址排序后，假如新的请求都是50 ~ 60之间的，<br>但是存在一个依赖需要访问第109块，这样的话，读延时会很严重，会极大影响系统性能。</p>
+<h2 id="Deadline"><a href="#Deadline" class="headerlink" title="Deadline"></a>Deadline</h2><blockquote>
+<ol>
+<li>读写请求分离，读请求具有高优先调度权，除非写请求即将被饿死的时候，才会去调度处理写请求。这种处理可以保证读请求的延迟时间最小化。</li>
+<li>对请求的顺序批量处理。对那些地址临近的顺序化请求，deadline给予了高优先级处理权。例如一个写请求得到调度后，其临近的request会在紧接着的调度过程中被处理掉。这种顺序批量处理的方法可以最大程度的减少磁盘抖动。</li>
+<li>保证每个请求的延迟时间。每个请求都赋予了一个最大延迟时间，如果达到延迟时间的上限，那么这个请求就会被提前处理掉，此时，会破坏磁盘访问的顺序化特征，回影响性能，但是，保证了每个请求的最大延迟时间。</li>
+</ol>
+</blockquote>
+<h2 id="Anticipatory"><a href="#Anticipatory" class="headerlink" title="Anticipatory"></a>Anticipatory</h2><p>还是寻址时间的问题。假设应用突然提交一个读请求，而且该请求即将到截止时间，I/O调度器响应该请求，<br>在硬盘中查找请求的数据，然后返回，再处理队列中其他请求。</p>
+<p>这么做，会有很多次的硬盘寻址次数，而硬盘寻址又是非常耗时的，为了减少硬盘寻址次数，可以让<br>调度器在处理完一个读请求后稍微等待一下，如果还有读请求就一起处理；相比于硬盘寻址的时间，<br>调度器等待的时间是非常值得的。</p>
+<p>这个anticipatory调度器的工作原理也叫做 <strong>预测</strong>，每处理完一个读请求后会等待6毫秒，<br>因为大部分读是相互依赖的，预测可以节省大量时间。</p>
+<h2 id="CFQ"><a href="#CFQ" class="headerlink" title="CFQ"></a>CFQ</h2><p>Complete Fair Queuing I/O 调度器和前两种调度器目的是一致的。使用CFQ时，每个进程都有自己<br>的队列，每个队列分配一个时间片，同时还是存在着预测；在没有请求处理时会空转一段时间（默认10毫秒）；在进程队列中同步请求（如读操作）被赋予比非同步请求更高的优先级。</p>
+<h2 id="Noop"><a href="#Noop" class="headerlink" title="Noop"></a>Noop</h2><p>Noop I/O调度器是最简单的调度器，它不排序，只简单的合并，一般使用在不需要对请求排序的<br>特殊设备上，也更快。</p>
+<h1 id="固态驱动器比机械硬盘快的原因"><a href="#固态驱动器比机械硬盘快的原因" class="headerlink" title="固态驱动器比机械硬盘快的原因"></a>固态驱动器比机械硬盘快的原因</h1><p>前文提到的不需要对请求排序的就是这种固态驱动器(SSDs)它使用类似随机访问内存的方式来索引，<br>没有硬盘的”旋转”代价。</p>
+<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+<li><a href="http://blog.csdn.net/revoer001/article/details/52003741" target="_blank" rel="noopener">linux内核之块设备四—deadline调度算法</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-19T02:47:31.000Z" itemprop="dateUpdated">2017-08-19 10:47:31</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&title=《Linux_I/O_Scheduler》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&title=《Linux_I/O_Scheduler》 — Zhuhao's Blog&source=修改Linux的I/O调度器可以通过修改/sys/block/device/queue/scheduler来完成，有效选项可以是as cfq deadli..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux_I/O_Scheduler》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/19/工作-bluetooth-2017-08-19-配置HC-05/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">配置HC-05</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/16/生活-安利-2017-08-16-为什么你不喜欢编程/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">为什么你不喜欢编程</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&title=《Linux_I/O_Scheduler》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&title=《Linux_I/O_Scheduler》 — Zhuhao's Blog&source=修改Linux的I/O调度器可以通过修改/sys/block/device/queue/scheduler来完成，有效选项可以是as cfq deadli..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux_I/O_Scheduler》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/19/工作-Linux-2017-08-19-Linux-IO-Scheduler/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACoklEQVR42u3aQU7DQAwF0N7/0iCxAom03/a4BOllhao0nTdIY8f24xFfH19X/snHt6t6//PrsXHh4eHhtZb+/HHPl/J8O85S83vw8PDwtnnJEnvU/AnJqZ6vGQ8PD+8OvEkSPM/68fDw8P4jLz+sk6X0ghAeHh7efXjVY/3qoM8T7uqvrNda8PDw8Ba6SPf5e7G/h4eHhzfoqlcbY/nAQS+olFeIh4eHt8DrFVjzIkU1Ic63rBAw8PDw8I7yTi0u//lqYOhtx4+4h4eHh7fAyxv8pxr/1TJH72l4eHh4G7xq5lktOpwdTRi9MeDh4eEd5SVLrI4LVEcBqqlz+d+Ah4eHt8Crtp16m1INGJPmGR4eHt4eb540T9LrHr5cjMDDw8Nb4+Uv/72QkKfL88IxHh4e3gYvf6Xv4Zt5fTEMXG49Hh4e3lt4eVH1bEiY3IOHh4f3Tt680XWqJHFq5OuyGIGHh4e3zKu+0eeF4GqwqabdeHh4eNu8fAigV+rNn1Ntg0WpPx4eHt4aL3ntL5dQY+SpFt2LWgseHh7eUV7yYj9p7VeP+2oyPSpD4OHh4bV4yeGeB4B50ba6lZcbgYeHh7fAy7+WDAec2rjquNWL7cbDw8Nb4yXHdLLQydPy+3MqHh4e3gZv3qrPj+9kO/KUvVAOxsPDwzvKqw5L9ZpS1TGsU004PDw8vG1er1SabEEygJUk0Mna8PDw8PZ4vaO5Fx6iMalW2eJytXh4eHgLvPzqHdnNYanWGEEThoeHh9fibQSD/OjPk/g8ccfDw8N7D693fFe/m2/TPHTh4eHh3Z/XK+D2Fl0of+Dh4eH9Ka83BJAkxHnYyJ+Ah4eHt83LF3c2VMx/90WAwcPDw1vgjV714xS8Sq0GqsP9PTw8PLzfP/kEiKMDJ+1K08UAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

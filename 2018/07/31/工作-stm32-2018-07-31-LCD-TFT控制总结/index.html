@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>LCD-TFT控制总结 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="stm32">
+    <meta name="description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+<meta name="keywords" content="stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LCD-TFT控制总结">
+<meta property="og:url" content="http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-09-09T05:52:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LCD-TFT控制总结">
+<meta name="twitter:description" content="LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">LCD-TFT控制总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">LCD-TFT控制总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-31T09:09:26.000Z" itemprop="datePublished" class="page-time">
+  2018-07-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#LCD-TFT控制总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">LCD-TFT控制总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#说说如何找到问题的"><span class="post-toc-number">2.</span> <span class="post-toc-text">说说如何找到问题的</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简单介绍一下LCD使用到的外设资源"><span class="post-toc-number">3.</span> <span class="post-toc-text">简单介绍一下LCD使用到的外设资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LTDC"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">LTDC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DMA2D"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">DMA2D</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FMC"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">FMC</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-stm32-2018-07-31-LCD-TFT控制总结" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">LCD-TFT控制总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-31 17:09:26" datetime="2018-07-31T09:09:26.000Z" itemprop="datePublished">2018-07-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="LCD-TFT控制总结"><a href="#LCD-TFT控制总结" class="headerlink" title="LCD-TFT控制总结"></a>LCD-TFT控制总结</h1><p>最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没了，好几天的时间都找不到问题。</p>
+<a id="more"></a>
+<h1 id="说说如何找到问题的"><a href="#说说如何找到问题的" class="headerlink" title="说说如何找到问题的"></a>说说如何找到问题的</h1><p>找到问题的方法是我昨天才想到的，前些天就像无头苍蝇一样到处乱窜，花了很多时间，但是没有用对方法，都是无用功。</p>
+<p>后来想到，LCD使用SDRAM最为显存，那么只需要读取SDRAM中的数据就知道为什么显示会有问题了。</p>
+<p>通过访问SDRAM中的显存的地址，就可以直接得到SDRAM中的数据。</p>
+<p>首先测试清屏函数，读取SDRAM中的数据在清屏前和清屏后的数据有什么不同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">printf(&quot;%s\n&quot;,&quot;-----D000 after clear-----&quot;);</span><br><span class="line">uint32_t i;</span><br><span class="line">uint8_t ubReaddata_8b=0;</span><br><span class="line">for (i=0; i&lt;200; i++) &#123;</span><br><span class="line">  ubReaddata_8b = *(__IO uint8_t*)(0xD0000000 + i);</span><br><span class="line">  printf(&quot;%x &quot;,ubReaddata_8b);</span><br><span class="line">&#125;</span><br><span class="line">printf(&quot;\n%s\n&quot;,&quot;-----D000 after clear-----&quot;);</span><br><span class="line">printf(&quot;%s\n&quot;,&quot;-----D020 after clear-----&quot;);</span><br><span class="line">for (i=0; i&lt;200; i++) &#123;</span><br><span class="line">  ubReaddata_8b = *(__IO uint8_t*)(0xD0200000 + i);</span><br><span class="line">  printf(&quot;%x &quot;,ubReaddata_8b);</span><br><span class="line">&#125;</span><br><span class="line">printf(&quot;\n%s\n&quot;,&quot;-----D020 after clear-----&quot;);</span><br></pre></td></tr></table></figure>
+<p>发现清屏前后数据没有变化，都是一些随机的数据，因此可以推断清屏函数出了问题。</p>
+<p>再看看清屏函数(LCD_Clear)，调用了另外一个函数，可以推断应该是<strong>LL_FillBuffer</strong>这个函数出了问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t OffLine, uint32_t ColorIndex)</span><br></pre></td></tr></table></figure>
+<p>之前使用的DMA2D的R2M模式，我使用M2M模式显示图片发现正常，方法参照<a href="http://www.waveshare.net/study/article-661-1.html" target="_blank" rel="noopener">微雪课堂</a>，再次确认<strong>LL_FillBuffer</strong>这个函数出了问题。</p>
+<p>看看<strong>LL_FillBuffer</strong>这个函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LL_FillBuffer</span><span class="params">(<span class="keyword">uint32_t</span> LayerIndex, <span class="keyword">void</span> *pDst, <span class="keyword">uint32_t</span> xSize, <span class="keyword">uint32_t</span> ySize, <span class="keyword">uint32_t</span> OffLine, <span class="keyword">uint32_t</span> ColorIndex)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  Dma2d_Handler.Init.Mode         = DMA2D_R2M;</span><br><span class="line">  <span class="keyword">if</span>(Ltdc_Handler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_RGB565)</span><br><span class="line">  &#123; </span><br><span class="line">    Dma2d_Handler.Init.ColorMode    = DMA2D_RGB565;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(Ltdc_Handler.LayerCfg[ActiveLayer].PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)</span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* DMA2D 初始化 */</span></span><br><span class="line">  <span class="keyword">if</span>(HAL_DMA2D_Init(&amp;Dma2d_Handler) == HAL_OK) </span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span>(HAL_DMA2D_ConfigLayer(&amp;Dma2d_Handler, LayerIndex) == HAL_OK) </span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> (HAL_DMA2D_Start(&amp;Dma2d_Handler, ColorIndex, (<span class="keyword">uint32_t</span>)pDst, xSize, ySize) == HAL_OK)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">/* DMA轮询传输 */</span>  </span><br><span class="line">        HAL_DMA2D_PollForTransfer(&amp;Dma2d_Handler, <span class="number">100</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它这里操作的是<strong>Dma2d_Handler</strong>这个结构体，但是我用CubeMX生成代码使用的是<strong>hdma2d</strong>这个结构体，再我将<strong>Dma2d_Handler</strong>替换为<strong>hdma2d</strong>后，程序运行正常。</p>
+<h1 id="简单介绍一下LCD使用到的外设资源"><a href="#简单介绍一下LCD使用到的外设资源" class="headerlink" title="简单介绍一下LCD使用到的外设资源"></a>简单介绍一下LCD使用到的外设资源</h1><h2 id="LTDC"><a href="#LTDC" class="headerlink" title="LTDC"></a>LTDC</h2><p>液晶面板的信号线如下</p>
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R[7:0]</td>
+<td>红色数据</td>
+</tr>
+<tr>
+<td>G[7:0]</td>
+<td>绿色数据</td>
+</tr>
+<tr>
+<td>B[7:0]</td>
+<td>蓝色数据</td>
+</tr>
+<tr>
+<td>CLK</td>
+<td>像素同步时钟信号</td>
+</tr>
+<tr>
+<td>HSYNC</td>
+<td>水平同步信号</td>
+</tr>
+<tr>
+<td>VSYNC</td>
+<td>垂直同步信号</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>数据使能信号</td>
+</tr>
+</tbody>
+</table>
+<p>LTDC作为液晶控制器可以使用SDRAM中的部分空间作为显存，直接控制液晶面板。</p>
+<p>我们需要做的就是参考液晶屏的资料，将液晶屏的像素、控制时序等对LTDC进行初始化，LTDC就会自动对液晶屏进行刷新控制。</p>
+<h2 id="DMA2D"><a href="#DMA2D" class="headerlink" title="DMA2D"></a>DMA2D</h2><p>DMA2D用于图像数据搬运、混合及格式转换</p>
+<p>有四种模式：DMA2D_M2M、DMA2D_M2M_PFC、DMA2D_M2M_BLEND、DMA2D_R2M</p>
+<p>暂时只用过M2M和R2M，觉得M2M最好用了，将图片转为数组，开启存储器到存储器的DMA，通过<strong>HAL_DMA2D_Start_IT</strong>传输就好了。</p>
+<h2 id="FMC"><a href="#FMC" class="headerlink" title="FMC"></a>FMC</h2><p>FMC用于操作SDRAM，通过不断刷新SDRAM保证数据的正确性</p>
+<hr>
+<p>代码已上传<a href="https://github.com/greedyhao/stm32/tree/master/LCD" target="_blank" rel="noopener">github</a></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-09T05:52:27.000Z" itemprop="dateUpdated">2018-09-09 13:52:27</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LCD-TFT控制总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/08/08/工作-wireless-2018-08-08-通信原理学习记录（一）/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">通信原理学习记录（一）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">几种常见窗函数的特性</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&title=《LCD-TFT控制总结》 — Zhuhao's Blog&source=LCD-TFT控制总结最近学到LCD了，但是在将野火的代码转移到CubeMX时却遇到了大麻烦，屏幕一直是花的，只有一次正常显示一下下，但是过一段时间就又没..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LCD-TFT控制总结》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/07/31/工作-stm32-2018-07-31-LCD-TFT控制总结/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3a0W6DQAwEQP7/p1upT5US6NrGSSoNT1EhB0OlO2fPxxEfXz9H75rffz/7fPatx+PYOPDw8PBaj3493OPn6yurD5SMk5x9ckc8PDy8NV4yoVdv8zhyDkjuGy1OeHh4eG/lJZN4dYTqy8XDw8P7X7xJNJAvEskIeHh4eJ/Ay3/8Vx+oVzRPSnk8PDy8bV51Wv+Ez4v7e3h4eHiDXfXeIlEtfKuhcOFp8fDw8BZ4SUwwCXbzs3lgUQ128fDw8DZ4CbXaFpBHEnmIkIzT/E/i4eHhxbzqzaqtAPOXVd02O/3FgIeHh3cTL5/QJw0B1cK62mqAh4eH90peXiJXo9t5iZwU69HvAzw8PLw1Xo+dlN15gT5pnDpd8fDw8PAWeJPJd/5qektCVLjj4eHhLfCqj1hodSouG722gOjueHh4eLfyqtP0vbFvNeAoh794eHh4C7z8IZJpvdc0kIe8vReKh4eHt8ebbN5XN7p6bQfXsD+eBA8PD+8m3nwqz2OLXhQ7Ci/w8PDwFnj5Dnse5uahQz6Hj6IQPDw8vFt5eRxQvb7XejVZAJ58Cw8PD2+Bl28d9Sb6XtF8/VKq4+Dh4eFt8KrNVXkDVq99qrqcRP83PDw8vFt51XaoPOfIv9UslPHw8PBezuttX00m65yasKN8Gg8PD2+BV53Kq1Fv9Wy1lD99Tjw8PLwFXtJcdX02H2HU3RAchcIaDw8Pb8BLJtleA1YvkjjuPfDw8PBewkuK2urWfjW0nTdj4eHh4e3xegVr78o8VpjHwXh4eHjbvPnmUz6VTwrrZrCLh4eHt8abhA7VeGISAVdHwMPDw3svL8FP5uTe3aOSGg8PD++tvF57Qb7kTF7uDQsDHh4eXszrtV71Xs0kgMgLejw8PLw9Xm9bq9eqNQk4jr0DDw8PLz2+AfdpAyeN/t+qAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

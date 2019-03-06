@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>esp8266_GPIO控制 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="esp8266,wifi">
+    <meta name="description" content="esp8266_GPIO控制让esp8266连接上机智云后，要控制GPIO，说实话，在官方文档找不到相应的描述，浪费了我很多时间，最后还是在论坛上找到了类似的例子才解决这个问题，现在记录下来方便参考。 GPIO初始化用过ARM微处理器的都知道，控制GPIO前，先要进行GPIO的初始化。下面上个GPIO13初始化的例子。 123#include &amp;lt;gpio.h&amp;gt;//user_main.c">
+<meta name="keywords" content="esp8266,wifi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266_GPIO控制">
+<meta property="og:url" content="http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="esp8266_GPIO控制让esp8266连接上机智云后，要控制GPIO，说实话，在官方文档找不到相应的描述，浪费了我很多时间，最后还是在论坛上找到了类似的例子才解决这个问题，现在记录下来方便参考。 GPIO初始化用过ARM微处理器的都知道，控制GPIO前，先要进行GPIO的初始化。下面上个GPIO13初始化的例子。 123#include &amp;lt;gpio.h&amp;gt;//user_main.c">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-08T13:58:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266_GPIO控制">
+<meta name="twitter:description" content="esp8266_GPIO控制让esp8266连接上机智云后，要控制GPIO，说实话，在官方文档找不到相应的描述，浪费了我很多时间，最后还是在论坛上找到了类似的例子才解决这个问题，现在记录下来方便参考。 GPIO初始化用过ARM微处理器的都知道，控制GPIO前，先要进行GPIO的初始化。下面上个GPIO13初始化的例子。 123#include &amp;lt;gpio.h&amp;gt;//user_main.c">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">esp8266_GPIO控制</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">esp8266_GPIO控制</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-20T07:21:37.000Z" itemprop="datePublished" class="page-time">
+  2017-10-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#esp8266-GPIO控制"><span class="post-toc-number">1.</span> <span class="post-toc-text">esp8266_GPIO控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GPIO初始化"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">GPIO初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置GPIO模式"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">设置GPIO模式</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-wifi-2017-10-20-esp8266-GPIO控制" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">esp8266_GPIO控制</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-20 15:21:37" datetime="2017-10-20T07:21:37.000Z" itemprop="datePublished">2017-10-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="esp8266-GPIO控制"><a href="#esp8266-GPIO控制" class="headerlink" title="esp8266_GPIO控制"></a>esp8266_GPIO控制</h1><p>让esp8266连接上机智云后，要控制GPIO，说实话，在官方文档找不到相应的描述，浪费了我很多时间，最后还是在论坛上找到了类似的例子才解决这个问题，现在记录下来方便参考。</p>
+<h2 id="GPIO初始化"><a href="#GPIO初始化" class="headerlink" title="GPIO初始化"></a>GPIO初始化</h2><p>用过ARM微处理器的都知道，控制GPIO前，先要进行GPIO的初始化。下面上个GPIO13初始化的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;gpio.h&gt;</span><br><span class="line">//user_main.c</span><br><span class="line">PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTCK_U, FUNC_GPIO13); //GPIO13初始化</span><br></pre></td></tr></table></figure>
+<p>将上面这两句命令加入到 <strong>user_main.c</strong> 文件中的 <strong>user_init()</strong> 函数中就可以完成对GPIO13的初始化。</p>
+<p>对 <strong>PERIPHS_IO_MUX_MTCK_U</strong> 和 <strong>FUNC_GPIO13</strong> 的描述在 <strong>eagle_soc.h</strong> 文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">//eagle_soc.h</span><br><span class="line">...</span><br><span class="line">//PIN Mux reg &#123;&#123;</span><br><span class="line">#define PERIPHS_IO_MUX_FUNC             0x13</span><br><span class="line">#define PERIPHS_IO_MUX_FUNC_S           4</span><br><span class="line">#define PERIPHS_IO_MUX_PULLUP           BIT7</span><br><span class="line">#define PERIPHS_IO_MUX_PULLUP2          BIT6</span><br><span class="line">#define PERIPHS_IO_MUX_SLEEP_PULLUP     BIT3</span><br><span class="line">#define PERIPHS_IO_MUX_SLEEP_PULLUP2    BIT2</span><br><span class="line">#define PERIPHS_IO_MUX_SLEEP_OE         BIT1</span><br><span class="line">#define PERIPHS_IO_MUX_OE               BIT0</span><br><span class="line">#define PERIPHS_IO_MUX_CONF_U           (PERIPHS_IO_MUX + 0x00)</span><br><span class="line">#define SPI0_CLK_EQU_SYS_CLK            BIT8</span><br><span class="line">#define SPI1_CLK_EQU_SYS_CLK            BIT9</span><br><span class="line">#define PERIPHS_IO_MUX_MTDI_U           (PERIPHS_IO_MUX + 0x04)</span><br><span class="line">#define FUNC_GPIO12                     3</span><br><span class="line">#define PERIPHS_IO_MUX_MTCK_U           (PERIPHS_IO_MUX + 0x08)</span><br><span class="line">#define FUNC_GPIO13                     3</span><br><span class="line">#define PERIPHS_IO_MUX_MTMS_U           (PERIPHS_IO_MUX + 0x0C)</span><br><span class="line">#define FUNC_GPIO14                     3</span><br><span class="line">#define PERIPHS_IO_MUX_MTDO_U           (PERIPHS_IO_MUX + 0x10)</span><br><span class="line">#define FUNC_GPIO15                     3</span><br><span class="line">#define FUNC_U0RTS                      4</span><br><span class="line">#define PERIPHS_IO_MUX_U0RXD_U          (PERIPHS_IO_MUX + 0x14)</span><br><span class="line">#define FUNC_GPIO3                      3</span><br><span class="line">#define PERIPHS_IO_MUX_U0TXD_U          (PERIPHS_IO_MUX + 0x18)</span><br><span class="line">#define FUNC_U0TXD                      0</span><br><span class="line">#define FUNC_GPIO1                      3</span><br><span class="line">#define PERIPHS_IO_MUX_SD_CLK_U         (PERIPHS_IO_MUX + 0x1c)</span><br><span class="line">#define FUNC_SDCLK                      0</span><br><span class="line">#define FUNC_SPICLK                     1</span><br><span class="line">#define PERIPHS_IO_MUX_SD_DATA0_U       (PERIPHS_IO_MUX + 0x20)</span><br><span class="line">#define FUNC_SDDATA0                    0</span><br><span class="line">#define FUNC_SPIQ                       1</span><br><span class="line">#define FUNC_U1TXD                      4</span><br><span class="line">#define PERIPHS_IO_MUX_SD_DATA1_U       (PERIPHS_IO_MUX + 0x24)</span><br><span class="line">#define FUNC_SDDATA1                    0</span><br><span class="line">#define FUNC_SPID                       1</span><br><span class="line">#define FUNC_U1RXD                      4</span><br><span class="line">#define FUNC_SDDATA1_U1RXD              7</span><br><span class="line">#define PERIPHS_IO_MUX_SD_DATA2_U       (PERIPHS_IO_MUX + 0x28)</span><br><span class="line">#define FUNC_SDDATA2                    0</span><br><span class="line">#define FUNC_SPIHD                      1</span><br><span class="line">#define FUNC_GPIO9                      3</span><br><span class="line">#define PERIPHS_IO_MUX_SD_DATA3_U       (PERIPHS_IO_MUX + 0x2c)</span><br><span class="line">#define FUNC_SDDATA3                    0</span><br><span class="line">#define FUNC_SPIWP                      1</span><br><span class="line">#define FUNC_GPIO10                     3</span><br><span class="line">#define PERIPHS_IO_MUX_SD_CMD_U         (PERIPHS_IO_MUX + 0x30)</span><br><span class="line">#define FUNC_SDCMD                      0</span><br><span class="line">#define FUNC_SPICS0                     1</span><br><span class="line">#define PERIPHS_IO_MUX_GPIO0_U          (PERIPHS_IO_MUX + 0x34)</span><br><span class="line">#define FUNC_GPIO0                      0</span><br><span class="line">#define PERIPHS_IO_MUX_GPIO2_U          (PERIPHS_IO_MUX + 0x38)</span><br><span class="line">#define FUNC_GPIO2                      0</span><br><span class="line">#define FUNC_U1TXD_BK                   2</span><br><span class="line">#define FUNC_U0TXD_BK                   4</span><br><span class="line">#define PERIPHS_IO_MUX_GPIO4_U          (PERIPHS_IO_MUX + 0x3C)</span><br><span class="line">#define FUNC_GPIO4                      0</span><br><span class="line">#define PERIPHS_IO_MUX_GPIO5_U          (PERIPHS_IO_MUX + 0x40)</span><br><span class="line">#define FUNC_GPIO5                      0</span><br><span class="line">#define PIN_PULLUP_DIS(PIN_NAME)                 CLEAR_PERI_REG_MASK(PIN_NAME, PERIPHS_IO_MUX_PULLUP)</span><br><span class="line">#define PIN_PULLUP_EN(PIN_NAME)                  SET_PERI_REG_MASK(PIN_NAME, PERIPHS_IO_MUX_PULLUP)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="设置GPIO模式"><a href="#设置GPIO模式" class="headerlink" title="设置GPIO模式"></a>设置GPIO模式</h2><p>我们都知道GPIO有几种模式，输出输入等等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;gpio.h&gt;</span><br><span class="line">GPIO_OUTPUT_SET(GPIO_ID_PIN(13), 0);//GPIO13 低电平输出</span><br></pre></td></tr></table></figure>
+<p>上面这句就设置GPIO13低电平输出，要想读取输入需要先使用GPIO_DIS_OUTPUT(gpio_no) disable输出，再用GPIO_INPUT_GET(gpio_no)获取输入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define GPIO_OUTPUT_SET(gpio_no, bit_value) \</span><br><span class="line">    gpio_output_set((bit_value)&lt;&lt;gpio_no, ((~(bit_value))&amp;0x01)&lt;&lt;gpio_no, 1&lt;&lt;gpio_no,0)</span><br><span class="line">#define GPIO_DIS_OUTPUT(gpio_no) 	gpio_output_set(0,0,0, 1&lt;&lt;gpio_no)</span><br><span class="line">#define GPIO_INPUT_GET(gpio_no)     ((gpio_input_get()&gt;&gt;gpio_no)&amp;BIT0)</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-08T13:58:55.000Z" itemprop="dateUpdated">2018-09-08 21:58:55</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/esp8266/">esp8266</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wifi/">wifi</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&title=《esp8266_GPIO控制》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&title=《esp8266_GPIO控制》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《esp8266_GPIO控制》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/11/14/工作-c-language-2017-11-14-C语言函数参数的传值和传址调用/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">C语言函数参数的传值和传址调用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/19/工作-wifi-2017-10-19-esp8266连接机智云平台/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">esp8266连接机智云平台</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&title=《esp8266_GPIO控制》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&title=《esp8266_GPIO控制》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《esp8266_GPIO控制》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/10/20/工作-wifi-2017-10-20-esp8266-GPIO控制/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvElEQVR42u3aQW6lQAwE0Nz/0pntSFGgyqZ/WDxW0QRIP0aiTdlfX/Hx/d+Rn/nzqp8/X985OeeBAw8PD2+x9OtlJUtJFtcuN1nPr/fEw8PDO8a7Xm6+JezvcP2Y8jXj4eHhvYeXbyTXd7t+obf3x8PDw3szLymL99cmQQYeHh7e3/L2L/r8pX991WZrwcPDw/sMLw9S3/Pzkf4eHh4e3rqrnoQFefyah7Ntu+vX1eLh4eEd4G1aU0lBvBm6Sv4laqHh4eHhHeBtCtxnW1n7zSPKqvHw8PDWvLao3Xzv53FwPox1s23g4eHhPcrbtKbapeyHBuo74+Hh4R3gtR/5bVTRhr/J425/i4eHh/csbzbYNAtS8yGAvKy/CSbw8PDwPsKbfcvnTbJ2+CD57bCzh4eHhzfiJfVn0r7Kt5C2tdaGFEUkgYeHhzf66/nGkDf1kxI5uTbfZqKhATw8PLyHePtRqha8Gck6MnSFh4eHV/LawDSPBtpXfL7NFBEzHh4e3kd47ct9Fj3M8PWwAh4eHt4BXrvoWTQwK4vb6akbJB4eHt4BXh7mzvDt0meFflKO4+Hh4W14bcHatvbzZ7k/5+aLAQ8PD+8hXrv0JMI4sZEkhfIwhsDDw8MreXmAu29QzYKPVVSBh4eHd4C3adK3BfT34pjdAQ8PD+/zvDZCzZeS5Mp5PHFzJh4eHt5h3mwEat9tm50fXYWHh4d3jNd+/G+C13bbyI+bLh8eHh7emjf8vC/j11kp3LbT8PDw8D7D2+wn+YNItp+kHJ81w/Dw8PBO8GYFbkLNi+l2GKuIffHw8PCO8WaxbBJAbMYFHsta8PDw8F7DS2DJu3ozWHBTauPh4eG9hpc3vZ4Ki4fbCR4eHt4xXhJGJEFDEt3mI1/tf8YqxsXDw8N7qKs+2zw2LbT80ax6enh4eHgT3j9USmnO/83O2gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

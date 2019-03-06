@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>Matlab模拟傅里叶变换 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="DSP,Matlab">
+    <meta name="description" content="傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。">
+<meta name="keywords" content="DSP,Matlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matlab模拟傅里叶变换">
+<meta property="og:url" content="http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/ctft_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/source/dsp/ctft_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/dtft_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/dsp/dtft_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2018-11-22T07:55:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Matlab模拟傅里叶变换">
+<meta name="twitter:description" content="傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/dsp/ctft_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Matlab模拟傅里叶变换</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Matlab模拟傅里叶变换</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-10-21T07:45:09.000Z" itemprop="datePublished" class="page-time">
+  2018-10-21
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#连续时间傅里叶变换"><span class="post-toc-number">1.</span> <span class="post-toc-text">连续时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#具体实现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">具体实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存在问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">存在问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#离散时间傅里叶变换"><span class="post-toc-number">2.</span> <span class="post-toc-text">离散时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fs-5000sam-sec"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Fs=5000sam/sec</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fs-1000sam-sec"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Fs=1000sam/sec</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-dsp-2018-10-21-Matlab模拟傅里叶变换" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Matlab模拟傅里叶变换</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-10-21 15:45:09" datetime="2018-10-21T07:45:09.000Z" itemprop="datePublished">2018-10-21</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再学习如何在电脑上模拟傅里叶变换。</p>
+<a id="more"></a>
+<blockquote>
+<p>以下大部分内容来自<em>Digital Signal Processing Using Matlab</em>和<em>数字信号处理教程 程佩青</em></p>
+</blockquote>
+<p>此次选择的软件平台为Matlab。</p>
+<p>由于Matlab无法处理无限长序列，所以需要处理的信号必须是有限长的。</p>
+<h1 id="连续时间傅里叶变换"><a href="#连续时间傅里叶变换" class="headerlink" title="连续时间傅里叶变换"></a>连续时间傅里叶变换</h1><p>傅里叶变换的公式为：</p>
+<p>$$<br>X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt<br>$$</p>
+<p>为了在计算机中模拟傅里叶变换，我们将积分变为求和的方式，上下限也从正无穷到负无穷变为一段长度M，dt需要尽可能小</p>
+<p>$$<br>X_a(j\Omega) = \sum_m x_a(m\Delta t)e^{-j\Omega m\Delta t}\Delta t<br>$$</p>
+<p>在Matlab中，函数的自变量因变量的集合都是使用矩阵来存储的，从矩阵的角度来看傅里叶变换的公式如下：</p>
+<p>$$<br>[X_a(0)\ X_a(1)\ X_a(2)\ ..] = [x_a(0)\ x_a(1)\ x_a(2)\ ..]<br>\left[<br>\begin{matrix}<br> e^{-j\omega_0 t_0} &amp; e^{-j\omega_1 t_0} &amp; \cdots &amp; e^{-j\omega_K t_0}      \<br> e^{-j\omega_0 t_1} &amp; e^{-j\omega_1 t_1} &amp; \cdots &amp; e^{-j\omega_K t_1}      \<br> \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br> e^{-j\omega_0 t_N} &amp; e^{-j\omega_1 t_N} &amp; \cdots &amp; e^{-j\omega_K t_N}      \<br>\end{matrix}<br>\right]<br>$$</p>
+<p>角频率向量定义为$\omega=[\omega_0\ \omega_1\ …\ \omega_K]$</p>
+<p>时间向量定义为$t=[t_0 :\Delta t: t_N]$</p>
+<p>因此矩阵指数可写为$-j<em>t’</em>\omega$</p>
+<p>整个傅里叶变换可写为<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>其实下面这个例子是<em>Digital Signal Processing Using Matlab</em>中的，来自P64页，不过想到都看到这里了还要读者翻书不太好，就一起放上来了。</p>
+<p>定义$x_a(t) = e^{-1000|t|}$</p>
+<p>先进行数学上的分析，</p>
+<p>$$<br>\begin {aligned}<br>X_a(j \Omega) &amp;= \int^\infty_{-\infty}x_a(t)e^{-j\Omega t}dt \<br>&amp;= \int^0_{-\infty}e^{1000t}e^{-j\Omega t}dt + \int^\infty_0 e^{-1000t}e^{-j\Omega t}dt \<br>&amp;= \frac{0.002}{1+(\frac{\Omega}{1000})^2}<br>\end {aligned}<br>$$</p>
+<p>MATLAB实现如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Continuous-time Fourier Transform</span></span><br><span class="line">Wmax = <span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">2000</span>;</span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">W = k*Wmax/K;</span><br><span class="line"></span><br><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br><span class="line">Xa = <span class="built_in">abs</span>(Xa);</span><br><span class="line"></span><br><span class="line">W = [-<span class="built_in">fliplr</span>(W), W(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line">Xa = [<span class="built_in">fliplr</span>(Xa), Xa(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>); </span><br><span class="line"><span class="built_in">plot</span>(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'xa(t)'</span>);</span><br><span class="line">title(<span class="string">'Analog Signal'</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>); </span><br><span class="line"><span class="built_in">plot</span>(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),Xa*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br><span class="line">title(<span class="string">'Continuous-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/ctft_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>如果想确认变换的正确性，可以在运行完上面这个脚本后，在命令行输入</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">plot</span>(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),(<span class="number">0.002</span>./(<span class="number">1</span>+(W./<span class="number">1000</span>).^<span class="number">2</span>))*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/source/dsp/ctft_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>这时会发现，根据上面推导的变换公式直接plot出的图形和变换后得到的图形是一样的，这样可以确定变换的正确性。</p>
+<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>目前存在的问题是，对于复函数的变换结果不正确。我想了很多天都找不出问题所在，只能暂时放弃，等以后有机会再研究。</p>
+<h1 id="离散时间傅里叶变换"><a href="#离散时间傅里叶变换" class="headerlink" title="离散时间傅里叶变换"></a>离散时间傅里叶变换</h1><p>下面是对上一个例子中的模拟输入信号做离散化，然后再进行离散傅里叶变换。</p>
+<p>为了体现Nyquist定理，将使用两种不同的采样频率</p>
+<ol>
+<li>使用Fs=5000sam/sec采样来获得x1(n)</li>
+<li>使用Fs=1000sam/sec采样来获得x2(n)</li>
+</ol>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Signal </span></span><br><span class="line">Ts = <span class="number">0.0002</span>;</span><br><span class="line">n = <span class="number">-25</span>:<span class="number">1</span>:<span class="number">25</span>;</span><br><span class="line">x = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(n*Ts));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Fourier transform</span></span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">w = <span class="built_in">pi</span>*k/K;</span><br><span class="line"></span><br><span class="line">X = x*<span class="built_in">exp</span>(-<span class="built_in">j</span>*n'*w); X = <span class="built_in">real</span>(X);</span><br><span class="line"></span><br><span class="line">w = [-<span class="built_in">fliplr</span>(w), w(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line">X = [<span class="built_in">fliplr</span>(X), X(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>);<span class="built_in">plot</span>(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'x1(n)'</span>);</span><br><span class="line">title(<span class="string">'Discrete Signal'</span>);<span class="built_in">hold</span> on;</span><br><span class="line"></span><br><span class="line">stem(n*Ts*<span class="number">1000</span>,<span class="built_in">real</span>(x));gtext(<span class="string">'Ts=0.2 msec'</span>);<span class="built_in">hold</span> off;</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>);<span class="built_in">plot</span>(w/<span class="built_in">pi</span>,X);</span><br><span class="line">xlabel(<span class="string">'Frequency in pi units'</span>);ylabel(<span class="string">'X1(w)'</span>);</span><br><span class="line">title(<span class="string">'Discrete-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Fs-5000sam-sec"><a href="#Fs-5000sam-sec" class="headerlink" title="Fs=5000sam/sec"></a>Fs=5000sam/sec</h2><p>xa(t)的频率为2KHz，因此它的Nyquist频率为4KHz，而它的采样频率为5KHz，所以是满足Nyquist采样定律的，此时不会发生混叠。</p>
+<p>运行效果如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/dtft_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="Fs-1000sam-sec"><a href="#Fs-1000sam-sec" class="headerlink" title="Fs=1000sam/sec"></a>Fs=1000sam/sec</h2><p>这里使用的采样频率为1KHz，不满足Nyquist条件，因此会发生混叠。观察一下就会发生，1KHz采样得到的序列的频域波形和前面的频域波形不同，这就是混叠导致的，而且过低的采样率采集的信号的变换的不可逆的。</p>
+<p>运行效果如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/dsp/dtft_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-22T07:55:11.000Z" itemprop="dateUpdated">2018-11-22 15:55:11</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DSP/">DSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab/">Matlab</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&title=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&title=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&source=傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/24/学习总结-2018-11-24-18年11月总结/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">18年11月总结</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/10/17/工作-c-language-2018-10-17-c语言scanf输入问题/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">c语言scanf输入问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&title=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&title=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&source=傅里叶变换是我们最早开始接触的时频域变换方法，虽然经常使用，知道怎么用纸笔计算，但是还从来没有在电脑中模拟过，正好现在开始学习数字信号处理，借着这个机会再..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Matlab模拟傅里叶变换》 — Zhuhao's Blog&url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2018/10/21/工作-dsp-2018-10-21-Matlab模拟傅里叶变换/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3awU4kMQwEUP7/p9nLHpDQMFV20uxKr08Ienry+pCYsj8+4uvzy/X1N9//+urO5Mq/8fCFh4eHt1h6ssRXX5bAvt/frjNfMx4eHt5tXvK4dln7T7WHBB4eHt6/ycsL7lkJ/vP9eHh4eP8jb7Po9mW1hxMeHh7ek7wkjMgjhgSZlNGPZi14eHh4MW8TK/zWz1f6e3h4eHjrrnrbvmq36aSdNlvn38/i4eHhXeDlG+6Guim1Xz2tuBMPDw/vKC8ZscqbW3kcnHw2DzteHjN4eHh4F3inGv9tKNwOKOTruTLXgIeHh1fGAXmTftjaL8ew8uMKDw8P7wavbeTnxXESW7SkfLV4eHh493htMX2Kmhw5s295mbXg4eHhHeW1x8OssG4xs+Oh6Ozh4eHhrXmbZW1GqfbRRjRuhYeHh3eUlyNnkcF+dGDYQsPDw8O7wEvihmE5G+fHswijaM7h4eHhPcJrA9wE0Jbv7SDCmzYYHh4e3lFeu1nvI9284G7HHeqhKzw8PLw1Lw9t8wK6LZpnrbgIiYeHh7fmbQZMb+CTZxYlOB4eHt41XvvP/KywbscI9q8DDw8P7x7vbIgwCy9ma/i5aYeHh4f3DG+/6R9YVnk8HJgpw8PDw5t04YcNqln7qh2uatty0dAqHh4e3oKXxwd5274NiNtDpRioxcPDw7vGm227m2HTJCaelfJ4eHh4z/DygyHZjttt/V5DDg8PD+8s77O88uZ9EgfPnpOU+29myvDw8PAWvLbMPTsukA8izAYa8PDw8O7xTo1Mbcaz8nI5D4Xx8PDwbvPaDKMNeduye3O9GR3Aw8PD+yVe/gral7J58rGDAQ8PD+9yzZm3u/Iwd9PDwsPDw3uGl4QRSbTaNq7yUCNvv+Hh4eHd5tX/3i8GCPJI9+KgAB4eHt6c9weRoodcIXdf8wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
