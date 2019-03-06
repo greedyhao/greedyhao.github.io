@@ -37,19 +37,19 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="总结">
-    <meta name="description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看了">
+    <meta name="description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread 之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看">
 <meta name="keywords" content="总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="18年11月总结">
 <meta property="og:url" content="http://greedyhao.cc/2018/11/24/学习总结-2018-11-24-18年11月总结/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看了">
+<meta property="og:description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread 之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
 <meta property="og:updated_time" content="2018-11-24T14:03:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="18年11月总结">
-<meta name="twitter:description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看了">
+<meta name="twitter:description" content="最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。 表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。 下面进入主题，介绍一下最近接触的东西。 RT-Thread 之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。 培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看">
 <meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#RT-Thread"><span class="post-toc-number">1.</span> <span class="post-toc-text">RT-Thread</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#DSP"><span class="post-toc-number">2.</span> <span class="post-toc-text">DSP</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通信原理"><span class="post-toc-number">3.</span> <span class="post-toc-text">通信原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对下个月的打算"><span class="post-toc-number">4.</span> <span class="post-toc-text">对下个月的打算</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#专业词汇"><span class="post-toc-number">5.</span> <span class="post-toc-text">专业词汇</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rt-thread"><span class="post-toc-number">1.</span> <span class="post-toc-text">RT-Thread</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#dsp"><span class="post-toc-number">2.</span> <span class="post-toc-text">DSP</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通信原理"><span class="post-toc-number">3.</span> <span class="post-toc-text">通信原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对下个月的打算"><span class="post-toc-number">4.</span> <span class="post-toc-text">对下个月的打算</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#专业词汇"><span class="post-toc-number">5.</span> <span class="post-toc-text">专业词汇</span></a></li></ol>
         </nav>
     </aside>
 
@@ -202,17 +202,22 @@ ga('send', 'pageview');
             <p>最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。</p>
 <p>表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。</p>
 <p>下面进入主题，介绍一下最近接触的东西。</p>
-<h1 id="RT-Thread"><a href="#RT-Thread" class="headerlink" title="RT-Thread"></a>RT-Thread</h1><p>之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。</p>
+<h1 id="rt-thread">RT-Thread</h1>
+<p>之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。</p>
 <p>培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看了看野火的rtt的书，从目录来看，两者的教程很相似，由于对两者的接触很浅，所以具体的异同还要细看后才好说。</p>
 <p>就我目前见识到的，各种操作系统的基本功能都差不多，都有对线程的操作、线程间通信、内存管理等功能，不过具体实现各有特点。</p>
-<h1 id="DSP"><a href="#DSP" class="headerlink" title="DSP"></a>DSP</h1><p>幅值、相位、实部、虚部是不一样的，可惜我学了很久直到不就前才注意到，之前在画频谱时，只知道要用abs取绝对值，但不知道为什么；不过后来慢慢知道频域中一般研究的是幅值和相位，实部和虚部的研究在时域中出现的比较多。</p>
-<h1 id="通信原理"><a href="#通信原理" class="headerlink" title="通信原理"></a>通信原理</h1><p>通信原理是我目前最头疼的一门学科了，这个月感觉根本没有学到什么…不过这也主要和我这个月态度太差了有关，既然之前没有学好，只能现在开始补了</p>
-<h1 id="对下个月的打算"><a href="#对下个月的打算" class="headerlink" title="对下个月的打算"></a>对下个月的打算</h1><p>首先是会尽快将这周的rtt培训任务完成，任务需要将rtt内核移植到自己的开发板上，我准备先使用rtt nano版的移植，再做env的移植。目前还没有对rtt在linux上的编译链接了解太多，准备到时候使用Truestudio开发吧。</p>
+<h1 id="dsp">DSP</h1>
+<p>幅值、相位、实部、虚部是不一样的，可惜我学了很久直到不就前才注意到，之前在画频谱时，只知道要用abs取绝对值，但不知道为什么；不过后来慢慢知道频域中一般研究的是幅值和相位，实部和虚部的研究在时域中出现的比较多。</p>
+<h1 id="通信原理">通信原理</h1>
+<p>通信原理是我目前最头疼的一门学科了，这个月感觉根本没有学到什么...不过这也主要和我这个月态度太差了有关，既然之前没有学好，只能现在开始补了</p>
+<h1 id="对下个月的打算">对下个月的打算</h1>
+<p>首先是会尽快将这周的rtt培训任务完成，任务需要将rtt内核移植到自己的开发板上，我准备先使用rtt nano版的移植，再做env的移植。目前还没有对rtt在linux上的编译链接了解太多，准备到时候使用Truestudio开发吧。</p>
 <p>然后自然就是学习数字信号处理和通信原理了，毕竟专业学科不能落下，这两门学科学起来还是不容易。</p>
 <p>接下来我会改变目前的状态，只要有点所得就写下发出来，就当是给自己动力把。</p>
-<h1 id="专业词汇"><a href="#专业词汇" class="headerlink" title="专业词汇"></a>专业词汇</h1><ul>
-<li>Finite-duration impulse response (FIR) </li>
-<li>Infinite-duration impulse response (FIR) </li>
+<h1 id="专业词汇">专业词汇</h1>
+<ul>
+<li>Finite-duration impulse response (FIR)</li>
+<li>Infinite-duration impulse response (FIR)</li>
 </ul>
 <hr>
 <figure class="image-bubble">
@@ -222,6 +227,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">

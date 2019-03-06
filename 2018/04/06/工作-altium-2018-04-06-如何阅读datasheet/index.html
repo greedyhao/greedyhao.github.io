@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="Altium,PCB">
-    <meta name="description" content="如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+    <meta name="description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
 <meta name="keywords" content="Altium,PCB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何阅读datasheet，以BQ24610为例">
 <meta property="og:url" content="http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+<meta property="og:description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/altium/BQ24610_2.png">
@@ -67,7 +67,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T05:52:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何阅读datasheet，以BQ24610为例">
-<meta name="twitter:description" content="如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
+<meta name="twitter:description" content="如何阅读datasheet，以BQ24610为例 本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/altium/BQ24610_1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -194,7 +194,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何阅读datasheet，以BQ24610为例"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何阅读datasheet，以BQ24610为例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原理图设计"><span class="post-toc-number">2.</span> <span class="post-toc-text">原理图设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考官方参考电路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">参考官方参考电路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#做细微的参数调整"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">做细微的参数调整</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完成设计"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">完成设计</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PCB设计"><span class="post-toc-number">3.</span> <span class="post-toc-text">PCB设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#官方建议"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">官方建议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PCB一般要求"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">PCB一般要求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#成品图"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">成品图</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何阅读datasheet以bq24610为例"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何阅读datasheet，以BQ24610为例</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原理图设计"><span class="post-toc-number">2.</span> <span class="post-toc-text">原理图设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考官方参考电路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">参考官方参考电路</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#做细微的参数调整"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">做细微的参数调整</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#完成设计"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">完成设计</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pcb设计"><span class="post-toc-number">3.</span> <span class="post-toc-text">PCB设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#官方建议"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">官方建议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pcb一般要求"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">PCB一般要求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#成品图"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">成品图</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
         </nav>
     </aside>
 
@@ -217,10 +217,13 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="如何阅读datasheet，以BQ24610为例"><a href="#如何阅读datasheet，以BQ24610为例" class="headerlink" title="如何阅读datasheet，以BQ24610为例"></a>如何阅读datasheet，以BQ24610为例</h1><p>本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。</p>
+            <h1 id="如何阅读datasheet以bq24610为例">如何阅读datasheet，以BQ24610为例</h1>
+<p>本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。</p>
 <a id="more"></a>
 <p>本次需要设计的是24V动力锂电池充电电路。</p>
-<h1 id="原理图设计"><a href="#原理图设计" class="headerlink" title="原理图设计"></a>原理图设计</h1><h2 id="参考官方参考电路"><a href="#参考官方参考电路" class="headerlink" title="参考官方参考电路"></a>参考官方参考电路</h2><p>为了快速设计电路，自然是参考官方参考电路，选择<strong>Typical Application</strong>。</p>
+<h1 id="原理图设计">原理图设计</h1>
+<h2 id="参考官方参考电路">参考官方参考电路</h2>
+<p>为了快速设计电路，自然是参考官方参考电路，选择<strong>Typical Application</strong>。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -235,46 +238,26 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="做细微的参数调整"><a href="#做细微的参数调整" class="headerlink" title="做细微的参数调整"></a>做细微的参数调整</h2><p>由于我们的需求是给24V的电池充电，所以需要稍微修改一下原理图，接下来需要查看的就是<strong>Feature Description</strong></p>
+<h2 id="做细微的参数调整">做细微的参数调整</h2>
+<p>由于我们的需求是给24V的电池充电，所以需要稍微修改一下原理图，接下来需要查看的就是<strong>Feature Description</strong></p>
 <ul>
 <li>设置充电电压</li>
 </ul>
-<p><img src="/img/altium/BQ24610_3.png" alt=""></p>
-<p>从图中可以看出，R1和R2是设置电池充电电压的地方。我需要的是24V充电，所以我分贝设置为100K和1.1M</p>
-<ul>
-<li>设置电池充电电流</li>
-</ul>
-<p><img src="/img/altium/BQ24610_4.png" alt=""></p>
-<p>Vset1和Rsr是用来调整充电电流的，虽然我也想把充电电流设置的高一点，但是我在淘宝上找不到能提供那么大电流的的24V的适配器，很失望。Rsr就用了10mR，Vset1是使用电阻分压得到的，我本来想设置为5A的，可是43.5K的电阻很贵，就采用了和官方一样的电阻值，设置为3A。</p>
-<ul>
-<li>设置适配器充电电流</li>
-</ul>
-<p><img src="/img/altium/BQ24610_5.png" alt=""></p>
-<p>通过Vacset和Rac设置，前文也说了，由于适配器限制，本来这片芯片最大能承受10A充电电流的，也只能设置成3A，也使用官方提供的值了。</p>
-<ul>
-<li>设置预充电电流</li>
-</ul>
-<p><img src="/img/altium/BQ24610_6.png" alt=""></p>
-<p>预充电就是当电池电压低于一个设置的阈值时，先用小电流对电池充电，使电池达到设置的阈值，这样可以激活电池，保证电池的寿命不会太快衰减。但需要注意的是，预充电30分钟后还没有达到阈值的话，充电芯片就会停止充电，通过状态引脚给出错误信息。</p>
-<ul>
-<li>设置充电安全时间</li>
-</ul>
-<p><img src="/img/altium/BQ24610_7.png" alt=""></p>
-<p>通过Cttc这个电容可以设置充电的安全时间，也是一种保护电池的措施。我使用的也是官方的值。</p>
-<ul>
-<li>系统供电方式</li>
-</ul>
-<p><img src="/img/altium/BQ24610_9.png" alt=""></p>
-<p>这里说的大概意思就是，VCC可以从电池或适配器供电，当VCC电压大于电池电压时，会关闭电池与系统之间的<strong>BATFET</strong>，使用VCC供电（一般也就是插着适配器的时候才会发生吧，使用适配器供电也很正常）。</p>
-<ul>
-<li>充电和取消充电的情况</li>
-</ul>
-<p><img src="/img/altium/BQ24610_10.png" alt=""></p>
-<p>这里列举了什么情况下充电，什么情况下停止充电，有兴趣自己看看就好，对原理图绘制影响不大。</p>
-<ul>
-<li>过热保护</li>
-</ul>
-<p><img src="/img/altium/BQ24610_11.png" alt=""></p>
+<p><img src="/img/altium/BQ24610_3.png"></p>
+<p>从图中可以看出，R1和R2是设置电池充电电压的地方。我需要的是24V充电，所以我分贝设置为100K和1.1M - 设置电池充电电流</p>
+<p><img src="/img/altium/BQ24610_4.png"></p>
+<p>Vset1和Rsr是用来调整充电电流的，虽然我也想把充电电流设置的高一点，但是我在淘宝上找不到能提供那么大电流的的24V的适配器，很失望。Rsr就用了10mR，Vset1是使用电阻分压得到的，我本来想设置为5A的，可是43.5K的电阻很贵，就采用了和官方一样的电阻值，设置为3A。 - 设置适配器充电电流</p>
+<p><img src="/img/altium/BQ24610_5.png"></p>
+<p>通过Vacset和Rac设置，前文也说了，由于适配器限制，本来这片芯片最大能承受10A充电电流的，也只能设置成3A，也使用官方提供的值了。 - 设置预充电电流</p>
+<p><img src="/img/altium/BQ24610_6.png"></p>
+<p>预充电就是当电池电压低于一个设置的阈值时，先用小电流对电池充电，使电池达到设置的阈值，这样可以激活电池，保证电池的寿命不会太快衰减。但需要注意的是，预充电30分钟后还没有达到阈值的话，充电芯片就会停止充电，通过状态引脚给出错误信息。 - 设置充电安全时间</p>
+<p><img src="/img/altium/BQ24610_7.png"></p>
+<p>通过Cttc这个电容可以设置充电的安全时间，也是一种保护电池的措施。我使用的也是官方的值。 - 系统供电方式</p>
+<p><img src="/img/altium/BQ24610_9.png"></p>
+<p>这里说的大概意思就是，VCC可以从电池或适配器供电，当VCC电压大于电池电压时，会关闭电池与系统之间的<strong>BATFET</strong>，使用VCC供电（一般也就是插着适配器的时候才会发生吧，使用适配器供电也很正常）。 - 充电和取消充电的情况</p>
+<p><img src="/img/altium/BQ24610_10.png"></p>
+<p>这里列举了什么情况下充电，什么情况下停止充电，有兴趣自己看看就好，对原理图绘制影响不大。 - 过热保护</p>
+<p><img src="/img/altium/BQ24610_11.png"></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -282,13 +265,11 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>这里提到用103AT的热敏电阻测量温度。</p>
-<ul>
-<li>充电状态输出方式</li>
-</ul>
-<p><img src="/img/altium/BQ24610_13.png" alt=""></p>
+<p>这里提到用103AT的热敏电阻测量温度。 - 充电状态输出方式</p>
+<p><img src="/img/altium/BQ24610_13.png"></p>
 <p>这张表体现了充电的状态对应的LED灯情况</p>
-<h2 id="完成设计"><a href="#完成设计" class="headerlink" title="完成设计"></a>完成设计</h2><figure class="image-bubble">
+<h2 id="完成设计">完成设计</h2>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/altium/BQ24610_14.png" alt="" title="">
@@ -296,7 +277,9 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>说实话，感觉这种设计感觉技术水平不高，还是那些使用分立元件那个年代的前辈厉害，现在都集成在IC中了，外围设计简单了太多。</p>
-<h1 id="PCB设计"><a href="#PCB设计" class="headerlink" title="PCB设计"></a>PCB设计</h1><h2 id="官方建议"><a href="#官方建议" class="headerlink" title="官方建议"></a>官方建议</h2><figure class="image-bubble">
+<h1 id="pcb设计">PCB设计</h1>
+<h2 id="官方建议">官方建议</h2>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/altium/BQ24610_15.png" alt="" title="">
@@ -310,16 +293,9 @@ ga('send', 'pageview');
 <li>电感的输入端要尽可能的靠近开关MOSFET的输出端。覆铜面积要尽可能小以避免电磁干扰，但是要保证足够的宽度承载电流。这里不要用不同层的平行线的连接。保证和其他网络尽可能小的寄生电容（这是为了避免这里的高频信号影响其他位置的模拟电路）。</li>
 <li>采样电阻要靠近电感的输出端，布线时最好参考官方的这种设计</li>
 </ul>
-<p><img src="/img/altium/BQ24610_16.png" alt=""></p>
-<ul>
-<li>输出电容要放置在靠近采样电阻的输出端和地之间。</li>
-<li>输出电容的地要先和输入电容的地连接再和IC的地连接</li>
-<li>模拟地要和电源地分离，并且用信号地连接充电器的电源地和模拟地。就在IC的下放使用覆铜连接模拟地，但是要避免电源管脚以减少容性和感性噪声耦合。在热焊盘上连接模拟地和电源地并作为信号地的连接点。或者使用0R的电阻连接模拟地和电源地（这种情况下热焊盘需要连接模拟地）。非常推荐在热焊盘下使用星形连接。</li>
-<li>热焊盘的接地是非常重要的，要确保过孔是直接在IC下方的。</li>
-<li>去耦电容要尽可能靠近IC</li>
-<li>过孔的数量和大小要满足电流的需要</li>
-</ul>
-<h2 id="PCB一般要求"><a href="#PCB一般要求" class="headerlink" title="PCB一般要求"></a>PCB一般要求</h2><p>除此之外还要注意电流与线宽、铜厚之间的关系</p>
+<p><img src="/img/altium/BQ24610_16.png"> - 输出电容要放置在靠近采样电阻的输出端和地之间。 - 输出电容的地要先和输入电容的地连接再和IC的地连接 - 模拟地要和电源地分离，并且用信号地连接充电器的电源地和模拟地。就在IC的下放使用覆铜连接模拟地，但是要避免电源管脚以减少容性和感性噪声耦合。在热焊盘上连接模拟地和电源地并作为信号地的连接点。或者使用0R的电阻连接模拟地和电源地（这种情况下热焊盘需要连接模拟地）。非常推荐在热焊盘下使用星形连接。 - 热焊盘的接地是非常重要的，要确保过孔是直接在IC下方的。 - 去耦电容要尽可能靠近IC - 过孔的数量和大小要满足电流的需要</p>
+<h2 id="pcb一般要求">PCB一般要求</h2>
+<p>除此之外还要注意电流与线宽、铜厚之间的关系</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -327,8 +303,9 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p><img src="/img/altium/pcb铜厚与电流关系.png" alt=""></p>
-<h2 id="成品图"><a href="#成品图" class="headerlink" title="成品图"></a>成品图</h2><figure class="image-bubble">
+<p><img src="/img/altium/pcb铜厚与电流关系.png"></p>
+<h2 id="成品图">成品图</h2>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/altium/BQ24610_17.png" alt="Top Layer" title="">
@@ -342,7 +319,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption">Bottom Layer</div>
             </figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>画PCB还是需要有经验加持的，就拿我这次画板来说吧，之前没有经验，不懂如何看IC的datasheet，在老师的带领下才学会了查看datasheet。但是看datasheet还是不够认真，没有去看官方的一些建议，Layout时有许多细节没有处理好，只到我打板后这么久，写文章的时候才发现，官方建议中的第2、3、4、5、6、7、9都是不太符合要求的，但是板都打了..</p>
+<h1 id="总结">总结</h1>
+<p>画PCB还是需要有经验加持的，就拿我这次画板来说吧，之前没有经验，不懂如何看IC的datasheet，在老师的带领下才学会了查看datasheet。但是看datasheet还是不够认真，没有去看官方的一些建议，Layout时有许多细节没有处理好，只到我打板后这么久，写文章的时候才发现，官方建议中的第2、3、4、5、6、7、9都是不太符合要求的，但是板都打了..</p>
 <p>虽然板子存在很多问题，但是自己画的板还是想看看效果是怎么样的，可惜退了那个团队，测试板子就交给其他人了。</p>
 
         </div>
@@ -398,7 +376,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例
+本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -562,7 +541,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/&title=《如何阅读datasheet，以BQ24610为例》 — Zhuhao's Blog&source=如何阅读datasheet，以BQ24610为例
+本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

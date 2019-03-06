@@ -180,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#连续时间傅里叶变换"><span class="post-toc-number">1.</span> <span class="post-toc-text">连续时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#具体实现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">具体实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存在问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">存在问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#离散时间傅里叶变换"><span class="post-toc-number">2.</span> <span class="post-toc-text">离散时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fs-5000sam-sec"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Fs=5000sam/sec</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fs-1000sam-sec"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Fs=1000sam/sec</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#连续时间傅里叶变换"><span class="post-toc-number">1.</span> <span class="post-toc-text">连续时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#具体实现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">具体实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存在问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">存在问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#离散时间傅里叶变换"><span class="post-toc-number">2.</span> <span class="post-toc-text">离散时间傅里叶变换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fs5000samsec"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Fs=5000sam/sec</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fs1000samsec"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Fs=1000sam/sec</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -210,23 +210,45 @@ ga('send', 'pageview');
 </blockquote>
 <p>此次选择的软件平台为Matlab。</p>
 <p>由于Matlab无法处理无限长序列，所以需要处理的信号必须是有限长的。</p>
-<h1 id="连续时间傅里叶变换"><a href="#连续时间傅里叶变换" class="headerlink" title="连续时间傅里叶变换"></a>连续时间傅里叶变换</h1><p>傅里叶变换的公式为：</p>
-<p>$$<br>X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt<br>$$</p>
+<h1 id="连续时间傅里叶变换">连续时间傅里叶变换</h1>
+<p>傅里叶变换的公式为：</p>
+<p><span class="math display">\[
+X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt
+\]</span></p>
 <p>为了在计算机中模拟傅里叶变换，我们将积分变为求和的方式，上下限也从正无穷到负无穷变为一段长度M，dt需要尽可能小</p>
-<p>$$<br>X_a(j\Omega) = \sum_m x_a(m\Delta t)e^{-j\Omega m\Delta t}\Delta t<br>$$</p>
+<p><span class="math display">\[
+X_a(j\Omega) = \sum_m x_a(m\Delta t)e^{-j\Omega m\Delta t}\Delta t
+\]</span></p>
 <p>在Matlab中，函数的自变量因变量的集合都是使用矩阵来存储的，从矩阵的角度来看傅里叶变换的公式如下：</p>
-<p>$$<br>[X_a(0)\ X_a(1)\ X_a(2)\ ..] = [x_a(0)\ x_a(1)\ x_a(2)\ ..]<br>\left[<br>\begin{matrix}<br> e^{-j\omega_0 t_0} &amp; e^{-j\omega_1 t_0} &amp; \cdots &amp; e^{-j\omega_K t_0}      \<br> e^{-j\omega_0 t_1} &amp; e^{-j\omega_1 t_1} &amp; \cdots &amp; e^{-j\omega_K t_1}      \<br> \vdots &amp; \vdots &amp; \ddots &amp; \vdots \<br> e^{-j\omega_0 t_N} &amp; e^{-j\omega_1 t_N} &amp; \cdots &amp; e^{-j\omega_K t_N}      \<br>\end{matrix}<br>\right]<br>$$</p>
-<p>角频率向量定义为$\omega=[\omega_0\ \omega_1\ …\ \omega_K]$</p>
-<p>时间向量定义为$t=[t_0 :\Delta t: t_N]$</p>
-<p>因此矩阵指数可写为$-j<em>t’</em>\omega$</p>
-<p>整个傅里叶变换可写为<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>其实下面这个例子是<em>Digital Signal Processing Using Matlab</em>中的，来自P64页，不过想到都看到这里了还要读者翻书不太好，就一起放上来了。</p>
-<p>定义$x_a(t) = e^{-1000|t|}$</p>
+<p><span class="math display">\[
+[X_a(0)\ X_a(1)\ X_a(2)\ ..] = [x_a(0)\ x_a(1)\ x_a(2)\ ..]
+\left[
+\begin{matrix}
+ e^{-j\omega_0 t_0} &amp; e^{-j\omega_1 t_0} &amp; \cdots &amp; e^{-j\omega_K t_0}      \\
+ e^{-j\omega_0 t_1} &amp; e^{-j\omega_1 t_1} &amp; \cdots &amp; e^{-j\omega_K t_1}      \\
+ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+ e^{-j\omega_0 t_N} &amp; e^{-j\omega_1 t_N} &amp; \cdots &amp; e^{-j\omega_K t_N}      \\
+\end{matrix}
+\right]
+\]</span></p>
+<p>角频率向量定义为<span class="math inline">\(\omega=[\omega_0\ \omega_1\ ...\ \omega_K]\)</span></p>
+<p>时间向量定义为<span class="math inline">\(t=[t_0 :\Delta t: t_N]\)</span></p>
+<p>因此矩阵指数可写为<span class="math inline">\(-j*t&#39;*\omega\)</span></p>
+<p>整个傅里叶变换可写为 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="具体实现">具体实现</h2>
+<p>其实下面这个例子是<em>Digital Signal Processing Using Matlab</em>中的，来自P64页，不过想到都看到这里了还要读者翻书不太好，就一起放上来了。</p>
+<p>定义<span class="math inline">\(x_a(t) = e^{-1000|t|}\)</span></p>
 <p>先进行数学上的分析，</p>
-<p>$$<br>\begin {aligned}<br>X_a(j \Omega) &amp;= \int^\infty_{-\infty}x_a(t)e^{-j\Omega t}dt \<br>&amp;= \int^0_{-\infty}e^{1000t}e^{-j\Omega t}dt + \int^\infty_0 e^{-1000t}e^{-j\Omega t}dt \<br>&amp;= \frac{0.002}{1+(\frac{\Omega}{1000})^2}<br>\end {aligned}<br>$$</p>
+<p><span class="math display">\[
+\begin {aligned}
+X_a(j \Omega) &amp;= \int^\infty_{-\infty}x_a(t)e^{-j\Omega t}dt \\
+&amp;= \int^0_{-\infty}e^{1000t}e^{-j\Omega t}dt + \int^\infty_0 e^{-1000t}e^{-j\Omega t}dt \\
+&amp;= \frac{0.002}{1+(\frac{\Omega}{1000})^2}
+\end {aligned}
+\]</span></p>
 <p>MATLAB实现如下：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Continuous-time Fourier Transform</span></span><br><span class="line">Wmax = <span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">2000</span>;</span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">W = k*Wmax/K;</span><br><span class="line"></span><br><span class="line">Xa = xa * <span class="built_in">exp</span>(<span class="number">-1</span><span class="built_in">j</span>*t'*W) * Dt;</span><br><span class="line">Xa = <span class="built_in">abs</span>(Xa);</span><br><span class="line"></span><br><span class="line">W = [-<span class="built_in">fliplr</span>(W), W(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line">Xa = [<span class="built_in">fliplr</span>(Xa), Xa(<span class="number">2</span>:<span class="number">501</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>); </span><br><span class="line"><span class="built_in">plot</span>(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'xa(t)'</span>);</span><br><span class="line">title(<span class="string">'Analog Signal'</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>); </span><br><span class="line"><span class="built_in">plot</span>(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),Xa*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br><span class="line">title(<span class="string">'Continuous-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
-<p>运行效果如下：<br><figure class="image-bubble">
+<p>运行效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/dsp/ctft_1.png" alt="" title="">
@@ -235,7 +257,7 @@ ga('send', 'pageview');
             </figure></p>
 <p>如果想确认变换的正确性，可以在运行完上面这个脚本后，在命令行输入</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">plot</span>(W/(<span class="number">2</span>*<span class="built_in">pi</span>*<span class="number">1000</span>),(<span class="number">0.002</span>./(<span class="number">1</span>+(W./<span class="number">1000</span>).^<span class="number">2</span>))*<span class="number">1000</span>);</span><br><span class="line">xlabel(<span class="string">'Frequency in KHz'</span>); ylabel(<span class="string">'Xa(jW)*1000'</span>);</span><br></pre></td></tr></table></figure>
-<p>运行效果如下：<br><figure class="image-bubble">
+<p>运行效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/source/dsp/ctft_2.png" alt="" title="">
@@ -243,24 +265,24 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure></p>
 <p>这时会发现，根据上面推导的变换公式直接plot出的图形和变换后得到的图形是一样的，这样可以确定变换的正确性。</p>
-<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>目前存在的问题是，对于复函数的变换结果不正确。我想了很多天都找不出问题所在，只能暂时放弃，等以后有机会再研究。</p>
-<h1 id="离散时间傅里叶变换"><a href="#离散时间傅里叶变换" class="headerlink" title="离散时间傅里叶变换"></a>离散时间傅里叶变换</h1><p>下面是对上一个例子中的模拟输入信号做离散化，然后再进行离散傅里叶变换。</p>
-<p>为了体现Nyquist定理，将使用两种不同的采样频率</p>
-<ol>
-<li>使用Fs=5000sam/sec采样来获得x1(n)</li>
-<li>使用Fs=1000sam/sec采样来获得x2(n)</li>
-</ol>
+<h2 id="存在问题">存在问题</h2>
+<p>目前存在的问题是，对于复函数的变换结果不正确。我想了很多天都找不出问题所在，只能暂时放弃，等以后有机会再研究。</p>
+<h1 id="离散时间傅里叶变换">离散时间傅里叶变换</h1>
+<p>下面是对上一个例子中的模拟输入信号做离散化，然后再进行离散傅里叶变换。</p>
+<p>为了体现Nyquist定理，将使用两种不同的采样频率 1. 使用Fs=5000sam/sec采样来获得x1(n) 2. 使用Fs=1000sam/sec采样来获得x2(n)</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% Analog Signal</span></span><br><span class="line">Dt = <span class="number">0.00005</span>;</span><br><span class="line">t = <span class="number">-0.005</span>:Dt:<span class="number">0.005</span>;</span><br><span class="line">xa = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(t));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Signal </span></span><br><span class="line">Ts = <span class="number">0.0002</span>;</span><br><span class="line">n = <span class="number">-25</span>:<span class="number">1</span>:<span class="number">25</span>;</span><br><span class="line">x = <span class="built_in">exp</span>(<span class="number">-1000</span>*<span class="built_in">abs</span>(n*Ts));</span><br><span class="line"></span><br><span class="line"><span class="comment">% Discrete-time Fourier transform</span></span><br><span class="line">K = <span class="number">500</span>;</span><br><span class="line">k = <span class="number">0</span>:<span class="number">1</span>:K;</span><br><span class="line">w = <span class="built_in">pi</span>*k/K;</span><br><span class="line"></span><br><span class="line">X = x*<span class="built_in">exp</span>(-<span class="built_in">j</span>*n'*w); X = <span class="built_in">real</span>(X);</span><br><span class="line"></span><br><span class="line">w = [-<span class="built_in">fliplr</span>(w), w(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line">X = [<span class="built_in">fliplr</span>(X), X(<span class="number">2</span>:K+<span class="number">1</span>)];</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>);<span class="built_in">plot</span>(t*<span class="number">1000</span>,xa);</span><br><span class="line">xlabel(<span class="string">'t in msec.'</span>); </span><br><span class="line">ylabel(<span class="string">'x1(n)'</span>);</span><br><span class="line">title(<span class="string">'Discrete Signal'</span>);<span class="built_in">hold</span> on;</span><br><span class="line"></span><br><span class="line">stem(n*Ts*<span class="number">1000</span>,<span class="built_in">real</span>(x));gtext(<span class="string">'Ts=0.2 msec'</span>);<span class="built_in">hold</span> off;</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>);<span class="built_in">plot</span>(w/<span class="built_in">pi</span>,X);</span><br><span class="line">xlabel(<span class="string">'Frequency in pi units'</span>);ylabel(<span class="string">'X1(w)'</span>);</span><br><span class="line">title(<span class="string">'Discrete-time Fourier Transform'</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="Fs-5000sam-sec"><a href="#Fs-5000sam-sec" class="headerlink" title="Fs=5000sam/sec"></a>Fs=5000sam/sec</h2><p>xa(t)的频率为2KHz，因此它的Nyquist频率为4KHz，而它的采样频率为5KHz，所以是满足Nyquist采样定律的，此时不会发生混叠。</p>
-<p>运行效果如下：<br><figure class="image-bubble">
+<h2 id="fs5000samsec">Fs=5000sam/sec</h2>
+<p>xa(t)的频率为2KHz，因此它的Nyquist频率为4KHz，而它的采样频率为5KHz，所以是满足Nyquist采样定律的，此时不会发生混叠。</p>
+<p>运行效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/dsp/dtft_1.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="Fs-1000sam-sec"><a href="#Fs-1000sam-sec" class="headerlink" title="Fs=1000sam/sec"></a>Fs=1000sam/sec</h2><p>这里使用的采样频率为1KHz，不满足Nyquist条件，因此会发生混叠。观察一下就会发生，1KHz采样得到的序列的频域波形和前面的频域波形不同，这就是混叠导致的，而且过低的采样率采集的信号的变换的不可逆的。</p>
-<p>运行效果如下：<br><figure class="image-bubble">
+<h2 id="fs1000samsec">Fs=1000sam/sec</h2>
+<p>这里使用的采样频率为1KHz，不满足Nyquist条件，因此会发生混叠。观察一下就会发生，1KHz采样得到的序列的频域波形和前面的频域波形不同，这就是混叠导致的，而且过低的采样率采集的信号的变换的不可逆的。</p>
+<p>运行效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/dsp/dtft_2.png" alt="" title="">

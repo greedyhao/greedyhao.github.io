@@ -37,19 +37,19 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="GPIO_Input程序很简单，就是读取按键是否按下，控制LED是否点亮。">
+    <meta name="description" content="GPIO_Input 程序很简单，就是读取按键是否按下，控制LED是否点亮。">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习GPIO输入">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="GPIO_Input程序很简单，就是读取按键是否按下，控制LED是否点亮。">
+<meta property="og:description" content="GPIO_Input 程序很简单，就是读取按键是否按下，控制LED是否点亮。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqcum4nqg.bkt.clouddn.com/STM32/%E6%8C%89%E9%94%AE%E6%8E%A7%E5%88%B6LED%E5%A4%B1%E8%B4%A51.jpg">
 <meta property="og:updated_time" content="2017-08-14T13:27:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习GPIO输入">
-<meta name="twitter:description" content="GPIO_Input程序很简单，就是读取按键是否按下，控制LED是否点亮。">
+<meta name="twitter:description" content="GPIO_Input 程序很简单，就是读取按键是否按下，控制LED是否点亮。">
 <meta name="twitter:image" content="http://oqcum4nqg.bkt.clouddn.com/STM32/%E6%8C%89%E9%94%AE%E6%8E%A7%E5%88%B6LED%E5%A4%B1%E8%B4%A51.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -178,7 +178,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#GPIO-Input"><span class="post-toc-number">1.</span> <span class="post-toc-text">GPIO_Input</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按键初始化程序"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">按键初始化程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按键扫描程序"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">按键扫描程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题描述："><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">问题描述：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题筛查"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">问题筛查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题解决"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">问题解决</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#gpio_input"><span class="post-toc-number">1.</span> <span class="post-toc-text">GPIO_Input</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按键初始化程序"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">按键初始化程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#按键扫描程序"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">按键扫描程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题描述"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">问题描述：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题筛查"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">问题筛查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题解决"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">问题解决</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -203,13 +203,17 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="GPIO-Input"><a href="#GPIO-Input" class="headerlink" title="GPIO_Input"></a>GPIO_Input</h1><p>程序很简单，就是读取按键是否按下，控制LED是否点亮。</p>
+            <h1 id="gpio_input">GPIO_Input</h1>
+<p>程序很简单，就是读取按键是否按下，控制LED是否点亮。</p>
 <a id="more"></a>
-<h3 id="按键初始化程序"><a href="#按键初始化程序" class="headerlink" title="按键初始化程序"></a>按键初始化程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|</span><br><span class="line">			RCC_APB2Periph_GPIOB,ENABLE);</span><br><span class="line"></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3| GPIO_Pin_4| GPIO_Pin_5| GPIO_Pin_6;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
-<h3 id="按键扫描程序"><a href="#按键扫描程序" class="headerlink" title="按键扫描程序"></a>按键扫描程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static u8 key_up = 1;</span><br><span class="line">if(mode)key_up = 1;</span><br><span class="line">if(key_up&amp;&amp;(KEY0 == 0||KEY1 == 0||KEY2 == 0||WK_UP == 0))</span><br><span class="line">&#123;</span><br><span class="line">		delay_ms(10);</span><br><span class="line">		key_up = 0;</span><br><span class="line">		if(KEY0 == 0)return KEY0_PRES;</span><br><span class="line">		else if(KEY1 == 0)return KEY1_PRES;</span><br><span class="line">		else if(KEY2 == 0)return KEY2_PRES;</span><br><span class="line">		else if(WK_UP == 0)return WKUP_PRES;</span><br><span class="line">&#125;else if(KEY0 == 1&amp;&amp;KEY1 == 1&amp;&amp;KEY2 == 1&amp;&amp;WK_UP == 1)key_up = 1;</span><br></pre></td></tr></table></figure>
+<h3 id="按键初始化程序">按键初始化程序</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStructure;</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|</span><br><span class="line">			RCC_APB2Periph_GPIOB,ENABLE);</span><br><span class="line"></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3| GPIO_Pin_4| GPIO_Pin_5| GPIO_Pin_6;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
+<h3 id="按键扫描程序">按键扫描程序</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static u8 key_up = 1;</span><br><span class="line">if(mode)key_up = 1;</span><br><span class="line">if(key_up&amp;&amp;(KEY0 == 0||KEY1 == 0||KEY2 == 0||WK_UP == 0))</span><br><span class="line">&#123;</span><br><span class="line">		delay_ms(10);</span><br><span class="line">		key_up = 0;</span><br><span class="line">		if(KEY0 == 0)return KEY0_PRES;</span><br><span class="line">		else if(KEY1 == 0)return KEY1_PRES;</span><br><span class="line">		else if(KEY2 == 0)return KEY2_PRES;</span><br><span class="line">		else if(WK_UP == 0)return WKUP_PRES;</span><br><span class="line">&#125;else if(KEY0 == 1&amp;&amp;KEY1 == 1&amp;&amp;KEY2 == 1&amp;&amp;WK_UP == 1)key_up = 1;</span><br></pre></td></tr></table></figure>
 <p>LED的程序就免了，就只是使用了PA的1，2，3引脚。</p>
 <p>程序仿真成功，但是烧录进单片机后，无法实现，问题筛查中。</p>
-<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>始终只有一个LED处于点亮状态，而且按键无法改变LED状态。</p>
+<h3 id="问题描述">问题描述：</h3>
+<p>始终只有一个LED处于点亮状态，而且按键无法改变LED状态。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -217,12 +221,14 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="问题筛查"><a href="#问题筛查" class="headerlink" title="问题筛查"></a>问题筛查</h3><ul>
+<h3 id="问题筛查">问题筛查</h3>
+<ul>
 <li>我使用的是stm32的最小系统板，外设在另外一块板，怀疑共地问题。但在我让stm32最小系统板与另外一块板共地后问题依然存在，所以该情况排除。</li>
 <li>怀疑LED点亮程序有问题。单独把LED的程序提取出来实验，工作正常。</li>
 <li>怀疑按键程序有问题。经实验验证，按键按下无反应，<strong>按键程序存在问题可能性很大</strong>。</li>
 </ul>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>因为仿真时不存在问题，所以程序本身正确的可能性非常大。怀疑硬件方面存在问题，等使用stm32的开发板重新验证一次程序看看。</p>
+<h3 id="问题解决">问题解决</h3>
+<p>因为仿真时不存在问题，所以程序本身正确的可能性非常大。怀疑硬件方面存在问题，等使用stm32的开发板重新验证一次程序看看。</p>
 <p><strong>已解决</strong> 在另外一块stm32的开发板上程序正常运行</p>
 
         </div>
@@ -278,7 +284,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/&title=《学习GPIO输入》 — Zhuhao's Blog&source=GPIO_Input程序很简单，就是读取按键是否按下，控制LED是否点亮。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/&title=《学习GPIO输入》 — Zhuhao's Blog&source=GPIO_Input
+程序很简单，就是读取按键是否按下，控制LED是否点亮。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -316,9 +323,9 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">利用github page搭建博客简易教程</h4>
+        <h4 class="title">学习TFT-FSMC</h4>
       </a>
     </div>
   
@@ -442,7 +449,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/&title=《学习GPIO输入》 — Zhuhao's Blog&source=GPIO_Input程序很简单，就是读取按键是否按下，控制LED是否点亮。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/&title=《学习GPIO输入》 — Zhuhao's Blog&source=GPIO_Input
+程序很简单，就是读取按键是否按下，控制LED是否点亮。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

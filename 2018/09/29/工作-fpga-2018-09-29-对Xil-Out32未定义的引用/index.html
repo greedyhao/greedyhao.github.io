@@ -200,7 +200,7 @@ ga('send', 'pageview');
 <p>找到它的定义在<em>xil_io.h</em>这个文件中</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> INLINE <span class="keyword">void</span> <span class="title">Xil_Out32</span><span class="params">(UINTPTR Addr, u32 Value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在网上查到有人说，因为这个函数是static的，所以将这个头文件include到主函数的文件就可以了</p>
-<p>于是在主函数文件添加<strong>#include “xil_io.h”</strong>并保存好，工程正常</p>
+<p>于是在主函数文件添加<strong>#include &quot;xil_io.h&quot;</strong>并保存好，工程正常</p>
 <hr>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -209,6 +209,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">

@@ -197,8 +197,8 @@ ga('send', 'pageview');
             <p>以下内容来自hackerrank上的一个<a href="https://www.hackerrank.com/challenges/find-second-maximum-number-in-a-list/forum" target="_blank" rel="noopener">讨论</a></p>
 <a id="more"></a>
 <p><strong>题目：</strong></p>
-<p><a href="https://www.hackerrank.com/challenges/find-second-maximum-number-in-a-list/problem" target="_blank" rel="noopener">原题在这</a>，<br>大概意思就是，有两个输入，第一个输出（2~10）是你要输出的数的个数，第二个就是输入你的list，<br>用空格做分割。</p>
-<p>pythonic的解法在这：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    n = int(input())</span><br><span class="line">    arr = map(int, input().split())</span><br><span class="line"></span><br><span class="line">    print(sorted(list(set(arr)))[<span class="number">-2</span>])</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://www.hackerrank.com/challenges/find-second-maximum-number-in-a-list/problem" target="_blank" rel="noopener">原题在这</a>， 大概意思就是，有两个输入，第一个输出（2~10）是你要输出的数的个数，第二个就是输入你的list， 用空格做分割。</p>
+<p>pythonic的解法在这： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    n = int(input())</span><br><span class="line">    arr = map(int, input().split())</span><br><span class="line"></span><br><span class="line">    print(sorted(list(set(arr)))[<span class="number">-2</span>])</span><br></pre></td></tr></table></figure></p>
 <p>这里的 <strong>[-2]</strong> 用的很好，我一开始做题的时候还没有想到。</p>
 <p>我使用的方法是从已经排序好的list输出他的第len-1个数。</p>
 
@@ -293,18 +293,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/13/工作-python-入门-2017-08-13-list倒序/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">倒序</h4>
+        <h4 class="title">pythonic的方式输入一个二维list</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/13/工作-python-pythonic-2017-08-13-pythonic的方式输入一个二维list/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/12/工作-python-pythonic-2017-08-12-list-comprehensions/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">pythonic的方式输入一个二维list</h4>
+        <h4 class="title">list comprehensions</h4>
       </a>
     </div>
   

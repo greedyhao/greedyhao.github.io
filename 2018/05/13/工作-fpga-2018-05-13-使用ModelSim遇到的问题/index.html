@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="FPGA">
-    <meta name="description" content="使用ModelSim遇到的问题Error: Could not find altera.alt_dspbuilder_package.解决方法自然是添加包了。  把\quartus\libraries\vhdl\altera目录下的alt_dspbuilder_package.vhd文件复制到\modelsim_ase\altera\vhdl\src\altera目录下。 然后再对Modlesim">
+    <meta name="description" content="使用ModelSim遇到的问题 Error: Could not find altera.alt_dspbuilder_package. 解决方法自然是添加包了。  把_dspbuilder_package.vhd文件复制到_ase。 然后再对Modlesim里库文件altera进行compile，选中alt_dspbuilder_package.vhd文件进行compile，从而把alt_dsp">
 <meta name="keywords" content="FPGA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ModelSim遇到的问题">
 <meta property="og:url" content="http://greedyhao.cc/2018/05/13/工作-fpga-2018-05-13-使用ModelSim遇到的问题/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="使用ModelSim遇到的问题Error: Could not find altera.alt_dspbuilder_package.解决方法自然是添加包了。  把\quartus\libraries\vhdl\altera目录下的alt_dspbuilder_package.vhd文件复制到\modelsim_ase\altera\vhdl\src\altera目录下。 然后再对Modlesim">
+<meta property="og:description" content="使用ModelSim遇到的问题 Error: Could not find altera.alt_dspbuilder_package. 解决方法自然是添加包了。  把_dspbuilder_package.vhd文件复制到_ase。 然后再对Modlesim里库文件altera进行compile，选中alt_dspbuilder_package.vhd文件进行compile，从而把alt_dsp">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/modelsim/compile.png">
 <meta property="og:image" content="http://greedyhao.cc/img/modelsim/compile_vhd.png">
@@ -51,7 +51,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T03:08:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ModelSim遇到的问题">
-<meta name="twitter:description" content="使用ModelSim遇到的问题Error: Could not find altera.alt_dspbuilder_package.解决方法自然是添加包了。  把\quartus\libraries\vhdl\altera目录下的alt_dspbuilder_package.vhd文件复制到\modelsim_ase\altera\vhdl\src\altera目录下。 然后再对Modlesim">
+<meta name="twitter:description" content="使用ModelSim遇到的问题 Error: Could not find altera.alt_dspbuilder_package. 解决方法自然是添加包了。  把_dspbuilder_package.vhd文件复制到_ase。 然后再对Modlesim里库文件altera进行compile，选中alt_dspbuilder_package.vhd文件进行compile，从而把alt_dsp">
 <meta name="twitter:image" content="http://greedyhao.cc/img/modelsim/compile.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -180,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用ModelSim遇到的问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用ModelSim遇到的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Error-Could-not-find-altera-alt-dspbuilder-package"><span class="post-toc-number">2.</span> <span class="post-toc-text">Error: Could not find altera.alt_dspbuilder_package.</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用modelsim遇到的问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用ModelSim遇到的问题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#error-could-not-find-altera.alt_dspbuilder_package."><span class="post-toc-number">2.</span> <span class="post-toc-text">Error: Could not find altera.alt_dspbuilder_package.</span></a></li></ol>
         </nav>
     </aside>
 
@@ -205,9 +205,11 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="使用ModelSim遇到的问题"><a href="#使用ModelSim遇到的问题" class="headerlink" title="使用ModelSim遇到的问题"></a>使用ModelSim遇到的问题</h1><h1 id="Error-Could-not-find-altera-alt-dspbuilder-package"><a href="#Error-Could-not-find-altera-alt-dspbuilder-package" class="headerlink" title="Error: Could not find altera.alt_dspbuilder_package."></a>Error: Could not find altera.alt_dspbuilder_package.</h1><p>解决方法自然是添加包了。</p>
-<ol>
-<li>把\quartus\libraries\vhdl\altera目录下的alt_dspbuilder_package.vhd文件复制到\modelsim_ase\altera\vhdl\src\altera目录下。</li>
+            <h1 id="使用modelsim遇到的问题">使用ModelSim遇到的问题</h1>
+<h1 id="error-could-not-find-altera.alt_dspbuilder_package.">Error: Could not find altera.alt_dspbuilder_package.</h1>
+<p>解决方法自然是添加包了。</p>
+<ol type="1">
+<li>把_dspbuilder_package.vhd文件复制到_ase。</li>
 <li>然后再对Modlesim里库文件altera进行compile，选中alt_dspbuilder_package.vhd文件进行compile，从而把alt_dspbuilder_package添加进来，重新启动即可。</li>
 </ol>
 <p>具体操作如图，记得要选择altera库再编译</p>

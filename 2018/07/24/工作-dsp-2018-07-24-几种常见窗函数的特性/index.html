@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="DSP">
-    <meta name="description" content="几种常见窗函数的特性解决一下上一篇的遗留问题上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
+    <meta name="description" content="几种常见窗函数的特性 解决一下上一篇的遗留问题 上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
 <meta name="keywords" content="DSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="几种常见窗函数的特性">
 <meta property="og:url" content="http://greedyhao.cc/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="几种常见窗函数的特性解决一下上一篇的遗留问题上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
+<meta property="og:description" content="几种常见窗函数的特性 解决一下上一篇的遗留问题 上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/dsp/rectwin_rp.bmp">
 <meta property="og:image" content="http://greedyhao.cc/img/dsp/triang_rp.bmp">
@@ -55,7 +55,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-10-22T07:44:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几种常见窗函数的特性">
-<meta name="twitter:description" content="几种常见窗函数的特性解决一下上一篇的遗留问题上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
+<meta name="twitter:description" content="几种常见窗函数的特性 解决一下上一篇的遗留问题 上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/dsp/rectwin_rp.bmp">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -184,7 +184,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#几种常见窗函数的特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">几种常见窗函数的特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决一下上一篇的遗留问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">解决一下上一篇的遗留问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#几种常见窗函数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">几种常见窗函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#矩形窗"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">矩形窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三角形窗"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">三角形窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#汉宁窗（Hanning）"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">汉宁窗（Hanning）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#海明窗（Hamming）"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">海明窗（Hamming）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布莱克曼窗（Blackman）"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">布莱克曼窗（Blackman）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#凯泽窗（Kaiser）"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">凯泽窗（Kaiser）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何选择窗函数"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">如何选择窗函数</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#几种常见窗函数的特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">几种常见窗函数的特性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决一下上一篇的遗留问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">解决一下上一篇的遗留问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#几种常见窗函数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">几种常见窗函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#矩形窗"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">矩形窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三角形窗"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">三角形窗</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#汉宁窗hanning"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">汉宁窗（Hanning）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#海明窗hamming"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">海明窗（Hamming）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布莱克曼窗blackman"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">布莱克曼窗（Blackman）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#凯泽窗kaiser"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">凯泽窗（Kaiser）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何选择窗函数"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">如何选择窗函数</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -209,32 +209,35 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="几种常见窗函数的特性"><a href="#几种常见窗函数的特性" class="headerlink" title="几种常见窗函数的特性"></a>几种常见窗函数的特性</h1><h2 id="解决一下上一篇的遗留问题"><a href="#解决一下上一篇的遗留问题" class="headerlink" title="解决一下上一篇的遗留问题"></a>解决一下上一篇的遗留问题</h2><p>上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。</p>
+            <h1 id="几种常见窗函数的特性">几种常见窗函数的特性</h1>
+<h2 id="解决一下上一篇的遗留问题">解决一下上一篇的遗留问题</h2>
+<p>上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。</p>
 <a id="more"></a>
 <p>不过今天再看书时，又有所得，忽然明白了为什么模拟加窗过程出了问题，这是由于我之前对于数字滤波器的设计过程还很模糊。</p>
 <p><strong>窗函数设计法的设计思路：</strong></p>
 <ul>
-<li>给定要求的理想频响$H_d(e^{j\omega})$，一般为分段常数</li>
-<li>转为时域设计，所以需要求出$h_d(n)$</li>
+<li>给定要求的理想频响<span class="math inline">\(H_d(e^{j\omega})\)</span>，一般为分段常数</li>
+<li>转为时域设计，所以需要求出<span class="math inline">\(h_d(n)\)</span></li>
 </ul>
-<p>$$h_d(n) = IDTFT[H_d(e^{j\omega})]$$</p>
+<p><span class="math display">\[h_d(n) = IDTFT[H_d(e^{j\omega})]\]</span></p>
 <ul>
-<li>由于$h_d(n)$是无限时长的，所以需要加窗截断为$h(n)$，窗的长度为N</li>
+<li>由于<span class="math inline">\(h_d(n)\)</span>是无限时长的，所以需要加窗截断为<span class="math inline">\(h(n)\)</span>，窗的长度为N</li>
 </ul>
 <blockquote>
 <p>因为窗函数是在时域内截断，所以需要将理想滤波器转换到时域来处理。</p>
 </blockquote>
-<p>$$h(n) = h_d(n)\cdotp w(n), \quad 0\le n\le N-1$$</p>
+<p><span class="math display">\[h(n) = h_d(n)\cdotp w(n), \quad 0\le n\le N-1\]</span></p>
 <ul>
-<li>求出加窗后的实际频响$H(e^{j\omega})$</li>
+<li>求出加窗后的实际频响<span class="math inline">\(H(e^{j\omega})\)</span></li>
 </ul>
-<p>$$H(e^{j\omega}) = DTFT[h(n)]$$</p>
+<p><span class="math display">\[H(e^{j\omega}) = DTFT[h(n)]\]</span></p>
 <ul>
-<li>检查$H(e^{j\omega})$是否满足$H_d(e^{j\omega})$，不满足就重复3、4步骤</li>
+<li>检查<span class="math inline">\(H(e^{j\omega})\)</span>是否满足<span class="math inline">\(H_d(e^{j\omega})\)</span>，不满足就重复3、4步骤</li>
 </ul>
 <p>我使用的<a href="http://greedyhao.cc/2018/07/23/%E5%B7%A5%E4%BD%9C-dsp-2018-07-23-FIR%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%8A%A0%E7%AA%97%E6%98%AF%E4%BB%80%E4%B9%88/">子程序</a>是书上提供的，可以产生一个理想滤波器。</p>
 <p>今天突然对这个程序有了新的理解。因为这个是子程序产生的时域的滤波器，为了能够在电脑中存储，本来就已经加了一个矩形窗，因此它的频域波形存在波纹；而我又加一个矩形窗，对这个已经加了矩形窗的滤波器当然是一点效果都没有咯。</p>
-<h2 id="几种常见窗函数"><a href="#几种常见窗函数" class="headerlink" title="几种常见窗函数"></a>几种常见窗函数</h2><p>回到今天的主题，今天探讨一下几种常见滤波器的特性和使用场景。</p>
+<h2 id="几种常见窗函数">几种常见窗函数</h2>
+<p>回到今天的主题，今天探讨一下几种常见滤波器的特性和使用场景。</p>
 <p>翻了很多遍书，发现对于滤波器的设计，主要关心的是<strong>过渡带宽(Transition bandwidth)</strong>、<strong>通带边沿衰减(Passband ripple)</strong>、<strong>阻带最小衰减(Minimum stopband attenuation)</strong>，而且大部分的参数都是用dB作单位。</p>
 <p>使用dB做单位的好处有：</p>
 <ul>
@@ -243,12 +246,23 @@ ga('send', 'pageview');
 <li>方便感知。人对强度（光照、声音）的感知，接近于于强度的对数的正比。</li>
 </ul>
 <p>至于为什么要这么多种窗呢？那是因为不同的窗特性不一样，比如最简单的矩形窗，虽然完成了截断工作，但是通带衰减大、阻带衰减小，导致能量的浪费；而之后的多种窗则或多或少的弥补了这些缺点。</p>
-<h3 id="矩形窗"><a href="#矩形窗" class="headerlink" title="矩形窗"></a>矩形窗</h3><p>矩形窗的定义为</p>
-<p>$$<br>w(n) = \begin{cases}<br>1, &amp; 0\le n \le M-1 \\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
+<h3 id="矩形窗">矩形窗</h3>
+<p>矩形窗的定义为</p>
+<p><span class="math display">\[
+w(n) = \begin{cases}
+1, &amp; 0\le n \le M-1 \\\
+0, &amp; otherwise
+\end{cases}
+\]</span></p>
 <p>频率响应函数为</p>
-<p>$$<br>W(e^{j\omega}) = W(\omega)e^{j\theta(\omega)} =<br>\frac{\sin(\omega M /2)}{\sin(\omega /2)}e^{-j\frac{N-1}{2}\omega}<br>$$</p>
+<p><span class="math display">\[
+W(e^{j\omega}) = W(\omega)e^{j\theta(\omega)} =
+\frac{\sin(\omega M /2)}{\sin(\omega /2)}e^{-j\frac{N-1}{2}\omega}
+\]</span></p>
 <p>因此</p>
-<p>$$<br>W(\omega) = \frac{\sin(\omega M /2)}{\sin(\omega /2)}<br>$$</p>
+<p><span class="math display">\[
+W(\omega) = \frac{\sin(\omega M /2)}{\sin(\omega /2)}
+\]</span></p>
 <p>下面分析窗函数的主要参数：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -258,21 +272,41 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <ul>
-<li>幅度响应$W_r(\omega)$第一个零点在$\omega=\omega_1$，</li>
+<li>幅度响应<span class="math inline">\(W_r(\omega)\)</span>第一个零点在<span class="math inline">\(\omega=\omega_1\)</span>，</li>
 </ul>
-<p>$$<br>\frac{\omega_1 M}{2} = \pi<br>~~<br>or<br>~~<br>\omega_1 = \frac{2\pi}{M}<br>$$</p>
-<p>因此，主瓣宽度为为$2\omega_1 = 4\pi /M$，因此传输带宽近似于$4\pi /M$</p>
+<p><span class="math display">\[
+\frac{\omega_1 M}{2} = \pi
+~~
+or
+~~
+\omega_1 = \frac{2\pi}{M}
+\]</span></p>
+<p>因此，主瓣宽度为为<span class="math inline">\(2\omega_1 = 4\pi /M\)</span>，因此传输带宽近似于<span class="math inline">\(4\pi /M\)</span></p>
 <ul>
-<li>第一个旁瓣大概在$\omega=3\pi/M$的位置，因此它的幅值为</li>
+<li>第一个旁瓣大概在<span class="math inline">\(\omega=3\pi/M\)</span>的位置，因此它的幅值为</li>
 </ul>
-<p>$$<br>\left| W_r\left(\omega = \frac{3\pi}{M}\right)\right| = \left|\frac{\sin(3\pi /2)}{\sin(3\pi /2M)}\right| \simeq \frac{2M}{3\pi}<br>$$</p>
+<p><span class="math display">\[
+\left| W_r\left(\omega = \frac{3\pi}{M}\right)\right| = \left|\frac{\sin(3\pi /2)}{\sin(3\pi /2M)}\right| \simeq \frac{2M}{3\pi}
+\]</span></p>
 <p>对比主瓣的幅值，旁瓣幅值峰值为</p>
-<p>$$<br>\frac{2}{3\pi} \approx 21.22\% \equiv 13 dB<br>$$</p>
-<h3 id="三角形窗"><a href="#三角形窗" class="headerlink" title="三角形窗"></a>三角形窗</h3><p>由于吉布斯现象，矩形窗存在一个0到1的越变；而三角形窗则提供了一个比较缓慢的变化，它的定义式为：</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>\frac{2n}{M-1}, &amp; 0\le n \le\frac{M-1}{2} \\<br>2-\frac{2n}{M-1}, &amp; \frac{M-1}{2}\le n\le M-1 \\<br>0, &amp; otherwise<br>\end{cases}<br>$$</p>
-<p>谱密度函数表达式如下，’≈’仅当$M\gg 1$时成立</p>
-<p>$$<br>W(\omega) \approx \frac{2}{M} \frac{\sin(M\omega/4)}{\sin(\omega/4)}<br>$$</p>
-<p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为25dB</p>
+<p><span class="math display">\[
+\frac{2}{3\pi} \approx 21.22\% \equiv 13 dB
+\]</span></p>
+<h3 id="三角形窗">三角形窗</h3>
+<p>由于吉布斯现象，矩形窗存在一个0到1的越变；而三角形窗则提供了一个比较缓慢的变化，它的定义式为：</p>
+<p><span class="math display">\[
+w(n) =
+\begin{cases}
+\frac{2n}{M-1}, &amp; 0\le n \le\frac{M-1}{2} \\\
+2-\frac{2n}{M-1}, &amp; \frac{M-1}{2}\le n\le M-1 \\\
+0, &amp; otherwise
+\end{cases}
+\]</span></p>
+<p>谱密度函数表达式如下，’≈’仅当<span class="math inline">\(M\gg 1\)</span>时成立</p>
+<p><span class="math display">\[
+W(\omega) \approx \frac{2}{M} \frac{\sin(M\omega/4)}{\sin(\omega/4)}
+\]</span></p>
+<p>主瓣宽度为<span class="math inline">\(8\pi /M\)</span>，旁瓣峰值衰减为25dB</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -280,9 +314,16 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="汉宁窗（Hanning）"><a href="#汉宁窗（Hanning）" class="headerlink" title="汉宁窗（Hanning）"></a>汉宁窗（Hanning）</h3><p>这是一个升余弦窗，被定义为</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>0.5\left[1-\cos\left(\frac{2\pi n}{M-1}\right)\right] &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
-<p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为31dB</p>
+<h3 id="汉宁窗hanning">汉宁窗（Hanning）</h3>
+<p>这是一个升余弦窗，被定义为</p>
+<p><span class="math display">\[
+w(n) =
+\begin{cases}
+0.5\left[1-\cos\left(\frac{2\pi n}{M-1}\right)\right] &amp; 0\le n \le M-1 \\\
+0 &amp; otherwise
+\end{cases}
+\]</span></p>
+<p>主瓣宽度为<span class="math inline">\(8\pi /M\)</span>，旁瓣峰值衰减为31dB</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -290,9 +331,16 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="海明窗（Hamming）"><a href="#海明窗（Hamming）" class="headerlink" title="海明窗（Hamming）"></a>海明窗（Hamming）</h3><p>海明窗和汉宁窗很像，不同的是它有一部分是不连续的，被定义为</p>
-<p>$$<br>w(n)=<br>\begin{cases}<br>0.54 - 0.46\cos\left(\frac{2\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
-<p>主瓣宽度为$8\pi /M$，旁瓣峰值衰减为41d</p>
+<h3 id="海明窗hamming">海明窗（Hamming）</h3>
+<p>海明窗和汉宁窗很像，不同的是它有一部分是不连续的，被定义为</p>
+<p><span class="math display">\[
+w(n)=
+\begin{cases}
+0.54 - 0.46\cos\left(\frac{2\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\\
+0 &amp; otherwise
+\end{cases}
+\]</span></p>
+<p>主瓣宽度为<span class="math inline">\(8\pi /M\)</span>，旁瓣峰值衰减为41d</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -300,9 +348,16 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="布莱克曼窗（Blackman）"><a href="#布莱克曼窗（Blackman）" class="headerlink" title="布莱克曼窗（Blackman）"></a>布莱克曼窗（Blackman）</h3><p>这个窗函数和前两个窗函数很像，不过增加了升余弦的二次谐波分量，被定义为</p>
-<p>$$<br>w(n) =<br>\begin{cases}<br>0.42 - 0.5\cos\left(\frac{2\pi n}{M-1}\right) + 0.08\cos\left(\frac{4\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\<br>0 &amp; otherwise<br>\end{cases}<br>$$</p>
-<p>主瓣宽度为$12\pi /M$，旁瓣峰值衰减为57dB</p>
+<h3 id="布莱克曼窗blackman">布莱克曼窗（Blackman）</h3>
+<p>这个窗函数和前两个窗函数很像，不过增加了升余弦的二次谐波分量，被定义为</p>
+<p><span class="math display">\[
+w(n) =
+\begin{cases}
+0.42 - 0.5\cos\left(\frac{2\pi n}{M-1}\right) + 0.08\cos\left(\frac{4\pi n}{M-1}\right) &amp; 0\le n \le M-1 \\\
+0 &amp; otherwise
+\end{cases}
+\]</span></p>
+<p>主瓣宽度为<span class="math inline">\(12\pi /M\)</span>，旁瓣峰值衰减为57dB</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -310,10 +365,14 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h3 id="凯泽窗（Kaiser）"><a href="#凯泽窗（Kaiser）" class="headerlink" title="凯泽窗（Kaiser）"></a>凯泽窗（Kaiser）</h3><p>这是一个非常有用的窗函数，它可以同时调整主瓣宽度与旁瓣宽度，这是其他窗函数不具备的，被定义为</p>
-<p>$$<br>w(n) =<br>\frac{I_0\left[\beta \sqrt{1-\left(1-\frac{2n}{M-1}\right)^2}\right]}{I_0[\beta]}<br>$$</p>
-<p>$I_0$是第一类零阶贝塞尔函数，$\beta$是用来调整窗函数性能的参数</p>
-<p>本人使用的$\beta = 8.5$</p>
+<h3 id="凯泽窗kaiser">凯泽窗（Kaiser）</h3>
+<p>这是一个非常有用的窗函数，它可以同时调整主瓣宽度与旁瓣宽度，这是其他窗函数不具备的，被定义为</p>
+<p><span class="math display">\[
+w(n) =
+\frac{I_0\left[\beta \sqrt{1-\left(1-\frac{2n}{M-1}\right)^2}\right]}{I_0[\beta]}
+\]</span></p>
+<p><span class="math inline">\(I_0\)</span>是第一类零阶贝塞尔函数，<span class="math inline">\(\beta\)</span>是用来调整窗函数性能的参数</p>
+<p>本人使用的<span class="math inline">\(\beta = 8.5\)</span></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -321,7 +380,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="如何选择窗函数"><a href="#如何选择窗函数" class="headerlink" title="如何选择窗函数"></a>如何选择窗函数</h2><p>选择窗函数可以参考前文中的窗函数设计法</p>
+<h2 id="如何选择窗函数">如何选择窗函数</h2>
+<p>选择窗函数可以参考前文中的窗函数设计法</p>
 <p>先确定自己的需求，然后根据窗函数的极限性能，做出选择，最后再验证这个窗函数是否符合需求</p>
 <hr>
 <p>本文中的代码已上传<a href="https://github.com/greedyhao/DSP/tree/master/windowing" target="_blank" rel="noopener">本人的github</a></p>
@@ -393,7 +453,9 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/&title=《几种常见窗函数的特性》 — Zhuhao's Blog&source=几种常见窗函数的特性解决一下上一篇的遗留问题上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/&title=《几种常见窗函数的特性》 — Zhuhao's Blog&source=几种常见窗函数的特性
+解决一下上一篇的遗留问题
+上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -557,7 +619,9 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/&title=《几种常见窗函数的特性》 — Zhuhao's Blog&source=几种常见窗函数的特性解决一下上一篇的遗留问题上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/07/24/工作-dsp-2018-07-24-几种常见窗函数的特性/&title=《几种常见窗函数的特性》 — Zhuhao's Blog&source=几种常见窗函数的特性
+解决一下上一篇的遗留问题
+上一篇谈了FIR滤波器的加窗是什么，但是自觉得还是有些地方没有说明白，就好比模拟加窗过程都没有讲明白。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

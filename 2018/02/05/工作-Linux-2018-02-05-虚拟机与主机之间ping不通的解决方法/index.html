@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="Linux,VirtualBox">
-    <meta name="description" content="虚拟机与主机之间ping不通的解决方法最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+    <meta name="description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
 <meta name="keywords" content="Linux,VirtualBox">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机与主机之间ping不通的解决方法">
 <meta property="og:url" content="http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="虚拟机与主机之间ping不通的解决方法最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+<meta property="og:description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通2.png">
@@ -51,7 +51,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T05:52:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机与主机之间ping不通的解决方法">
-<meta name="twitter:description" content="虚拟机与主机之间ping不通的解决方法最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
+<meta name="twitter:description" content="虚拟机与主机之间ping不通的解决方法 最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/virtualbox/虚拟机与主机之间ping不通1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -180,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟机与主机之间ping不通的解决方法"><span class="post-toc-number">1.</span> <span class="post-toc-text">虚拟机与主机之间ping不通的解决方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#VirtualBox"><span class="post-toc-number">2.</span> <span class="post-toc-text">VirtualBox</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启仅主机网络"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">开启仅主机网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启后的效果"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">开启后的效果</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#虚拟机与主机之间ping不通的解决方法"><span class="post-toc-number">1.</span> <span class="post-toc-text">虚拟机与主机之间ping不通的解决方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#virtualbox"><span class="post-toc-number">2.</span> <span class="post-toc-text">VirtualBox</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启仅主机网络"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">开启仅主机网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启后的效果"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">开启后的效果</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -205,12 +205,16 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="虚拟机与主机之间ping不通的解决方法"><a href="#虚拟机与主机之间ping不通的解决方法" class="headerlink" title="虚拟机与主机之间ping不通的解决方法"></a>虚拟机与主机之间ping不通的解决方法</h1><p>最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。</p>
+            <h1 id="虚拟机与主机之间ping不通的解决方法">虚拟机与主机之间ping不通的解决方法</h1>
+<p>最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主机之间需要共享文件，一是使用虚拟机软件的共享文件设置，二就是设置服务器如samba。但是会出现配置好服务器却发现Windows主机无法访问服务器的情况，而且在ping虚拟机的时候会出现ping不同的情况。以下就是这种情况的解决方法。</p>
 <a id="more"></a>
-<h1 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h1><p>由于本人使用的是VirtualBox，所以用作展示的也是VirtualBox。</p>
-<h2 id="开启仅主机网络"><a href="#开启仅主机网络" class="headerlink" title="开启仅主机网络"></a>开启仅主机网络</h2><p> <img src="/img/virtualbox/虚拟机与主机之间ping不通1.png" alt=""></p>
+<h1 id="virtualbox">VirtualBox</h1>
+<p>由于本人使用的是VirtualBox，所以用作展示的也是VirtualBox。</p>
+<h2 id="开启仅主机网络">开启仅主机网络</h2>
+<p><img src="/img/virtualbox/虚拟机与主机之间ping不通1.png"></p>
 <p>如图，先要确保虚拟机处于关闭状态，打开 局部设置-&gt;网络-&gt;网卡2，勾选<strong>启用网络连接</strong>，连接方式选择<strong>仅主机网络</strong>。</p>
-<h2 id="开启后的效果"><a href="#开启后的效果" class="headerlink" title="开启后的效果"></a>开启后的效果</h2><p>首先是展示虚拟机的ip地址</p>
+<h2 id="开启后的效果">开启后的效果</h2>
+<p>首先是展示虚拟机的ip地址</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -280,7 +284,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法
+最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -444,7 +449,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows主..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/02/05/工作-Linux-2018-02-05-虚拟机与主机之间ping不通的解决方法/&title=《虚拟机与主机之间ping不通的解决方法》 — Zhuhao's Blog&source=虚拟机与主机之间ping不通的解决方法
+最近需要使用Linux系统，然而我的电脑是Windows系统，所以不可避免使用到了虚拟机；而虚拟机与Windows..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+    <meta name="description" content="SDRAM使用总结 最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SDRAM使用总结">
 <meta property="og:url" content="http://greedyhao.cc/2018/07/08/工作-stm32-2018-07-08-SDRAM使用总结/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+<meta property="og:description" content="SDRAM使用总结 最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/stm32/fmc_map.png">
 <meta property="og:image" content="http://greedyhao.cc/img/stm32/sdram_init_error.png">
@@ -51,7 +51,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T04:47:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SDRAM使用总结">
-<meta name="twitter:description" content="SDRAM使用总结最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空">
+<meta name="twitter:description" content="SDRAM使用总结 最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。 SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。 SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个">
 <meta name="twitter:image" content="http://greedyhao.cc/img/stm32/fmc_map.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -180,7 +180,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SDRAM使用总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">SDRAM使用总结</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sdram使用总结"><span class="post-toc-number">1.</span> <span class="post-toc-text">SDRAM使用总结</span></a></li></ol>
         </nav>
     </aside>
 
@@ -205,10 +205,11 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="SDRAM使用总结"><a href="#SDRAM使用总结" class="headerlink" title="SDRAM使用总结"></a>SDRAM使用总结</h1><p>最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。</p>
+            <h1 id="sdram使用总结">SDRAM使用总结</h1>
+<p>最近stm32学到使用SDRAM了，板载SDRAM为IS42S16400J。</p>
 <p>SDRAM为一种可以运行存储在存储器上的代码的存储器，stm32内部有2M的代码运行空间，一般都是够用的，如果不够用的时候就可以用SDRAM扩大代码运行空间。</p>
 <p>SDRAM是通过FMC连接后直接映射到stm32内部寻址空间，与IIC和SPI需要操作总线不一样，操作SDRAM只需要在程序中定义一个指向这个空间的指针，通过指针直接修改存储单元内容，FMC外设会自动完成数据访问过程。</p>
-<p><img src="/img/stm32/fmc_map.png" alt=""></p>
+<p><img src="/img/stm32/fmc_map.png"></p>
 <p>为了使FMC完成这些数据访问操作，需要在程序一开始进行初始化过程，一共包括对GPIO管脚时钟的初始化、FMC的初始化、SDRAM时序初始化。</p>
 <p>SDRAM我觉得最重要的就是初始化过程了，初始化顺序一定要注意，一定要按照GPIO-&gt;FMC-&gt;SDRAM这个顺序初始化。</p>
 <p>使用CubeMX创建的stm32工程需要注意，SDRAM时序初始化不能放在HAL_SDRAM_MspInit里，因为CubeMX生成的程序初始化过程是这样的，MX_FMC_Init-&gt;HAL_SDRAM_Init-&gt;HAL_SDRAM_MspInit，如果SDRAM时序初始化放在HAL_SDRAM_MspInit里，会由于FMC还没有初始化成功而导致SDRAM时序初始化失败。</p>

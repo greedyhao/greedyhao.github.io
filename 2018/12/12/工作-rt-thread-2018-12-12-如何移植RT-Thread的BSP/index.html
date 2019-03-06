@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="rt-thread,stm32">
-    <meta name="description" content="前言最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
+    <meta name="description" content="前言 最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
 <meta name="keywords" content="rt-thread,stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何移植RT-Thread的BSP">
 <meta property="og:url" content="http://greedyhao.cc/2018/12/12/工作-rt-thread-2018-12-12-如何移植RT-Thread的BSP/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="前言最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
+<meta property="og:description" content="前言 最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/proting_for_f7_1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/proting_for_f7_2.png">
@@ -59,7 +59,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-12-12T09:07:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何移植RT-Thread的BSP">
-<meta name="twitter:description" content="前言最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
+<meta name="twitter:description" content="前言 最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰">
 <meta name="twitter:image" content="http://greedyhao.cc/img/RTOS/rt-thread/proting_for_f7_1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -186,7 +186,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#移植流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">移植流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#复制一个与自己开发板系列相近的BSP"><span class="post-toc-number">3.</span> <span class="post-toc-text">复制一个与自己开发板系列相近的BSP</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改Scons脚本文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">修改Scons脚本文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-HAL-Drivers-SConscript"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">bsp/stm32/libraries/HAL_Drivers/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-HAL-Drivers-drv-config-h"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">bsp/stm32/libraries/HAL_Drivers/drv_config.h</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-Kconfig"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">bsp/stm32/libraries/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-STM32F7xx-HAL-SConscript"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">bsp/stm32/libraries/STM32F7xx_HAL/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-Kconfig"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-SConscript"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-SConstruct"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/SConstruct</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-applications-SConscript"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/applications/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-board-Kconfig"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/board/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-board-SConscript"><span class="post-toc-number">4.10.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/board/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-stm32f767-fire-challenger-rtconfig-py"><span class="post-toc-number">4.11.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/rtconfig.py</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#之后这个templates中的脚本修改内容和前面基本一样的"><span class="post-toc-number">4.12.</span> <span class="post-toc-text">之后这个templates中的脚本修改内容和前面基本一样的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-Kconfig"><span class="post-toc-number">4.13.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-SConscript"><span class="post-toc-number">4.14.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-SConstruct"><span class="post-toc-number">4.15.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/SConstruct</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-applications-SConscript"><span class="post-toc-number">4.16.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/applications/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-board-Kconfig"><span class="post-toc-number">4.17.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/board/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-board-SConscript"><span class="post-toc-number">4.18.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/board/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bsp-stm32-libraries-templates-stm32f7xx-rtconfig-py"><span class="post-toc-number">4.19.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改驱动文件"><span class="post-toc-number">5.</span> <span class="post-toc-text">修改驱动文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下面以移植uart为例子"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">下面以移植uart为例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#规范BSP"><span class="post-toc-number">6.</span> <span class="post-toc-text">规范BSP</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#移植流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">移植流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#复制一个与自己开发板系列相近的bsp"><span class="post-toc-number">3.</span> <span class="post-toc-text">复制一个与自己开发板系列相近的BSP</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改scons脚本文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">修改Scons脚本文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librarieshal_driverssconscript"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">bsp/stm32/libraries/HAL_Drivers/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librarieshal_driversdrv_config.h"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">bsp/stm32/libraries/HAL_Drivers/drv_config.h</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librarieskconfig"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">bsp/stm32/libraries/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariesstm32f7xx_halsconscript"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">bsp/stm32/libraries/STM32F7xx_HAL/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengerkconfig"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengersconscript"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengersconstruct"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/SConstruct</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengerapplicationssconscript"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/applications/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengerboardkconfig"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/board/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengerboardsconscript"><span class="post-toc-number">4.10.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/board/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32stm32f767-fire-challengerrtconfig.py"><span class="post-toc-number">4.11.</span> <span class="post-toc-text">bsp/stm32/stm32f767-fire-challenger/rtconfig.py</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#之后这个templates中的脚本修改内容和前面基本一样的"><span class="post-toc-number">4.12.</span> <span class="post-toc-text">之后这个templates中的脚本修改内容和前面基本一样的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxkconfig"><span class="post-toc-number">4.13.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxsconscript"><span class="post-toc-number">4.14.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxsconstruct"><span class="post-toc-number">4.15.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/SConstruct</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxapplicationssconscript"><span class="post-toc-number">4.16.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/applications/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxboardkconfig"><span class="post-toc-number">4.17.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/board/Kconfig</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxboardsconscript"><span class="post-toc-number">4.18.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/board/SConscript</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bspstm32librariestemplatesstm32f7xxrtconfig.py"><span class="post-toc-number">4.19.</span> <span class="post-toc-text">bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改驱动文件"><span class="post-toc-number">5.</span> <span class="post-toc-text">修改驱动文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下面以移植uart为例子"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">下面以移植uart为例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#规范bsp"><span class="post-toc-number">6.</span> <span class="post-toc-text">规范BSP</span></a></li></ol>
         </nav>
     </aside>
 
@@ -209,54 +209,57 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰</p>
+            <h1 id="前言">前言</h1>
+<p>最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰</p>
 <a id="more"></a>
 <table>
 <thead>
-<tr>
-<th style="text-align:left">目录</th>
-<th style="text-align:left">简介</th>
+<tr class="header">
+<th style="text-align: left;">目录</th>
+<th style="text-align: left;">简介</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">bsp\stm32\docs</td>
-<td style="text-align:left">重构BSP的介绍文档</td>
+<tr class="odd">
+<td style="text-align: left;">bsp32</td>
+<td style="text-align: left;">重构BSP的介绍文档</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\libraries</td>
-<td style="text-align:left">各系列的stm32的HAL库</td>
+<tr class="even">
+<td style="text-align: left;">bsp32</td>
+<td style="text-align: left;">各系列的stm32的HAL库</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\libraries\HAL_Drivers</td>
-<td style="text-align:left">基于HAL库的设备驱动</td>
+<tr class="odd">
+<td style="text-align: left;">bsp32_Drivers</td>
+<td style="text-align: left;">基于HAL库的设备驱动</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\libraries\HAL_Drivers\config</td>
-<td style="text-align:left">外设驱动的配置文件</td>
+<tr class="even">
+<td style="text-align: left;">bsp32_Drivers</td>
+<td style="text-align: left;">外设驱动的配置文件</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\libraries\HAL_Drivers\drv_flash</td>
-<td style="text-align:left">flash的配置文件</td>
+<tr class="odd">
+<td style="text-align: left;">bsp32_Drivers_flash</td>
+<td style="text-align: left;">flash的配置文件</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\libraries\templates</td>
-<td style="text-align:left">移植BSP的模板</td>
+<tr class="even">
+<td style="text-align: left;">bsp32</td>
+<td style="text-align: left;">移植BSP的模板</td>
 </tr>
-<tr>
-<td style="text-align:left">bsp\stm32\stm32fxxx-xxx-xxx</td>
-<td style="text-align:left">各开发板的适配工程</td>
+<tr class="odd">
+<td style="text-align: left;">bsp3232fxxx-xxx-xxx</td>
+<td style="text-align: left;">各开发板的适配工程</td>
 </tr>
 </tbody>
 </table>
 <p>我觉得这就是我想要的，于是就开始移植重构后的BSP</p>
-<h1 id="移植流程"><a href="#移植流程" class="headerlink" title="移植流程"></a>移植流程</h1><ul>
+<h1 id="移植流程">移植流程</h1>
+<ul>
 <li>复制一个与自己开发板系列相近的BSP</li>
 <li>修改Scons脚本文件</li>
 <li>修改驱动文件</li>
 <li>规范BSP</li>
 </ul>
-<h1 id="复制一个与自己开发板系列相近的BSP"><a href="#复制一个与自己开发板系列相近的BSP" class="headerlink" title="复制一个与自己开发板系列相近的BSP"></a>复制一个与自己开发板系列相近的BSP</h1><p>先找一个和自己开发板MCU类似的BSP，例如我的开发板的MCU是stm32f767，所以我复制了这个目录下的工程</p>
+<h1 id="复制一个与自己开发板系列相近的bsp">复制一个与自己开发板系列相近的BSP</h1>
+<p>先找一个和自己开发板MCU类似的BSP，例如我的开发板的MCU是stm32f767，所以我复制了这个目录下的工程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger</span><br></pre></td></tr></table></figure>
 <p>修改名字为你的开发板名字，例如我的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f767-fire-challenger</span><br></pre></td></tr></table></figure>
@@ -271,7 +274,8 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates</span><br></pre></td></tr></table></figure>
 <p>将名字更改为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f7xx</span><br></pre></td></tr></table></figure>
-<h1 id="修改Scons脚本文件"><a href="#修改Scons脚本文件" class="headerlink" title="修改Scons脚本文件"></a>修改Scons脚本文件</h1><p>需要修改的脚本文件有点多，不过不急，慢慢来</p>
+<h1 id="修改scons脚本文件">修改Scons脚本文件</h1>
+<p>需要修改的脚本文件有点多，不过不急，慢慢来</p>
 <p>可以从<a href="https://github.com/RT-Thread/rt-thread/pull/2058/files" target="_blank" rel="noopener">我提交的pr</a>中看到我修改过的脚本文件，我将他们全部列出来，免得有人遗漏了需要修改的地方</p>
 <ul>
 <li>bsp/stm32/libraries/HAL_Drivers/SConscript</li>
@@ -294,7 +298,8 @@ ga('send', 'pageview');
 <li>bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py</li>
 </ul>
 <p>看着脚本文件很多，其实也不是太麻烦，只要参考已有的模板，该起来很容易的，那么接下来一个个来讲解吧</p>
-<h2 id="bsp-stm32-libraries-HAL-Drivers-SConscript"><a href="#bsp-stm32-libraries-HAL-Drivers-SConscript" class="headerlink" title="bsp/stm32/libraries/HAL_Drivers/SConscript"></a>bsp/stm32/libraries/HAL_Drivers/SConscript</h2><p>需要在这个文件中加入你的soc系列，按顺序排好，如图</p>
+<h2 id="bspstm32librarieshal_driverssconscript">bsp/stm32/libraries/HAL_Drivers/SConscript</h2>
+<p>需要在这个文件中加入你的soc系列，按顺序排好，如图</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -302,7 +307,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-libraries-HAL-Drivers-drv-config-h"><a href="#bsp-stm32-libraries-HAL-Drivers-drv-config-h" class="headerlink" title="bsp/stm32/libraries/HAL_Drivers/drv_config.h"></a>bsp/stm32/libraries/HAL_Drivers/drv_config.h</h2><p>同上，加入你的soc系列</p>
+<h2 id="bspstm32librarieshal_driversdrv_config.h">bsp/stm32/libraries/HAL_Drivers/drv_config.h</h2>
+<p>同上，加入你的soc系列</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -310,7 +316,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-libraries-Kconfig"><a href="#bsp-stm32-libraries-Kconfig" class="headerlink" title="bsp/stm32/libraries/Kconfig"></a>bsp/stm32/libraries/Kconfig</h2><p>同上，加入你的soc系列</p>
+<h2 id="bspstm32librarieskconfig">bsp/stm32/libraries/Kconfig</h2>
+<p>同上，加入你的soc系列</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -318,7 +325,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-libraries-STM32F7xx-HAL-SConscript"><a href="#bsp-stm32-libraries-STM32F7xx-HAL-SConscript" class="headerlink" title="bsp/stm32/libraries/STM32F7xx_HAL/SConscript"></a>bsp/stm32/libraries/STM32F7xx_HAL/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariesstm32f7xx_halsconscript">bsp/stm32/libraries/STM32F7xx_HAL/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\STM32F4xx_HAL\SConscript</span><br></pre></td></tr></table></figure>
 <p>然后修改图中标记部分</p>
 <figure class="image-bubble">
@@ -328,15 +336,20 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-Kconfig"><a href="#bsp-stm32-stm32f767-fire-challenger-Kconfig" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/Kconfig"></a>bsp/stm32/stm32f767-fire-challenger/Kconfig</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengerkconfig">bsp/stm32/stm32f767-fire-challenger/Kconfig</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\Kconfig</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-SConscript"><a href="#bsp-stm32-stm32f767-fire-challenger-SConscript" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/SConscript"></a>bsp/stm32/stm32f767-fire-challenger/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengersconscript">bsp/stm32/stm32f767-fire-challenger/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\SConscript</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-SConstruct"><a href="#bsp-stm32-stm32f767-fire-challenger-SConstruct" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/SConstruct"></a>bsp/stm32/stm32f767-fire-challenger/SConstruct</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengersconstruct">bsp/stm32/stm32f767-fire-challenger/SConstruct</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\SConstruct</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-applications-SConscript"><a href="#bsp-stm32-stm32f767-fire-challenger-applications-SConscript" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/applications/SConscript"></a>bsp/stm32/stm32f767-fire-challenger/applications/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengerapplicationssconscript">bsp/stm32/stm32f767-fire-challenger/applications/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\applications\SConscript</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-board-Kconfig"><a href="#bsp-stm32-stm32f767-fire-challenger-board-Kconfig" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/board/Kconfig"></a>bsp/stm32/stm32f767-fire-challenger/board/Kconfig</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengerboardkconfig">bsp/stm32/stm32f767-fire-challenger/board/Kconfig</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\board\Kconfig</span><br></pre></td></tr></table></figure>
 <p>不过需要修改图中标记部分</p>
 <figure class="image-bubble">
@@ -346,7 +359,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-board-SConscript"><a href="#bsp-stm32-stm32f767-fire-challenger-board-SConscript" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/board/SConscript"></a>bsp/stm32/stm32f767-fire-challenger/board/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengerboardsconscript">bsp/stm32/stm32f767-fire-challenger/board/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\stm32f429-fire-challenger\board\SConscript</span><br></pre></td></tr></table></figure>
 <p>不过需要修改图中标记部分</p>
 <figure class="image-bubble">
@@ -356,18 +370,25 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-stm32f767-fire-challenger-rtconfig-py"><a href="#bsp-stm32-stm32f767-fire-challenger-rtconfig-py" class="headerlink" title="bsp/stm32/stm32f767-fire-challenger/rtconfig.py"></a>bsp/stm32/stm32f767-fire-challenger/rtconfig.py</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32stm32f767-fire-challengerrtconfig.py">bsp/stm32/stm32f767-fire-challenger/rtconfig.py</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32f7-disco\rtconfig.py</span><br></pre></td></tr></table></figure>
 <p>我是从旧版BSP中找的，你也可以找找你对应型号的旧版BSP中的这个脚本</p>
-<h2 id="之后这个templates中的脚本修改内容和前面基本一样的"><a href="#之后这个templates中的脚本修改内容和前面基本一样的" class="headerlink" title="之后这个templates中的脚本修改内容和前面基本一样的"></a>之后这个<strong>templates</strong>中的脚本修改内容和前面基本一样的</h2><h2 id="bsp-stm32-libraries-templates-stm32f7xx-Kconfig"><a href="#bsp-stm32-libraries-templates-stm32f7xx-Kconfig" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/Kconfig"></a>bsp/stm32/libraries/templates/stm32f7xx/Kconfig</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="之后这个templates中的脚本修改内容和前面基本一样的">之后这个<strong>templates</strong>中的脚本修改内容和前面基本一样的</h2>
+<h2 id="bspstm32librariestemplatesstm32f7xxkconfig">bsp/stm32/libraries/templates/stm32f7xx/Kconfig</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\Kconfig</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-SConscript"><a href="#bsp-stm32-libraries-templates-stm32f7xx-SConscript" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/SConscript"></a>bsp/stm32/libraries/templates/stm32f7xx/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxsconscript">bsp/stm32/libraries/templates/stm32f7xx/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\SConscript</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-SConstruct"><a href="#bsp-stm32-libraries-templates-stm32f7xx-SConstruct" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/SConstruct"></a>bsp/stm32/libraries/templates/stm32f7xx/SConstruct</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxsconstruct">bsp/stm32/libraries/templates/stm32f7xx/SConstruct</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\SConstruct</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-applications-SConscript"><a href="#bsp-stm32-libraries-templates-stm32f7xx-applications-SConscript" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/applications/SConscript"></a>bsp/stm32/libraries/templates/stm32f7xx/applications/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxapplicationssconscript">bsp/stm32/libraries/templates/stm32f7xx/applications/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\applications\SConscript</span><br></pre></td></tr></table></figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-board-Kconfig"><a href="#bsp-stm32-libraries-templates-stm32f7xx-board-Kconfig" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/board/Kconfig"></a>bsp/stm32/libraries/templates/stm32f7xx/board/Kconfig</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxboardkconfig">bsp/stm32/libraries/templates/stm32f7xx/board/Kconfig</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\board\Kconfig</span><br></pre></td></tr></table></figure>
 <p>不过需要修改图中标记部分</p>
 <figure class="image-bubble">
@@ -377,7 +398,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-board-SConscript"><a href="#bsp-stm32-libraries-templates-stm32f7xx-board-SConscript" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/board/SConscript"></a>bsp/stm32/libraries/templates/stm32f7xx/board/SConscript</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxboardsconscript">bsp/stm32/libraries/templates/stm32f7xx/board/SConscript</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\templates\stm32f4xx\board\SConscript</span><br></pre></td></tr></table></figure>
 <p>不过需要修改图中标记部分</p>
 <figure class="image-bubble">
@@ -387,17 +409,20 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="bsp-stm32-libraries-templates-stm32f7xx-rtconfig-py"><a href="#bsp-stm32-libraries-templates-stm32f7xx-rtconfig-py" class="headerlink" title="bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py"></a>bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py</h2><p>这个文件可以从下面这个地址复制过来</p>
+<h2 id="bspstm32librariestemplatesstm32f7xxrtconfig.py">bsp/stm32/libraries/templates/stm32f7xx/rtconfig.py</h2>
+<p>这个文件可以从下面这个地址复制过来</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32f7-disco\rtconfig.py</span><br></pre></td></tr></table></figure>
-<h1 id="修改驱动文件"><a href="#修改驱动文件" class="headerlink" title="修改驱动文件"></a>修改驱动文件</h1><p>驱动文件分为：<strong>实现</strong>和<strong>配置</strong></p>
+<h1 id="修改驱动文件">修改驱动文件</h1>
+<p>驱动文件分为：<strong>实现</strong>和<strong>配置</strong></p>
 <p>实现是下面这个目录下的.c文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\HAL_Drivers</span><br></pre></td></tr></table></figure>
 <p>配置是以下目录下的.h和部分.c文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\HAL_Drivers\config\fx</span><br><span class="line">bsp\stm32\libraries\HAL_Drivers\drv_flash</span><br><span class="line">bsp\stm32\stm32f767-fire-challenger\board\ports</span><br></pre></td></tr></table></figure>
 <p>我们需要做的事就是根据开发板实际情况进行修改</p>
-<h2 id="下面以移植uart为例子"><a href="#下面以移植uart为例子" class="headerlink" title="下面以移植uart为例子"></a>下面以移植uart为例子</h2><p>先确认config文件是否符合开发板实际情况，同一个系列的MCU的移植不需要修改config</p>
+<h2 id="下面以移植uart为例子">下面以移植uart为例子</h2>
+<p>先确认config文件是否符合开发板实际情况，同一个系列的MCU的移植不需要修改config</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\HAL_Drivers\config\f7\uart_config.h</span><br></pre></td></tr></table></figure>
-<p>根据HAL库的情况修改以下文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\HAL_Drivers\drv_usart.c</span><br></pre></td></tr></table></figure></p>
+<p>根据HAL库的情况修改以下文件 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bsp\stm32\libraries\HAL_Drivers\drv_usart.c</span><br></pre></td></tr></table></figure></p>
 <p>例如f7系列，参照stm32f7xx_hal_uart.h，看看什么drv_usart.c中使用到的API是stm32f7xx_hal_uart.h中没有的，改为stm32f7xx_hal_uart.h有的接口，可以参考下面的方式</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -417,7 +442,8 @@ ga('send', 'pageview');
 <p>其他需要修改的地方都是差不多的，可以参考一下我的修改</p>
 <p>在移植完驱动后，需要使用Cubemx启动外设，这部分请参考<a href="https://github.com/RT-Thread/rt-thread/blob/master/bsp/stm32/docs/BSP%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.md#%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%89%87%E4%B8%8A%E8%B5%84%E6%BA%90%E9%80%89%E9%A1%B9" target="_blank" rel="noopener">如何添加更多的片上资源选项</a></p>
 <p>不过串口1默认是开启的</p>
-<h1 id="规范BSP"><a href="#规范BSP" class="headerlink" title="规范BSP"></a>规范BSP</h1><p>这部分请参考<a href="https://github.com/RT-Thread/rt-thread/blob/master/bsp/stm32/docs/STM32%E7%B3%BB%E5%88%97BSP%E5%88%B6%E4%BD%9C%E8%A7%84%E8%8C%83.md" target="_blank" rel="noopener">STM32 系列 BSP 制作规范</a></p>
+<h1 id="规范bsp">规范BSP</h1>
+<p>这部分请参考<a href="https://github.com/RT-Thread/rt-thread/blob/master/bsp/stm32/docs/STM32%E7%B3%BB%E5%88%97BSP%E5%88%B6%E4%BD%9C%E8%A7%84%E8%8C%83.md" target="_blank" rel="noopener">STM32 系列 BSP 制作规范</a></p>
 <p>移植到此结束，欢迎尝试</p>
 <hr>
 <figure class="image-bubble">
@@ -427,6 +453,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -480,7 +507,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/12/12/工作-rt-thread-2018-12-12-如何移植RT-Thread的BSP/&title=《如何移植RT-Thread的BSP》 — Zhuhao's Blog&source=前言最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/12/12/工作-rt-thread-2018-12-12-如何移植RT-Thread的BSP/&title=《如何移植RT-Thread的BSP》 — Zhuhao's Blog&source=前言
+最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -644,7 +672,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/12/12/工作-rt-thread-2018-12-12-如何移植RT-Thread的BSP/&title=《如何移植RT-Thread的BSP》 — Zhuhao's Blog&source=前言最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/12/12/工作-rt-thread-2018-12-12-如何移植RT-Thread的BSP/&title=《如何移植RT-Thread的BSP》 — Zhuhao's Blog&source=前言
+最近RT-Thread重构了stm32的BSP，看了一下，感觉很思路很清晰" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

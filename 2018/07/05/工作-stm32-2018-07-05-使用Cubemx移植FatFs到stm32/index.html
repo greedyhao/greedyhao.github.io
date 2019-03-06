@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="使用Cubemx移植FatFs到stm32在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs系统架构">
+    <meta name="description" content="使用Cubemx移植FatFs到stm32 在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs 系统架构">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Cubemx移植FatFs到stm32">
 <meta property="og:url" content="http://greedyhao.cc/2018/07/05/工作-stm32-2018-07-05-使用Cubemx移植FatFs到stm32/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="使用Cubemx移植FatFs到stm32在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs系统架构">
+<meta property="og:description" content="使用Cubemx移植FatFs到stm32 在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs 系统架构">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://elm-chan.org/fsw/ff/res/modules.png">
 <meta property="og:image" content="http://elm-chan.org/fsw/ff/res/layers.png">
@@ -56,7 +56,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-09-09T04:02:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Cubemx移植FatFs到stm32">
-<meta name="twitter:description" content="使用Cubemx移植FatFs到stm32在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs系统架构">
+<meta name="twitter:description" content="使用Cubemx移植FatFs到stm32 在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。 这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。 介绍一下FafFs 系统架构">
 <meta name="twitter:image" content="http://elm-chan.org/fsw/ff/res/modules.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -185,7 +185,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用Cubemx移植FatFs到stm32"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用Cubemx移植FatFs到stm32</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#介绍一下FafFs"><span class="post-toc-number">2.</span> <span class="post-toc-text">介绍一下FafFs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统架构"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">系统架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#移植需要注意的地方"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">移植需要注意的地方</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开始移植"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置Cubemx"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">配置Cubemx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#补完底层I-O函数"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">补完底层I/O函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到问题和解决问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">遇到问题和解决问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#f-mount返回FR-DISK-ERR"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">f_mount返回FR_DISK_ERR</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#f-open返回FR-INVALID-NAME"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">f_open返回FR_INVALID_NAME</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#可以改进的地方"><span class="post-toc-number">5.</span> <span class="post-toc-text">可以改进的地方</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本工程已上传github"><span class="post-toc-number">6.</span> <span class="post-toc-text">本工程已上传github</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用cubemx移植fatfs到stm32"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用Cubemx移植FatFs到stm32</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#介绍一下faffs"><span class="post-toc-number">2.</span> <span class="post-toc-text">介绍一下FafFs</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统架构"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">系统架构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#移植需要注意的地方"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">移植需要注意的地方</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开始移植"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置cubemx"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">配置Cubemx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#补完底层io函数"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">补完底层I/O函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到问题和解决问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">遇到问题和解决问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#f_mount返回fr_disk_err"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">f_mount返回FR_DISK_ERR</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#f_open返回fr_invalid_name"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">f_open返回FR_INVALID_NAME</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#可以改进的地方"><span class="post-toc-number">5.</span> <span class="post-toc-text">可以改进的地方</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本工程已上传github"><span class="post-toc-number">6.</span> <span class="post-toc-text">本工程已上传github</span></a></li></ol>
         </nav>
     </aside>
 
@@ -210,9 +210,12 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="使用Cubemx移植FatFs到stm32"><a href="#使用Cubemx移植FatFs到stm32" class="headerlink" title="使用Cubemx移植FatFs到stm32"></a>使用Cubemx移植FatFs到stm32</h1><p>在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。</p>
+            <h1 id="使用cubemx移植fatfs到stm32">使用Cubemx移植FatFs到stm32</h1>
+<p>在大型的存储器中，没有文件系统是万万不可行的，你不可能每次要打开一个文件都要从头到尾扫描一遍存储器，几兆的小存储器还好，几G甚至几T的存储器就根本没办法这么做了。而且有了文件系统也可以方便的管理使用各类文件。</p>
 <p>这一次使用Cubemx生成FatFs的初始化代码，然后做最后的移植工作。本人使用的是stm32f767的野火的板子。</p>
-<h1 id="介绍一下FafFs"><a href="#介绍一下FafFs" class="headerlink" title="介绍一下FafFs"></a>介绍一下FafFs</h1><h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><figure class="image-bubble">
+<h1 id="介绍一下faffs">介绍一下FafFs</h1>
+<h2 id="系统架构">系统架构</h2>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="http://elm-chan.org/fsw/ff/res/modules.png" alt="" title="">
@@ -227,9 +230,12 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="移植需要注意的地方"><a href="#移植需要注意的地方" class="headerlink" title="移植需要注意的地方"></a>移植需要注意的地方</h2><p>你需要提供FatFs需要的底层I/O函数，需要的函数如下表，但是并不是全部函数都需要，你只需要提供必需的disk_status disk_initialize disk_read 和你需要的就可以。</p>
-<p><img src="/img/stm32/required_functions.png" alt=""></p>
-<h1 id="开始移植"><a href="#开始移植" class="headerlink" title="开始移植"></a>开始移植</h1><h2 id="配置Cubemx"><a href="#配置Cubemx" class="headerlink" title="配置Cubemx"></a>配置Cubemx</h2><p>因为我准备的是W25Q128上的FatFs，CubeMX上面没有，所以要选择user-defined</p>
+<h2 id="移植需要注意的地方">移植需要注意的地方</h2>
+<p>你需要提供FatFs需要的底层I/O函数，需要的函数如下表，但是并不是全部函数都需要，你只需要提供必需的disk_status disk_initialize disk_read 和你需要的就可以。</p>
+<p><img src="/img/stm32/required_functions.png"></p>
+<h1 id="开始移植">开始移植</h1>
+<h2 id="配置cubemx">配置Cubemx</h2>
+<p>因为我准备的是W25Q128上的FatFs，CubeMX上面没有，所以要选择user-defined</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -255,8 +261,11 @@ ga('send', 'pageview');
             </figure>
 <p>此外就是W25Q128的基本配置，这些就不提供了，网上有，可以参考<a href="http://www.waveshare.net/study/article-658-1.html" target="_blank" rel="noopener">微雪课堂</a>里的配置。</p>
 <p>接下来就是生成代码了</p>
-<h2 id="补完底层I-O函数"><a href="#补完底层I-O函数" class="headerlink" title="补完底层I/O函数"></a>补完底层I/O函数</h2><p>打开user_disko.c这个文件，可以看到CubeMX自动生成的函数原型。由于我需要读写磁盘，所以我需要补全这些所有的函数USER_initialize USER_status USER_read USER_write USER_ioctl</p>
-<h1 id="遇到问题和解决问题"><a href="#遇到问题和解决问题" class="headerlink" title="遇到问题和解决问题"></a>遇到问题和解决问题</h1><h2 id="f-mount返回FR-DISK-ERR"><a href="#f-mount返回FR-DISK-ERR" class="headerlink" title="f_mount返回FR_DISK_ERR"></a>f_mount返回FR_DISK_ERR</h2><p>这个问题困扰了我好几个小时，我从f_mount-&gt;get_ldnumber用printf找了差不多1个小时的BUG，发现找不到问题，突然间发现我f_mount还调用了一个函数find_volume，而且就算这里出现了问题，就换方向一路追踪find_volume-&gt;check_fs-&gt;move_window-&gt;disk_read，发现是disk_read返回的错误，看到这我就傻眼了，觉得不可能啊，因为我之前读取写入flash都是没有问题的。</p>
+<h2 id="补完底层io函数">补完底层I/O函数</h2>
+<p>打开user_disko.c这个文件，可以看到CubeMX自动生成的函数原型。由于我需要读写磁盘，所以我需要补全这些所有的函数USER_initialize USER_status USER_read USER_write USER_ioctl</p>
+<h1 id="遇到问题和解决问题">遇到问题和解决问题</h1>
+<h2 id="f_mount返回fr_disk_err">f_mount返回FR_DISK_ERR</h2>
+<p>这个问题困扰了我好几个小时，我从f_mount-&gt;get_ldnumber用printf找了差不多1个小时的BUG，发现找不到问题，突然间发现我f_mount还调用了一个函数find_volume，而且就算这里出现了问题，就换方向一路追踪find_volume-&gt;check_fs-&gt;move_window-&gt;disk_read，发现是disk_read返回的错误，看到这我就傻眼了，觉得不可能啊，因为我之前读取写入flash都是没有问题的。</p>
 <p>第二天脑袋比较清醒了，首先先测试初始化是否成功，在读取成功flash id后确定了初始化成功。</p>
 <p>然后再来看看disk_read，它使用的是我提供的一个全局的disk io驱动来读取disk，结构体类型如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">  uint8_t                 is_initialized[_VOLUMES];</span><br><span class="line">  const Diskio_drvTypeDef *drv[_VOLUMES];</span><br><span class="line">  uint8_t                 lun[_VOLUMES];</span><br><span class="line">  volatile uint8_t        nbr;</span><br><span class="line">&#125;Disk_drvTypeDef;</span><br></pre></td></tr></table></figure>
@@ -268,10 +277,11 @@ ga('send', 'pageview');
 <p>接下来就是查找disk的状态没有更新的原因。回到一开始找到返回错误信息的函数find_volume，它的执行过程相当于get_ldnumber-&gt;disk_initialize-&gt;check_fs…一开始就是到了check_fs这一步的时候报错，停止程序的，我们可以发现，这个过程并没有调用到用户定义的USER_status或FatFs定义的disk_status来检查disk的状态更新。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">所以我在初始化中加入了检查disk的状态的代码</span><br><span class="line"></span><br><span class="line">DSTATUS USER_initialize (</span><br><span class="line">	BYTE pdrv           /* Physical drive nmuber to identify the drive */</span><br><span class="line">)</span><br><span class="line">&#123;</span><br><span class="line">  /* USER CODE BEGIN INIT */</span><br><span class="line">  Stat = USER_status(pdrv);</span><br><span class="line">  return BSP_QSPI_Init(); /* Flash的初始化 */</span><br><span class="line">  /* USER CODE END INIT */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>效果很好，disk的状态更新成功，f_mount挂载正常。</p>
-<h2 id="f-open返回FR-INVALID-NAME"><a href="#f-open返回FR-INVALID-NAME" class="headerlink" title="f_open返回FR_INVALID_NAME"></a>f_open返回FR_INVALID_NAME</h2><p>好不容易挂载成功了，但是读写还是失败，第一反应是可能在编码上出错了，因为我的工程没有包括cc936.c这个文件，而野火官方的工程却包括了，我怀疑是不是这一点导致无法读取中文，从而FR_INVALID_NAME。</p>
+<h2 id="f_open返回fr_invalid_name">f_open返回FR_INVALID_NAME</h2>
+<p>好不容易挂载成功了，但是读写还是失败，第一反应是可能在编码上出错了，因为我的工程没有包括cc936.c这个文件，而野火官方的工程却包括了，我怀疑是不是这一点导致无法读取中文，从而FR_INVALID_NAME。</p>
 <p>但是我现在还不知道FatFs是怎么调用cc936.c这个文件的，只能先从f_open跟踪进去看看。</p>
 <p>f_open-&gt;follow_path，打LOG发现是follow_path中的create_name返回的FR_INVALID_NAME</p>
-<p>进入create_name找到返回FR_INVALID_NAME的语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">mem_set(sfn, &apos; &apos;, 11);</span><br><span class="line">...</span><br><span class="line">for (;;;) &#123;</span><br><span class="line">    ...</span><br><span class="line">    if (c == &apos;.&apos; || i &gt;= ni) &#123;		/* End of body or over size? */</span><br><span class="line">			if (ni == 11 || c != &apos;.&apos;) return FR_INVALID_NAME;	/* Over size or invalid dot */</span><br><span class="line">			i = 8; ni = 11;				/* Goto extension */</span><br><span class="line">			continue;</span><br><span class="line">	&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>进入create_name找到返回FR_INVALID_NAME的语句 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">mem_set(sfn, &apos; &apos;, 11);</span><br><span class="line">...</span><br><span class="line">for (;;;) &#123;</span><br><span class="line">    ...</span><br><span class="line">    if (c == &apos;.&apos; || i &gt;= ni) &#123;		/* End of body or over size? */</span><br><span class="line">			if (ni == 11 || c != &apos;.&apos;) return FR_INVALID_NAME;	/* Over size or invalid dot */</span><br><span class="line">			i = 8; ni = 11;				/* Goto extension */</span><br><span class="line">			continue;</span><br><span class="line">	&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>由于对于文件名一开始只分配了11个空间，但是我的文件名却超过了11个空间，所以导致了这个问题，在我将我的文件名减少后，问题解决。</p>
 <p>文件名长度才11有点短，但是可以通过修改支持长文件名来支持。</p>
 <figure class="image-bubble">
@@ -289,8 +299,10 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h1 id="可以改进的地方"><a href="#可以改进的地方" class="headerlink" title="可以改进的地方"></a>可以改进的地方</h1><p>本工程没有加入RTC的支持，所以没有去实现get_fattime，因此不支持多磁盘，想支持多磁盘需要实现get_fattime</p>
-<h1 id="本工程已上传github"><a href="#本工程已上传github" class="headerlink" title="本工程已上传github"></a>本工程已上传github</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/greedyhao/stm32</span><br></pre></td></tr></table></figure>
+<h1 id="可以改进的地方">可以改进的地方</h1>
+<p>本工程没有加入RTC的支持，所以没有去实现get_fattime，因此不支持多磁盘，想支持多磁盘需要实现get_fattime</p>
+<h1 id="本工程已上传github">本工程已上传github</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/greedyhao/stm32</span><br></pre></td></tr></table></figure>
 
         </div>
 

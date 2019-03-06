@@ -37,13 +37,13 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="DSP">
-    <meta name="description" content="简单说说卷积的作用卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+    <meta name="description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
 <meta name="keywords" content="DSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单说说卷积的作用">
 <meta property="og:url" content="http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="简单说说卷积的作用卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+<meta property="og:description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/dsp/思考卷积.jpg">
 <meta property="og:image" content="http://greedyhao.cc/img/dsp/chirp_bf.bmp">
@@ -52,7 +52,7 @@ ga('send', 'pageview');
 <meta property="og:updated_time" content="2018-10-22T07:44:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单说说卷积的作用">
-<meta name="twitter:description" content="简单说说卷积的作用卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
+<meta name="twitter:description" content="简单说说卷积的作用 卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/dsp/思考卷积.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -206,17 +206,23 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="简单说说卷积的作用"><a href="#简单说说卷积的作用" class="headerlink" title="简单说说卷积的作用"></a>简单说说卷积的作用</h1><p>卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。</p>
+            <h1 id="简单说说卷积的作用">简单说说卷积的作用</h1>
+<p>卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。</p>
 <a id="more"></a>
 <p>不过闲着的时候，也会去想，卷积到底有什么作用。</p>
-<p><img src="/img/dsp/思考卷积.jpg" alt=""></p>
-<h1 id="提供一种方便的频域处理方式"><a href="#提供一种方便的频域处理方式" class="headerlink" title="提供一种方便的频域处理方式"></a><a href="#提供一种方便的频域处理方式"></a>提供一种方便的频域处理方式</h1><p><strong>时域卷积频域相乘</strong></p>
+<p><img src="/img/dsp/思考卷积.jpg"></p>
+<h1 id="提供一种方便的频域处理方式"><a href="#提供一种方便的频域处理方式"></a>提供一种方便的频域处理方式</h1>
+<p><strong>时域卷积频域相乘</strong></p>
 <p>这条法则想必大家都知道，作用非常大，可以轻松的对信号的频域做处理</p>
 <p>简单的应用就是频域滤波</p>
-<p>$$<br>g(x) =  \mathscr{F}^{-1}\left[H(x)F(x)\right]<br>$$</p>
+<p><span class="math display">\[
+g(x) =  \mathscr{F}^{-1}\left[H(x)F(x)\right]
+\]</span></p>
 <p>F(x)代表输入信号，H(x)代表滤波函数，g(x)代表滤波（输出）信号。</p>
 <p>转换到时域则是</p>
-<p>$$<br>g(x) = h(x) \ast f(x)<br>$$</p>
+<p><span class="math display">\[
+g(x) = h(x) \ast f(x)
+\]</span></p>
 <p>以下是一个声音信号处理的例子，给matlab自带鸟叫声加了一个低通滤波器。</p>
 <p>效果如下：</p>
 <p>滤波前：</p>
@@ -300,7 +306,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用
+卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -464,7 +471,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/08/12/工作-dsp-2018-08-12-简单说说卷积的作用/&title=《简单说说卷积的作用》 — Zhuhao's Blog&source=简单说说卷积的作用
+卷积是一个耳熟能详的的词，自从我开始学习信号与系统以后，就一直没有离开过它，不过只是把它当成一个运算符号来看待。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

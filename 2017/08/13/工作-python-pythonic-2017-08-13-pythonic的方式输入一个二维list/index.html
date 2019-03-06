@@ -198,15 +198,15 @@ ga('send', 'pageview');
 <a id="more"></a>
 <p><strong>题目：</strong></p>
 <p>先输入一个整数（2~5）表示学生数，再连续输入学生姓名和成绩，输出成绩第二低的学生姓名。</p>
-<p>示例输入：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line">Harry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Berry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Tina</span><br><span class="line"><span class="number">37.2</span></span><br><span class="line">Akriti</span><br><span class="line"><span class="number">41</span></span><br><span class="line">Harsh</span><br><span class="line"><span class="number">39</span></span><br></pre></td></tr></table></figure></p>
-<p>示例输出：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Berry</span><br><span class="line">Harry</span><br></pre></td></tr></table></figure></p>
-<p>中间过程得到的一个list:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">students = [[<span class="string">'Harry'</span>, <span class="number">37.21</span>], [<span class="string">'Berry'</span>, <span class="number">37.21</span>], [<span class="string">'Tina'</span>, <span class="number">37.2</span>], [<span class="string">'Akriti'</span>, <span class="number">41</span>], [<span class="string">'Harsh'</span>, <span class="number">39</span>]]</span><br></pre></td></tr></table></figure></p>
+<p>示例输入： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line">Harry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Berry</span><br><span class="line"><span class="number">37.21</span></span><br><span class="line">Tina</span><br><span class="line"><span class="number">37.2</span></span><br><span class="line">Akriti</span><br><span class="line"><span class="number">41</span></span><br><span class="line">Harsh</span><br><span class="line"><span class="number">39</span></span><br></pre></td></tr></table></figure></p>
+<p>示例输出： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Berry</span><br><span class="line">Harry</span><br></pre></td></tr></table></figure></p>
+<p>中间过程得到的一个list: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">students = [[<span class="string">'Harry'</span>, <span class="number">37.21</span>], [<span class="string">'Berry'</span>, <span class="number">37.21</span>], [<span class="string">'Tina'</span>, <span class="number">37.2</span>], [<span class="string">'Akriti'</span>, <span class="number">41</span>], [<span class="string">'Harsh'</span>, <span class="number">39</span>]]</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">marksheet = []</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">0</span>,int(input())):</span><br><span class="line">    marksheet.append([input(), float(input())])</span><br><span class="line"></span><br><span class="line">second_lowest = sorted(list(set([marks <span class="keyword">for</span> name, marks <span class="keyword">in</span> marksheet])))[<span class="number">1</span>]</span><br><span class="line">print(<span class="string">'\n'</span>.join([a <span class="keyword">for</span> a,b <span class="keyword">in</span> sorted(marksheet) <span class="keyword">if</span> b == second_lowest]))</span><br></pre></td></tr></table></figure>
-<p>这是第一个人给出的解法，我刚看到觉得不错了，但是当我看到第二个人的解法才瞬间感觉到什么才<br>叫做pythonic</p>
+<p>这是第一个人给出的解法，我刚看到觉得不错了，但是当我看到第二个人的解法才瞬间感觉到什么才 叫做pythonic</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = int(input())</span><br><span class="line">marksheet = [[input(), float(input())] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line">second_lowest = sorted(list(set([marks <span class="keyword">for</span> name, marks <span class="keyword">in</span> marksheet])))[<span class="number">1</span>]</span><br><span class="line">print(<span class="string">'\n'</span>.join([a <span class="keyword">for</span> a,b <span class="keyword">in</span> sorted(marksheet) <span class="keyword">if</span> b == second_lowest]))</span><br></pre></td></tr></table></figure>
 <p>第二个人对第一个人的marksheet的录入进行了简化，简化到只有一行。</p>
 <p>特别是他讲的一句话让我感触很大，python写代码就是要精简，如果长过了50行，你将很难Debug。</p>
-<p>原文在这。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.</span><br></pre></td></tr></table></figure></p>
+<p>原文在这。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.</span><br></pre></td></tr></table></figure></p>
 
         </div>
 
@@ -299,18 +299,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/13/工作-python-pythonic-2017-08-13-输出第二大的数/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/13/工作-python-入门-2017-08-13-list倒序/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">输出list中第二大的数</h4>
+        <h4 class="title">倒序</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/12/工作-python-pythonic-2017-08-12-list-comprehensions/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/13/工作-python-pythonic-2017-08-13-输出第二大的数/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">list comprehensions</h4>
+        <h4 class="title">输出list中第二大的数</h4>
       </a>
     </div>
   

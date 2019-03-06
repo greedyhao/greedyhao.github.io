@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="关键信息1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
+    <meta name="description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习GPIO输出">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="关键信息1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
+<meta property="og:description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-08-14T13:27:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习GPIO输出">
-<meta name="twitter:description" content="关键信息1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
+<meta name="twitter:description" content="关键信息 1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd() 2.初始化I/O参数,调用函数GPIO_Init() 3.操作I/O">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">关键信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化GPIO的实例"><span class="post-toc-number">2.</span> <span class="post-toc-text">初始化GPIO的实例</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">关键信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初始化gpio的实例"><span class="post-toc-number">2.</span> <span class="post-toc-text">初始化GPIO的实例</span></a></li></ol>
         </nav>
     </aside>
 
@@ -201,11 +201,13 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="关键信息"><a href="#关键信息" class="headerlink" title="关键信息"></a>关键信息</h2><p>1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()</p>
+            <h2 id="关键信息">关键信息</h2>
+<p>1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()</p>
 <p>2.初始化I/O参数,调用函数GPIO_Init()</p>
 <p>3.操作I/O</p>
 <a id="more"></a>
-<h2 id="初始化GPIO的实例"><a href="#初始化GPIO的实例" class="headerlink" title="初始化GPIO的实例"></a>初始化GPIO的实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE); //使能I/O时钟</span><br><span class="line"></span><br><span class="line">GPIO_InitTypeDef GPIO_InitStructure;//创建一个初始化GPIO的结构体</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_2;//选择初始化的引脚</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//选择引脚模式</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//选择引脚速度</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);//初始化I/O参数</span><br><span class="line"></span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_1);//操作I/O</span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_2);//设置GPIOA的1，2引脚输出1</span><br></pre></td></tr></table></figure>
+<h2 id="初始化gpio的实例">初始化GPIO的实例</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE); //使能I/O时钟</span><br><span class="line"></span><br><span class="line">GPIO_InitTypeDef GPIO_InitStructure;//创建一个初始化GPIO的结构体</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_2;//选择初始化的引脚</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//选择引脚模式</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//选择引脚速度</span><br><span class="line">GPIO_Init(GPIOB,&amp;GPIO_InitStructure);//初始化I/O参数</span><br><span class="line"></span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_1);//操作I/O</span><br><span class="line">GPIO_SetBits(GPIOA,GPIO_Pin_2);//设置GPIOA的1，2引脚输出1</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -260,7 +262,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
 2.初始化I/O参数,调用函数GPIO_Init()
 3.操作I/O" data-title=" QQ">
           <i class="icon icon-qq"></i>
@@ -300,18 +303,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" id="post-prev" class="post-nav-link">
+      <a href="/2017/08/11/工作-jekyll-2017-08-11-完整版搭建博客教学/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习独立看门狗</h4>
+        <h4 class="title">利用github page搭建博客完整版教程</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习PWM</h4>
+        <h4 class="title">学习串口</h4>
       </a>
     </div>
   
@@ -426,7 +429,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/&title=《学习GPIO输出》 — Zhuhao's Blog&source=关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
 2.初始化I/O参数,调用函数GPIO_Init()
 3.操作I/O" data-title=" QQ">
           <i class="icon icon-qq"></i>

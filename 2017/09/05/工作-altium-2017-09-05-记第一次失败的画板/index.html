@@ -192,7 +192,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#画板流程"><span class="post-toc-number">1.</span> <span class="post-toc-text">画板流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#我画的PCB预览图"><span class="post-toc-number">2.</span> <span class="post-toc-text">我画的PCB预览图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开始–准备Lib"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始–准备Lib</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#画原理图"><span class="post-toc-number">4.</span> <span class="post-toc-text">画原理图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PCB-layout"><span class="post-toc-number">5.</span> <span class="post-toc-text">PCB layout</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#收到的教训"><span class="post-toc-number">6.</span> <span class="post-toc-text">收到的教训</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#画板流程"><span class="post-toc-number">1.</span> <span class="post-toc-text">画板流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#我画的pcb预览图"><span class="post-toc-number">2.</span> <span class="post-toc-text">我画的PCB预览图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#开始--准备lib"><span class="post-toc-number">3.</span> <span class="post-toc-text">开始--准备Lib</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#画原理图"><span class="post-toc-number">4.</span> <span class="post-toc-text">画原理图</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pcb-layout"><span class="post-toc-number">5.</span> <span class="post-toc-text">PCB layout</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#收到的教训"><span class="post-toc-number">6.</span> <span class="post-toc-text">收到的教训</span></a></li></ol>
         </nav>
     </aside>
 
@@ -219,12 +219,14 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>最近突然就想自己做一个小机器人来玩，但是不会画板，正好前天要从家回学校，要坐一晚上的大巴，就在车上通宵看完了Altium的简单的教学视频。为了更好的学习画PCB，就把视频教程中的实例自己去画了出来。</p>
 <a id="more"></a>
-<h1 id="画板流程"><a href="#画板流程" class="headerlink" title="画板流程"></a>画板流程</h1><ol>
+<h1 id="画板流程">画板流程</h1>
+<ol type="1">
 <li>画元件原理图库 元件封装库</li>
 <li>画原理图</li>
 <li>PCB layout</li>
 </ol>
-<h1 id="我画的PCB预览图"><a href="#我画的PCB预览图" class="headerlink" title="我画的PCB预览图"></a>我画的PCB预览图</h1><figure class="image-bubble">
+<h1 id="我画的pcb预览图">我画的PCB预览图</h1>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/altium/MSP430.png" alt="MSP430" title="">
@@ -232,11 +234,13 @@ ga('send', 'pageview');
                 <div class="image-caption">MSP430</div>
             </figure>
 <p>有点失败，地线在覆铜后没有通。</p>
-<h1 id="开始–准备Lib"><a href="#开始–准备Lib" class="headerlink" title="开始–准备Lib"></a>开始–准备Lib</h1><p>要画板，首先需要准备好元件的原理图库和封装库。</p>
+<h1 id="开始--准备lib">开始--准备Lib</h1>
+<p>要画板，首先需要准备好元件的原理图库和封装库。</p>
 <p>像我们这种初学者，绘制原理图库时不需要计较太多，一般元件左边输入，右边输出，管脚太多的情况下，上面放vcc，下面放gnd。一般来说，元件原理图库绘制要方便自己之后的板子的原理图的绘制，管脚太多的元件就拆分成几个组件。</p>
 <p>而元件的封装库就必须要按照实际情况来绘制，可以查找元件的datasheet，按照官方给的参数画，如果封装库绘制的不正确会导致元件焊接不上的尴尬，然后板就白打了。</p>
 <p>经过这次画板，我养成了一个习惯，就是先给项目添加一个，把这块板上所有元件的原理图库都添加到一个库中，封装库也是一样，然后</p>
-<h1 id="画原理图"><a href="#画原理图" class="headerlink" title="画原理图"></a>画原理图</h1><p>一般来说，我们都会先创建一个.PrjPcb项目，然后添加新的PcbDoc SchDoc PcbLib SCHLIB（这是我这次画板学到的），这样项目列表就会如下所示。</p>
+<h1 id="画原理图">画原理图</h1>
+<p>一般来说，我们都会先创建一个.PrjPcb项目，然后添加新的PcbDoc SchDoc PcbLib SCHLIB（这是我这次画板学到的），这样项目列表就会如下所示。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -267,7 +271,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h1 id="PCB-layout"><a href="#PCB-layout" class="headerlink" title="PCB layout"></a>PCB layout</h1><p>首先是从原理图中导入</p>
+<h1 id="pcb-layout">PCB layout</h1>
+<p>首先是从原理图中导入</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -346,7 +351,8 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h1 id="收到的教训"><a href="#收到的教训" class="headerlink" title="收到的教训"></a>收到的教训</h1><p>元件布局很重要，好的元件布局可以让自己在走线的时候更加轻松</p>
+<h1 id="收到的教训">收到的教训</h1>
+<p>元件布局很重要，好的元件布局可以让自己在走线的时候更加轻松</p>
 <p><strong>注意飞线</strong> ，我是画到最后才发现的，如果飞线有交叉，走线是很麻烦的，要避免飞线交叉</p>
 <p><strong>铺铜不是一定能保证网络连接的</strong>，我最先以为只要一铺铜，我选择的网络端口就全部连接上了，事实证明是我太年轻，走线太乱导致我铺铜后地线不通，顿时才明白了为什么说 <strong>尽量在top层走线的原因了</strong></p>
 

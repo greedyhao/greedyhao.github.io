@@ -202,23 +202,31 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>这是好久之前写的，忘记发了，另一种模拟傅里叶变换的方式。相关阅读：<a href="http://greedyhao.cc/2018/10/21/%E5%B7%A5%E4%BD%9C-dsp-2018-10-21-Matlab%E6%A8%A1%E6%8B%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">Matlab模拟傅里叶变换</a></p>
 <a id="more"></a>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><a href="http://greedyhao.cc/2018/10/21/%E5%B7%A5%E4%BD%9C-dsp-2018-10-21-Matlab%E6%A8%A1%E6%8B%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">前文</a>进行了傅里叶变换的分析，以及在Matlab上模拟傅里叶变换，但是使用的是矩阵向乘法，这里提供另外一种模拟的方法。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>我就是在<a href="https://www.csun.edu/~skatz/ece460/matlab_tut_two.pdf" target="_blank" rel="noopener">Evaluating Fourier Transforms with MATLAB</a>这篇文章中找到答案的。</p>
-<p>我发现在这篇文章中，使用了一个Matlab built-in function—trapz</p>
+<h1 id="前言">前言</h1>
+<p><a href="http://greedyhao.cc/2018/10/21/%E5%B7%A5%E4%BD%9C-dsp-2018-10-21-Matlab%E6%A8%A1%E6%8B%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">前文</a>进行了傅里叶变换的分析，以及在Matlab上模拟傅里叶变换，但是使用的是矩阵向乘法，这里提供另外一种模拟的方法。</p>
+<h1 id="解决方法">解决方法</h1>
+<p>我就是在<a href="https://www.csun.edu/~skatz/ece460/matlab_tut_two.pdf" target="_blank" rel="noopener">Evaluating Fourier Transforms with MATLAB</a>这篇文章中找到答案的。</p>
+<p>我发现在这篇文章中，使用了一个Matlab built-in function---trapz</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="built_in">help</span> trapz</span><br><span class="line"> trapz  Trapezoidal numerical integration.</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
 <p>简单来说，这个函数的作用是做积分，之前没有使用这个函数的时候，使用的就是求和的方法，也不知道之前的方法对复指数信号不适合的原因是不是求和导致了信息丢失。</p>
 <p>下面进入主题</p>
-<h1 id="分析与实现"><a href="#分析与实现" class="headerlink" title="分析与实现"></a>分析与实现</h1><p>首先还是看到傅里叶变换上来</p>
-<p>$$<br>X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt<br>$$</p>
-<p>思路很清晰，就是对$x_a(t)e^{-j2\pi ft}$积分而已</p>
+<h1 id="分析与实现">分析与实现</h1>
+<p>首先还是看到傅里叶变换上来</p>
+<p><span class="math display">\[
+X_a(j\Omega)=\int x_a(t)e^{-j\Omega t}dt
+\]</span></p>
+<p>思路很清晰，就是对<span class="math inline">\(x_a(t)e^{-j2\pi ft}\)</span>积分而已</p>
 <p>我们需要使用到的trapz的更详细的描述如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q = trapz(X,Y) 根据 X 指定的坐标或标量间距对 Y 进行积分。</span><br><span class="line">如果 X 是坐标向量，则 length(X) 必须等于 Y 的大小不等于 1 的第一个维度的大小。</span><br><span class="line">如果 X 是标量间距，则 trapz(X,Y) 等于 X*trapz(Y)。</span><br></pre></td></tr></table></figure>
 <p>根据文档，使用trapz(X,Y)时，让X为t，Y为积分部分就行</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trapz(t,x.*<span class="built_in">exp</span>(-<span class="built_in">j</span>*<span class="number">2</span>*<span class="built_in">pi</span>*f*t))</span><br></pre></td></tr></table></figure>
-<h2 id="一个简单的trapz例子"><a href="#一个简单的trapz例子" class="headerlink" title="一个简单的trapz例子"></a>一个简单的trapz例子</h2><p>接下来就使用trapz来做一个简单的函数的变换</p>
-<p>$$<br>X(jf)=\int^2_2 1e^{-j2\pi f} dt<br>$$</p>
+<h2 id="一个简单的trapz例子">一个简单的trapz例子</h2>
+<p>接下来就使用trapz来做一个简单的函数的变换</p>
+<p><span class="math display">\[
+X(jf)=\int^2_2 1e^{-j2\pi f} dt
+\]</span></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br><span class="line">t=<span class="number">-2</span>:<span class="number">.01</span>:<span class="number">2</span>;</span><br><span class="line">k=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> f=<span class="number">-5</span>:<span class="number">.01</span>:<span class="number">5</span></span><br><span class="line">    k=k+<span class="number">1</span>;</span><br><span class="line">    X(k)=trapz(t,<span class="built_in">exp</span>(-<span class="built_in">j</span>*<span class="number">2</span>*<span class="built_in">pi</span>*f*t));</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">f=<span class="number">-5</span>:<span class="number">.01</span>:<span class="number">5</span>;</span><br><span class="line"><span class="built_in">plot</span>(f,X)</span><br></pre></td></tr></table></figure>
-<p>效果如下：<br><figure class="image-bubble">
+<p>效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/dsp/ctft_3.png" alt="" title="">
@@ -234,6 +242,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">

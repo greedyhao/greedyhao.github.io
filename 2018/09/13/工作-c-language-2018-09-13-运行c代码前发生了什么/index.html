@@ -37,20 +37,20 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="x210">
-    <meta name="description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。">
+    <meta name="description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta name="keywords" content="x210">
 <meta property="og:type" content="article">
 <meta property="og:title" content="运行c代码前发生了什么">
 <meta property="og:url" content="http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。">
+<meta property="og:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
 <meta property="og:updated_time" content="2018-09-13T11:16:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="运行c代码前发生了什么">
-<meta name="twitter:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。">
+<meta name="twitter:description" content="众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。">
 <meta name="twitter:image" content="http://greedyhao.cc/img/c_language/StartupCode.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -200,15 +200,19 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。</p>
+            <p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p>
 <a id="more"></a>
 <p>虽然早就知道c代码是先经过编译链接最后才放在机器上执行，但是在这么一个过程中究竟发生了什么，最近在学习嵌入式裸机开发中，才又有了更深入的了解。</p>
-<h1 id="简单描述一下生成机器代码过程"><a href="#简单描述一下生成机器代码过程" class="headerlink" title="简单描述一下生成机器代码过程"></a>简单描述一下生成机器代码过程</h1><h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>编译过程是以前就知道了的，预编译会对一些带#号的预编译命令处理，如#define等，编译器会对他们进行替换得到.i文件，然后进一步编译得到.o文件。</p>
-<h2 id="链接过程"><a href="#链接过程" class="headerlink" title="链接过程"></a>链接过程</h2><p>在将源文件编译成可执行文件时，有一个过程是链接。</p>
+<h1 id="简单描述一下生成机器代码过程">简单描述一下生成机器代码过程</h1>
+<h2 id="编译过程">编译过程</h2>
+<p>编译过程是以前就知道了的，预编译会对一些带#号的预编译命令处理，如#define等，编译器会对他们进行替换得到.i文件，然后进一步编译得到.o文件。</p>
+<h2 id="链接过程">链接过程</h2>
+<p>在将源文件编译成可执行文件时，有一个过程是链接。</p>
 <p>其实我以前就对这个链接过程感觉有些不解的，这个链接过程到底是怎么把这些.o文件链接在一起，是有一种什么样的规则呢，总不可能随便链接的吧，随便链接的话怎么解决依赖问题。</p>
 <p>直到之前了解了一下alios系统，在学习的过程中发现，在芯片架构的支持中，有一个elf文件，里面定义了一些地址，当时还不知道有什么用；最近学习裸机开发中，也遇到了这么一个类似的lds文件。</p>
 <p>通过学习，才知道，原来这种文件定义了各个段如代码段、数据段等的地址，这样编译器在链接的过程中，就知道了要把各种.o文件以什么样的顺序链接，链接在什么地址处。</p>
-<h1 id="准备c语言运行环境"><a href="#准备c语言运行环境" class="headerlink" title="准备c语言运行环境"></a>准备c语言运行环境</h1><figure class="image-bubble">
+<h1 id="准备c语言运行环境">准备c语言运行环境</h1>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/c_language/StartupCode.png" alt="" title="">
@@ -219,10 +223,12 @@ ga('send', 'pageview');
 <p>在Startup Code中，会做一系列的事，比如关中断、重定位、申请栈空间等等，具体过程和硬件相关。</p>
 <p>最后跳转到main()。</p>
 <p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p>
-<p><a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" target="_blank" rel="noopener">http://www.bravegnu.org/gnu-eprog/c-startup.html</a></p>
-<h1 id="篇外话"><a href="#篇外话" class="headerlink" title="篇外话"></a>篇外话</h1><p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了O__O “…，好好的一篇科普文变成了推荐阅读文(手动笑哭)</p>
+<p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p>
+<h1 id="篇外话">篇外话</h1>
+<p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了O__O &quot;…，好好的一篇科普文变成了推荐阅读文(手动笑哭)</p>
 <p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<h1 id="参考资料">参考资料</h1>
+<ul>
 <li><a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" target="_blank" rel="noopener">C Startup</a></li>
 <li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li>
 <li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li>
@@ -231,7 +237,7 @@ ga('send', 'pageview');
 <li><a href="https://blog.csdn.net/koozxcv/article/details/49533731" target="_blank" rel="noopener">Linux进程的五个段（数据段、代码段、bss、堆栈段）</a></li>
 </ul>
 <hr>
-<p><img src="/img/wechat_official_accounts.jpg" alt=""></p>
+<p><img src="/img/wechat_official_accounts.jpg"></p>
 
         </div>
 
@@ -286,7 +292,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -450,7 +456,7 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码–那一串0和1而已。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/&title=《运行c代码前发生了什么》 — Zhuhao's Blog&source=众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

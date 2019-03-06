@@ -181,7 +181,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rt-thread-nano版移植"><span class="post-toc-number">1.</span> <span class="post-toc-text">rt-thread nano版移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让内核运转起来"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">让内核运转起来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现OS-Tick"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现OS Tick</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现控制台打印"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现控制台打印</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现动态内存"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">实现动态内存</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用env"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用env</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rt-thread-nano版移植"><span class="post-toc-number">1.</span> <span class="post-toc-text">rt-thread nano版移植</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#让内核运转起来"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">让内核运转起来</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现os-tick"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现OS Tick</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现控制台打印"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">实现控制台打印</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现动态内存"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">实现动态内存</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用env"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用env</span></a></li></ol>
         </nav>
     </aside>
 
@@ -206,11 +206,13 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>分享一下我参加rtt培训的内容吧</p>
 <a id="more"></a>
-<h1 id="rt-thread-nano版移植"><a href="#rt-thread-nano版移植" class="headerlink" title="rt-thread nano版移植"></a>rt-thread nano版移植</h1><h2 id="让内核运转起来"><a href="#让内核运转起来" class="headerlink" title="让内核运转起来"></a>让内核运转起来</h2><p>移植选用的是rt-thread nano版，这次的移植的乞丐版，rt-thread的组件都没有移植，只有最基本的内核。</p>
+<h1 id="rt-thread-nano版移植">rt-thread nano版移植</h1>
+<h2 id="让内核运转起来">让内核运转起来</h2>
+<p>移植选用的是rt-thread nano版，这次的移植的乞丐版，rt-thread的组件都没有移植，只有最基本的内核。</p>
 <p>为了简单，参考了rtt提供的模板移植。我这块板是stm32f767的，和提供的模板使用的m4不一样，所以要做一些修改。</p>
 <p>首先是创建工程，按照模板添加工程文件，配置好魔法棒中的c/c++参数，之后就开始移植了。</p>
-<ol>
-<li>将下载好的rt-thread nano版的src添加到工程中，由于这里不使用rtt的组件，所以rt-thread\components下的文件不需要添加到工程</li>
+<ol type="1">
+<li>将下载好的rt-thread nano版的src添加到工程中，由于这里不使用rtt的组件，所以rt-thread</li>
 <li>修改时钟，找到SystemClock_Config的实现，按照自己板子的实际情况对时钟进行修改，这里的需要用到uasrt1，所以我就在这里初始化了uasrt1的时钟。</li>
 <li>按照板子的实际情况，在board.c中实现led、uart的bsp</li>
 </ol>
@@ -228,30 +230,33 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<h2 id="实现OS-Tick"><a href="#实现OS-Tick" class="headerlink" title="实现OS Tick"></a>实现OS Tick</h2><p>此时main中使用的delay还是通过空循环实现的，为了使用内核的rt_thread_delay，还需要实现OS Tick来给RTOS提供时间节拍，ARM Cortex-M提供了一个定时器Systick，这个定时器的时钟来源于系统时钟，会周期性的溢出，一般RTOS都是使用Systick来提供OS Tick</p>
-<ol>
+<h2 id="实现os-tick">实现OS Tick</h2>
+<p>此时main中使用的delay还是通过空循环实现的，为了使用内核的rt_thread_delay，还需要实现OS Tick来给RTOS提供时间节拍，ARM Cortex-M提供了一个定时器Systick，这个定时器的时钟来源于系统时钟，会周期性的溢出，一般RTOS都是使用Systick来提供OS Tick</p>
+<ol type="1">
 <li>实现SysTick_Handler，让mcu在Systick定时器溢出时给os tick的值加1，在加os tick时需要关闭中断</li>
 <li>rt_hw_board_init中给Systick初始化</li>
 <li>更换main.c中的_delay为rt_thread_delay</li>
 </ol>
 <p>效果和前面相同</p>
-<h2 id="实现控制台打印"><a href="#实现控制台打印" class="headerlink" title="实现控制台打印"></a>实现控制台打印</h2><p>调试设备少不了串口打印设备信息，rt-thread中提供了rt_kprintf来打印设备信息。进入到rt_kprintf的实现中看看</p>
+<h2 id="实现控制台打印">实现控制台打印</h2>
+<p>调试设备少不了串口打印设备信息，rt-thread中提供了rt_kprintf来打印设备信息。进入到rt_kprintf的实现中看看</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rt_kprintf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *fmt, ...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    …</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> RT_USING_DEVICE</span></span><br><span class="line">    …</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    rt_hw_console_output(rt_log_buf);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看出rt_kprintf的实现有分情况的，如果有显示设备就在显示设备上输出，没有就通过rt_hw_console_output在控制台输出</p>
 <p>rt_thread的rt_hw_console_output是弱定义，所以需要用户自己实现</p>
 <p>前面实现了串口输出，因此可以直接使用bsp_uart_send作为控制台输出</p>
-<p>此时效果如下:<br><figure class="image-bubble">
+<p>此时效果如下: <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/RTOS/rt-thread/porting_rtt_2.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="实现动态内存"><a href="#实现动态内存" class="headerlink" title="实现动态内存"></a>实现动态内存</h2><p>线程的创建是需要动态内存的，rt-thread使用rtconfig.h来控制RTOS的各个功能的开关；要想使用动态内存首先需要在rtconfig.h中打开动态内存</p>
+<h2 id="实现动态内存">实现动态内存</h2>
+<p>线程的创建是需要动态内存的，rt-thread使用rtconfig.h来控制RTOS的各个功能的开关；要想使用动态内存首先需要在rtconfig.h中打开动态内存</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RT_USING_HEAP </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RT_USING_SMALL_MEM</span></span><br></pre></td></tr></table></figure>
 <p>然后需要在rt_hw_board_init中使用rt_system_heap_init对动态内存堆初始化</p>
 <p>在main.c中创建一个线程测试rt_kprintf</p>
-<p>效果如下：<br><figure class="image-bubble">
+<p>效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/RTOS/rt-thread/porting_rtt_3.png" alt="" title="">
@@ -259,8 +264,9 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure></p>
 <p><a href="https://github.com/greedyhao/rt-thread/tree/master/stm32f767-rt-thread-nano" target="_blank" rel="noopener">此工程的代码地址</a></p>
-<h1 id="使用env"><a href="#使用env" class="headerlink" title="使用env"></a>使用env</h1><p>我的板子是stm32f767，在bsp中找到了一个stm32f7-disco的移植，就拿来用了。修改了一下工程配置，发现串口管脚都相同，就关掉sdram直接用了</p>
-<p>效果如下：<br><figure class="image-bubble">
+<h1 id="使用env">使用env</h1>
+<p>我的板子是stm32f767，在bsp中找到了一个stm32f7-disco的移植，就拿来用了。修改了一下工程配置，发现串口管脚都相同，就关掉sdram直接用了</p>
+<p>效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/RTOS/rt-thread/porting_rtt_4.png" alt="" title="">
@@ -276,6 +282,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">

@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="stm32">
-    <meta name="description" content="TFT简述这个实验是我认为比较麻烦的一个实验了，有一定难度。主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
+    <meta name="description" content="TFT简述 这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
 <meta name="keywords" content="stm32">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习TFT-FSMC">
 <meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="TFT简述这个实验是我认为比较麻烦的一个实验了，有一定难度。主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
+<meta property="og:description" content="TFT简述 这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-08-14T13:27:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习TFT-FSMC">
-<meta name="twitter:description" content="TFT简述这个实验是我认为比较麻烦的一个实验了，有一定难度。主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
+<meta name="twitter:description" content="TFT简述 这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TFT简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">TFT简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#出现的问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">出现的问题</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tft简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">TFT简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#出现的问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">出现的问题</span></a></li></ol>
         </nav>
     </aside>
 
@@ -201,24 +201,25 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="TFT简述"><a href="#TFT简述" class="headerlink" title="TFT简述"></a>TFT简述</h2><p>这个实验是我认为比较麻烦的一个实验了，有一定难度。<br>主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。</p>
+            <h2 id="tft简述">TFT简述</h2>
+<p>这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。</p>
 <a id="more"></a>
-<h2 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h2><ol>
+<h2 id="基本步骤">基本步骤</h2>
+<ol type="1">
 <li>LCD初始化</li>
 <li>刷屏</li>
 <li>做你要做的事</li>
 </ol>
-<h2 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h2><ol>
-<li>对自己使用的LCD屏了解的不多。这是由于我使用的是普中的stm32的开发板，但我看的书的开发板是正点原子的，两个开发板的LCD是不一样的。普中的LCD是8位<br>的数据位，而正点原子的是16位，这就导致我使用书中例程的程序时，开发板的LCD没有反应，真的好气啊！然后我找到了普中的例程，仔细的看了一遍，发现<br>程序中提到普中的LCD是8位的，需要分两次传数据。</li>
+<h2 id="出现的问题">出现的问题</h2>
+<ol type="1">
+<li>对自己使用的LCD屏了解的不多。这是由于我使用的是普中的stm32的开发板，但我看的书的开发板是正点原子的，两个开发板的LCD是不一样的。普中的LCD是8位 的数据位，而正点原子的是16位，这就导致我使用书中例程的程序时，开发板的LCD没有反应，真的好气啊！然后我找到了普中的例程，仔细的看了一遍，发现 程序中提到普中的LCD是8位的，需要分两次传数据。</li>
 </ol>
-<p>以下是对原子的例程的修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void LCD_WR_REG(u16 regval)</span><br><span class="line">&#123;</span><br><span class="line">	LCD-&gt;LCD_REG=regval&lt;&lt;8;//写入要写的寄存器序号	 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WR_DATA(u16 data)</span><br><span class="line">&#123;										    	   </span><br><span class="line">	LCD-&gt;LCD_RAM=data&lt;&lt;8;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WriteRAM(u16 RGB_Code)</span><br><span class="line">&#123;							    </span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&amp;0xFF00;//写十六位GRAM</span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&lt;&lt;8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li><p>解决完LCD的初始化问题后，还有LCD刷屏的问题。发现原子的刷屏程序也是用不了，参考普中的例程发现，普中在设置光标位置时，还设置了光标的结束位置，<br>就是给了2AH指令和2BH指令4个参数，问题得以解决。</p>
-</li>
-<li><p>在屏幕上打印文字。目前还在处理这个问题。问题解决。</p>
-</li>
+<p>以下是对原子的例程的修改 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void LCD_WR_REG(u16 regval)</span><br><span class="line">&#123;</span><br><span class="line">	LCD-&gt;LCD_REG=regval&lt;&lt;8;//写入要写的寄存器序号	 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WR_DATA(u16 data)</span><br><span class="line">&#123;										    	   </span><br><span class="line">	LCD-&gt;LCD_RAM=data&lt;&lt;8;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void LCD_WriteRAM(u16 RGB_Code)</span><br><span class="line">&#123;							    </span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&amp;0xFF00;//写十六位GRAM</span><br><span class="line">	LCD-&gt;LCD_RAM = RGB_Code&lt;&lt;8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2" type="1">
+<li><p>解决完LCD的初始化问题后，还有LCD刷屏的问题。发现原子的刷屏程序也是用不了，参考普中的例程发现，普中在设置光标位置时，还设置了光标的结束位置， 就是给了2AH指令和2BH指令4个参数，问题得以解决。</p></li>
+<li><p>在屏幕上打印文字。目前还在处理这个问题。问题解决。</p></li>
 </ol>
-<p>一开始我打印出来的文字乱码，我把我的程序与官方的程序进行对比，检查了好几天也没有找出答案，真的好气。最后发现问题居然在字库上；我刚开始只是扫视了一眼，<br>觉得自己的字库和官方的好像是一样的就没有太多注意，直到最后实在没有办法复制官方的字库发现问题居然解决了..</p>
+<p>一开始我打印出来的文字乱码，我把我的程序与官方的程序进行对比，检查了好几天也没有找出答案，真的好气。最后发现问题居然在字库上；我刚开始只是扫视了一眼， 觉得自己的字库和官方的好像是一样的就没有太多注意，直到最后实在没有办法复制官方的字库发现问题居然解决了..</p>
 
         </div>
 
@@ -273,7 +274,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/&title=《学习TFT-FSMC》 — Zhuhao's Blog&source=TFT简述这个实验是我认为比较麻烦的一个实验了，有一定难度。主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/&title=《学习TFT-FSMC》 — Zhuhao's Blog&source=TFT简述
+这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -320,9 +322,9 @@ ga('send', 'pageview');
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" id="post-next" class="post-nav-link">
+      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Input/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习定时器</h4>
+        <h4 class="title">学习GPIO输入</h4>
       </a>
     </div>
   
@@ -437,7 +439,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/&title=《学习TFT-FSMC》 — Zhuhao's Blog&source=TFT简述这个实验是我认为比较麻烦的一个实验了，有一定难度。主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/&title=《学习TFT-FSMC》 — Zhuhao's Blog&source=TFT简述
+这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

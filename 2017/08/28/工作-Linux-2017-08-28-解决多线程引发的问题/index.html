@@ -205,7 +205,8 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>本文将介绍并发和并行有什么区别，再说明如何产生数据的竞争问题，再介绍如何解决竞争问题。</p>
 <a id="more"></a>
-<h1 id="什么是并发和并行"><a href="#什么是并发和并行" class="headerlink" title="什么是并发和并行"></a>什么是并发和并行</h1><figure class="image-bubble">
+<h1 id="什么是并发和并行">什么是并发和并行</h1>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/linux/并发和并行.png" alt="并发和并行" title="">
@@ -215,99 +216,104 @@ ga('send', 'pageview');
 <p>从我画的这幅图就可以看出并发和并行的区别。</p>
 <p><strong>并发</strong> 是指在一个时间片内对多个任务间切换，以达到多任务的目的。<strong>并行</strong> 是指多个处理器同时运行多个任务。</p>
 <p>简单的说就是，并发是在软件层面运行多任务，甚至单处理器都可以；而并行就需要硬件支持，需要是多处理器。</p>
-<h1 id="竞争的问题"><a href="#竞争的问题" class="headerlink" title="竞争的问题"></a>竞争的问题</h1><p>由于多线程共享同一个虚拟内存空间，且多线程的顺序是不可知的，所以在多线程对数据进行操作时，就存在着很多不确定性。</p>
+<h1 id="竞争的问题">竞争的问题</h1>
+<p>由于多线程共享同一个虚拟内存空间，且多线程的顺序是不可知的，所以在多线程对数据进行操作时，就存在着很多不确定性。</p>
 <p>拿书本中x++的例子吧，我觉得挺经典的。</p>
 <p>假设有两个线程并发执行x++，其中x=5。以下是我们的期待输出。</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:left">时间</th>
-<th style="text-align:left">线程1</th>
-<th style="text-align:left">线程2</th>
+<tr class="header">
+<th style="text-align: left;">时间</th>
+<th style="text-align: left;">线程1</th>
+<th style="text-align: left;">线程2</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:left">把x加载到寄存器（5）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">把x加载到寄存器（5）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">2</td>
-<td style="text-align:left">寄存器值加1（6）</td>
-<td style="text-align:left"></td>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">寄存器值加1（6）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">3</td>
-<td style="text-align:left">把寄存器值赋给x（6）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">把寄存器值赋给x（6）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">4</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">把x加载到寄存器（6）</td>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">把x加载到寄存器（6）</td>
 </tr>
-<tr>
-<td style="text-align:left">5</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">寄存器值加1（7）</td>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">寄存器值加1（7）</td>
 </tr>
-<tr>
-<td style="text-align:left">6</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">把寄存器值赋给x（7）</td>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">把寄存器值赋给x（7）</td>
 </tr>
 </tbody>
 </table>
 <p>但是我们前面说了，线程的执行顺序是不确定的，实际情况很可能是这样。</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:left">时间</th>
-<th style="text-align:left">线程1</th>
-<th style="text-align:left">线程2</th>
+<tr class="header">
+<th style="text-align: left;">时间</th>
+<th style="text-align: left;">线程1</th>
+<th style="text-align: left;">线程2</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:left">把x加载到寄存器（5）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">把x加载到寄存器（5）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">2</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">把x加载到寄存器（5）</td>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">把x加载到寄存器（5）</td>
 </tr>
-<tr>
-<td style="text-align:left">3</td>
-<td style="text-align:left">寄存器值加1（6）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">寄存器值加1（6）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">4</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">寄存器值加1（6）</td>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">寄存器值加1（6）</td>
 </tr>
-<tr>
-<td style="text-align:left">5</td>
-<td style="text-align:left">把寄存器值赋给x（6）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">把寄存器值赋给x（6）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:left">6</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">把寄存器值赋给x（6）</td>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">把寄存器值赋给x（6）</td>
 </tr>
 </tbody>
 </table>
 <p>也就是说，很有可能在多线程的情况下，x++虽然被执行了多次，但结果可能只是加了1。</p>
-<h1 id="解决数据竞争的问题"><a href="#解决数据竞争的问题" class="headerlink" title="解决数据竞争的问题"></a>解决数据竞争的问题</h1><h2 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h2><p>同步是解决数据竞争的一个不错的方法。</p>
-<h2 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h2><p>因为多线程是共享同一个内存空间的，所以无法使用普通的数据类型来判断一份数据是否已经被”操作过了”；但是我们可以使用”锁”，把数据锁住，让程序在处理数据时只允许单个线程更改数据。这就叫 <strong>互斥</strong>。</p>
-<p>再把书中的一个例子搬出来，是对ATM机存取款加锁。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">withdraw</span> <span class="params">(struct account *account, <span class="keyword">int</span> amount)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    lock ();</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> balance = account-&gt;balance;</span><br><span class="line">    <span class="keyword">if</span> (balance &lt; amount) &#123;</span><br><span class="line">        unlock ();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    account-&gt;balance = balance - amount;</span><br><span class="line">    unlock ();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="解决数据竞争的问题">解决数据竞争的问题</h1>
+<h2 id="同步">同步</h2>
+<p>同步是解决数据竞争的一个不错的方法。</p>
+<h2 id="互斥">互斥</h2>
+<p>因为多线程是共享同一个内存空间的，所以无法使用普通的数据类型来判断一份数据是否已经被&quot;操作过了&quot;；但是我们可以使用&quot;锁&quot;，把数据锁住，让程序在处理数据时只允许单个线程更改数据。这就叫 <strong>互斥</strong>。</p>
+<p>再把书中的一个例子搬出来，是对ATM机存取款加锁。 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">withdraw</span> <span class="params">(struct account *account, <span class="keyword">int</span> amount)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    lock ();</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> balance = account-&gt;balance;</span><br><span class="line">    <span class="keyword">if</span> (balance &lt; amount) &#123;</span><br><span class="line">        unlock ();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    account-&gt;balance = balance - amount;</span><br><span class="line">    unlock ();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如果使用Pthread库的API，还可以对单个账户加锁，在下次介绍Pthread的时候再说。</p>
-<h1 id="参考源"><a href="#参考源" class="headerlink" title="参考源"></a>参考源</h1><ul>
-<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O’Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
+<h1 id="参考源">参考源</h1>
+<ul>
+<li><a href="https://book.douban.com/subject/3907181/" target="_blank" rel="noopener">Linux System Programming,Second Edition,by Robert Love(O'Reilly).Copyright 2013 Robert Love,978-1-449-33953-1</a></li>
 </ul>
 
         </div>

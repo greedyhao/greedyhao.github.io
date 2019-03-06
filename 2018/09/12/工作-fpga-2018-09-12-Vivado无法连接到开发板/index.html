@@ -37,18 +37,18 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="FPGA,Xilinx">
-    <meta name="description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下：12cd &amp;">
+    <meta name="description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下： 12cd">
 <meta name="keywords" content="FPGA,Xilinx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vivado无法连接到开发板">
 <meta property="og:url" content="http://greedyhao.cc/2018/09/12/工作-fpga-2018-09-12-Vivado无法连接到开发板/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下：12cd &amp;">
+<meta property="og:description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下： 12cd">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-09-12T03:12:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vivado无法连接到开发板">
-<meta name="twitter:description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下：12cd &amp;">
+<meta name="twitter:description" content="从咸鱼上淘了一块二手的ZYBO来玩，因为出了新版开发板ZYBO-Z7，所以旧版的还是比较便宜，才600来块 在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑 参考自Vivado 2015.2 Cable driver installation problem 发现我缺少了驱动的安装 步骤如下： 12cd">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -194,13 +194,10 @@ ga('send', 'pageview');
 <p>在使用Hardware Manage的auto connect连接开发板的时候发现，无论开发板是使用QSPI还是JTAG模式，都无法连接到电脑</p>
 <p>参考自<a href="https://forums.xilinx.com/t5/Installation-and-Licensing/Vivado-2015-2-Cable-driver-installation-problem/td-p/642140" target="_blank" rel="noopener">Vivado 2015.2 Cable driver installation problem</a></p>
 <p>发现我缺少了驱动的安装</p>
-<p>步骤如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;Vivado installation dir&gt;/data/xicom/cable_drivers/lin64/install_script/install_drivers/</span><br><span class="line">./install_drivers</span><br></pre></td></tr></table></figure></p>
+<p>步骤如下： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;Vivado installation dir&gt;/data/xicom/cable_drivers/lin64/install_script/install_drivers/</span><br><span class="line">./install_drivers</span><br></pre></td></tr></table></figure></p>
 <p>下面是我的输出结果，不知道为什么有个CRITICAL WARNING，暂时没有找到解决方法，也没有遇见问题</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-HP-Pavilion-Notebook:/usr/<span class="built_in">local</span>/Xilinx/Vivado/2018.2/data/xicom/cable_drivers/lin64/install_script/install_drivers$ sudo ./install_drivers </span><br><span class="line">[sudo] greedyhao 的密码： </span><br><span class="line">INFO: Installing cable drivers.</span><br><span class="line">INFO: Script name = ./install_drivers</span><br><span class="line">INFO: HostName = greedyhao-HP-Pavilion-Notebook</span><br><span class="line">INFO: Current working dir = /usr/<span class="built_in">local</span>/Xilinx/Vivado/2018.2/data/xicom/cable_drivers/lin64/install_script/install_drivers</span><br><span class="line">INFO: Kernel version = 4.15.0-34-generic.</span><br><span class="line">INFO: Arch = x86_64.</span><br><span class="line">Successfully installed Digilent Cable Drivers</span><br><span class="line">--File /etc/udev/rules.d/52-xilinx-ftdi-usb.rules does not exist.</span><br><span class="line">--File version of /etc/udev/rules.d/52-xilinx-ftdi-usb.rules = 0000.</span><br><span class="line">--Updating rules file.</span><br><span class="line">--File /etc/udev/rules.d/52-xilinx-pcusb.rules does not exist.</span><br><span class="line">--File version of /etc/udev/rules.d/52-xilinx-pcusb.rules = 0000.</span><br><span class="line">--Updating rules file.</span><br><span class="line"></span><br><span class="line">INFO: Digilent Return code = 0</span><br><span class="line">INFO: Xilinx Return code = 0</span><br><span class="line">INFO: Xilinx FTDI Return code = 0</span><br><span class="line">INFO: Return code = 0</span><br><span class="line">INFO: Driver installation successful.</span><br><span class="line">CRITICAL WARNING: Cable(s) on the system must be unplugged <span class="keyword">then</span> plugged back <span class="keyword">in</span> order <span class="keyword">for</span> the driver scripts to update the cables.</span><br></pre></td></tr></table></figure>
-<p>参考资料</p>
-<ul>
-<li><a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_1/ug973-vivado-release-notes-install-license.pdf" target="_blank" rel="noopener">ug973-vivado-release-notes-install-license</a></li>
-</ul>
+<p>参考资料 + <a href="https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_1/ug973-vivado-release-notes-install-license.pdf" target="_blank" rel="noopener">ug973-vivado-release-notes-install-license</a></p>
 
         </div>
 

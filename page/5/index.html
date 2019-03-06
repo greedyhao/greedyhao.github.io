@@ -194,10 +194,12 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        使用ModelSim遇到的问题Error: Could not find altera.alt_dspbuilder_package.解决方法自然是添加包了。
+        使用ModelSim遇到的问题
+Error: Could not find altera.alt_dspbuilder_package.
+解决方法自然是添加包了。
 
-把\quartus\libraries\vhdl\altera目录下的alt_dspbuilder_package.vhd文件复制到\modelsim_ase\altera\vhdl\src\altera目录下。
-然后再对Modle...
+把_dspbuilder_package.vhd文件复制到_ase。
+然后再对Modlesim里库文件altera进行compile，选中alt_dspbuilder_package.vhd文件进行compile，从而把alt_...
     
 
         <a href="/2018/05/13/工作-fpga-2018-05-13-使用ModelSim遇到的问题/" class="post-more waves-effect waves-button">
@@ -243,8 +245,11 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        使用_Alios_Things_遇到的问题总结更新中…
-编译问题系统找不到指定文件如下图，虽然选择了编译的项目和板子，但是make时系统找不到指定文件
+        使用_Alios_Things_遇到的问题总结
+更新中…
+编译问题
+系统找不到指定文件
+如下图，虽然选择了编译的项目和板子，但是make时系统找不到指定文件
 
                 
                     
@@ -252,7 +257,7 @@ ga('send', 'pageview');
                 
                 
             
-这种情况多半是没有选择对工作...
+这种情况多半是没有选择...
     
 
         <a href="/2018/05/13/工作-alios-2018-05-13-使用-Alios-Things-遇到的问题总结/" class="post-more waves-effect waves-button">
@@ -298,14 +303,15 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        FPGA学习进度2018/5/18
+        FPGA学习进度
+2018/5/18
 今天才知道原来fpga重新上电后之前的程序就没有了，要保持需要固化
 2018/5/16
 本来之前就说要学的platfrom designer被Alios的学习拖了几天，今天了解了一下，基本会用了
 板子能够输出Hello world了
 2018/5/13
 今天开始学习其他的组件dsp builder(重点)、platfrom designer
-dsp bui...
+dsp bu...
     
 
         <a href="/2018/05/11/工作-fpga-2018-05-11-FPGA学习进度/" class="post-more waves-effect waves-button">
@@ -351,12 +357,15 @@ dsp bui...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        直面使用quartus遇到各种的问题安装破解quartus prime 18 破解
+        直面使用quartus遇到各种的问题
+安装破解
+quartus prime 18 破解
 这个人还有一系列其他的破解软件，可以打开他的空间看看
-can’t find design entity在新建工程后，点击工程文件发现居然说无法打开？？？
+can’t find design entity
+在新建工程后，点击工程文件发现居然说无法打开？？？
 网上查说没破解成功，在我重新破解一次后发现不是这个问题。
 还好我有谷歌，还是让我找到了解决方案
-说是需要自己手动创建design entity，下面是具体解...
+说是需要自己手动创建design entity，下面是...
     
 
         <a href="/2018/05/11/工作-fpga-2018-05-11-直面使用quartus遇到各种的问题/" class="post-more waves-effect waves-button">
@@ -400,7 +409,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        解决WSL无法运行32位程序问题./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error
+        解决WSL无法运行32位程序问题
+./arm-none-linux-gnueabi-gcc: cannot execute binary file: Exec format error
 因为我是学生，比较穷，只有一台电脑，而且有使用Windows的需要，但是又需要使用到Linux，所以选择了Windows子系统(WSL)，但是发现WSL不支持32位程序的运行，在苦苦搜索后，终于在github找到了解决方法。
     
 
@@ -445,7 +455,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        如何阅读datasheet，以BQ24610为例本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。
+        如何阅读datasheet，以BQ24610为例
+本文的主要目的在于传播基本的阅读datasheet的能力，以及PCB设计需要注意的基本问题。
     
 
         <a href="/2018/04/06/工作-altium-2018-04-06-如何阅读datasheet/" class="post-more waves-effect waves-button">
@@ -491,7 +502,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        《数学之美》阅读记录四今天阅读的这部分也是对于搜索引擎的介绍
+        《数学之美》阅读记录四
+今天阅读的这部分也是对于搜索引擎的介绍
     
 
         <a href="/2018/04/05/读书笔记-2018-04-05-《数学之美》阅读记录四/" class="post-more waves-effect waves-button">
@@ -531,7 +543,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        《数学之美》阅读记录三今天看到了介绍搜索引擎和网络爬虫的原理。
+        《数学之美》阅读记录三
+今天看到了介绍搜索引擎和网络爬虫的原理。
     
 
         <a href="/2018/04/04/读书笔记-2018-04-04-《数学之美》阅读记录三/" class="post-more waves-effect waves-button">
@@ -571,7 +584,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        《数学之美》阅读记录二今天比较忙，看的比较少，这部分就介绍了一个令人敬佩的人。
+        《数学之美》阅读记录二
+今天比较忙，看的比较少，这部分就介绍了一个令人敬佩的人。
     
 
         <a href="/2018/04/03/读书笔记-2018-04-03-《数学之美》阅读记录二/" class="post-more waves-effect waves-button">
@@ -611,7 +625,8 @@ can’t find design entity在新建工程后，点击工程文件发现居然说
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        第一天阅读《数学之美》之前读书没有做记录，总感觉漏了些什么，决定以后每天读书后做笔记。
+        第一天阅读《数学之美》
+之前读书没有做记录，总感觉漏了些什么，决定以后每天读书后做笔记。
     
 
         <a href="/2018/04/02/读书笔记-2018-04-02-第一天阅读《数学之美》/" class="post-more waves-effect waves-button">

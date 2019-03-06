@@ -195,12 +195,12 @@ ga('send', 'pageview');
             <p>linux的宗旨是万物皆文件，所以很多不在源中的程序就是解包即用，但这样使用起来有些不方便，需要cd到可执行文件目录，然后再运行，显得有些麻烦。</p>
 <a id="more"></a>
 <p>就以最近下载的一个软件为例</p>
-<p>它的执行命令为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
+<p>它的执行命令为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
 <p>保存到proxyee-down后，发现无法运行，就给权限</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x proxyee-down</span><br></pre></td></tr></table></figure>
 <p>但是发现这样的话，还是只能在这个jar包的位置才能正常执行这个文件</p>
 <p>想到shell下可以使用pwd查看当前目录</p>
-<p>于是首先先加上标记，告诉系统使用bash<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">java -jar $(<span class="built_in">pwd</span>)/proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
+<p>于是首先先加上标记，告诉系统使用bash <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">java -jar $(<span class="built_in">pwd</span>)/proxyee-down-main.jar</span><br></pre></td></tr></table></figure></p>
 <p>但是发现pwd给的是当前目录，而不是脚本的目录，于是改用dirname</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">work_path=$(dirname $(readlink -f <span class="variable">$0</span>))</span><br><span class="line">java -jar <span class="variable">$&#123;work_path&#125;</span>/proxyee-down-main.jar</span><br></pre></td></tr></table></figure>
 <p>在命令行测试成功</p>
@@ -218,6 +218,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">

@@ -181,7 +181,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实验2B"><span class="post-toc-number">1.</span> <span class="post-toc-text">实验2B</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验2B总结"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">实验2B总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实验2D"><span class="post-toc-number">2.</span> <span class="post-toc-text">实验2D</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验2D总结"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">实验2D总结</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实验2b"><span class="post-toc-number">1.</span> <span class="post-toc-text">实验2B</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验2b总结"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">实验2B总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实验2d"><span class="post-toc-number">2.</span> <span class="post-toc-text">实验2D</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实验2d总结"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">实验2D总结</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -208,22 +208,25 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>首先自然是跟着实验指导书做实验了</p>
 <a id="more"></a>
-<h1 id="实验2B"><a href="#实验2B" class="headerlink" title="实验2B"></a>实验2B</h1><p>然后发现别人添加另外一个gpio的方法是需要重新添加一个gpio的ip核的，而不是直接用同一个ip核的另外一个gpio口</p>
-<p> ~而且感觉在SDK上编程的体验还是不太佳，没有代码自动补全能力~~ ，网上搜索了一下，发现代码补全的能力是有的，快捷键<strong>alt+/</strong></p>
+<h1 id="实验2b">实验2B</h1>
+<p>然后发现别人添加另外一个gpio的方法是需要重新添加一个gpio的ip核的，而不是直接用同一个ip核的另外一个gpio口</p>
+<p><sub>而且感觉在SDK上编程的体验还是不太佳，没有代码自动补全能力</sub>~ ，网上搜索了一下，发现代码补全的能力是有的，快捷键<strong>alt+/</strong></p>
 <p>这个实验的目标是使用中断检测按键输入，然后控制led灯的变换，按键(btns)按下时，对应leds的那一位加1</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">InterruptSystemSetup</span><span class="params">(XScuGic *XScuGicInstancePtr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// Enable interrupt</span></span><br><span class="line">	XGpio_InterruptEnable(&amp;BTNInst, BTN_INT);</span><br><span class="line">	XGpio_InterruptGlobalEnable(&amp;BTNInst);</span><br><span class="line">    ...</span><br><span class="line">	<span class="keyword">return</span> XST_SUCCESS;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IntcInitFunction</span><span class="params">(u16 DeviceId, XGpio *GpioInstancePtr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    status = XScuGic_Connect(&amp;INTCInst,</span><br><span class="line">                            INTC_GPIO_INTERRUPT_ID,</span><br><span class="line">                            (Xil_ExceptionHandler)BTN_Intr_Handler,</span><br><span class="line">                            (<span class="keyword">void</span> *)GpioInstancePtr);</span><br><span class="line">	<span class="keyword">if</span>(status != XST_SUCCESS) <span class="keyword">return</span> XST_FAILURE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable GPIO interrupts interrupt</span></span><br><span class="line">	XGpio_InterruptEnable(GpioInstancePtr, <span class="number">1</span>);</span><br><span class="line">	XGpio_InterruptGlobalEnable(GpioInstancePtr);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Enable GPIO and timer interrupts in the controller</span></span><br><span class="line">	XScuGic_Enable(&amp;INTCInst, INTC_GPIO_INTERRUPT_ID);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>zynq的ps这边使用中断和以前mcu开发时很像，也都是需要先对中断注册，然后开中断，最后才能使用。</p>
 <p>中断能用了，还要声明一个处理中断的函数，这个例程中的<em>BTN_Intr_Handler</em>就是一个处理中断的函数，在初始化中断的时候就注册好了。</p>
-<p>效果如下：<br><figure class="image-bubble">
+<p>效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/xilinx/zybo_E2b.gif" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="实验2B总结"><a href="#实验2B总结" class="headerlink" title="实验2B总结"></a>实验2B总结</h2><p>通过这个部分的实验，学会了如何在Vivado中，开启一个ip的中断，又是怎么与zynq的ps核连接。</p>
+<h2 id="实验2b总结">实验2B总结</h2>
+<p>通过这个部分的实验，学会了如何在Vivado中，开启一个ip的中断，又是怎么与zynq的ps核连接。</p>
 <p>还学习到，要想在ps中使用这个中断，需要注册初始化这个中断和声明一个处理中断的函数。</p>
-<h1 id="实验2D"><a href="#实验2D" class="headerlink" title="实验2D"></a>实验2D</h1><p>这个实验是教我们添加更多的中断源，很现实的一个例子。</p>
+<h1 id="实验2d">实验2D</h1>
+<p>这个实验是教我们添加更多的中断源，很现实的一个例子。</p>
 <p>目前来看，ps添加多个中断源，需要增加一个mask，通过判定加了mask后的中断号，来判定是哪一个外设产生的中断。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -233,14 +236,15 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>这个实验添加了一个定时器中断源，在上一个实验的基础上使用了定时器中断，每三次定时器中断会让leds的值加1，控制定时器中断时间的，是<em>TMRInst</em>这个变量，每达到设置的0xF8000000这个值，触发一次中断</p>
-<p>效果如下：<br><figure class="image-bubble">
+<p>效果如下： <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="/img/xilinx/zybo_E2d.gif" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
-<h2 id="实验2D总结"><a href="#实验2D总结" class="headerlink" title="实验2D总结"></a>实验2D总结</h2><p>学习了怎么添加多个中断源</p>
+<h2 id="实验2d总结">实验2D总结</h2>
+<p>学习了怎么添加多个中断源</p>
 <p>学习了xilinx中的定时器的使用</p>
 <hr>
 <figure class="image-bubble">
@@ -250,6 +254,7 @@ ga('send', 'pageview');
                 </div>
                 <div class="image-caption"></div>
             </figure>
+
         </div>
 
         <blockquote class="post-copyright">
