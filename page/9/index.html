@@ -585,7 +585,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-EXTI" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -602,7 +602,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/">学习外部中断</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
     </h3>
   
 
@@ -612,17 +612,18 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        基本步骤
-初始化I/O口为输入
-开启AFIO时钟
-设置I/O口与中断线的映射关系
-初始化线上中断，设置触发条件等
-配置中断分组（NVIC），并使能中断
-编写中断服务函数
+        一般步骤
+串口时钟的使能，GPIO时钟使能
+串口复位
+GPIO端口模式设置
+串口参数初始化
+开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
+使能串口
+编写中断处理函数
 
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
