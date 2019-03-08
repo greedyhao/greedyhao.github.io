@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2019-03-08T06:22:28.598Z</updated>
+  <updated>2019-03-08T06:29:28.659Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用hexo需要配置的东西</title>
+    <link href="http://greedyhao.cc/2019/03/08/%E5%B7%A5%E4%BD%9C-hexo-2019-03-08-%E4%BD%BF%E7%94%A8hexo%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E7%9A%84%E4%B8%9C%E8%A5%BF/"/>
+    <id>http://greedyhao.cc/2019/03/08/工作-hexo-2019-03-08-使用hexo需要配置的东西/</id>
+    <published>2019-03-08T06:27:14.000Z</published>
+    <updated>2019-03-08T06:29:28.659Z</updated>
+    
+    <content type="html"><![CDATA[<p>每次重装电脑后都要重新部署hexo，每次要配置的东西都要重新去网上找，现在在这里整合以下，免得麻烦</p><a id="more"></a><h1 id="npm">npm</h1><p>先确定npm位置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get prefix</span><br></pre></td></tr></table></figure><p>如果是在<em>/usr/local</em>下，就输入下面命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R `whoami` &lt;directory&gt; <span class="comment"># directory为你的node_modules位置</span></span><br></pre></td></tr></table></figure><p>如果是在<em>/usr</em>下，可以选择创建一个目录用来安装npm包</p><p>个人是放在<em>/usr/local/lib/node_modules</em>下，然后和上面一样，更改用户组</p><h1 id="hexo安装">hexo安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure><h1 id="使用ssh">使用ssh</h1><p>按照下面的命令就可以了，没有的文件就创建</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"hao_kr@163.com"</span> -f <span class="string">"id_rsa_github"</span> <span class="comment"># 中间一直按回车就好</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"hao_kr@163.com"</span> -f <span class="string">"id_rsa_gitee"</span></span><br></pre></td></tr></table></figure><p>创建一个config文件配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim config</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure><p>最后测试是否成功，如果输出<em>Hi,..</em>就表示成功 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p><h1 id="hexo-deploy卡住问题">hexo deploy卡住问题</h1><p>我翻看了很多人写的笔记，给git设置了proxy，使用ssh，但是都没有解决问题</p><p>最后没有办法，只能手动push了</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .deploy_git</span><br><span class="line">git remote add git@github.com:xxxx/xxxx.github.io.git</span><br><span class="line">git pull origin master --allow-unrelated-histories</span><br></pre></td></tr></table></figure><p>这句命令可能会产生一些冲突信息，不用理会</p><p>然后重新生成一下静态页面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure><p>回到deploy目录，手动push，第一次push需要设置upstream <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd .deploy_git</span><br><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure></p><p>在这之后我又试了一次<em>hexo d</em>，发现可以成功deploy了，可能之前deploy失败和hexo没有把git的remote设置好有关吧，手动设置remote后就正常了</p><h1 id="markdown渲染">markdown渲染</h1><p>更换mathjax渲染引擎，使用<em>hexo-renderer-pandoc</em>渲染</p><p>首先需要安装pandoc</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install pandoc</span><br></pre></td></tr></table></figure><p>之后来到你的hexo的目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure><hr><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">                </div>                <div class="image-caption"></div>            </figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;每次重装电脑后都要重新部署hexo，每次要配置的东西都要重新去网上找，现在在这里整合以下，免得麻烦&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://greedyhao.cc/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>体验deepin系统</title>
@@ -53,9 +73,9 @@
     </summary>
     
     
-      <category term="rt-thread" scheme="http://greedyhao.cc/tags/rt-thread/"/>
-    
       <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
+    
+      <category term="rt-thread" scheme="http://greedyhao.cc/tags/rt-thread/"/>
     
   </entry>
   
@@ -139,9 +159,9 @@
     </summary>
     
     
-      <category term="rt-thread" scheme="http://greedyhao.cc/tags/rt-thread/"/>
-    
       <category term="stm32" scheme="http://greedyhao.cc/tags/stm32/"/>
+    
+      <category term="rt-thread" scheme="http://greedyhao.cc/tags/rt-thread/"/>
     
   </entry>
   
@@ -428,26 +448,6 @@
     <summary type="html">
     
       &lt;p&gt;代码重定位可以将一段代码镜像到另一个地址，有点像链接，不过镜像位置所占空间大小和原代码位置所占大小相同。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="x210" scheme="http://greedyhao.cc/tags/x210/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>运行c代码前发生了什么</title>
-    <link href="http://greedyhao.cc/2018/09/13/%E5%B7%A5%E4%BD%9C-c-language-2018-09-13-%E8%BF%90%E8%A1%8Cc%E4%BB%A3%E7%A0%81%E5%89%8D%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
-    <id>http://greedyhao.cc/2018/09/13/工作-c-language-2018-09-13-运行c代码前发生了什么/</id>
-    <published>2018-09-13T01:56:04.000Z</published>
-    <updated>2018-09-13T11:16:41.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。</p><a id="more"></a><p>虽然早就知道c代码是先经过编译链接最后才放在机器上执行，但是在这么一个过程中究竟发生了什么，最近在学习嵌入式裸机开发中，才又有了更深入的了解。</p><h1 id="简单描述一下生成机器代码过程">简单描述一下生成机器代码过程</h1><h2 id="编译过程">编译过程</h2><p>编译过程是以前就知道了的，预编译会对一些带#号的预编译命令处理，如#define等，编译器会对他们进行替换得到.i文件，然后进一步编译得到.o文件。</p><h2 id="链接过程">链接过程</h2><p>在将源文件编译成可执行文件时，有一个过程是链接。</p><p>其实我以前就对这个链接过程感觉有些不解的，这个链接过程到底是怎么把这些.o文件链接在一起，是有一种什么样的规则呢，总不可能随便链接的吧，随便链接的话怎么解决依赖问题。</p><p>直到之前了解了一下alios系统，在学习的过程中发现，在芯片架构的支持中，有一个elf文件，里面定义了一些地址，当时还不知道有什么用；最近学习裸机开发中，也遇到了这么一个类似的lds文件。</p><p>通过学习，才知道，原来这种文件定义了各个段如代码段、数据段等的地址，这样编译器在链接的过程中，就知道了要把各种.o文件以什么样的顺序链接，链接在什么地址处。</p><h1 id="准备c语言运行环境">准备c语言运行环境</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/c_language/StartupCode.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>这是我在网上找的图，从图中可以看出，为了使c程序可以执行在目标处理器，链接的过程中，还混入了一些其他的东西，比如Startup Code。</p><p>在Startup Code中，会做一系列的事，比如关中断、重定位、申请栈空间等等，具体过程和硬件相关。</p><p>最后跳转到main()。</p><p>网上有一篇基于ARM介绍这些相关知识的，非常建议去看看，可以解决自己以前嵌入式编程的很多疑惑。</p><p>http://www.bravegnu.org/gnu-eprog/c-startup.html</p><h1 id="篇外话">篇外话</h1><p>这篇博文是在接触到了一些启动代码后突然有的想法，就开始整理自己的思路，写的同时，在谷歌上查找自己疑惑的地方，从runtime environment查到startup code，结果发现自己疑惑的地方却更多了O__O &quot;…，好好的一篇科普文变成了推荐阅读文(手动笑哭)</p><p>非常建议看看下面给出的参考资料，相信对初学者会有很大帮助。</p><h1 id="参考资料">参考资料</h1><ul><li><a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" target="_blank" rel="noopener">C Startup</a></li><li><a href="http://microchipdeveloper.com/tls2101:c-runtime-environment" target="_blank" rel="noopener">Microchip Developer Help</a></li><li><a href="https://stackoverflow.com/questions/3393611/flow-of-startup-code-in-an-embedded-system-concept-of-boot-loader" target="_blank" rel="noopener">Flow of Startup code in an embedded system , concept of boot loader?</a></li><li><a href="https://www.zhihu.com/question/49580321" target="_blank" rel="noopener">C 如何编译出一个不需要操作系统的程序？</a></li><li><a href="http://www.cnblogs.com/pengdonglin137/p/3234367.html" target="_blank" rel="noopener">数据段、代码段、堆栈段、BSS段的区别</a></li><li><a href="https://blog.csdn.net/koozxcv/article/details/49533731" target="_blank" rel="noopener">Linux进程的五个段（数据段、代码段、bss、堆栈段）</a></li></ul><hr><p><img src="/img/wechat_official_accounts.jpg"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;众所周知，c代码也是一种比较高级的语言了，机器是没有办法直接运行的，机器所能理解的只有机器码--那一串0和1而已。&lt;/p&gt;
     
     </summary>
     
