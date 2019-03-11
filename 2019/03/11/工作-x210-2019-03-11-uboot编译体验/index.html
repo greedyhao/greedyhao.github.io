@@ -30,25 +30,27 @@ ga('send', 'pageview');
     
     
     
-    <title>学习串口 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>uboot编译体验 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content="Linux,x210">
+    <meta name="description" content="想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux">
+<meta name="keywords" content="Linux,x210">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习串口">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/index.html">
+<meta property="og:title" content="uboot编译体验">
+<meta property="og:url" content="http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta property="og:description" content="想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:30.000Z">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-03-11T14:16:05.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习串口">
-<meta name="twitter:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta name="twitter:title" content="uboot编译体验">
+<meta name="twitter:description" content="想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +131,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习串口</div>
+        <div class="flex-col header-title ellipsis">uboot编译体验</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +153,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习串口</h1>
+        <h1 class="title">uboot编译体验</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2019-03-11T14:15:37.000Z" itemprop="datePublished" class="page-time">
+  2019-03-11
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -176,21 +176,19 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一般步骤"><span class="post-toc-number">1.</span> <span class="post-toc-text">一般步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#又遇到坑了"><span class="post-toc-number">2.</span> <span class="post-toc-text">又遇到坑了</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装交叉编译工具链"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装交叉编译工具链</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编译uboot"><span class="post-toc-number">2.</span> <span class="post-toc-text">编译uboot</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">配置</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-x210-2019-03-11-uboot编译体验" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习串口</h1>
+        <h1 class="post-card-title">uboot编译体验</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2019-03-11 22:15:37" datetime="2019-03-11T14:15:37.000Z" itemprop="datePublished">2019-03-11</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -201,23 +199,35 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="一般步骤">一般步骤</h2>
-<ol type="1">
-<li>串口时钟的使能，GPIO时钟使能</li>
-<li>串口复位</li>
-<li>GPIO端口模式设置</li>
-<li>串口参数初始化</li>
-<li>开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤</li>
-<li>使能串口</li>
-<li>编写中断处理函数</li>
-</ol>
+            <p>想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux</p>
 <a id="more"></a>
-<h2 id="又遇到坑了">又遇到坑了</h2>
-<p>~<sub>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了， 浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了...~</sub></p>
-<p>我又发现自己之前的想法错了，我改的地方其实无关紧要</p>
-<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我发现了我的<strong>真正的问题</strong>，原来是 uart_init() 函数名打错成 usart_init() ！！！</p>
+<p>正好买了朱有鹏视频，就拿来学习一下</p>
+<p>看了看学习的进程大概是这样的 + 安装编译工具，编译uboot + 分析uboot源码和makefile</p>
+<h1 id="安装交叉编译工具链">安装交叉编译工具链</h1>
+<p>本人使用的开发部是s5pv210，需要安装的交叉编译工具链是<em>arm-2019q3</em></p>
+<p>遵循默认规则，将工具链解压安装到了<em>/usr/local/arm</em>下</p>
+<p>添加到了PATH中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ARM Cross Complier PATH</span><br><span class="line">export PATH=/usr/local/arm/arm-2009q3/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>测试工具链是否正常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:~$ arm-none-linux-gnueabi-gcc --version</span><br><span class="line">arm-none-linux-gnueabi-gcc (Sourcery G++ Lite 2009q3-67) 4.4.1</span><br><span class="line">Copyright (C) 2009 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
+<h1 id="编译uboot">编译uboot</h1>
+<p>毕竟是有课程学习，有提供做好的uboot源码，可以体验一下编译的感觉，氪金了还真是不一样</p>
+<p>首先是先找到需要编译的bsp,QT4.8版本，并解压出来</p>
+<h2 id="配置">配置</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ make x210_sd_config </span><br><span class="line">Configuring for x210_sd board...</span><br></pre></td></tr></table></figure>
+<p>如果出现了上面的信息就说明配置成功</p>
+<p>检查Makefile中的编译链位置是否正确</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CROSS_COMPILE = /usr/local/arm/arm-2009q3/bin/arm-none-linux-gnueabi-</span><br></pre></td></tr></table></figure>
+<p>查看编译结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ du u-boot*</span><br><span class="line">936	u-boot</span><br><span class="line">384	u-boot.bin</span><br><span class="line">1780	u-boot.dis</span><br><span class="line">184	u-boot.map</span><br><span class="line">1156	u-boot.srec</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -226,7 +236,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:30.000Z" itemprop="dateUpdated">2017-08-14 21:27:30</time>
+    最后更新时间：<time datetime="2019-03-11T14:16:05.846Z" itemprop="dateUpdated">2019-03-11 22:16:05</time>
 </span><br>
 
 
@@ -252,7 +262,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x210/">x210</a></li></ul>
 
 
             
@@ -262,7 +272,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&title=《uboot编译体验》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -272,29 +282,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&title=《uboot编译体验》 — Zhuhao's Blog&source=想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot编译体验》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -314,21 +317,14 @@ GPIO端口模式设置
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习GPIO输出</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" id="post-next" class="post-nav-link">
+      <a href="/2019/03/08/工作-hexo-2019-03-08-使用hexo需要配置的东西/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习窗口看门狗</h4>
+        <h4 class="title">使用hexo需要配置的东西</h4>
       </a>
     </div>
   
@@ -433,7 +429,7 @@ GPIO端口模式设置
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&title=《uboot编译体验》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -443,29 +439,22 @@ GPIO端口模式设置
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&title=《uboot编译体验》 — Zhuhao's Blog&source=想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot编译体验》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -476,7 +465,7 @@ GPIO端口模式设置
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3a0XLiMAwFUP7/p7uv7HQTriQL2p2Tpw4UOyfMWObKj0d8fT1d3195fv3q3fx6HuH7mI+NCw8PD29w6/eT5dP3AMl95uPj4eHhbfOS4e5LQhWclJ/84V6+joeHh/cDePmy3lzKb/8fDw8P7//j3d909dHcFyc8PDy8z/LyhXgeVdzP/rGsBQ8PD6+2gy1HqJ/9e6W/h4eHhzfuqlebYfNm/9mDCHh4eHgbvF40MLnp3qPJ58XDw8N7D28SFsyPauXhRTUuwcPDw9vjVZfmySGAZOR8hKhE4eHh4R3lTRpXyTTzg1lJSXjxWwEPDw9vgXeq6VWNbicb7uhdPDw8vLfw8kX5bEjR20a/CCbw8PDwFnj5ZjePevOFO48k8uJRaM7h4eHhjXnV1lQvxu0t673mHB4eHt4er9e272248yJRLQmXr+Dh4eG9nZcv6Hlom2+gq2UGDw8P7z28SXnoFYwkROiFvKNkBQ8PDy/gnZp4Y1NeDW1fnCnDw8PDW+PlTf1JRNsLgvPw4q+TEXh4eHhrvLwZ34tcJw22ZBv9j0/h4eHhLfPyrW20nR0clsofxIsvAw8PD2+NV23kT9pX+Ta9OuZlYcDDw8M7yps05vPDBOWtcPGmy10+PDw8vKO8alBb3RxXR6h+AckIeHh4eHPe2WKQs3/lNhoPDw8vCGF7xwLyhb4a15apeHh4eGu8apNpEuDmLbe8PFzeAx4eHt5R3lfx6rXwq6HDPE0pHLrCw8PDK/J6G9ZJwTgVCvcOZuHh4eGd4s2LQcJIZrln9D6Fh4eHt8fLf+TnwUH+mHqBb6Ew4OHh4X2Ul5eT3gGFfPYopMDDw8P7AbzqMYJkK5y/mz9QPDw8vG1etZGflIH78avHF6qNNzw8PLw9XvVHft6+SoKJfKs9jyrw8PDwxrw/PoSccYi02uQAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3c0U4jMQwFUP7/p1mJp12JtvfaCWWlM09VGVKfQUpc2+LjI74+v67nr/9+59GVr/9o5Y8bFx4eHt4o9OcBJSEmKz8PNImhfoh4eHh413ibzTo5Kvb35w8IDw8P7/fw9qlwfvAkBwMeHh7e/8VL0uuEui+I4OHh4b2LlxcC2lDyI6E9GA7XWvDw8PAmfahVA+wnX7+hv4eHh4cXbK/thpts3HkJuB1K+Oaz8PDw8C7wTjX4k6DzB7R5uNE3Bjw8PLw1L99221Q7eQRtgXg2voCHh4d3g7dqMsWh5CG2pZDieMDDw8Nb85LNPQklScE31ddh+w0PDw/vMq9NbdvfTUYHkhS5YOPh4eEd5e2bUvs22GYS4EXajYeHh3eBl7esbowCbJB1So2Hh4d3lLcJcVZoqBtX8Z+hOFvw8PDwRrx8UKAtELTp7+whvngHDw8P7xqvbc/nafeNmmqxDh4eHt5l3vMQ2zbVqfGp9nj45x48PDy8a7wkjd4MZuUJdP7TaHABDw8P7wJvtlnvk+C8hNGOdn1zPx4eHt5R3qxcO0uUk2MmL39ExwkeHh7eZV4yBJAXI/JwZ+WG6HHj4eHhXebNirk5u238zwa8XqTUeHh4eNd4ebm25W3Ksm08eHh4eDd47a3tMFa+5pXRATw8PLzLU0ntKEBb3m1Xy0e+8PDw8N7Fm335b0cE8nQ5Hy84MFOGh4eHN5lWGv6jpVNjUmcHF/Dw8PDu8T7LKx+l2oSbDy7g4eHh/TyvXXpfmJiNC2zuxMPDw7vBa8ujm+2+PULyQygaHcDDw8M7ytsMDeQl2ryMO2uzPayy4OHh4b2J15YhknfqGbHyU/Dw8PB+A2+GmR0h+djWw3Xw8PDwrvFmxYjiY0ZzDW16fbjWgoeHh/d6vx02wG43/vN0fHjh4eHhpbw/sv4/pMDnmLoAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
