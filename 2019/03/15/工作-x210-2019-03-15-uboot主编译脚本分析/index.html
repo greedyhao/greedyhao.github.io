@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>uboot主编译脚本分析 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot">
+    <meta name="description" content="这里是对uboot的Makefile做的一个比较详细的分析">
+<meta name="keywords" content="uboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uboot主编译脚本分析">
+<meta property="og:url" content="http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="这里是对uboot的Makefile做的一个比较详细的分析">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-03-16T05:10:18.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uboot主编译脚本分析">
+<meta name="twitter:description" content="这里是对uboot的Makefile做的一个比较详细的分析">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">uboot主编译脚本分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">uboot主编译脚本分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-15T05:24:59.000Z" itemprop="datePublished" class="page-time">
+  2019-03-15
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成版本信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">生成版本信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#导出架构信息"><span class="post-toc-number">2.</span> <span class="post-toc-text">导出架构信息</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#静默安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">静默安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uboot链接文件产生位置"><span class="post-toc-number">4.</span> <span class="post-toc-text">uboot链接文件产生位置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现的过程"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">实现的过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置交叉编译工具链"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置交叉编译工具链</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#topdirconfig.mk"><span class="post-toc-number">6.</span> <span class="post-toc-text">$(TOPDIR)/config.mk</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#导入make变量"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">导入make变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#导入自动生成配置"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">导入自动生成配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译选项参数"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">编译选项参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uboot链接对象"><span class="post-toc-number">7.</span> <span class="post-toc-text">uboot链接对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#all标签"><span class="post-toc-number">8.</span> <span class="post-toc-text">ALL标签</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unconfig"><span class="post-toc-number">9.</span> <span class="post-toc-text">unconfig</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mkconfig"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">mkconfig</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#各种适配"><span class="post-toc-number">10.</span> <span class="post-toc-text">各种适配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#make的其他选项"><span class="post-toc-number">11.</span> <span class="post-toc-text">make的其他选项</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-x210-2019-03-15-uboot主编译脚本分析" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">uboot主编译脚本分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-15 13:24:59" datetime="2019-03-15T05:24:59.000Z" itemprop="datePublished">2019-03-15</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这里是对uboot的Makefile做的一个比较详细的分析</p>
+<a id="more"></a>
+<h2 id="生成版本信息">生成版本信息</h2>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VERSION = 1</span><br><span class="line">...</span><br><span class="line">U_BOOT_VERSION = <span class="variable">$(VERSION)</span>.<span class="variable">$(PATCHLEVEL)</span>.<span class="variable">$(SUBLEVEL)</span><span class="variable">$(EXTRAVERSION)</span></span><br><span class="line">VERSION_FILE = <span class="variable">$(obj)</span><span class="keyword">include</span>/version_autogenerated.h</span><br></pre></td></tr></table></figure>
+<p>软件都是有不同版本的，uboot也不例外，在makefile开头几行就定义了版本信息，并导出到一个头文件中</p>
+<h2 id="导出架构信息">导出架构信息</h2>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HOSTARCH := <span class="variable">$(<span class="built_in">shell</span> uname -m | \</span></span><br><span class="line"><span class="variable">	sed -e s/i.86/i386/ \</span></span><br><span class="line"><span class="variable">    ...</span></span><br><span class="line"><span class="variable"></span></span><br><span class="line"><span class="variable">HOSTOS := $(<span class="built_in">shell</span> uname -s | tr '[:upper:]' '[:lower:]' | \</span></span><br><span class="line"><span class="variable">	    sed -e 's/\(cygwin\)</span>.*/cygwin/')</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span>	HOSTARCH HOSTOS</span><br></pre></td></tr></table></figure>
+<p>获得当前主机的架构和系统，导出到环境变量备用</p>
+<h2 id="静默安装">静默安装</h2>
+<p>静默安装原理很简单，只不过是把<em>echo</em>替换成了<em>:</em></p>
+<p>静默安装时脚本就不会输出那么多没用信息了</p>
+<h2 id="uboot链接文件产生位置">uboot链接文件产生位置</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># U-boot build supports producing a object files to the separate external</span><br><span class="line"># directory. Two use cases are supported:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>和其他大型的项目类似，uboot也可以把链接文件输出位置重定义到某个位置</p>
+<p>而且uboot提供了两种方式重定义输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 1) Add O= to the make command line</span><br><span class="line"># &apos;make O=/tmp/build all&apos;</span><br><span class="line">#</span><br><span class="line"># 2) Set environement variable BUILD_DIR to point to the desired location</span><br><span class="line"># &apos;export BUILD_DIR=/tmp/build&apos;</span><br><span class="line"># &apos;make&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="实现的过程">实现的过程</h3>
+<p>这部分看看脚本就会明白，这里大概说一下</p>
+<p>先判断定义的是O还是直接定义的<strong>BUILD_DIR</strong>，定义的是O的话就把O的值赋给<strong>BUILD_DIR</strong>(非空)</p>
+<p>接下来就定义并导出了<strong>OBJTREE</strong>(BUILD_DIR设置过来的链接文件的位置) <strong>SRCTREE</strong>(当前目录设置来的源码目录) <strong>TOPDIR</strong>(当前目录设置为顶层) <strong>LNDIR</strong>(OBJTREE保存为链接文件位置)</p>
+<p>定义并导出<strong>MKCONFIG</strong>(SRCTREE下的mkconfig脚本，用于配置uboot)</p>
+<p>如果<strong>OBJTREE</strong>和<strong>SRCTREE</strong>不等就定义并导出<strong>REMOTE_BUILD</strong>，并<em>obj := $(OBJTREE) src := $(SRCTREE)</em></p>
+<h2 id="配置交叉编译工具链">配置交叉编译工具链</h2>
+<p>从<em>$(obj)include/config.mk</em>导入<strong>ARCH CPU BOARD VENDOR SOC</strong>这几个变量，<strong>config.mk</strong>这个文件是<em>make x210_sd_config</em>产生的，<strong>x210_sd_config</strong>在Makefile的最后一部分有定义，这是为了确保Makefile的通用性</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x210_sd_config :	unconfig</span><br><span class="line">	@<span class="variable">$(MKCONFIG)</span> $(@:_config=) arm s5pc11x x210 samsung s5pc110</span><br><span class="line">	@echo <span class="string">"TEXT_BASE = 0xc3e00000"</span> &gt; <span class="variable">$(obj)</span>board/samsung/x210/config.mk</span><br></pre></td></tr></table></figure>
+<p>之后就是通过判断<strong>ARCH</strong>的不同，使用不同的<strong>CROSS_COMPILE</strong></p>
+<p>然后就是导入<em>$(TOPDIR)/config.mk</em>中的其他配置</p>
+<h2 id="topdirconfig.mk">$(TOPDIR)/config.mk</h2>
+<p>大概看了下，这个文件提供了编译选项和变量</p>
+<h3 id="导入make变量">导入make变量</h3>
+<p>定义的<strong>CROSS_COMPILE</strong>会在<em>$(TOPDIR)/config.mk</em>中使用</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AS	= <span class="variable">$(CROSS_COMPILE)</span>as</span><br><span class="line">LD	= <span class="variable">$(CROSS_COMPILE)</span>ld</span><br><span class="line">CC	= <span class="variable">$(CROSS_COMPILE)</span>gcc</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="导入自动生成配置">导入自动生成配置</h3>
+<p>然后导入*<span class="math inline">\((OBJTREE)/include/autoconf.mk*，这是一个根据开发板自动生成(根据\)</span>(TOPDIR)/include/configs/x210_sd.h定义生成)的脚本，里面定义了一些硬件相关的配置</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_CMD_FAT=y</span><br><span class="line">CONFIG_USB_OHCI=y</span><br><span class="line">CONFIG_SYS_CLK_FREQ=24000000</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>再根据<strong>ARCH</strong>等变量，导入对应的config脚本</p>
+<h3 id="编译选项参数">编译选项参数</h3>
+<p>这一部分定义了一堆的FLAGS</p>
+<p><strong>LDSCRIPT</strong>定义链接脚本是否使用nand版</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ifndef</span> LDSCRIPT</span><br><span class="line"><span class="comment">#LDSCRIPT := $(TOPDIR)/board/$(BOARDDIR)/u-boot.lds.debug</span></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(CONFIG_NAND_U_BOOT)</span>,y)</span><br><span class="line">LDSCRIPT := <span class="variable">$(TOPDIR)</span>/board/<span class="variable">$(BOARDDIR)</span>/u-boot-nand.lds</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">LDSCRIPT := <span class="variable">$(TOPDIR)</span>/board/<span class="variable">$(BOARDDIR)</span>/u-boot.lds</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+<p><strong>TEXT_BASE</strong>是在Makefile中定义的uboot链接地址，上面的<a href="#配置交叉编译工具链">配置交叉编译工具链</a>里就有写</p>
+<p>这里的地址是虚拟地址，物理地址取决于uboot中的地址映射</p>
+<h2 id="uboot链接对象">uboot链接对象</h2>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># U-Boot objects....order is important (i.e. start must be first)</span></span><br><span class="line"></span><br><span class="line">OBJS  = cpu/<span class="variable">$(CPU)</span>/start.o</span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(CPU)</span>,i386)</span><br><span class="line">OBJS += cpu/<span class="variable">$(CPU)</span>/start16.o</span><br><span class="line">OBJS += cpu/<span class="variable">$(CPU)</span>/reset.o</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这一部分是链接一些必要的库和.o文件</p>
+<h2 id="all标签">ALL标签</h2>
+<p>当我们在命令行使用<em>make</em>时，就会执行这一部分的脚本</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ALL += <span class="variable">$(obj)</span>u-boot.srec <span class="variable">$(obj)</span>u-boot.bin <span class="variable">$(obj)</span>System.map <span class="variable">$(U_BOOT_NAND)</span> <span class="variable">$(U_BOOT_ONENAND)</span> <span class="variable">$(obj)</span>u-boot.dis</span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(ARCH)</span>,blackfin)</span><br><span class="line">ALL += <span class="variable">$(obj)</span>u-boot.ldr</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:		<span class="variable">$(ALL)</span></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在make编译后，我们也能看到这些对象</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ ls | grep u-boot</span></span><br><span class="line">u-boot</span><br><span class="line">u-boot.bin</span><br><span class="line">u-boot.dis</span><br><span class="line">u-boot.map</span><br><span class="line">u-boot.srec</span><br></pre></td></tr></table></figure>
+<h2 id="unconfig">unconfig</h2>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">unconfig:</span></span><br><span class="line">	@rm -f <span class="variable">$(obj)</span><span class="keyword">include</span>/config.h <span class="variable">$(obj)</span><span class="keyword">include</span>/config.mk \</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<p>注意到上面<a href="#配置交叉编译工具链">配置交叉编译工具链</a>中的<strong>x210_sd_config</strong>和这里的<strong>unconfig</strong>有关，现在再对<strong>x210_sd_config</strong>的这段脚本做进一步的探讨</p>
+<p>$(@:_config=)会把<strong>x210_sd_config</strong>匹配成<strong>x210_sd</strong>，从而使得mkconfig得到了6个参数<strong>x210_sd arm s5pc11x x210 samsung s5pc110</strong></p>
+<h3 id="mkconfig">mkconfig</h3>
+<p>接下来就进入到mkconfig</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> [ <span class="variable">$#</span> -gt 0 ] ; <span class="keyword">do</span></span><br><span class="line">	<span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">	--) <span class="built_in">shift</span> ; <span class="built_in">break</span> ;;</span><br><span class="line">	-a) <span class="built_in">shift</span> ; APPEND=yes ;;</span><br><span class="line">	-n) <span class="built_in">shift</span> ; BOARD_NAME=<span class="string">"<span class="variable">$&#123;1%%_config&#125;</span>"</span> ; <span class="built_in">shift</span> ;;</span><br><span class="line">	*)  <span class="built_in">break</span> ;;</span><br><span class="line">	<span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这段脚本的作用就是对传入的第一个参数<strong>$1</strong>进行匹配，<strong>x210_sd</strong>只能匹配上*</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="string">"<span class="variable">$&#123;BOARD_NAME&#125;</span>"</span> ] || BOARD_NAME=<span class="string">"<span class="variable">$1</span>"</span></span><br></pre></td></tr></table></figure>
+<p>这里就将参数1的值赋给了<strong>BOARD_NAME</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="variable">$#</span> -lt 4 ] &amp;&amp; <span class="built_in">exit</span> 1</span><br><span class="line">[ <span class="variable">$#</span> -gt 6 ] &amp;&amp; <span class="built_in">exit</span> 1</span><br></pre></td></tr></table></figure>
+<p>这里是为了避免参数的数量不正确</p>
+<p>之后就是为架构的指定头文件创建符号链接，这是为了可移植性，通过判断传入的<strong>ARCH CPU BOARD</strong>这几个参数，链接不同的头文件</p>
+<h2 id="各种适配">各种适配</h2>
+<p>再接下来的内容就是各种系统下的适配，<a href="#配置交叉编译工具链">配置交叉编译工具链</a>的脚本也是这部分的内容</p>
+<h2 id="make的其他选项">make的其他选项</h2>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">clean:</span></span><br><span class="line">	@rm -f <span class="variable">$(obj)</span>examples/82559_eeprom <span class="variable">$(obj)</span>examples/eepro100_eeprom \</span><br><span class="line">	...</span><br><span class="line"><span class="section">clobber:	clean</span></span><br><span class="line">	...</span><br><span class="line"><span class="section">distclean:	clobber unconfig</span></span><br><span class="line">    ...</span><br><span class="line"><span class="section">backup:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-16T05:10:18.724Z" itemprop="dateUpdated">2019-03-16 13:10:18</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&title=《uboot主编译脚本分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&title=《uboot主编译脚本分析》 — Zhuhao's Blog&source=这里是对uboot的Makefile做的一个比较详细的分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot主编译脚本分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">uboot链接脚本分析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/13/工作-x210-2019-03-13-uboot源码构成分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot源码目录分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&title=《uboot主编译脚本分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&title=《uboot主编译脚本分析》 — Zhuhao's Blog&source=这里是对uboot的Makefile做的一个比较详细的分析" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot主编译脚本分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3bwW7rMAwEwP7/T7fXBzxYXpJim8P4VDSJrVEBSVmyX1/x9f1w/f/q06ee7vPv75+ee37PhQsPDw/v0tATwHlACfL82TP1PGY8PDy8bV6+KOfTcZ7E8xqejCGZXDw8PLzP5OXbQ4/aO4Lj4eHhfQ4vWe7PgOTonG8SeHh4eH/FyxfiPLboTVA+3ZezFjw8PLyYl1eRPufnlfoeHh4e3riqXj3a5ptBMvR8G3gcLR4eHt4CL19wkwNrQu0df6uNC3h4eHjbvN4Q50t8HlLcCnnx8PDw5rxemer8yEk4mwci0V8MDw8Pb41XDXCbJfzB1CTH5dF3BTw8PLwiL98YqqHAfLKqIcho38PDw8PrnFrL/9o0KaHlbVi9LQQPDw/vr3i90n71zvkkjopkeHh4eGNerxA1iSTySamO7bGnDA8PD2+BV21RzcOFeTtCtQ/iJcbFw8PDu8SrLtwT/N1gN2q6wsPDw1vgVRffKiOPX6tT8xJV4OHh4S3wegtuHhzkRa/JgTu6Px4eHt4ar9fqVC19JfFHNQ6O9kA8PDy8Ma+6DVSP4L0iWa/w9hJG4OHh4V3i5a1XycJ9N854GWIvksDDw8O7xOsVnKpFsnxSygv9+T14eHh4y7zqEpwcsucNCpOoAg8PD2+blw99Ejr0YoXeePDw8PD2eD1GbyjVAlu+OTXfioeHh9fiVQedPyzfNvIAN9+Q8PDw8LZ51WapW8t6L7qNnouHh4d3lfddvHpTUG1ESA7xUasWHh4e3gLvVtEroealr2rUO+kTwMPDw+vxekNPFuJetFFtMni5Gx4eHt4aL7l1NSNN2q1GR+FbWQseHh7er/B6DViTJq3q1OPh4eF9Dm8jkqiGws2mKzw8PLyrvLzBtNd0dauVqhyL4OHh4S3wel/yqwWqZMqqjQKjmh4eHh5eh/cDw0R9gsd9TZ4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

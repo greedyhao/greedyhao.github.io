@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>uboot链接脚本分析 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot">
+    <meta name="description" content="上一篇uboot主编译脚本分析的编译选项参数中提到了链接脚本这么个东西 我也是写到这里才开始了解链接脚本(Linker command scripts)，之前只是大概知道有这么一个东西 先从参考资料中的内容开始说起，充当预备知识  总的来说，脚本定义了四个内存空间(memory regions)为vect、rom、ram and cache，五个段(output sections)为vect、te">
+<meta name="keywords" content="uboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uboot链接脚本分析">
+<meta property="og:url" content="http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="上一篇uboot主编译脚本分析的编译选项参数中提到了链接脚本这么个东西 我也是写到这里才开始了解链接脚本(Linker command scripts)，之前只是大概知道有这么一个东西 先从参考资料中的内容开始说起，充当预备知识  总的来说，脚本定义了四个内存空间(memory regions)为vect、rom、ram and cache，五个段(output sections)为vect、te">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-03-16T13:22:36.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uboot链接脚本分析">
+<meta name="twitter:description" content="上一篇uboot主编译脚本分析的编译选项参数中提到了链接脚本这么个东西 我也是写到这里才开始了解链接脚本(Linker command scripts)，之前只是大概知道有这么一个东西 先从参考资料中的内容开始说起，充当预备知识  总的来说，脚本定义了四个内存空间(memory regions)为vect、rom、ram and cache，五个段(output sections)为vect、te">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">uboot链接脚本分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">uboot链接脚本分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-16T13:22:28.000Z" itemprop="datePublished" class="page-time">
+  2019-03-16
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#从参考资料中的范例入手"><span class="post-toc-number">1.</span> <span class="post-toc-text">从参考资料中的范例入手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#output_format命令"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">OUTPUT_FORMAT命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#memory命令"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">MEMORY命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sections命令"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">SECTIONS命令</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#at指令"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">AT指令</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#objdump反汇编验证uboot链接脚本"><span class="post-toc-number">2.</span> <span class="post-toc-text">objdump反汇编验证uboot链接脚本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-x210-2019-03-16-uboot链接脚本分析" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">uboot链接脚本分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-16 21:22:28" datetime="2019-03-16T13:22:28.000Z" itemprop="datePublished">2019-03-16</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>上一篇uboot主编译脚本分析的<a href="http://greedyhao.cc/2019/03/15/uboot%E4%B8%BB%E7%BC%96%E8%AF%91%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/#%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0">编译选项参数</a>中提到了链接脚本这么个东西</p>
+<p>我也是写到这里才开始了解链接脚本(Linker command scripts)，之前只是大概知道有这么一个东西</p>
+<p>先从参考资料中的内容开始说起，充当预备知识</p>
+<blockquote>
+<p>总的来说，脚本定义了四个内存空间(memory regions)为vect、rom、ram and cache，五个段(output sections)为vect、text、bss、init、stack</p>
+</blockquote>
+<h1 id="从参考资料中的范例入手">从参考资料中的范例入手</h1>
+<p>下面是范例中提供的一个简单的链接脚本，简单而健全，先完整的贴上来，然后结合uboot的链接脚本慢慢介绍其中涉及到的OUTPUT_FORMAT、MEMORY等命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">/* 要链接的文件列表</span><br><span class="line">(其他的可以在命令行上提供) */</span><br><span class="line">INPUT(libc.a libg.a libgcc.a libc.a libgcc.a)</span><br><span class="line"></span><br><span class="line">/* 输出格式</span><br><span class="line">(可以在命令行上被重写) */</span><br><span class="line">OUTPUT_FORMAT(&quot;coff-sh&quot;)</span><br><span class="line"></span><br><span class="line">/* 输出文件名</span><br><span class="line">(可以在命令行上被重写) */</span><br><span class="line">OUTPUT_FILENAME(&quot;main.out&quot;)</span><br><span class="line"></span><br><span class="line">/* 我们的程序的入口点;</span><br><span class="line">除了确保S7记录是正确的外，没有什么用处，</span><br><span class="line">因为复位向量(reset vector)实际上</span><br><span class="line">定义了大多数嵌入式系统中的“入口点” */</span><br><span class="line">ENTRY(_start)</span><br><span class="line"></span><br><span class="line">/* 内存段的列表 */</span><br><span class="line">MEMORY</span><br><span class="line">&#123;</span><br><span class="line">    vect : o = 0, l = 1k</span><br><span class="line">    rom : o = 0x400, l = 127k</span><br><span class="line">    ram : o = 0x400000, l = 128k</span><br><span class="line">    cache : o = 0xfffff000, l = 4k</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 组织每个模块中的内存段的方式 */</span><br><span class="line">SECTIONS</span><br><span class="line">&#123;</span><br><span class="line">    /* 中断向量表 */</span><br><span class="line">    .vect :</span><br><span class="line">    &#123;</span><br><span class="line">        __vect_start = .;</span><br><span class="line">        *(.vect);</span><br><span class="line">        __vect_end = .;</span><br><span class="line">    &#125; &gt; vect</span><br><span class="line"></span><br><span class="line">    /* 代码和常量 */</span><br><span class="line">    .text :</span><br><span class="line">    &#123;</span><br><span class="line">        __text_start = .;</span><br><span class="line">        *(.text)</span><br><span class="line">        *(.strings)</span><br><span class="line">        __text_end = .;</span><br><span class="line">    &#125; &gt; rom</span><br><span class="line"></span><br><span class="line">    /* 未初始化的数据 */</span><br><span class="line">    .bss :</span><br><span class="line">    &#123;</span><br><span class="line">        __bss_start = . ;</span><br><span class="line">        *(.bss)</span><br><span class="line">        *(COMMON)</span><br><span class="line">        __bss_end = . ;</span><br><span class="line">    &#125; &gt; ram</span><br><span class="line"></span><br><span class="line">    /* 已初始化的数据 */</span><br><span class="line">    .init : AT (__text_end)</span><br><span class="line">    &#123;</span><br><span class="line">        __data_start = .;</span><br><span class="line">        *(.data)</span><br><span class="line">        __data_end = .;</span><br><span class="line">    &#125; &gt; ram</span><br><span class="line"></span><br><span class="line">    /* 应用程序栈 */</span><br><span class="line">    .stack :</span><br><span class="line">    &#123;</span><br><span class="line">        __stack_start = .;</span><br><span class="line">        *(.stack)</span><br><span class="line">        __stack_end = .;</span><br><span class="line">    &#125; &gt; ram</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="output_format命令">OUTPUT_FORMAT命令</h2>
+<p>这条命令控制输出文件的的格式。</p>
+<p>在x210的uboot脚本中，也是有这个命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OUTPUT_FORMAT(&quot;elf32-littlearm&quot;, &quot;elf32-littlearm&quot;, &quot;elf32-littlearm&quot;)</span><br></pre></td></tr></table></figure>
+<p>这条命令的使用方式为<em>OUTPUT_FORMAT(bfdname), OUTPUT_FORMAT(default, big, little)</em>，上面的例子是第一种使用方式，而uboot中的是第二种方式</p>
+<h2 id="memory命令">MEMORY命令</h2>
+<p>链接器的默认配置允许分配所有可用内存，你可以使用MEMORY命令来覆盖它。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MEMORY &#123;</span><br><span class="line">    name [(attr)] : ORIGIN = origin, LENGTH = len</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我记得我以前使用stm32驱动显示器的时候遇到过sram不够用的情况，当时也是通过在链接脚本中添加一个段地址指向外部扩展的ddr，然后让显存地址指向这这个段解决的</p>
+<h2 id="sections命令">SECTIONS命令</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.text :</span><br><span class="line">&#123;</span><br><span class="line">    __text_start = .;</span><br><span class="line">    *(.text)</span><br><span class="line">    *(.strings)</span><br><span class="line">    __text_end = .;</span><br><span class="line">&#125; &gt; rom</span><br></pre></td></tr></table></figure>
+<p>在例子中，定义了一个<strong>.text</strong> 段，并将所有输入文件中的 <strong>.text</strong> and <strong>.strings</strong> 段放入这个段中</p>
+<p>在我们的uboot链接脚本中，还出现了一些其他的东西</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.text:</span><br><span class="line">&#123;</span><br><span class="line">    cpu/s5pc11x/start.o	(.text)</span><br><span class="line">    ...</span><br><span class="line">    *(.text)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从脚本中看出，链接不仅仅只是能直接<strong>*(.text)</strong>操作同一类的所有输入段，还能以文件定义的方式添加到输出文件的某个SECTIONS中，以文件定义的方式可以确定不同文件的链接顺序，以免产生依赖缺失的问题</p>
+<h2 id="at指令">AT指令</h2>
+<p>AT指令告诉链接器将一个节的数据加载到它所在的地址之外的其他位置。使用这个指令可以将需要使用的数据存储在ROM中，在使用前将数据从ROM中提前读取到RAM中。</p>
+<h1 id="objdump反汇编验证uboot链接脚本">objdump反汇编验证uboot链接脚本</h1>
+<p>本uboot链接脚本如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">OUTPUT_FORMAT(&quot;elf32-littlearm&quot;, &quot;elf32-littlearm&quot;, &quot;elf32-littlearm&quot;)</span><br><span class="line">OUTPUT_ARCH(arm)</span><br><span class="line">ENTRY(_start)</span><br><span class="line">SECTIONS</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">	.text      :</span><br><span class="line">	&#123;</span><br><span class="line">	  cpu/s5pc11x/start.o	(.text)</span><br><span class="line">	  ...</span><br><span class="line">	  *(.text)</span><br><span class="line">	&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对编译后生成的elf文件进行反汇编</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ arm-linux-gnueabihf-objdump -f u-boot</span><br><span class="line"></span><br><span class="line">u-boot:     file format elf32-littlearm</span><br><span class="line">architecture: arm, flags 0x00000112:</span><br><span class="line">EXEC_P, HAS_SYMS, D_PAGED</span><br><span class="line">start address 0xc3e00010</span><br></pre></td></tr></table></figure>
+<p>前面两行就是<strong>OUTPUT_FORMAT</strong>和<strong>OUTPUT_ARCH</strong>对应内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ arm-linux-gnueabihf-objdump -h u-boot</span><br><span class="line"></span><br><span class="line">u-boot:     file format elf32-littlearm</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA       LMA       File off  Algn</span><br><span class="line">  0 .text         0002a0b0  c3e00000  c3e00000  00008000  2**5</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, READONLY, CODE</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>这里的<strong>.text</strong>地址也符合<a href="http://greedyhao.cc/2019/03/15/uboot%E4%B8%BB%E7%BC%96%E8%AF%91%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/#%E9%85%8D%E7%BD%AE%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE">主makefile</a>中定义的地址</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><p><a href="https://gcc.gnu.org/wiki/Building_Cross_Toolchains_with_gcc?action=AttachFile&amp;do=get&amp;target=billgatliff-toolchains.pdf" target="_blank" rel="noopener">An Introduction to the GNU Compiler and Linker</a></p></li>
+<li><p><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Using_ld_the_GNU_Linker/index.html" target="_blank" rel="noopener">Red Hat Enterprise Linux 4</a></p></li>
+<li><p><a href="https://stackoverflow.com/questions/7182409/how-to-correctly-use-a-simple-linker-script-executable-gets-sigkill-when-run" target="_blank" rel="noopener">How to correctly use a simple linker script? Executable gets SIGKILL when run</a></p></li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-16T13:22:36.649Z" itemprop="dateUpdated">2019-03-16 21:22:36</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&title=《uboot链接脚本分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&title=《uboot链接脚本分析》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot链接脚本分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot主编译脚本分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&title=《uboot链接脚本分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&title=《uboot链接脚本分析》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot链接脚本分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3ay27dMAwE0Pz/T6fbFqmNGUpsguJ4ZST3oeOFyDvix0d8ff52Pf336f79+vqu5JMvX3h4eHgHS3//+qf/Pr3m6dG8P6z3deZrxsPDw9vm3d3u860/eTR5kcDDw8P7mbz3Vju/b8sMHh4e3v/Ee2+U35d+XiTw8PDwvouXb8RtKJAz2rD4ctaCh4eH1723jlC/937lfA8PDw/v+FQ9LxIn7W/SiH+OLjw8PLwNXr7h3hoImG30ebuMh4eHt83LF3Q+ENA+lNlo1x/3eHh4eMu8k5/9+YHWeXkoygweHh7eAi8PBdqhqFvNet6yF+d7eHh4eAe8Igy92mQnBWMWcNQHYHh4eHglL2lY23GoW210G2REvx7w8PDwrvLatjU/lMqjhFkzXRyS4eHh4V3itTFEnpTmi541zcXQFR4eHt4lXt4oz4KD878UgwJfV4WHh4e3wDtBti31bAThaOgKDw8Pb403+8E/29xnS1xPWfDw8PAu8U7CgnYAqw1w66gXDw8Pb4GXNNO37mdjXvna6jEsPDw8vJg3O5rKx7Pa2HfWuD/e4+Hh4a3x8o24DXDbQCFvwaNIAg8PD+8f8vLy0IYI+ee3r3w89MLDw8Nb5uVtdF4A2uOxthQ9rhYPDw9vgZdswQn4PLZoI9r8YAwPDw9vg9cOUbXb8UnDnTfZw5kIPDw8vEu8u+11DmsD4ujQDg8PD2+Nl9/fOhjLRwHaCw8PD2+P91leswJQJyKjz/zLu/Dw8PAWeO1W244L5C11criVF6phJcHDw8MrZ5OSpeeDAufl4VqxwcPDw1vj3dqU8+JxK3qICgMeHh7et/JOvnjWZLeDWXh4eHg/k5c3xMkrZyFIMXSFh4eHt8BrI9o8esgHC5JWuz76wsPDw1vgtT/y2zGCPJY9eSjXMgw8PDy8N94vRugNAWw17LsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

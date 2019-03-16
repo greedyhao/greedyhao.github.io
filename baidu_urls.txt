@@ -1,3 +1,3 @@
-http://greedyhao.cc/2019/03/15/uboot主编译脚本分析/
+http://greedyhao.cc/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/
+http://greedyhao.cc/2019/03/15/工作-x210-2019-03-15-uboot主编译脚本分析/
 http://greedyhao.cc/2019/03/13/工作-x210-2019-03-13-uboot源码构成分析/
-http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/
