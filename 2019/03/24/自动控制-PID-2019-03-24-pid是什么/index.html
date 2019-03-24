@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>pid是什么 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PID">
+    <meta name="description" content="本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。 对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。">
+<meta name="keywords" content="PID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pid是什么">
+<meta property="og:url" content="http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。 对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_4_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_4_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_5_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_5_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-03-24T04:14:13.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pid是什么">
+<meta name="twitter:description" content="本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。 对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。">
+<meta name="twitter:image" content="http://greedyhao.cc/img/auto_control/pid/pid_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">pid是什么</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">pid是什么</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-24T03:28:26.000Z" itemprop="datePublished" class="page-time">
+  2019-03-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-自动控制-PID-2019-03-24-pid是什么" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">pid是什么</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-24 11:28:26" datetime="2019-03-24T03:28:26.000Z" itemprop="datePublished">2019-03-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。</p>
+<p>对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。</p>
+<a id="more"></a>
+<blockquote>
+<p>本系列内容是看了MATLAB的教学视频后写的，<a href="https://zhuanlan.zhihu.com/p/59928003" target="_blank" rel="noopener">视频链接在此</a></p>
+</blockquote>
+<p>PID的公式在此</p>
+<p><span class="math display">\[
+u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
+\]</span></p>
+<p>看着是不是觉得挺复杂，不过放心，让我们先抛弃公式，从PID是什么以及为什么要有PID开始讲起</p>
+<p><img src="/img/auto_control/pid/pid_1.png"></p>
+<p>这里有这么一个我们需要控制的设备，我们需要使用驱动信号(actuating signal)取控制它，同时，我们可以获得设备的当前信息，也就是受控变量(controlled variable)</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这个驱动信号由一个控制器产生，控制器的作用是使得系统的error为0，error则是控制变量减去受控变量的值。控制变量(commanded variable)是我们对这个系统的需求，比如将烙铁加热到xx度；受控变量是从设备获得的信息，比如当前烙铁xx度。</p>
+<p>接下来就将这个PID模型具象化，以球场上一个人走向半场的过程为例</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图所示，假设这个人离半场的距离有50m，那么控制变量为50m，设定控制器的值为0.1，那么初始速度为5m/s，人接收到速度的指令后行走，反馈回路将当前位置返回累计器，从而调整走路速度，随着人离中场越近，人的速度越慢，直到走到中场，速度为0</p>
+<p>右下角的两张图分别是<strong>路程/时间</strong>、<strong>走路速度/时间</strong>的关系图，体现了控制器不同的值时的区别</p>
+<p>看起来似乎一个比例就可以解决控制器的问题了，那还要积分和微分器干嘛，下面换一个无人机的例子来说明</p>
+<p>如的图所示，有这么个无人机，想悬停在50m的空中</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_4_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>无人机无法像上面人走路一样简单的比例就可以完成了，因为无人机会因为重力的作用下坠，如果到了50m的空中电机就定制转动，无人机会直接下坠</p>
+<p>我们假定无人机的悬停需要100rpm的电机速度</p>
+<p>通过增加增益，无人机电机转速会增加，然后上升，反馈使得误差减小，转速降低，降到100rpm时保持悬浮。只有继续增大增益，无人机才会继续上升</p>
+<p>但是无论增益怎么增加，都没办法悬浮在50m处，如图中表格所示，最终会有误差无法消除，管这种误差叫做稳态误差(steady state error)</p>
+<p>为了消除这种稳态误差，可以请积分器出场了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_4_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图所示，一个常数值经过积分器后得到一个增大的函数，会使得转速增加，从而使得无人机上升减小误差</p>
+<p>当误差为0时，只有积分器的输出100rpm，而比例输出为0</p>
+<p>但是现实中并不是这么理想的，当误差E比较小的时候积分器的输出会大于100rpm，而比例的输出大于0，会使得总输出大于100rpm，会使得无人机突然超越50m的高度。这种情况叫做超调</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_5_1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>为了减小这种超调的问题，就需要使用微分器了</p>
+<p>对函数的求导可以得到它的斜率。误差函数由于是下降的趋势，微分得到的斜率是小于0的，并且随着下降的速度增大，误差函数斜率的绝对值也增大，这个负值的斜率输出到电机时会减慢电机的速度，这样就可以减小超调量</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_5_2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>比例、微分、积分组合起来就是我们常说的PID控制器了，通过调整Kp Ki Kd权重因子，还可以只使用PI PD P等等</p>
+<p>下一篇会讲到积分器的保护或者说抗饱和积分问题</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-03-24T04:14:13.571Z" itemprop="dateUpdated">2019-03-24 12:14:13</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PID/">PID</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&title=《pid是什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&title=《pid是什么》 — Zhuhao's Blog&source=本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。
+对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid是什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/16/工作-x210-2019-03-16-uboot链接脚本分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot链接脚本分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&title=《pid是什么》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&title=《pid是什么》 — Zhuhao's Blog&source=本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。
+对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid是什么》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/24/自动控制-PID-2019-03-24-pid是什么/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aS24bQQwFQN//0gqQXWBLeq/ZtB2gZmXI8+maRZND8uMjPh5/j89/5+d/vurZfZ49K3nu4YGHh4d3tPRnR7KU5A45LF9P9EQ8PDy8NV4bDNrwMA8z+evGw8PD+z285Jf8/Ekqj4eHh/e/8K5t1uMQgoeHh/cbePnH/+urXt/59VKSpyzWWvDw8PC6yuqF1PY7//6m/h4eHh7eUcOpDRh5iyu5w2iFeHh4eAu8SYG1Ld22v7dPKbpneHh4eJd4Z3lp3gxLyhOT0PL0Wjw8PLwFXnFSWYQ9W+5ZGeLNK8PDw8O7yks2/Ta1PStYJGGjbnfh4eHhLfAmxda2qJEPcrUliaJJhoeHhzfmtaNUZ22qtr7ahoToWwEPDw9vzJtsxGdbfNsMu/ytgIeHhzfm5QudLyUPEm0BFw8PD+87eZOLk0VMSrFn5Y9/fsHDw8Nb4OUjAknBIj9nXsIorsXDw8O7ymuHBs6aW8l4VlIWadNxPDw8vA1eGxg2GlrtcEA9uICHh4d3lZdvzdtFhKTNViPx8PDwFnh5YGi39bPy7saIAx4eHt5dXjvY1A5XJdt9+1KKIQM8PDy8NV67lPbxbeBpB7Ce3gEPDw9vgXdWrj17cF6WnQ8QjKrReHh4eANesk0nQ1dnr+bsVb7p8uHh4eEt8NrP/kmSvdcG+2hjFB4eHt4RLNnib7W4JkGlLljg4eHhrfHaRDbZvvMA0A6n5kEODw8P7y7vUR55mXWevrdjCl/8Fw8PD2+BN1lQ3bwf1BDaNeDh4eFt8/JgkGzuefJ9VuCoAxUeHh7eGm/SsG9Lq3tp+hd3wMPDw/s1vHYYq02R8yDxpm2Gh4eH96O8PAl+HB1tAn05pcbDw8NbKEYkyW5+1bw8EZWM8fDw8BZ48wbY62Q3KhkcvcRrY1t4eHh4Ke8P77fY7qE4o4QAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
