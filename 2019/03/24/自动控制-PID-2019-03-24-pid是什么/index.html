@@ -53,7 +53,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_5_1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_5_2.png">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
-<meta property="og:updated_time" content="2019-03-24T04:14:13.571Z">
+<meta property="og:updated_time" content="2019-03-24T04:16:38.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pid是什么">
 <meta name="twitter:description" content="本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。 对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。">
@@ -215,7 +215,7 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
 \]</span></p>
 <p>看着是不是觉得挺复杂，不过放心，让我们先抛弃公式，从PID是什么以及为什么要有PID开始讲起</p>
 <p><img src="/img/auto_control/pid/pid_1.png"></p>
-<p>这里有这么一个我们需要控制的设备，我们需要使用驱动信号(actuating signal)取控制它，同时，我们可以获得设备的当前信息，也就是受控变量(controlled variable)</p>
+<p>这里有这么一个我们需要控制的设备，我们需要使用<strong>驱动信号(actuating signal)</strong>取控制它，同时，我们可以获得设备的当前信息，也就是<strong>受控变量(controlled variable)</strong></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -223,7 +223,7 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>这个驱动信号由一个控制器产生，控制器的作用是使得系统的error为0，error则是控制变量减去受控变量的值。控制变量(commanded variable)是我们对这个系统的需求，比如将烙铁加热到xx度；受控变量是从设备获得的信息，比如当前烙铁xx度。</p>
+<p>这个驱动信号由一个控制器产生，控制器的作用是使得系统的error为0，error则是控制变量减去受控变量的值。<strong>控制变量(commanded variable)</strong>是我们对这个系统的需求，比如将烙铁加热到xx度；<strong>受控变量</strong>是从设备获得的信息，比如当前烙铁xx度。</p>
 <p>接下来就将这个PID模型具象化，以球场上一个人走向半场的过程为例</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -246,8 +246,8 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
 <p>无人机无法像上面人走路一样简单的比例就可以完成了，因为无人机会因为重力的作用下坠，如果到了50m的空中电机就定制转动，无人机会直接下坠</p>
 <p>我们假定无人机的悬停需要100rpm的电机速度</p>
 <p>通过增加增益，无人机电机转速会增加，然后上升，反馈使得误差减小，转速降低，降到100rpm时保持悬浮。只有继续增大增益，无人机才会继续上升</p>
-<p>但是无论增益怎么增加，都没办法悬浮在50m处，如图中表格所示，最终会有误差无法消除，管这种误差叫做稳态误差(steady state error)</p>
-<p>为了消除这种稳态误差，可以请积分器出场了</p>
+<p>但是无论增益怎么增加，都没办法悬浮在50m处，如图中表格所示，最终会有误差无法消除，管这种误差叫做<strong>稳态误差(steady state error)</strong></p>
+<p>为了消除这种<strong>稳态误差</strong>，可以请积分器出场了</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -257,7 +257,7 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
             </figure>
 <p>如图所示，一个常数值经过积分器后得到一个增大的函数，会使得转速增加，从而使得无人机上升减小误差</p>
 <p>当误差为0时，只有积分器的输出100rpm，而比例输出为0</p>
-<p>但是现实中并不是这么理想的，当误差E比较小的时候积分器的输出会大于100rpm，而比例的输出大于0，会使得总输出大于100rpm，会使得无人机突然超越50m的高度。这种情况叫做超调</p>
+<p>但是现实中并不是这么理想的，当误差E比较小的时候积分器的输出会大于100rpm，而比例的输出大于0，会使得总输出大于100rpm，会使得无人机突然超越50m的高度。这种情况叫做<strong>超调</strong></p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -265,7 +265,7 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>为了减小这种超调的问题，就需要使用微分器了</p>
+<p>为了减小这种<strong>超调</strong>的问题，就需要使用微分器了</p>
 <p>对函数的求导可以得到它的斜率。误差函数由于是下降的趋势，微分得到的斜率是小于0的，并且随着下降的速度增大，误差函数斜率的绝对值也增大，这个负值的斜率输出到电机时会减慢电机的速度，这样就可以减小超调量</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -292,7 +292,7 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-03-24T04:14:13.571Z" itemprop="dateUpdated">2019-03-24 12:14:13</time>
+    最后更新时间：<time datetime="2019-03-24T04:16:38.344Z" itemprop="dateUpdated">2019-03-24 12:16:38</time>
 </span><br>
 
 
@@ -374,7 +374,14 @@ u(t) = K_p e(t) + K_i \int^t_0 e(\tau) d\tau + K_d \frac{de(t)}{dt}
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/25/自动控制-PID-2019-03-25-pid抗饱和积分/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">pid抗饱和积分</h4>
+      </a>
+    </div>
   
 
   
