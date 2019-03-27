@@ -49,7 +49,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_7.png">
 <meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_8.png">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
-<meta property="og:updated_time" content="2019-03-25T00:47:30.380Z">
+<meta property="og:updated_time" content="2019-03-25T01:25:01.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pid抗饱和积分">
 <meta name="twitter:description" content="上文介绍了PID在理想情况下的工作原理，接下来是对实际中使用积分器的展开">
@@ -228,9 +228,9 @@ ga('send', 'pageview');
                 <div class="image-caption"></div>
             </figure>
 <p>还是像之前一样，有一个无人机，目标是悬停在50m处的空中</p>
-<p>但是我们在一开始的时候先固定住无人机</p>
+<p>但是我们在一开始的时候先<strong>固定</strong>住无人机</p>
 <p>由于被固定住，高度误差不会减小，从而电机指令会不断增加，从而电机转速不断上升，但增加到1000rpm时，达到电机转速的极限，电机转速不再增加</p>
-<p>但是电机指令由于没有收到高度误差减小的反馈，依然会不断增加</p>
+<p>但是电机指令由于<strong>没有收到高度误差减小</strong>的反馈，依然会不断增加</p>
 <p>直到放开无人机时，电机指令开始减小，减小到1000rpm时，电机转速开始减小，但是高度误差早已经为负，意思就是无人机已经超过50m的高度，飞向自由了</p>
 <h1 id="如何抗饱和积分">如何抗饱和积分</h1>
 <figure class="image-bubble">
@@ -243,8 +243,15 @@ ga('send', 'pageview');
 <p>有三种方法抗饱和积分 + <strong>clamping</strong>(钳位):根据条件关闭积分器 + <strong>back-calculation</strong>(反算) + <strong>observer opproach</strong>(跟踪模式)</p>
 <p>一般比较常用的是钳位的方法，也称条件积分，因为简单、方便，下面介绍的也是钳位的配置</p>
 <p>我们现在不让设备指令直接给设备了，而是在设备前加一个限定，也就是<strong>钳位饱和限定</strong>，通过判定限定前和限定后的值，判断控制器是否饱和</p>
-<p>对于钳位的情况可以描述如下： 1. 积分器的值会被限定在一个指定的值 2. 积分器的值会在系统误差过大的时候停止，即|e|&gt;e，e为指定的值 3. 当控制器饱和的时候，积分器的值会停止增大，即，当u≠us时 4. 当控制器饱和并且系统误差和操作变量符号相同，即，当u≠us且e*u&gt;0时</p>
+<p>对于钳位的情况可以描述如下：</p>
+<ol type="1">
+<li>积分器的值会被限定在一个指定的值</li>
+<li>积分器的值会在系统误差过大的时候停止，即|e|&gt;e，e为指定的值</li>
+<li>当控制器饱和的时候，积分器的值会停止增大，即，当u≠us时</li>
+<li>当控制器饱和并且系统误差和操作变量符号相同，即，当u≠us且e*u&gt;0时</li>
+</ol>
 <h1 id="参考资料">参考资料</h1>
+<p>公众号内回复 下载|PID资料 获得</p>
 <ul>
 <li>Visioli, A., &quot;Modified Anti-Windup Scheme for PID Controllers,&quot; IEE Proceedings - Control Theory and Applications, Vol. 150, Number 1, January 2003</li>
 </ul>
@@ -264,7 +271,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-03-25T00:47:30.380Z" itemprop="dateUpdated">2019-03-25 08:47:30</time>
+    最后更新时间：<time datetime="2019-03-25T01:25:01.095Z" itemprop="dateUpdated">2019-03-25 09:25:01</time>
 </span><br>
 
 
@@ -345,7 +352,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/03/26/自动控制-PID-2019-03-26-pid对微分器的优化/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">pid对微分器的优化</h4>
+      </a>
+    </div>
   
 
   
