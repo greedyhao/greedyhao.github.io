@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>pid整定概述 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="PID">
+    <meta name="description" content="这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先 之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题">
+<meta name="keywords" content="PID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pid整定概述">
+<meta property="og:url" content="http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先 之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_10.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_11_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_11_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_11_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_11_4.png">
+<meta property="og:updated_time" content="2019-04-06T12:15:47.423Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pid整定概述">
+<meta name="twitter:description" content="这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先 之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题">
+<meta name="twitter:image" content="http://greedyhao.cc/img/auto_control/pid/pid_10.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">pid整定概述</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">pid整定概述</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-28T01:51:06.000Z" itemprop="datePublished" class="page-time">
+  2019-03-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pid系统设计流程"><span class="post-toc-number">1.</span> <span class="post-toc-text">pid系统设计流程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#pid整定指南"><span class="post-toc-number">2.</span> <span class="post-toc-text">pid整定指南</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-自动控制-PID-2019-03-28-pid整定概述" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">pid整定概述</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-28 09:51:06" datetime="2019-03-28T01:51:06.000Z" itemprop="datePublished">2019-03-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先</p>
+<p>之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题</p>
+<a id="more"></a>
+<h1 id="pid系统设计流程">pid系统设计流程</h1>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_10.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>设计一个pid控制系统的流程大致就上面这几个阶段</p>
+<p>本篇文章注重的控制器架构为PID，和这种架构如何调整或者说如何调优</p>
+<h1 id="pid整定指南">pid整定指南</h1>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_11_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>先判断系统是否表现良好，是否存在高非线性、开环不稳定、很多延时、非最小相位等问题，如果表现不良好，需要使用进阶方法</p>
+<p>在系统表现良好的情况下，可以基于数学模型，也可以基于物理模型进行调整pid</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_11_2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>增加P可以减少rise time</li>
+<li>增加D提升稳定性和减小超调(overshoot)</li>
+</ul>
+<p>基于物理模型调整pid时，可以通过给系统一个阶跃序列，通过观察系统响应，来调整pid</p>
+<p>这种观察系统响应的启发式方法有<strong>Cohen-Coon Method</strong>和<strong>Ziegler-Nichols</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_11_3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们还可以通过第一性原理，通过实验从物理系统中得到数学模型；也可以通过给物理系统一个阶跃信号，通过阶跃响应得到数学模型。再通过数学模型进行pid调整</p>
+<p>手动调整有<strong>Pole placement</strong>, <strong>loop shaping</strong>, <strong>heuristics</strong>的方法</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_11_4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>此外还可以通过软件的方法，让pid系统自整定</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="https://ww2.mathworks.cn/help/control/ref/stepinfo.html?requestedDomain=zh" target="_blank" rel="noopener">stepinfo</a></li>
+<li><a href="http://support.motioneng.com/downloads-notes/tuning//img/auto_control/pid/pid_overshoot.htm" target="_blank" rel="noopener">PID Tuning:Step Behavior</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-04-06T12:15:47.423Z" itemprop="dateUpdated">2019-04-06 20:15:47</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PID/">PID</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&title=《pid整定概述》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&title=《pid整定概述》 — Zhuhao's Blog&source=这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先
+之前的文章都是介绍pid的原理，现在要说..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid整定概述》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/04/06/pid建立模型/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">pid建立模型</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/03/26/自动控制-PID-2019-03-26-pid对微分器的优化/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">pid对微分器的优化</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&title=《pid整定概述》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&title=《pid整定概述》 — Zhuhao's Blog&source=这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先
+之前的文章都是介绍pid的原理，现在要说..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid整定概述》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvklEQVR42u3a0WrkMAwF0P7/T3dh2cdO5l7JprNw8hSmwfFxwVIkf33F1/ffa/bL8+/P47y6P3zh4eHhjab+6sqfeZ5EMtF8IfL54OHh4d3jzSa0WaYEsF8gPDw8vN/ltS9on3m+x8PDw/vfefVrHsdMYHh4eHifxktS4bwUO3tmFiqO1Vrw8PDwYl7bAPuE+4v9PTw8PLxF4TVvd+VFhHwOmxn+GwEPDw/vAi//+M9LEnlqe6pJ9iZ44OHh4V3gzUoDmxR8X5wdliHw8PDw1rz8YNO+aNsWhZNE/M3veHh4eBd4+eabBIa2zDpLqdu0Gw8PD+8sL09w82CQBI/ZcYSk5PFD3MPDw8M7ytu/Mn99205Lph79M/Dw8PCu8WaFhk3AqNtXoyXAw8PDu8ebbeg5e3+sKg8G0aErPDw8vBFv33ZKSG0YmCXfdRkXDw8Pb82bFUw3G3oy8rCbl9d68fDw8EpeO9zsqEHbDEtGzoMTHh4e3g1ePum2MNH+ddOQKyIhHh4e3oK3SWpnCfpsKfPg9LKMi4eHh3eN16bObbM/WcTNTH7o7OHh4eFd4M0S2TyBbptbsyNc0flZPDw8vDWvZW8CQzv1NnQVYDw8PLw1L9lwVxtx2cpKlq8IFXh4eHhHeW0SPDvR1KbybTB4+V48PDy8C7ykSNqm2klrKi9qtK01PDw8vNu8/RacJ9n5ciRP1t8KeHh4eId4s2Z/3s7fJ8qnulp4eHh4p3jf5ZWUMPL7tpWVL1Odv+Ph4eHFvNm225ZT8zCTp/uzUggeHh7eKV4eDPYp7yyQJCO8OUCAh4eHd4GXfN7nvHwSpxbxTWDAw8PD+wBeXjI4S20PgeHh4eH9Li9fgiTZTYq8bRPu5fkIPDw8vAu8TbLbbugtoG2bHa614OHh4Y0qsW2bvy3mtoeu8sXCw8PDO8r7AztWGDzyOYVyAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
