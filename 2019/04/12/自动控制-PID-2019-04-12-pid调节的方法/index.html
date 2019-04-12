@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>pid调节的方法 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Matlab,PID">
+    <meta name="description" content="上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真">
+<meta name="keywords" content="Matlab,PID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pid调节的方法">
+<meta property="og:url" content="http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_6.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_7.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_8.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_2.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_6.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_7.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_8.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_9.png">
+<meta property="og:image" content="http://greedyhao.cc/img/auto_control/pid/pid_14_10.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-04-12T15:09:14.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pid调节的方法">
+<meta name="twitter:description" content="上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真">
+<meta name="twitter:image" content="http://greedyhao.cc/img/auto_control/pid/pid_13_1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">pid调节的方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">pid调节的方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-04-12T15:09:05.000Z" itemprop="datePublished" class="page-time">
+  2019-04-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#调节pid的理论分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">调节pid的理论分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#matlab仿真"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">MATLAB仿真</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#调节零点位置和增益的方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">调节零点位置和增益的方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新名词介绍"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">新名词介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进入主题"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">进入主题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#matlab仿真-1"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">MATLAB仿真</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结尾"><span class="post-toc-number">3.</span> <span class="post-toc-text">结尾</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-自动控制-PID-2019-04-12-pid调节的方法" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">pid调节的方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-04-12 23:09:05" datetime="2019-04-12T15:09:05.000Z" itemprop="datePublished">2019-04-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真</p>
+<a id="more"></a>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>调节pid的目标就是使得从模型中得到的增益能够使物理系统正常工作</p>
+<h1 id="调节pid的理论分析">调节pid的理论分析</h1>
+<p>pid的一般形式如下图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>经过移动化简可以得到</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>现在我们的问题就简化成了在哪里放置这两个极点，和设置多大的增益？</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在给微分器加上滤波器，相当于系统多了一个极点，滤波器的相关内容之后介绍</p>
+<h2 id="matlab仿真">MATLAB仿真</h2>
+<p>仿真使用的模型还是我们上一篇使用的电机模型</p>
+<p>随便取一个之前的模型进行pid控制仿真</p>
+<p>先初始化电机模型的变量，再加上pid的必要模型，开始仿真</p>
+<p>随便调了几下pid参数，得到下图的效果</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="调节零点位置和增益的方法">调节零点位置和增益的方法</h1>
+<h2 id="新名词介绍">新名词介绍</h2>
+<p>根轨迹图(root locus)是控制理论及稳定性理论中，绘图分析的方式，可以看到在特定参数（一般会是反馈系统的环路增益）变化时，系统极点的变化。</p>
+<p>说实话，这东西以前我听都没听过，在经过线上线下查找资料才算知道了这么个东西。</p>
+<p>简单的说，这个图可以用来判断非时变系统系统的稳定性，以及计算系统增益并实现它的控制器</p>
+<p>手画这个图是有许多规则的，不过我没有去了解，毕竟我时间也不多，只知道可以用MATLAB画</p>
+<h2 id="进入主题">进入主题</h2>
+<p>有两种方法用于调节：Pole placement 和 Loop shaping</p>
+<p><strong>Pole placement</strong></p>
+<p>一个简单的开环系统，他的根轨迹图是这样的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_6.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在加入PID后，会引入新的零点和极点，就会变成这样</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_7.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这种调节方法就是通过调节增益，从而得到希望的系统性能</p>
+<p><strong>Loop shaping</strong></p>
+<p>这个方法和上面的类似，换了种形式的图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_13_8.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>据<a href="http://folk.ntnu.no/skoge/prost/proceedings/ecc03/pdfs/148.pdf" target="_blank" rel="noopener">论文</a>介绍，这两种方法的性能都是差不多的，loop-shaping多了两个优点，(i)不需要在FRF上拟合LTI模型来设计控制器，并且(ii)随着控制器系数的平滑变化，增益调度的实现更加缓慢。</p>
+<p>对于我来说，暂时只管怎么用，好不好用，就没有深入学习了</p>
+<h2 id="matlab仿真-1">MATLAB仿真</h2>
+<p>下图是我用之前的模型随意调的pid的阶跃响应，可以看出是不符合我们的期望的，下面我们就使用MATLAB进行pid调节</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>我们首先需要做的是打开<em>analysis-&gt;control design-&gt;control system designer</em>，然后按照下面三张图所示，添加需要调节的pid模块，添加需要的信号</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在control system designer的菜单栏中点击tuning methods，在下拉框中选择root locus editor，就可以得到下图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在new plot下选择new step，在弹出窗口按下图配置</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_6.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最终效果如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_7.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>手动pid调节</strong></p>
+<p>手动调节说实话我是不太懂，我这里只是随便乱调一下表示可以手动修整而已</p>
+<p>这里使用的是pole placement的方法，loop shaping也是类似的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_8.gif" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>自整定pid</strong></p>
+<p>这里主要还是介绍自整定pid，毕竟方便，不需要懂太多相关知识</p>
+<p>在tuning methods下选择pid tuning</p>
+<p>可以在弹出窗口中选择pid控制器的类型、性能等等，最后附上调节效果图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_9.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>最后弄完后要在菜单栏选择update blocks</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/auto_control/pid/pid_14_10.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="结尾">结尾</h1>
+<p>调节好的模型已上传github的<a href="https://github.com/greedyhao/trembling-ball-pid/tree/master/software/matlab/motor_model_pid.slx" target="_blank" rel="noopener">项目库</a></p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="https://ww2.mathworks.cn/help/slcontrol/ug/design-compensator-in-simulink-using-automated-pid-tuning.html" target="_blank" rel="noopener">Design Compensator Using Automated PID Tuning and Graphical Bode Design</a></li>
+<li><a href="https://ww2.mathworks.cn/help/control/getstart/designing-pid-controllers-with-the-pid-tuner-gui.html" target="_blank" rel="noopener">Designing PID Controllers with PID Tuner</a></li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-04-12T15:09:14.418Z" itemprop="dateUpdated">2019-04-12 23:09:14</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab/">Matlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PID/">PID</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&title=《pid调节的方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&title=《pid调节的方法》 — Zhuhao's Blog&source=上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid调节的方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/04/06/自动控制-PID-2019-04-06-pid建立模型/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">pid建立模型</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&title=《pid调节的方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&title=《pid调节的方法》 — Zhuhao's Blog&source=上一篇介绍了建立系统模型的三种方法，这一篇介绍如何调节pid，并用MATLAB仿真" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《pid调节的方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvklEQVR42u3awU7kQAwEUP7/p1lpT4jVJFV2emCll9MImKRfDt2m7I+P+Pr8e13/9uv177c+g+v6ntdrWF14eHh4o6Vf3+7V45+9W/I68qfg4eHhneZdHwb5Bv0s+3o90dPx8PDwfpSXbOXtRt++XDw8PLz/i9cWuNdPuQb88LmHh4eHF/BywPWCZkVzXogfzFrw8PDwugq2aID9hs8H+3t4eHh4i676bHNvj4F2vKBYLR4eHt4B3mwsoF3WLPLIS+qbYwMPDw/vMK+Na3P2LMDdrwEPDw/vWd7sSMgbWrOsIH81N/fBw8PDO8ZLWln5Zr0vyvN73qwNDw8P7wAvKWHzsapZuLAZLGj/Bg8PD2/P2wQKs9eRB8Gz4YaX/zHg4eHhHeMlJWy+lFk5nqwnKrXx8PDwDvDyDXf2eX9I5GNes+MEDw8Pr+XlsUI+xTQ7ZvIWWnEk4OHh4R3m5Ztvu2W3xfSs3XVzMODh4eE9xJvV3bPW16Z8b186Hh4e3jnebONuj4qk7M4Di+tV1Sk1Hh4eXsnbRLpt8+mpxR2B4eHh4cXf3Qxd5Rt6UhZv4oyXrw8PDw/vMK+NZfPQId/K25bYTVmPh4eH9xbePj6YBbvJHepXgIeHh3eA127um0GoFtYONwwrdzw8PLySlwcN+2BiM3CQt9nw8PDw3sPbRAb5hp6MGrRl+s1P8PDw8A7w2kiibfzncwrtt4qRLDw8PLxHee323TauhqVwnqMkKTUeHh7e23n5Ek+U15uIBA8PD+8EL7/yyKA9YPKiPCm7h1Q8PDy8krcPW9siuB0OaA8GPDw8vPfwZk39dhAhD2Rnke7NAAEeHh7e23n5cpMwYvb0utTGw8PD+zW8tg2Wx7stbzUZgYeHh7fgbeLXPJzNA9/Ni8DDw8M7zds0wGaRaxtDtEX8Y6MDeHh4eN+vP5/gsYadDLqnAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
