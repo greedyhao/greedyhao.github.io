@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2019-04-12T15:09:14.418Z</updated>
+  <updated>2019-05-03T09:51:21.690Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>移植MotionDriver到RTT</title>
+    <link href="http://greedyhao.cc/2019/05/03/%E5%B7%A5%E4%BD%9C-rt-thread-2019-05-03-%E7%A7%BB%E6%A4%8DMotionDriver%E5%88%B0RTT/"/>
+    <id>http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/</id>
+    <published>2019-05-03T09:50:07.000Z</published>
+    <updated>2019-05-03T09:51:21.690Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个移植花费了我好多时间...</p><a id="more"></a><p>本来是想使用<a href="http://packages.rt-thread.org/itemDetail.html?package=mpu6xxx" target="_blank" rel="noopener">mpu6xxx的软件包</a>的，但是得到的数据抖动太厉害了</p><p>在网上找到了两种得到稳定的数据的方法 + DMP + Kalman滤波</p><p>看到DMP的效果更好，就选择DMP的方案</p><p>了解到 InvenSense 公司提供的 MotionDriver 可以用DMP的方式读取mpu，就开始移植 MotionDriver 这个库</p><p>本项目的地址 https://github.com/greedyhao/MotionDriver2RTT</p><h1 id="移植步骤">移植步骤</h1><p>简单的说，就是把 core/driver/eMPL/inv_mpu.c 这个文件中需要使用到的函数实现就行了</p><p>这个文件中也有相关说明</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The following functions must be defined for this platform:</span></span><br><span class="line"><span class="comment"> * i2c_write(unsigned char slave_addr, unsigned char reg_addr,</span></span><br><span class="line"><span class="comment"> *      unsigned char length, unsigned char const *data)</span></span><br><span class="line"><span class="comment"> * i2c_read(unsigned char slave_addr, unsigned char reg_addr,</span></span><br><span class="line"><span class="comment"> *      unsigned char length, unsigned char *data)</span></span><br><span class="line"><span class="comment"> * delay_ms(unsigned long num_ms)</span></span><br><span class="line"><span class="comment"> * get_ms(unsigned long *count)</span></span><br><span class="line"><span class="comment"> * reg_int_cb(void (*cb)(void), unsigned char port, unsigned char pin)</span></span><br><span class="line"><span class="comment"> * labs(long x)</span></span><br><span class="line"><span class="comment"> * fabsf(float x)</span></span><br><span class="line"><span class="comment"> * min(int a, int b)</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><p>不过实际需要实现的只有 i2c_write i2c_read delay_ms get_ms，以及 core/driver/stm32L/log_stm32.c 下的 log_i 与 log_e 的底层函数</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> i2c_write   imu_i2c_write_regs</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> i2c_read    imu_i2c_read_regs </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> delay_ms    thread_mdelay</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> get_ms      get_tick_count</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log_i       MPL_LOGI</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log_e       MPL_LOGE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a,b)    ((a&lt;b)?a:b)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> labs(n)     (((n) &lt; 0) ? (-(n)) : (n))</span></span><br></pre></td></tr></table></figure><h2 id="i2c的实现">i2c的实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rt_mpu_device</span> *<span class="title">mpu_dev</span>;</span></span><br></pre></td></tr></table></figure><p>通过 mpu_dev 这个全局指针来保存mpu设备的相关信息</p><p>不过全局指针的方式进行i2c通信不知道会不会不太好，暂时没有其他方式实现</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rt_err_t</span> imu_i2c_write_regs(<span class="keyword">unsigned</span> <span class="keyword">char</span> slave_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> reg_addr, <span class="keyword">unsigned</span> <span class="keyword">short</span> length, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *data_ptr)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (!rt_mpu_write_reg(mpu_dev, reg_addr, length, data_ptr))</span><br><span class="line">    &#123;</span><br><span class="line">        res = RT_EOK;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">rt_err_t</span> imu_i2c_read_regs(<span class="keyword">unsigned</span> <span class="keyword">char</span> slave_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> reg_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> length, <span class="keyword">unsigned</span> <span class="keyword">char</span> *data)</span><br><span class="line">&#123;</span><br><span class="line">    ...    </span><br><span class="line">    <span class="keyword">if</span> (!rt_mpu_read_regs(mpu_dev, reg_addr, length, data))</span><br><span class="line">    &#123;</span><br><span class="line">        res = RT_EOK;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因为 rt-thread 的i2c接口和 MotionDriver 中需要的i2c接口不一致，就写了个中间层适配，从 MotionDriver 的i2c接口传入的 slave_addr 直接使用 mpu_dev 中的地址，这样就可以使用 rt-thread 的 i2c设备框架了</p><p>i2c驱动的实现很重要，不然这个库没办法用的，遇到问题先检查i2c驱动的实现</p><h2 id="其他函数">其他函数</h2><p>其他的函数都可以使用 rt-thread 系统中自带函数</p><h1 id="遇到问题">遇到问题</h1><h2 id="fifo-overflow">fifo overflow</h2><p>卡在这个问题好久，偶然间从网上了解到，DMP程序要考虑到DMP数据的输出速率</p><p>本项目中设置的是100Hz，读取的速度也要相对应，不然就会overflow</p><p>为了防止溢出，我直接加大了fifo的大小，并加快了读取速度</p><h1 id="效果图">效果图</h1><p>现在数据稳得一批</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/RTOS/rt-thread/motion_driver_test.gif" alt title>                </div>                <div class="image-caption"></div>            </figure><hr><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/wechat_official_accounts.jpg" alt title>                </div>                <div class="image-caption"></div>            </figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个移植花费了我好多时间...&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="MPU" scheme="http://greedyhao.cc/tags/MPU/"/>
+    
+  </entry>
   
   <entry>
     <title>pid调节的方法</title>
@@ -426,32 +446,6 @@
       <category term="DSP" scheme="http://greedyhao.cc/tags/DSP/"/>
     
       <category term="Matlab" scheme="http://greedyhao.cc/tags/Matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18年11月总结</title>
-    <link href="http://greedyhao.cc/2018/11/24/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-2018-11-24-18%E5%B9%B411%E6%9C%88%E6%80%BB%E7%BB%93/"/>
-    <id>http://greedyhao.cc/2018/11/24/学习总结-2018-11-24-18年11月总结/</id>
-    <published>2018-11-24T14:02:13.000Z</published>
-    <updated>2018-11-24T14:03:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。</p><p>表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。</p><p>下面进入主题，介绍一下最近接触的东西。</p><h1 id="rt-thread">RT-Thread</h1><p>之前报名参加了rtt的大学生培训活动，目前已经进行到了内核移植阶段。</p><p>培训内容是从熟悉内核开始的，先后学习了线程的创建启动、各种线程间通信同步的方式。我看了看野火的rtt的书，从目录来看，两者的教程很相似，由于对两者的接触很浅，所以具体的异同还要细看后才好说。</p><p>就我目前见识到的，各种操作系统的基本功能都差不多，都有对线程的操作、线程间通信、内存管理等功能，不过具体实现各有特点。</p><h1 id="dsp">DSP</h1><p>幅值、相位、实部、虚部是不一样的，可惜我学了很久直到不就前才注意到，之前在画频谱时，只知道要用abs取绝对值，但不知道为什么；不过后来慢慢知道频域中一般研究的是幅值和相位，实部和虚部的研究在时域中出现的比较多。</p><h1 id="通信原理">通信原理</h1><p>通信原理是我目前最头疼的一门学科了，这个月感觉根本没有学到什么...不过这也主要和我这个月态度太差了有关，既然之前没有学好，只能现在开始补了</p><h1 id="对下个月的打算">对下个月的打算</h1><p>首先是会尽快将这周的rtt培训任务完成，任务需要将rtt内核移植到自己的开发板上，我准备先使用rtt nano版的移植，再做env的移植。目前还没有对rtt在linux上的编译链接了解太多，准备到时候使用Truestudio开发吧。</p><p>然后自然就是学习数字信号处理和通信原理了，毕竟专业学科不能落下，这两门学科学起来还是不容易。</p><p>接下来我会改变目前的状态，只要有点所得就写下发出来，就当是给自己动力把。</p><h1 id="专业词汇">专业词汇</h1><ul><li>Finite-duration impulse response (FIR)</li><li>Infinite-duration impulse response (FIR)</li></ul><hr><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/wechat_official_accounts.jpg" alt title>                </div>                <div class="image-caption"></div>            </figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近有点飘，尝试了一下小说，没想到会难以自拔，准备重新改变看小说这个习惯中。&lt;/p&gt;
-&lt;p&gt;表面上小说好像带来了一些冷门的知识，但事实上浪费的时间比想象中的多，搞到我连博客都不想写了，所以还是得改。&lt;/p&gt;
-&lt;p&gt;下面进入主题，介绍一下最近接触的东西。&lt;/p&gt;
-&lt;h1 id
-      
-    
-    </summary>
-    
-    
-      <category term="总结" scheme="http://greedyhao.cc/tags/%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   

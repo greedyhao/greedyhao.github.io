@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>移植MotionDriver到RTT | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MPU">
+    <meta name="description" content="这个移植花费了我好多时间...">
+<meta name="keywords" content="MPU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移植MotionDriver到RTT">
+<meta property="og:url" content="http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="这个移植花费了我好多时间...">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/RTOS/rt-thread/motion_driver_test.gif">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-05-03T09:51:21.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移植MotionDriver到RTT">
+<meta name="twitter:description" content="这个移植花费了我好多时间...">
+<meta name="twitter:image" content="http://greedyhao.cc/img/RTOS/rt-thread/motion_driver_test.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">移植MotionDriver到RTT</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">移植MotionDriver到RTT</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-03T09:50:07.000Z" itemprop="datePublished" class="page-time">
+  2019-05-03
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#移植步骤"><span class="post-toc-number">1.</span> <span class="post-toc-text">移植步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#i2c的实现"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">i2c的实现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他函数"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">其他函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#遇到问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">遇到问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fifo-overflow"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">fifo overflow</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#效果图"><span class="post-toc-number">3.</span> <span class="post-toc-text">效果图</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-rt-thread-2019-05-03-移植MotionDriver到RTT" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">移植MotionDriver到RTT</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-03 17:50:07" datetime="2019-05-03T09:50:07.000Z" itemprop="datePublished">2019-05-03</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这个移植花费了我好多时间...</p>
+<a id="more"></a>
+<p>本来是想使用<a href="http://packages.rt-thread.org/itemDetail.html?package=mpu6xxx" target="_blank" rel="noopener">mpu6xxx的软件包</a>的，但是得到的数据抖动太厉害了</p>
+<p>在网上找到了两种得到稳定的数据的方法 + DMP + Kalman滤波</p>
+<p>看到DMP的效果更好，就选择DMP的方案</p>
+<p>了解到 InvenSense 公司提供的 MotionDriver 可以用DMP的方式读取mpu，就开始移植 MotionDriver 这个库</p>
+<p>本项目的地址 https://github.com/greedyhao/MotionDriver2RTT</p>
+<h1 id="移植步骤">移植步骤</h1>
+<p>简单的说，就是把 core/driver/eMPL/inv_mpu.c 这个文件中需要使用到的函数实现就行了</p>
+<p>这个文件中也有相关说明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The following functions must be defined for this platform:</span></span><br><span class="line"><span class="comment"> * i2c_write(unsigned char slave_addr, unsigned char reg_addr,</span></span><br><span class="line"><span class="comment"> *      unsigned char length, unsigned char const *data)</span></span><br><span class="line"><span class="comment"> * i2c_read(unsigned char slave_addr, unsigned char reg_addr,</span></span><br><span class="line"><span class="comment"> *      unsigned char length, unsigned char *data)</span></span><br><span class="line"><span class="comment"> * delay_ms(unsigned long num_ms)</span></span><br><span class="line"><span class="comment"> * get_ms(unsigned long *count)</span></span><br><span class="line"><span class="comment"> * reg_int_cb(void (*cb)(void), unsigned char port, unsigned char pin)</span></span><br><span class="line"><span class="comment"> * labs(long x)</span></span><br><span class="line"><span class="comment"> * fabsf(float x)</span></span><br><span class="line"><span class="comment"> * min(int a, int b)</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>不过实际需要实现的只有 i2c_write i2c_read delay_ms get_ms，以及 core/driver/stm32L/log_stm32.c 下的 log_i 与 log_e 的底层函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> i2c_write   imu_i2c_write_regs</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> i2c_read    imu_i2c_read_regs </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> delay_ms    thread_mdelay</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> get_ms      get_tick_count</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log_i       MPL_LOGI</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> log_e       MPL_LOGE</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a,b)    ((a&lt;b)?a:b)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> labs(n)     (((n) &lt; 0) ? (-(n)) : (n))</span></span><br></pre></td></tr></table></figure>
+<h2 id="i2c的实现">i2c的实现</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rt_mpu_device</span> *<span class="title">mpu_dev</span>;</span></span><br></pre></td></tr></table></figure>
+<p>通过 mpu_dev 这个全局指针来保存mpu设备的相关信息</p>
+<p>不过全局指针的方式进行i2c通信不知道会不会不太好，暂时没有其他方式实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rt_err_t</span> imu_i2c_write_regs(<span class="keyword">unsigned</span> <span class="keyword">char</span> slave_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> reg_addr, <span class="keyword">unsigned</span> <span class="keyword">short</span> length, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *data_ptr)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (!rt_mpu_write_reg(mpu_dev, reg_addr, length, data_ptr))</span><br><span class="line">    &#123;</span><br><span class="line">        res = RT_EOK;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">rt_err_t</span> imu_i2c_read_regs(<span class="keyword">unsigned</span> <span class="keyword">char</span> slave_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> reg_addr, <span class="keyword">unsigned</span> <span class="keyword">char</span> length, <span class="keyword">unsigned</span> <span class="keyword">char</span> *data)</span><br><span class="line">&#123;</span><br><span class="line">    ...    </span><br><span class="line">    <span class="keyword">if</span> (!rt_mpu_read_regs(mpu_dev, reg_addr, length, data))</span><br><span class="line">    &#123;</span><br><span class="line">        res = RT_EOK;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为 rt-thread 的i2c接口和 MotionDriver 中需要的i2c接口不一致，就写了个中间层适配，从 MotionDriver 的i2c接口传入的 slave_addr 直接使用 mpu_dev 中的地址，这样就可以使用 rt-thread 的 i2c设备框架了</p>
+<p>i2c驱动的实现很重要，不然这个库没办法用的，遇到问题先检查i2c驱动的实现</p>
+<h2 id="其他函数">其他函数</h2>
+<p>其他的函数都可以使用 rt-thread 系统中自带函数</p>
+<h1 id="遇到问题">遇到问题</h1>
+<h2 id="fifo-overflow">fifo overflow</h2>
+<p>卡在这个问题好久，偶然间从网上了解到，DMP程序要考虑到DMP数据的输出速率</p>
+<p>本项目中设置的是100Hz，读取的速度也要相对应，不然就会overflow</p>
+<p>为了防止溢出，我直接加大了fifo的大小，并加快了读取速度</p>
+<h1 id="效果图">效果图</h1>
+<p>现在数据稳得一批</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/RTOS/rt-thread/motion_driver_test.gif" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-05-03T09:51:21.690Z" itemprop="dateUpdated">2019-05-03 17:51:21</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPU/">MPU</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&title=《移植MotionDriver到RTT》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&title=《移植MotionDriver到RTT》 — Zhuhao's Blog&source=这个移植花费了我好多时间..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《移植MotionDriver到RTT》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/04/12/自动控制-PID-2019-04-12-pid调节的方法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">pid调节的方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&title=《移植MotionDriver到RTT》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&title=《移植MotionDriver到RTT》 — Zhuhao's Blog&source=这个移植花费了我好多时间..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《移植MotionDriver到RTT》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/03/工作-rt-thread-2019-05-03-移植MotionDriver到RTT/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3awYobMRAE0P3/n04g5JCLPVXdkk3gzcnY6xk9LUjtav38xNevP9f71/++8/795EqedezCw8PDGw09ecz7ByfDejXE5P1XT3w1Zjw8PLzbvPzW+ULfTs1syh4seHh4eF/ltUt/UnC3Sz8eHh7e/8hrl/j3z9psG3h4eHjf5R1biMuifPP6cNaCh4eHF/NONcA++foL/T08PDy8UTt/ExbkQfB+hH/vg4eHh3eB1wYKm3ZXcrfkDnm4jIeHh3eP1xbTs9g3CXBnBxcOHGbFw8PDG/Fy/dljUsmdZ+EIHh4e3md4bUE8W+jzJ+7Lbjw8PLyzvLZcbv8mL6bzbxWRBx4eHt4HeXkpnLOT8j3nRf8ePDw8vAu85GGnAojZ1rKfAjw8PLwbvHyx3j8mweeNrvwnAR4eHt4NXj6sWQAxm5r2+FdxDgIPDw9vxEtChySeyBfuzRGENvbFw8PDu8GbbRL5cYHZFGwOJRRIPDw8vEO8uj0fbx55m22/nUSJCx4eHt6Il0QGCSzfTvL22IFSHg8PD+8Cry2sN6VzO4n5VA7DCDw8PLwRb3+QtJ25JH7NQ9uH8ePh4eFd5rXtpTxazQviWczxcrR4eHh4l3mbKCFvj7UBR3vY6yFrwcPDwzvEa+PRfJk+W2TnZffPbP7w8PDwtrlB3c7P75YfIzjbfsPDw8Pb85LFNOmhtaXz2UNXD2EEHh4e3lFeG7POooc26p2dcXj4Lh4eHt4h3q/yakOEPMKYbQkP38LDw8O7wGuX3TbknZXp+1IbDw8P7zYv2QyKn/3xUp5vGO3dit0PDw8Pb8FLNoO2BfXJHawIcPHw8PC+xGuPSW3aZm3hfmBjwMPDwzvEywOLzaftxD2MEw8PD+8a71QY0R6uyjeVYSsODw8P7wKvbYC17bG8LN600I719/Dw8PDe8X4DIs6ccZun6akAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
