@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>使用机智云平台远程控制esp8266 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="esp8266">
+    <meta name="description" content="机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。">
+<meta name="keywords" content="esp8266">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用机智云平台远程控制esp8266">
+<meta property="og:url" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/1.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/2.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/3.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/4.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/5.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/6.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/7.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/9.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/10.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/11.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/12.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/13.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/14.png">
+<meta property="og:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/15.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-05-13T12:42:24.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用机智云平台远程控制esp8266">
+<meta name="twitter:description" content="机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。">
+<meta name="twitter:image" content="http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用机智云平台远程控制esp8266</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用机智云平台远程控制esp8266</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-13T12:41:41.000Z" itemprop="datePublished" class="page-time">
+  2019-05-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#机智云平台相关"><span class="post-toc-number">1.</span> <span class="post-toc-text">机智云平台相关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注册开发者账号"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">注册开发者账号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建新设备"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">创建新设备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建数据点"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">创建数据点</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#准备上云端了"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备上云端了</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#云端生成代码"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">云端生成代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改代码"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">修改代码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译源码"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">编译源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#烧写固件"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">烧写固件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开发板进入烧录方式"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">开发板进入烧录方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#烧录地址"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">烧录地址</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设备开始连接云"><span class="post-toc-number">3.</span> <span class="post-toc-text">设备开始连接云</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载配网app"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">下载配网APP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#登陆开发者账号"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">登陆开发者账号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设备配网"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">设备配网</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用机智云平台远程控制esp8266</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-13 20:41:41" datetime="2019-05-13T12:41:41.000Z" itemprop="datePublished">2019-05-13</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。</p>
+<a id="more"></a>
+<p>从零开始的基于机智云平台的Demo实现，估计也就2个多小时，下面开始</p>
+<h1 id="机智云平台相关">机智云平台相关</h1>
+<h2 id="注册开发者账号">注册开发者账号</h2>
+<p>机智云开发者账号，用于产品接入、设备管理、OTA服务、MCU开发等的功能使用。 注册链接：http://dev.gizwits.com/zh-cn/developer/</p>
+<h2 id="创建新设备">创建新设备</h2>
+<p>如下图，点击右上角创建新产品</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图，选择Wi-Fi/移动网络方案</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="创建数据点">创建数据点</h2>
+<p>如图，电机新建数据点</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>弹出窗口中输入标识名，可读写，数据类型按需要选择</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<blockquote>
+<p>相关参考:http://docs.gizwits.com/zh-cn/deviceDev/UseSOC.html#2-%E5%BC%80%E5%A7%8B%E5%BC%80%E5%8F%91</p>
+</blockquote>
+<h1 id="准备上云端了">准备上云端了</h1>
+<h2 id="云端生成代码">云端生成代码</h2>
+<p>如图，左边菜单栏选择MCU开发，需要填写的<strong>Product Secret</strong>看下面</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图，左边菜单栏选择基本信息，点击显示完整密钥就行了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="6.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如图，最后下载代码</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="7.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="修改代码">修改代码</h2>
+<p>如图，修改 app/Gizwits/gizwits_product.c 的 gizwitsEventProcess</p>
+<p>在之前设置的数据点(EVENT_)对应的case下添加自己的代码</p>
+<p>需要初始化的外设可以在 app/user/user_main.c 的 user_init 下初始化</p>
+<h2 id="编译源码">编译源码</h2>
+<p>编译源码需要搭建交叉编译环境</p>
+<p>这部分参考这个链接，我懒得写了：http://docs.gizwits.com/zh-cn/deviceDev/WiFiSOC/GoKit3S%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91.html#GoKit3-S-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91</p>
+<h2 id="烧写固件">烧写固件</h2>
+<p>下载烧写软件</p>
+<p>https://www.espressif.com/sites/default/files/tools/flash_download_tools_v3.6.4.rar</p>
+<p>第一次需要烧写的 bin 文件有四个</p>
+<p>bin/blank.bin bin/boot_v1.6.bin bin/esp_init_data_default.bin bin/upgrade/user1.4096.new.6.bin</p>
+<h3 id="开发板进入烧录方式">开发板进入烧录方式</h3>
+<p>如图，开关拨到下载位置，开发板关闭</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="9.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>点击烧录软件的开始按钮后，给开发板上电</p>
+<p>烧录完毕后记得将开关拨回运行</p>
+<p>bin 文件的烧录地址看下面</p>
+<h3 id="烧录地址">烧录地址</h3>
+<p>esp_init_data_default.bin 0x3fc000 blank.bin 0x3fe000 boot_v1.6.bin 0x00000 user1.4096.new.6.bin 0x01000</p>
+<p>选项：CrystalFreq=26M SPI_SPEED=40MHz SPI_MODE=QIO FLASH_SIZE=32Mbit-C1, 其他默认，串口115200 进入uart烧录模式后，点击start下载即可！</p>
+<p>官方的图的配置有点问题，我直接在图上改了，懒得重新弄</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="10.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h1 id="设备开始连接云">设备开始连接云</h1>
+<h2 id="下载配网app">下载配网APP</h2>
+<p>到这个网址去下载app用来给esp8266配网，ios还是安卓看个人手机</p>
+<p>https://download.gizwits.com/zh-cn/p/98/99</p>
+<h2 id="登陆开发者账号">登陆开发者账号</h2>
+<p>软件需要登陆的，就先前创建的账号</p>
+<h2 id="设备配网">设备配网</h2>
+<p>如下面几个图操作就好</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="11.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="12.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="13.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="14.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="15.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果前面没问题的话，这里应该设备就配网成功了，可以远程操作了</p>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-05-13T12:42:24.243Z" itemprop="dateUpdated">2019-05-13 20:42:24</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/esp8266/">esp8266</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&title=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&title=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&source=机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/04/自动控制-PID-2019-05-04-pid算法的基础应用/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">pid算法的基础应用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&title=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&title=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&source=机智云平台是一个物联网平台，使用机智云平台可以简化设备联网的步骤。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用机智云平台远程控制esp8266》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/13/工作-mcu-esp8266-2019-05-13-使用机智云平台远程控制esp8266/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKklEQVR42u3awW7iQBAE0Pz/T2elPa0UzFb1DAoenk+IGNtvkNJ09Xx9xcf33+Pf1z+P5Myf51zd6+pTz9/ZfGBjY2PfhP399Hj+oPmNk6VJFnr2lTz4LDY2NvZx7PZy+RK012+vln892NjY2Nj57/nnmOSvSdnDxsbGxt5bYNrQZxYP/VrdxsbGxn57dl6K2gFAQlq548uzNGxsbOy3Z88Gve/5+uXzbWxsbOw3Y3+XR7u9Jj9/NvSdHdjY2NgnsZOYZn0bTX5+vnxt+FWnU9jY2Ng3Ye/dNJO3CrPAaFebhI2NjX0Suy0es5Fq2+S0LdCwEGJjY2MfwV4Z086Gr7PSmBetqKxiY2NjH8dO4pu8YLRNSLtYeTNzuXzY2NjYh7LbB23Ht7MWIv9UMZbAxsbGPo7dtgT561cESSvNEjY2NvYnsGcBU1vGZmVvFic9uAs2Njb2Qey22Wg3TSZlaWWLz0obg42NjX0Se1cTkpeWtjQm12mHDdjY2NhnsNvYPWlU2sFDTtrW0mBjY2MfxM43LLbgtqjM3l8ZGGBjY2Ofys5/7q8PBtqGZ1u/hY2NjX0ou91ksxIMtS3QrHUpBgPY2NjYN2e3l05KSzs2qGOgsjl58A42Njb2EezZj/7ZA70i+p+1UtjY2NgnsZNC1T7irqCqXYjNO5WwsbGxb8JuMUnRWikwbRQ1WyxsbGzs89i7itBKtLS0dbItk9jY2NjHsdsNNEnEMwuS2rZkGG9hY2NjH8fOf/SvRzxt6cqvUHwB2NjY2MexZ7fMN2vuiviTghpt38TGxsY+iJ0HN/XEuBwhRA8aty7Y2NjYn8Ou/+kvDAx2Idsg6cHVsLGxsY9jr5SKdktNUiDXg6Slio2NjY19Q3Z+5MHQbPnyEUIyfr58fmxsbOyD2LMwaD3oycG7AqkhHhsbG/sm7KVx6eix2qXJlyzfEoSNjY19Hns99J8VnnZBV1qLy0QNGxsb+2PY7aKsF562HBahEjY2NvbHs/OlWd/EszKiuFx6bGxs7OPYbTHYNV5Nhsqzge5/iiI2Njb2QexZMDQb7q4MHvI71sUMGxsb+67sP8sd3nLJHbHJAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
