@@ -45,10 +45,12 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
 <meta property="og:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始 头文件分析 123456#include &amp;lt;config.h&amp;gt;#include &amp;lt;version.h&amp;gt;#if defined(CONFIG_E">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-25T12:53:12.544Z">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-05-26T15:17:28.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uboot启动阶段分析一">
 <meta name="twitter:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始 头文件分析 123456#include &amp;lt;config.h&amp;gt;#include &amp;lt;version.h&amp;gt;#if defined(CONFIG_E">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -235,6 +237,14 @@ ga('send', 'pageview');
 <p>定义了一个 _TEXT_BASE 标签用来存放复位向量，主要是用在处理器初始化和 stack 的设置</p>
 <p>至于 TEXT_BASE 之前介绍过，由 makefile 文件导入</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x210_sd_config :	unconfig</span><br><span class="line">	@<span class="variable">$(MKCONFIG)</span> $(@:_config=) arm s5pc11x x210 samsung s5pc110</span><br><span class="line">	@echo <span class="string">"TEXT_BASE = 0xc3e00000"</span> &gt; <span class="variable">$(obj)</span>board/samsung/x210/config.mk</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -243,7 +253,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-05-25T12:53:12.544Z" itemprop="dateUpdated">2019-05-25 20:53:12</time>
+    最后更新时间：<time datetime="2019-05-26T15:17:28.345Z" itemprop="dateUpdated">2019-05-26 23:17:28</time>
 </span><br>
 
 
@@ -324,7 +334,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/05/26/工作-x210-2019-05-26-uboot启动阶段分析二/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">uboot启动阶段分析二</h4>
+      </a>
+    </div>
   
 
   
