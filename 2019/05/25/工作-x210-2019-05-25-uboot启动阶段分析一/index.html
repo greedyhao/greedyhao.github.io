@@ -37,19 +37,19 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="uboot">
-    <meta name="description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始 头文件分析 123456#include &amp;lt;config.h&amp;gt;#include &amp;lt;version.h&amp;gt;#if defined(CONFIG_E">
+    <meta name="description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始">
 <meta name="keywords" content="uboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uboot启动阶段分析一">
 <meta property="og:url" content="http://greedyhao.cc/2019/05/25/工作-x210-2019-05-25-uboot启动阶段分析一/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始 头文件分析 123456#include &amp;lt;config.h&amp;gt;#include &amp;lt;version.h&amp;gt;#if defined(CONFIG_E">
+<meta property="og:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
-<meta property="og:updated_time" content="2019-05-26T15:17:28.345Z">
+<meta property="og:updated_time" content="2019-05-27T08:43:52.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uboot启动阶段分析一">
-<meta name="twitter:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始 头文件分析 123456#include &amp;lt;config.h&amp;gt;#include &amp;lt;version.h&amp;gt;#if defined(CONFIG_E">
+<meta name="twitter:description" content="从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的 在整个uboot工程下搜索**_start，可以找到一个start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始">
 <meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -201,6 +201,7 @@ ga('send', 'pageview');
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的</p>
 <p>在整个uboot工程下搜索**_start<strong>，可以找到一个</strong>start.S**文件包含了这个label，因此uboot启动的分析从这个文件开始</p>
+<a id="more"></a>
 <h1 id="头文件分析">头文件分析</h1>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;config.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;version.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(CONFIG_ENABLE_MMU)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;asm/proc/domain.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;regs.h&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p><strong>start.S</strong>一开始include的<strong>config.h</strong>这个头文件是由<em>$(TOPDIR)/mkconfig</em>自动生成的，具体生成的脚本如下</p>
@@ -253,7 +254,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-05-26T15:17:28.345Z" itemprop="dateUpdated">2019-05-26 23:17:28</time>
+    最后更新时间：<time datetime="2019-05-27T08:43:52.699Z" itemprop="dateUpdated">2019-05-27 16:43:52</time>
 </span><br>
 
 
@@ -299,7 +300,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/25/工作-x210-2019-05-25-uboot启动阶段分析一/&title=《uboot启动阶段分析一》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/25/工作-x210-2019-05-25-uboot启动阶段分析一/&title=《uboot启动阶段分析一》 — Zhuhao's Blog&source=从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的
+在整个uboot工程下搜索**_start，可以找到一个st..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -463,7 +465,8 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/25/工作-x210-2019-05-25-uboot启动阶段分析一/&title=《uboot启动阶段分析一》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/25/工作-x210-2019-05-25-uboot启动阶段分析一/&title=《uboot启动阶段分析一》 — Zhuhao's Blog&source=从上一章的链接脚本分析中，我们知道了uboot的程序是从*ENTRY(_start)*开始的
+在整个uboot工程下搜索**_start，可以找到一个st..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>

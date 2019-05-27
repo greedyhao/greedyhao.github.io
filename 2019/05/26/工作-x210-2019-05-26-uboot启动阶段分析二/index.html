@@ -37,21 +37,21 @@ ga('send', 'pageview');
     
     
     <meta name="keywords" content="uboot">
-    <meta name="description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboot">
+    <meta name="description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboo">
 <meta name="keywords" content="uboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uboot启动阶段分析二">
 <meta property="og:url" content="http://greedyhao.cc/2019/05/26/工作-x210-2019-05-26-uboot启动阶段分析二/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboot">
+<meta property="og:description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboo">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl0_1.png">
 <meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl0_2.png">
 <meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
-<meta property="og:updated_time" content="2019-05-26T15:39:36.367Z">
+<meta property="og:updated_time" content="2019-05-27T08:43:47.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uboot启动阶段分析二">
-<meta name="twitter:description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboot">
+<meta name="twitter:description" content="物理基址定义 12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行 通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 uboo">
 <meta name="twitter:image" content="http://greedyhao.cc/img/linux/uboot/bl0_1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
@@ -201,7 +201,8 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="物理基址定义">物理基址定义</h1>
+            <a id="more"></a>
+<h1 id="物理基址定义">物理基址定义</h1>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_TEXT_PHY_BASE:</span><br><span class="line">	.word	CFG_PHY_UBOOT_BASE</span><br></pre></td></tr></table></figure>
 <p><code>start.s</code> 中使用 <code>_TEXT_PHY_BASE</code> 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行</p>
 <p>通过在 u-boot 源码中全局搜索可以发现， <code>CFG_PHY_UBOOT_BASE</code> 定义在 <code>uboot/include/configs/x210_sd.h</code> 中</p>
@@ -269,7 +270,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-05-26T15:39:36.367Z" itemprop="dateUpdated">2019-05-26 23:39:36</time>
+    最后更新时间：<time datetime="2019-05-27T08:43:47.635Z" itemprop="dateUpdated">2019-05-27 16:43:47</time>
 </span><br>
 
 
@@ -350,7 +351,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">栈和帧指针使用方法</h4>
+      </a>
+    </div>
   
 
   

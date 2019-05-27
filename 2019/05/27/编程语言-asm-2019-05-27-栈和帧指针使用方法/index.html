@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>栈和帧指针使用方法 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot,asm">
+    <meta name="description" content="这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些">
+<meta name="keywords" content="uboot,asm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈和帧指针使用方法">
+<meta property="og:url" content="http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/prog_lang/asm/stack_fp_0.png">
+<meta property="og:image" content="http://greedyhao.cc/img/prog_lang/asm/stack_fp_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-05-27T12:21:23.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="栈和帧指针使用方法">
+<meta name="twitter:description" content="这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些">
+<meta name="twitter:image" content="http://greedyhao.cc/img/prog_lang/asm/stack_fp_0.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">栈和帧指针使用方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">栈和帧指针使用方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-27T12:15:25.000Z" itemprop="datePublished" class="page-time">
+  2019-05-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#汇编基础知识"><span class="post-toc-number">1.</span> <span class="post-toc-text">汇编基础知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#汇编指令介绍"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">汇编指令介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他背景知识介绍"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">其他背景知识介绍</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#回到正题"><span class="post-toc-number">2.</span> <span class="post-toc-text">回到正题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#被调用函数框架一"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">被调用函数框架一</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#被调用函数框架二"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">被调用函数框架二</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#被调用函数框架三"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">被调用函数框架三</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#调用者"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">调用者</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本文的代码"><span class="post-toc-number">3.</span> <span class="post-toc-text">本文的代码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-编程语言-asm-2019-05-27-栈和帧指针使用方法" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">栈和帧指针使用方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-27 20:15:25" datetime="2019-05-27T12:15:25.000Z" itemprop="datePublished">2019-05-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些</p>
+<a id="more"></a>
+<h1 id="汇编基础知识">汇编基础知识</h1>
+<ul>
+<li>处理器寄存器被指定为R0、R1等。</li>
+<li>MOVE指令的源位于左侧，目标位于右侧。</li>
+<li>伪处理程序中的堆栈从高地址增长到低地址。因此，push会导致堆栈指针的递减。pop会导致堆栈指针的增量。</li>
+<li>寄存器 sp(stack pointer) 用于指向堆栈。</li>
+<li>寄存器 fp(frame pointer) 用作帧指针。帧指针充当被调用函数和调用函数之间的锚。</li>
+<li>当调用一个函数时，该函数首先将 fp 的当前值保存在堆栈上。然后，它将 sp 寄存器的值保存在 fp 寄存器中。然后递减 sp 寄存器来为本地变量分配空间。</li>
+<li>fp 寄存器用于访问本地变量和参数，局部变量位于帧指针的负偏移量处，传递给函数的参数位于帧指针的正偏移量。</li>
+<li>当函数返回时， fp 寄存器被复制到 sp 寄存器中，这将释放用于局部变量的堆栈，函数调用者的 fp 寄存器的值由pop从堆栈中恢复。</li>
+</ul>
+<h2 id="汇编指令介绍">汇编指令介绍</h2>
+<p>首先先介绍涉及到的主要的汇编指令 PUSH 和 POP</p>
+<p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUSH&#123;cond&#125; reglist</span><br><span class="line">POP&#123;cond&#125; reglist</span><br></pre></td></tr></table></figure>
+<p>cond</p>
+<p>是一个可选的条件代码（请参阅条件执行）。</p>
+<p>reglist</p>
+<p>是一个非空的寄存器列表，括在大括号内。可以包含寄存器范围。 如果包含多个寄存器或寄存器范围，则必须用逗号分隔。</p>
+<p>使用示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PUSH    &#123;r0,r4-r7&#125;</span><br><span class="line">PUSH    &#123;r2,lr&#125;</span><br><span class="line">POP     &#123;r0,r10,pc&#125; ; no 16-bit version available</span><br></pre></td></tr></table></figure>
+<p>简单的说，就是 PUSH 可以将选择的寄存器的值<strong>压栈</strong>，可以将 LR 寄存器的值一起压栈；而 POP 可以将选择寄存器的值从栈中<strong>弹出</strong>，可以选择弹出到 PC 寄存器，一般用于子函数回调</p>
+<h2 id="其他背景知识介绍">其他背景知识介绍</h2>
+<p>目标机是 ARM 架构处理器，内部为向下增长堆栈</p>
+<p>向下增长意思堆栈是向低地址方向生长,称为递减堆栈</p>
+<p>使用的是 arm-none-linux-gnueabi- 系列的交叉编译器</p>
+<p>使用 gcc 编译，使用 objdump 反汇编</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arm-none-linux-gnueabi-gcc -c c_call_fun.c </span><br><span class="line">arm-none-linux-gnueabi-objdump -d c_call_fun.o &gt; c_call_fun_s</span><br></pre></td></tr></table></figure>
+<h1 id="回到正题">回到正题</h1>
+<p>之所以介绍这部分相关的知识是为了方便理解汇编中子函数调用子函数的过程</p>
+<p>下面将从一个简单的示例进行介绍</p>
+<h2 id="被调用函数框架一">被调用函数框架一</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;fun_2&gt;:</span><br><span class="line">push	&#123;fp&#125;</span><br><span class="line">; code of the function</span><br><span class="line">pop	&#123;fp&#125;</span><br><span class="line">bx	lr</span><br></pre></td></tr></table></figure>
+<p>我们先把被调用函数的功能模块去除了，直接看它的主体框架</p>
+<p>首先是对 fp(frame pointer) 压栈</p>
+<p>压栈是为了保护该寄存器中的内容，弹出是为了恢复该寄存器中的值，为什么需要这么做在下面进行解释</p>
+<p>最后的 <code>bx lr</code> 的作用等同于 <code>mov  pc,lr</code></p>
+<p>因为在调用者中使用了 bl 调用子函数的时候，会将当前 PC 的值保存在 LR 中，这时将 LR 中的值载入到 PC 中，可以使得程序运行位置返回调用者中</p>
+<p>这样就完成了子函数的调用</p>
+<h2 id="被调用函数框架二">被调用函数框架二</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;fun_2&gt;:</span><br><span class="line">push	&#123;fp&#125;</span><br><span class="line">add	fp, sp, #0</span><br><span class="line">sub	sp, sp, #12</span><br><span class="line">; code of the function</span><br><span class="line">add	sp, fp, #0</span><br><span class="line">pop	&#123;fp&#125;</span><br><span class="line">bx	lr</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/prog_lang/asm/stack_fp_0.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这部分代码做的事情如上图</p>
+<p>在上文的基础上，通过减小 sp 的地址，为局部数据的存放开启了12字节的空间，也就是 fp 和 sp 中间的空间</p>
+<p>前面介绍了 fp 的作用是连接调用函数地方和被调用函数地方</p>
+<p>在刚调用子函数的时候，fp 还指向的是上一个函数的堆栈空间，为了方便程序返回调用者时能够正常运行，需要保存旧的 fp 中的值，再指向新的地址，来分配空间</p>
+<p>最后子程序运行完毕后，将 fp 中的值传递给 sp ，相当于让 sp 中的值恢复到了进入子程序前的情况，这个操作叫做释放内存</p>
+<h2 id="被调用函数框架三">被调用函数框架三</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int local_num = 1;</span><br><span class="line"></span><br><span class="line">int fun_2(int num)</span><br><span class="line">&#123;</span><br><span class="line">    return num+local_num;</span><br><span class="line">&#125;</span><br><span class="line">-----------------</span><br><span class="line">&lt;fun_2&gt;:</span><br><span class="line">push	&#123;fp&#125;		; (str fp, [sp, #-4]!)</span><br><span class="line">add	fp, sp, #0</span><br><span class="line">sub	sp, sp, #12</span><br><span class="line">str	r0, [fp, #-8]</span><br><span class="line">ldr	r3, [pc, #24]	; 30 &lt;fun_2+0x30&gt;</span><br><span class="line">ldr	r2, [r3]</span><br><span class="line">ldr	r3, [fp, #-8]</span><br><span class="line">add	r3, r2, r3</span><br><span class="line">mov	r0, r3</span><br><span class="line">add	sp, fp, #0</span><br><span class="line">pop	&#123;fp&#125;</span><br><span class="line">bx	lr</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/prog_lang/asm/stack_fp_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这部分的功能示意图如上</p>
+<p>这段代码访问了调用者的局部数据和被调用者的局部数据，从这段代码可以看出，被调用者的局部数据在 fp 的负偏移的地址，调用者的局部数据在 fp 的正偏移地址</p>
+<h2 id="调用者">调用者</h2>
+<p>上一篇我们提到了多层子函数调用的问题</p>
+<p>就是 LR 寄存器只有一个，当使用 bl 调用子函数的时候，会将当前的 PC 存入 LR 中，这样子函数运行完会回到调用函数的地址继续运行程序</p>
+<p>但是在子函数中再次调用子函数的时候，就不能直接使用 bl 调用子函数了，因为那样会把之前的 LR 寄存器中的值覆盖，导致程序无法正常运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push	&#123;fp, lr&#125;</span><br><span class="line">; code of the function</span><br><span class="line">pop	&#123;fp, pc&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码是 main 函数的部分反汇编代码</p>
+<p>我们都知道 main 函数也类似于一个子函数，在子函数中调用另一个子函数，需要存储当前的 LR 中的值。所以在 main 中将 LR 寄存器压栈，在 main 运行完后，将 LR 寄存器的值弹出，恢复程序的运行</p>
+<h1 id="本文的代码">本文的代码</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">int local_num = 1;</span><br><span class="line"></span><br><span class="line">int fun_2(int num)</span><br><span class="line">&#123;</span><br><span class="line">    return num+local_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int num = 1;</span><br><span class="line"></span><br><span class="line">    num = fun_2(num);</span><br><span class="line">&#125;</span><br><span class="line">-------------------------</span><br><span class="line">c_call_fun.o:     file format elf32-littlearm</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">00000000 &lt;fun_2&gt;:</span><br><span class="line">   0:	e52db004 	push	&#123;fp&#125;		; (str fp, [sp, #-4]!)</span><br><span class="line">   4:	e28db000 	add	fp, sp, #0</span><br><span class="line">   8:	e24dd00c 	sub	sp, sp, #12</span><br><span class="line">   c:	e50b0008 	str	r0, [fp, #-8]</span><br><span class="line">  10:	e59f3018 	ldr	r3, [pc, #24]	; 30 &lt;fun_2+0x30&gt;</span><br><span class="line">  14:	e5932000 	ldr	r2, [r3]</span><br><span class="line">  18:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">  1c:	e0823003 	add	r3, r2, r3</span><br><span class="line">  20:	e1a00003 	mov	r0, r3</span><br><span class="line">  24:	e28bd000 	add	sp, fp, #0</span><br><span class="line">  28:	e8bd0800 	pop	&#123;fp&#125;</span><br><span class="line">  2c:	e12fff1e 	bx	lr</span><br><span class="line">  30:	00000000 	.word	0x00000000</span><br><span class="line"></span><br><span class="line">00000034 &lt;main&gt;:</span><br><span class="line">  34:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">  38:	e28db004 	add	fp, sp, #4</span><br><span class="line">  3c:	e24dd008 	sub	sp, sp, #8</span><br><span class="line">  40:	e3a03001 	mov	r3, #1</span><br><span class="line">  44:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">  48:	e51b0008 	ldr	r0, [fp, #-8]</span><br><span class="line">  4c:	ebfffffe 	bl	0 &lt;fun_2&gt;</span><br><span class="line">  50:	e1a03000 	mov	r3, r0</span><br><span class="line">  54:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">  58:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">  5c:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0204ic/Babefbce.html" target="_blank" rel="noopener">RealView 编译工具 《汇编器指南》</a></li>
+<li><a href="https://blog.csdn.net/IOT_AI/article/details/69525018" target="_blank" rel="noopener">ARM 指令集 之 PUSH and POP</a></li>
+<li><a href="https://www.eventhelix.com/RealtimeMantra/Basics/CToAssemblyTranslation.htm" target="_blank" rel="noopener">C to assembly: function calling</a></li>
+<li><a href="https://www.zhihu.com/question/22444939" target="_blank" rel="noopener">函数调用过程中栈到底是怎么压入和弹出的？</a></li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-05-27T12:21:23.398Z" itemprop="dateUpdated">2019-05-27 20:21:23</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asm/">asm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&title=《栈和帧指针使用方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&title=《栈和帧指针使用方法》 — Zhuhao's Blog&source=这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《栈和帧指针使用方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/26/工作-x210-2019-05-26-uboot启动阶段分析二/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot启动阶段分析二</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&title=《栈和帧指针使用方法》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&title=《栈和帧指针使用方法》 — Zhuhao's Blog&source=这篇主要是围绕 SP FP PC LR 寄存器进行介绍，不理解的可以一起讨论下，我也是今天才开始学习这些" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《栈和帧指针使用方法》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPUlEQVR42u3awW7rMAwEwP7/T6fAO70iiLtLqUCsjE+BY1sa+UCT1NdXfDz+Hc9n/j+/cubVWM//Pj/n1TUbDmxsbOybsB+Xx/VUroe/vvJ6UfLFakfBxsbGPpV9HbRmgSQ/c41cCYcvz2NjY2N/JDv/9G8Tktkitq8HGxsbGzuv0iTPn927UoTCxsbGPpudl3vyBUrSiSSAtaNvrqVhY2Njvz27bfS+8+8/7G9jY2NjvyX7senIA8lKCpEHql9mi42NjX0QO/nQzwtAs2tmyUwy4i8ibGxs7IPY7c27FmjWyk1yivp1YmNjY9+cvV7QSZKTve/n+t7oOdjY2NgHsfPGwMrWnKLcM0otZhs6sbGxsc9jr089WY62bZCHtA0xHBsbG/uG7KRlmyxBMnyelswWqA5a2NjY2Ddnzz70k8HWW7Z54KzDHjY2Nvah7HaYtiA128STJyr5C8DGxsY+lZ1sr2nLSW2DdrYxqA2x2NjY2Cex2wLTeuN2tpVnNuK2uho2Njb2TdgrLd7Zdp91aluc2tzZxsbGxn4b9iwJmSGTBm27Wad9edjY2Ngnsf9iom1ikxeVZrOKuiLY2NjYB7GTQkzSXp2V+9sntKO/DGDY2NjYt2XnNZbZNW0xKL9mpXSFjY2NfRJ7tnUmL9C3wWbWJG7bydjY2NgnsfPyetuIXS8P7WoGR20GbGxs7Nuy84CxXlraleqstzGwsbGxT2InhfW2N9oWhlbaCcnTojCGjY2NfVv2yhSTwVbuarfpJK9n2IXAxsbGvgl7VzFoV/FoJWtYSkKwsbGxb8VemUqeHrQJxkpLoGhIY2NjYx/EXplWHjza9kCbqOR3YWNjY5/NzluqefEoWbJ2onvDKjY2NvYZ7IS0K83IF7QuFZXtZGxsbOy7sx/lkQehNpy0mzLb5fvxGxsbG/sg9voUdzVoZ/fOlg8bGxv7PHZbZG+TlvV/8/BZFLmwsbGxj2O3gaFt6OZPS9KbDS0EbGxs7I9nzzrJszZDG6Ki0IuNjY39kez2c39WuM+Tk3Zr5vDNYGNjY9+EnTd3Z63ftmjVtpPzrT/Y2NjY57Fnjd6VibZN3PWNREM8NjY29ruzvwHSG3fLV1046AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
