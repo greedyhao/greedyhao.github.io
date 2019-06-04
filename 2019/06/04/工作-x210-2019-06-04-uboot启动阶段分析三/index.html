@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>uboot启动阶段分析三 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot">
+    <meta name="description" content="这里继续 lowlevel_init 中的内容">
+<meta name="keywords" content="uboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uboot启动阶段分析三">
+<meta property="og:url" content="http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="这里继续 lowlevel_init 中的内容">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl0_3.png">
+<meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl0_4.png">
+<meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl0_5.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-06-04T13:05:54.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uboot启动阶段分析三">
+<meta name="twitter:description" content="这里继续 lowlevel_init 中的内容">
+<meta name="twitter:image" content="http://greedyhao.cc/img/linux/uboot/bl0_3.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">uboot启动阶段分析三</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">uboot启动阶段分析三</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-04T12:51:55.000Z" itemprop="datePublished" class="page-time">
+  2019-06-04
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lowlevel_init"><span class="post-toc-number">1.</span> <span class="post-toc-text">lowlevel_init</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#预备环节"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">预备环节</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断运行在sram还是ddr中"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">判断运行在sram还是ddr中</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#回到-start.s-中"><span class="post-toc-number">2.</span> <span class="post-toc-text">回到 start.s 中</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#重新设置栈"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">重新设置栈</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次检查运行位置"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">再次检查运行位置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uboot-重定位"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">uboot 重定位</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mmu-相关设置"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">MMU 相关设置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#映射表细节"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">映射表细节</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次设置栈"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">再次设置栈</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#清理-bss-段"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">清理 bss 段</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#uboot-第一阶段主要工作"><span class="post-toc-number">3.</span> <span class="post-toc-text">uboot 第一阶段主要工作</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-x210-2019-06-04-uboot启动阶段分析三" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">uboot启动阶段分析三</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-04 20:51:55" datetime="2019-06-04T12:51:55.000Z" itemprop="datePublished">2019-06-04</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这里继续 lowlevel_init 中的内容</p>
+<a id="more"></a>
+<p>这个函数是为了进行底层的一些初始化</p>
+<h1 id="lowlevel_init">lowlevel_init</h1>
+<h2 id="预备环节">预备环节</h2>
+<p><strong>检查复位状态</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/linux/uboot/bl0_3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>lowlevel_init 中会对控制复位的寄存器中的值的16位和18位进行检测，判断当前处理器处于 DEEP-IDLE 还是 SLEEP 状态</p>
+<p>对于不同的复位状态，有不同的处理方式</p>
+<p>好比刚上电需要初始化 ddr，而从睡眠中唤醒可以直接使用 ddr</p>
+<p><strong>IO 恢复</strong></p>
+<p><strong>关看门狗</strong></p>
+<p>避免看门狗在初始化的过程中复位</p>
+<p><strong>外部SRAM SROM初始化</strong></p>
+<p><strong>供电锁存</strong></p>
+<h2 id="判断运行在sram还是ddr中">判断运行在sram还是ddr中</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/* when we already run in ram, we don&apos;t need to relocate U-Boot.</span><br><span class="line">	 * and actually, memory controller must be configured before U-Boot</span><br><span class="line">	 * is running in ram.</span><br><span class="line">	 */</span><br><span class="line">	ldr	r0, =0xff000fff</span><br><span class="line">	bic	r1, pc, r0		/* r0 &lt;- current base addr of code */</span><br><span class="line">	ldr	r2, _TEXT_BASE		/* r1 &lt;- original base addr in ram */</span><br><span class="line">	bic	r2, r2, r0		/* r0 &lt;- current base addr of code */</span><br><span class="line">	cmp     r1, r2                  /* compare r0, r1                  */</span><br><span class="line">	beq     1f			/* r0 == r1 then skip sdram init   */</span><br></pre></td></tr></table></figure>
+<p>这段代码用来判断当前代码运行的位置，然后做不同的处理</p>
+<p>前文也说到了，复位时有不同的情况，冷启动的时候需要初始化的外设如 ddr 是用不了的，这种情况需要做初始化；而休眠状态则不用</p>
+<p>我们都知道 PC 中存储着下条指令的地址，通过获取 PC 的值，就可以知道当前的运行地址了</p>
+<p>为了方便比较，将无关位清0。这里三星官方只留了[3:5]位进行比较</p>
+<p>r1 中存储着 PC 清0后的值，r2 中存储着 ram 基地址清0后的值，当 r1 等于 r2 时说明代码还在 ram 中，需要对系统时钟、内存做初始化；不同就跳过初始化</p>
+<p>系统时钟的初始化是硬件相关的，为了方便移植，大量使用了宏进行地址展开，通过对这些宏进行地址的设定就可以完成系统时钟的初始化</p>
+<p>内存的初始化也是一样的方式，通过在配置文件中使用宏进行相关的地址定义来实现。uboot 中可用的物理地址范围为：0x30000000-0x4FFFFFFF一共512MB，其中0x30000000-0x3FFFFFFF为DM0，0x40000000-0x4FFFFFFF为DM1</p>
+<p>之后就是串口的初始化，在串口初始化完成后会发送'O'</p>
+<p>然后是对 TrustZone 初始化，TrustZone 是为消费电子产品构建一个安全框架来抵御各种可能的攻击的硬件架构</p>
+<p>在检查完复位状态和关闭 ABB 后(ABB在网上也没搜出是什么东西)，就会在串口打印‘K'</p>
+<p>整个 lowlevel_init 完成的标志就是串口会打印 'OK’</p>
+<h1 id="回到-start.s-中">回到 start.s 中</h1>
+<p>lowlevel_init 结束了，它主要的工作是：关看门狗、开发板供电锁存、系统时钟初始化、内存初始化、其他初始化、打印&quot;OK&quot;</p>
+<h2 id="重新设置栈">重新设置栈</h2>
+<p>之前设置栈是在进入 lowlevel_init 前，当时 ddr 还没有初始化，只能使用内部的 sram，所以能使用的空间非常有限</p>
+<p>为了准备 c 的运行环境，同时也可以防止栈溢出，重新设置栈，将栈设置在 ddr 中</p>
+<h2 id="再次检查运行位置">再次检查运行位置</h2>
+<p>这里检查程序运行位置是为了判断是否需要将 uboot 重定位，冷启动的情况下，程序还运行在 ram 中，需要重定位到 ddr 中</p>
+<p>uboot 启动分为两个部分，第一部分(16kb或8kb)在系统启动的时候，自动从启动介质中加载到处理器内部的 sram 中运行，但是第二部分还在启动介质中；第一部分的工作在 lowlevel_init 内基本完成了，在第一部分的启动程序结束前，需要将第二部分的代码加载到 ddr 中来</p>
+<h2 id="uboot-重定位">uboot 重定位</h2>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/linux/uboot/bl0_4.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>uboot 先将 0xD0037488 这个地址使用 ldr 装载到 r0 寄存器中，再将 r0 中的值与 0xEB200000 进行比较</p>
+<p>0xD0037488 中存储着全局变量，通过硬件设置当前 uboot 的启动通道，如果是 SD0 就是 EB000000，SD1 就是 EB200000</p>
+<p>这里是为了判断 uboot 的 BL1 部分是否已经拷贝</p>
+<p>没有拷贝的话，下面还要进行启动方式的判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ldr	r0, =INF_REG_BASE</span><br><span class="line">ldr	r1, [r0, #INF_REG3_OFFSET]</span><br></pre></td></tr></table></figure>
+<p>这里判断使用的寄存器中的值，在上面判断判断启动方式的时候已经写入了。这里使用的是 SD 卡启动，所以会跳转到 mmcsd_boot 进行代码的重定位</p>
+<p>在 mmcsd_boot 下可以看到，代码的重定位是靠 movi_bl2_copy 完成的</p>
+<p>movi_bl2_copy 位于 uboot/cpu/s5pc11x/movi.c 中</p>
+<h2 id="mmu-相关设置">MMU 相关设置</h2>
+<p>MMU 可以实现虚拟地址和物理地址之间的映射</p>
+<p>物理地址是设备在设计时赋予的地址，无法修改；虚拟地址是软件定义的地址</p>
+<p>MMU 可以在物理地址与虚拟地址之间搭建桥梁，它有很多好处，比如可以控制物理内存的访问权限、给进程分配的内存总和能够大于物理内存大小等等</p>
+<p>MMU 是一个硬件结构，全程是 memory management unit ，对它的控制可以通过对 CP15 寄存器的控制完成</p>
+<p>下面开始介绍 MMU 启动的过程</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/linux/uboot/bl0_5.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>访问 CP15 的指令有 MCR MRC，CP15 内部共有16个寄存器，各部分功能如上图</p>
+<p>MMU 的启动有以下几个步骤</p>
+<p>通过对 c3 寄存器的控制，获取域访问权限</p>
+<p>设置 TTB(translation table base) ，通过 TTB 这个表可以映射虚拟地址与物理地址，单独一个地址是不够的，程序不可能只使用一个地址的空间；在映射空间的时候，是以块为单位的，块的大小是由 MMU 的性能和开发者的选择决定的。在ARM中支持3种块大小，细表1KB、粗表4KB、段1MB。获取 MMU 的基地址，写入到 c2 寄存器中就完成了 TTB 的设置。</p>
+<p>此时还没有开启 MMU，通过对 c1 寄存器的置1就可以开启 MMU</p>
+<h3 id="映射表细节">映射表细节</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * MMU Table for SMDKC110</span><br><span class="line"> * 0x0000_0000 -- 0xBFFF_FFFF =&gt; Not Allowed</span><br><span class="line"> * 0xB000_0000 -- 0xB7FF_FFFF =&gt; A:0xB000_0000 -- 0xB7FF_FFFF</span><br><span class="line"> * 0xC000_0000 -- 0xC7FF_FFFF =&gt; A:0x3000_0000 -- 0x37FF_FFFF</span><br><span class="line"> * 0xC800_0000 -- 0xDFFF_FFFF =&gt; Not Allowed</span><br><span class="line"> * 0xE000_0000 -- 0xFFFF_FFFF =&gt; A:0xE000_0000 -- 0XFFFF_FFFF</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>uboot 内部只做了简单的映射，除了上面的 Not Allowed 的地址，还是可以直接访问物理地址</p>
+<p>虽然 uboot 中使用的是比较大的块大小，段的方式映射，但是4G/1MB=4096，如果一个个段进行映射，工作量还是很大的，为了方便映射，在 uboot 中使用了循环的方式进行映射</p>
+<h2 id="再次设置栈">再次设置栈</h2>
+<p><code>ldr    sp, =(CFG_UBOOT_BASE + CFG_UBOOT_SIZE - 0x1000)</code></p>
+<p>CFG_UBOOT_SIZE 为 2MB，这里将栈设置在了 uboot 上方 2MB - 0x1000 的位置</p>
+<p>这样可以避免内存空间被浪费，也可以保证栈空间的安全</p>
+<h2 id="清理-bss-段">清理 bss 段</h2>
+<p>通过从链接脚本中获得的 _bss_start 和 _bss_end 地址，将 bss 段清0</p>
+<p>在将 bss 段清0后，通过将 start_armboot 的地址传入 PC 中，让 uboot 进入启动的第二阶段</p>
+<h1 id="uboot-第一阶段主要工作">uboot 第一阶段主要工作</h1>
+<ul>
+<li>设置异常向量表</li>
+<li>处理器复位</li>
+<li>lowlevel_init</li>
+<li>uboot 重定位</li>
+<li>MMU 建立映射表并启动</li>
+<li>准备启动 uboot 第二阶段</li>
+</ul>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-04T13:05:54.480Z" itemprop="dateUpdated">2019-06-04 21:05:54</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&title=《uboot启动阶段分析三》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&title=《uboot启动阶段分析三》 — Zhuhao's Blog&source=这里继续 lowlevel_init 中的内容" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动阶段分析三》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">栈和帧指针使用方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&title=《uboot启动阶段分析三》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&title=《uboot启动阶段分析三》 — Zhuhao's Blog&source=这里继续 lowlevel_init 中的内容" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动阶段分析三》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3asXLjMAwE0Pz/T+dmrvVY2QVIJ8VT5cKm+FQY0BJfX/H1/f96/fz6necrv9fr9/MV6gsPDw9vtPXnDbVbf/5tu59kzbfr4+Hh4V3jJcUgufHzOvldcuoP98LDw8P7VV77+bls5LC2rcfDw8P7y7z83b9dZxOI4OHh4X2GN2uav+MriWjbwnA4a8HDw8PbnkMdbq/Pfv7Q+R4eHh7e4m99c5Cfr/CMqXeLh4eHd4G3OWTabHfWoM8eIh4eHt5ZXj4s1YanM8xsEOHtCnh4eHgXeC1sNiDVPo7NUdwP1Q8PDw9vzXveSrLd5EBr1hZvjrXw8PDwPsPbF4ZTx2lJixzdHQ8PD+8Cr2W3EcBskGu2q2JlPDw8vAUvHx6d/YknEcMmmBi+MeDh4eEd4uWxbBsWtI1y246//RUeHh7eZV7ygxy5H2adlZC3g6p4eHh4R3nJ4VPeOrflZDbSGsUieHh4eBd4bavaFoB8KGEWChdNNh4eHt4h3mboqh2lmrXXyfhCnVLj4eHhLXizP/S8pW6LR1Iw2vYaDw8P7wYv2VwSN2xCirZsFA8UDw8P7ygvf+GfHZjN4tf2gf7wxoCHh4d3lHevzc1D4aSo5Fuv3xjw8PDwSl67lbapbY+1ZiWkSKnx8PDw1rxVhlGOHeyvPP7Aw8PDu8fLX/LbpfPV2lGqokTh4eHhXeblC+2b4OSO7ePAw8PD+wyvbYs38W4e3baDBdH38fDw8A7x7pWBG0dcbfONh4eHd4PXRqj5eNZmc8njmD04PDw8vFO8Nh5to4S2KT8VE+Ph4eHd5g0zjFFz3LJXWQseHh7er/LymGA2QDC7b/02gIeHh/dxXn5kNSsM+0h32FLj4eHhlbw2jGhji80oQHushYeHh3ebNwsL9h3sLMxdjQjg4eHhbXn/ALfIfYKAs8apAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
