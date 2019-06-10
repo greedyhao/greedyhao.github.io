@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>uboot启动第二阶段分析 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot">
+    <meta name="description" content="之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段">
+<meta name="keywords" content="uboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uboot启动第二阶段分析">
+<meta property="og:url" content="http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl1_0.png">
+<meta property="og:image" content="http://greedyhao.cc/img/linux/uboot/bl1_1.png">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-06-10T14:58:35.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uboot启动第二阶段分析">
+<meta name="twitter:description" content="之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段">
+<meta name="twitter:image" content="http://greedyhao.cc/img/linux/uboot/bl1_0.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">uboot启动第二阶段分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">uboot启动第二阶段分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-10T14:57:44.000Z" itemprop="datePublished" class="page-time">
+  2019-06-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#启动阶段的工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">启动阶段的工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工作流程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">工作流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#start_armboot"><span class="post-toc-number">2.</span> <span class="post-toc-text">start_armboot</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#相关变量介绍"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">相关变量介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内存排布"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">内存排布</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#部分外设初始化工作"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">部分外设初始化工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#堆管理器初始化"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">堆管理器初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发板专有初始化"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">开发板专有初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境变量重定位"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">环境变量重定位</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#控制台初始化"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">控制台初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#网卡芯片初始化"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">网卡芯片初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开机logo显示"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">开机logo显示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过sd卡烧录系统"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">通过sd卡烧录系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#死循环"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">死循环</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-x210-2019-06-10-uboot启动第二阶段分析" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">uboot启动第二阶段分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-10 22:57:44" datetime="2019-06-10T14:57:44.000Z" itemprop="datePublished">2019-06-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段</p>
+<a id="more"></a>
+<h1 id="启动阶段的工作">启动阶段的工作</h1>
+<p>启动第一阶段的主要工作是对处理器的内部资源(如时钟、串口)、内存(ddr)初始化，并进行 uboot 的重定位，并跳转到启动第二阶段</p>
+<p>启动第二阶段的主要工作则是对处理器的外部资源(iNand、网卡芯片...)、uboot环境(uboot命令、环境变量..)等初始化，并等待命令输入</p>
+<h2 id="工作流程">工作流程</h2>
+<p>正常情况下，在 uboot 的初始化工作完毕后，会启动内核，在启动内核后结束 uboot 程序。</p>
+<p>但是用户可以阻止 uboot 的结束，进入 uboot 的命令行模式，就是一个 uboot 中的死循环；uboot 在死循环中不断接受命令、解析命令、执行命令</p>
+<h1 id="start_armboot">start_armboot</h1>
+<p>如果说启动第一阶段主要工作是 lowlevel_init 完成的，那么启动第二阶段的主要工作是 start_armboot 完成的</p>
+<h2 id="相关变量介绍">相关变量介绍</h2>
+<p><strong>init_fnc_ptr</strong></p>
+<p>它是一个 init_fnc_t 类型的函数指针数组，通过 <code>typedef int (init_fnc_t) (void);</code> 定义</p>
+<p><strong>gd</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DECLARE_GLOBAL_DATA_PTR     register volatile gd_t *gd asm (<span class="meta-string">"r8"</span>)</span></span><br></pre></td></tr></table></figure>
+<p>gd 这个变量通过 DECLARE_GLOBAL_DATA_PTR 定义，这个变量的作用是用来存储 uboot 需要使用到的全局变量，这样可以减少全局变量的数量，方便他人阅读代码。具体的作用可以从结构体成员中得知</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span>	<span class="class"><span class="keyword">struct</span>	<span class="title">global_data</span> &#123;</span></span><br><span class="line">	<span class="keyword">bd_t</span>		*bd;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	flags;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	baudrate;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	have_console;	<span class="comment">/* serial_init() was called */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	reloc_off;	<span class="comment">/* Relocation Offset */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	env_addr;	<span class="comment">/* Address  of Environment struct */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	env_valid;	<span class="comment">/* Checksum of Environment valid? */</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span>	fb_base;	<span class="comment">/* base address of frame buffer */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_VFD</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span>	vfd_type;	<span class="comment">/* display type */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">void</span>		**jt;		<span class="comment">/* jump table */</span></span><br><span class="line">&#125; <span class="keyword">gd_t</span>;</span><br></pre></td></tr></table></figure>
+<p>gd 变量的结构体成员的功能基本可以从名字和注释中得知，不过对第一个成员 bd 的描述很少，这里再从 bd_t 中获取信息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">bd_info</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>			bi_baudrate;	<span class="comment">/* serial console baudrate */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span>	bi_ip_addr;	<span class="comment">/* IP Address */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>	bi_enetaddr[<span class="number">6</span>]; <span class="comment">/* Ethernet adress */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">environment_s</span>	       *<span class="title">bi_env</span>;</span></span><br><span class="line">    ulong	        bi_arch_number;	<span class="comment">/* unique id for this board */</span></span><br><span class="line">    ulong	        bi_boot_params;	<span class="comment">/* where this board expects params */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span>				/* <span class="title">RAM</span> <span class="title">configuration</span> */</span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">	ulong start;</span><br><span class="line">	ulong size;</span><br><span class="line">    &#125;			bi_dram[CONFIG_NR_DRAM_BANKS];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_HAS_ETH1</span></span><br><span class="line">    <span class="comment">/* second onboard ethernet port */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span>   bi_enet1addr[<span class="number">6</span>];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125; <span class="keyword">bd_t</span>;</span><br></pre></td></tr></table></figure>
+<p>从 bd_t 的定义可以看出， bd 这个成员变量的主要作用是用来保存一些和板级相关的信息，如波特率、ip 地址等</p>
+<p>因为 gd 这个变量需要被频繁访问，所以使用了 volatile ，避免编译器做出不适当的优化；另外使用 register asm (&quot;r8&quot;) 加速访问</p>
+<h2 id="内存排布">内存排布</h2>
+<p>上面提到的 gd bd 指针变量只是声明，此时还不能使用，需要给他们分配内存空间</p>
+<p>分配内存的原则就是够用、紧凑，所以首先需要做的是为 gd bd 分配基地址</p>
+<p>在 uboot 中计算 gd 和 bd 的基地址的方式如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gd_base = CFG_UBOOT_BASE + CFG_UBOOT_SIZE - CFG_MALLOC_LEN - CFG_STACK_SIZE - <span class="keyword">sizeof</span>(<span class="keyword">gd_t</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_USE_IRQ</span></span><br><span class="line">	gd_base -= (CONFIG_STACKSIZE_IRQ+CONFIG_STACKSIZE_FIQ);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">...</span><br><span class="line">gd-&gt;bd = (<span class="keyword">bd_t</span>*)((<span class="keyword">char</span>*)gd - <span class="keyword">sizeof</span>(<span class="keyword">bd_t</span>));</span><br></pre></td></tr></table></figure>
+<p>其中 CFG_UBOOT_BASE=0x33e00000 CFG_UBOOT_SIZE=2MB CFG_MALLOC_LEN=912KB CFG_STACK_SIZE=512KB gd_t=36字节 bd_t≈44字节</p>
+<p>从而可以得到内存分配如图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/linux/uboot/bl1_0.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="部分外设初始化工作">部分外设初始化工作</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (init_fnc_ptr = init_sequence; *init_fnc_ptr; ++init_fnc_ptr) &#123;</span><br><span class="line">		<span class="keyword">if</span> ((*init_fnc_ptr)() != <span class="number">0</span>) &#123;</span><br><span class="line">			hang ();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里初始化工作是通过一个 for 循环完成的，使用先前定义的 init_fnc_ptr 变量去指向一个预先定义的函数指针数组 init_sequence ，在 init_sequence 中存储了用来初始化外设的函数指针。通过 for 循环依次执行每一个初始化函数，一旦返回的值不为0，就停止程序的运行并报错</p>
+<p>init_sequence 的定义如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init_fnc_t</span> *init_sequence[] = &#123;</span><br><span class="line">	cpu_init,		<span class="comment">/* basic cpu dependent setup */</span></span><br><span class="line">	board_init,		<span class="comment">/* basic board dependent setup */</span></span><br><span class="line">	interrupt_init,		<span class="comment">/* set up exceptions */</span></span><br><span class="line">	env_init,		<span class="comment">/* initialize environment */</span></span><br><span class="line">	init_baudrate,		<span class="comment">/* initialze baudrate settings */</span></span><br><span class="line">	serial_init,		<span class="comment">/* serial communications setup */</span></span><br><span class="line">	console_init_f,		<span class="comment">/* stage 1 init of console */</span></span><br><span class="line">	display_banner,		<span class="comment">/* say that we are here */</span></span><br><span class="line">#<span class="keyword">if</span> defined(CONFIG_DISPLAY_CPUINFO)</span><br><span class="line">	print_cpuinfo,		<span class="comment">/* display cpu info (and speed) */</span></span><br><span class="line">#endif</span><br><span class="line">#<span class="keyword">if</span> defined(CONFIG_DISPLAY_BOARDINFO)</span><br><span class="line">	checkboard,		<span class="comment">/* display board info */</span></span><br><span class="line">#endif</span><br><span class="line">#<span class="keyword">if</span> defined(CONFIG_HARD_I2C) || defined(CONFIG_SOFT_I2C)</span><br><span class="line">	init_func_i2c,</span><br><span class="line">#endif</span><br><span class="line">	dram_init,		<span class="comment">/* configure available RAM banks */</span></span><br><span class="line">	display_dram_config,</span><br><span class="line">	<span class="literal">NULL</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>cpu_init</strong></p>
+<p>cpu_init 只有当允许了中断的情况下才会做中断栈的设置工作，因为我们 uboot 中没有允许中断，所以这里相当于什么都没做</p>
+<p><strong>board_init</strong></p>
+<p>这里进行了网卡的初始化，本人使用的开发板使用的网卡芯片是 dm9000 ，所以使用了 dm9000_pre_init 进行预初始化操作</p>
+<p>网卡的驱动是不需要修改的，关键是移植，dm9000_pre_init 需要做的事就是移植相关，就像 stm32 一样，使用 GPIO 前，需要进行初始化的工作，这里就是做这些的工作</p>
+<p>除了网卡的初始化，这里还在 bd 中添加了机器码和参数内存地址</p>
+<p>机器码是用来软件和开发板之间配对用的，避免将软件下载到错误的开发板导致损失。机器码是唯一的，需要向 uboot 进行申请，当然学习 uboot 的时候可以随意填写，只要 uboot 中配置的机器码和 linux 内核中的机器码一致即可</p>
+<p>这里的参数地址中存放的是需要想内核中传送的字符串参数(bootargs)的地址， uboot 启动的时候是通过 r0 r1 r2 来传递参数，其中一个寄存器放的就是 bd-&gt;bi_boot_params 中的值</p>
+<p><strong>interrupt_init</strong></p>
+<p>这里是对定时器4做的相关初始化，进行了10ms的定时</p>
+<p><strong>env_init</strong></p>
+<p>这里是环境变量的初始化，通过 x210_sd.h 中定义的宏 CFG_ENV_IS_IN_AUTO 分析可以知道，env_init 应该使用的是 env_auto.c 中定义的 env_init</p>
+<p><strong>init_baudrate</strong></p>
+<p>首先是从 uboot 环境变量中读取波特率，如果环境变量中没有定义波特率就使用 x210_sd.h 定义的波特率</p>
+<p>uboot 环境变量可以在 uboot 中使用 print 查看</p>
+<p><strong>serial_init</strong></p>
+<p>串口初始化，主要工作在汇编中完成了，这里没有做什么事</p>
+<p><strong>console_init_f</strong></p>
+<p>控制台初始化第一阶段，一般第一阶段后缀为 _f，第二阶段后缀为 _r</p>
+<p><strong>display_banner</strong></p>
+<p>用来输出 uboot 的 logo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const char version_string[] =</span><br><span class="line">	U_BOOT_VERSION&quot; (&quot; __DATE__ &quot; - &quot; __TIME__ &quot;)&quot;CONFIG_IDENT_STRING;</span><br></pre></td></tr></table></figure>
+<p>uboot 启动时输出的 version_string 是定义在主 Makefile 中的，在编译时自动生成的 include/version_autogenerated.h 就会包含 U_BOOT_VERSION 相关信息</p>
+<p><strong>print_cpuinfo</strong></p>
+<p>这里可以输出 CPU 的相关信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CPU:  S5PV210@1000MHz(OK)</span><br><span class="line">        APLL = 1000MHz, HclkMsys = 200MHz, PclkMsys = 100MHz</span><br><span class="line">        MPLL = 667MHz, EPLL = 96MHz</span><br><span class="line">                       HclkDsys = 166MHz, PclkDsys = 83MHz</span><br><span class="line">                       HclkPsys = 133MHz, PclkPsys = 66MHz</span><br><span class="line">                       SCLKA2M  = 200MHz</span><br></pre></td></tr></table></figure>
+<p><strong>dram_init</strong></p>
+<p>这里做的是 ddr 软件方面的初始化</p>
+<p>因为嵌入式设备是定制性的，不像 PC 机都是标准化的，可以自动获取 ddr 的片数、大小</p>
+<p>因此在 uboot 中，需要人为添加 ddr 的相关配置信息，相当于是将 ddr 的配置信息写入 gd-&gt;bd-&gt;bi_dram 这个数组中</p>
+<p><strong>display_dram_config</strong></p>
+<p>打印 dram 信息</p>
+<h2 id="堆管理器初始化">堆管理器初始化</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mem_malloc_init (CFG_UBOOT_BASE + CFG_UBOOT_SIZE - CFG_MALLOC_LEN - CFG_STACK_SIZE);</span><br></pre></td></tr></table></figure>
+<p>这样堆的地址如下图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/linux/uboot/bl1_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="开发板专有初始化">开发板专有初始化</h2>
+<p>为了保证 uboot 的通用性，三星使用了宏来判断当前的开发板的型号，并做对应的初始化</p>
+<p>这里的初始化是针对 MMC 的，通过 Makefile 中的脚本，配置开发板是 sd 还是 onenand 启动；然后对 MMC 的初始化根据宏做相应的处理</p>
+<h2 id="环境变量重定位">环境变量重定位</h2>
+<p>uboot 的环境变量需要重定位到 ddr 中才能使用</p>
+<p>在 env_relocate 中，先是通过宏判读环境变量是否嵌入在代码段中；本人的开发板的环境变量在 SD 卡中，所以直接跳过，直接分配一个缓存准备用来存放环境变量</p>
+<p>uboot 第一次启动时，因为没有烧录 env 分区，gd-&gt;env_valid 应当为0，这时候会使用 uboot 的默认系统变量，并写入到 SD 卡的 env 分区中</p>
+<h2 id="控制台初始化">控制台初始化</h2>
+<p>console_init_r 做的是控制台的第二阶段的初始化，主要是进行控制台的软件方面的配置</p>
+<p>重定位了 stdin stdout stderr</p>
+<h2 id="网卡芯片初始化">网卡芯片初始化</h2>
+<p>eth_initialize 对网卡芯片本身进行初始化</p>
+<h2 id="开机logo显示">开机logo显示</h2>
+<p>x210_preboot_init 进行开发板启动前的初始化，开启 lcd 显示开机 logo</p>
+<p>logo 一般是使用软件制作的数组</p>
+<h2 id="通过sd卡烧录系统">通过sd卡烧录系统</h2>
+<p>通过 check_menu_update_from_sd 会判断开发部的 left 按键是否按下，开发板会在按键按下的时候，进入更新模式，读取 SD 卡中的镜像烧录系统</p>
+<p>使用 SD 卡烧录比 fastboot 的方式简单、高效，一般用于量产的场景</p>
+<h2 id="死循环">死循环</h2>
+<p>主要是有三个功能</p>
+<ul>
+<li>命令解析器</li>
+<li>开机倒计时</li>
+<li>命令补全</li>
+</ul>
+<h1 id="总结">总结</h1>
+<p>以下来自朱老师总结的 uboot 的工作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">init_sequence</span><br><span class="line">	cpu_init	空的</span><br><span class="line">	board_init	网卡、机器码、内存传参地址</span><br><span class="line">		dm9000_pre_init			网卡</span><br><span class="line">		gd-&gt;bd-&gt;bi_arch_number	机器码</span><br><span class="line">		gd-&gt;bd-&gt;bi_boot_params	内存传参地址</span><br><span class="line">	interrupt_init	定时器</span><br><span class="line">	env_init</span><br><span class="line">	init_baudrate	gd数据结构中波特率</span><br><span class="line">	serial_init		空的</span><br><span class="line">	console_init_f	空的</span><br><span class="line">	display_banner	打印启动信息</span><br><span class="line">	print_cpuinfo	打印CPU时钟设置信息</span><br><span class="line">	checkboard		检验开发板名字</span><br><span class="line">	dram_init		gd数据结构中DDR信息</span><br><span class="line">	display_dram_config	打印DDR配置信息表</span><br><span class="line">mem_malloc_init		初始化uboot自己维护的堆管理器的内存</span><br><span class="line">mmc_initialize		inand/SD卡的SoC控制器和卡的初始化</span><br><span class="line">env_relocate		环境变量重定位</span><br><span class="line">gd-&gt;bd-&gt;bi_ip_addr	gd数据结构赋值</span><br><span class="line">gd-&gt;bd-&gt;bi_enetaddr	gd数据结构赋值</span><br><span class="line">devices_init		空的</span><br><span class="line">jumptable_init		不用关注的</span><br><span class="line">console_init_r		真正的控制台初始化</span><br><span class="line">enable_interrupts	空的</span><br><span class="line">loadaddr、bootfile 	环境变量读出初始化全局变量</span><br><span class="line">board_late_init		空的</span><br><span class="line">eth_initialize		空的</span><br><span class="line">x210_preboot_init	LCD初始化和显示logo</span><br><span class="line">check_menu_update_from_sd	检查自动更新</span><br><span class="line">main_loop			主循环</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-10T14:58:35.515Z" itemprop="dateUpdated">2019-06-10 22:58:35</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&title=《uboot启动第二阶段分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&title=《uboot启动第二阶段分析》 — Zhuhao's Blog&source=之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动第二阶段分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot启动阶段分析三</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&title=《uboot启动第二阶段分析》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&title=《uboot启动第二阶段分析》 — Zhuhao's Blog&source=之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动第二阶段分析》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuElEQVR42u3aQW7cMBAEQP//05tLDgEcK90zpL0BSidD1kosHshBDz8+4uv1x/X5/vOTz3c+v+Gr9z8/ubrw8PDwFkP/6sOv4Ere/DxZyTjzMePh4eHd5p1alPMtJJ+IfDx4eHh478mbLdBtSZ1sVHh4eHj/Cy95aUKdFeJ4eHh478PLF+I8os2jh3yruJi14OHh4XWJax2h/uzfV/p7eHh4eOuuer5J5EcK2rJ7Ns7fv8XDw8O7wMsX3DZ4zYe4aapFT+Lh4eFd4CXLcVLg5jFEHsjm20lUfOPh4eGtefea/e2GsWmzFa0vPDw8vAu8WWOpbXe1oUN74AAPDw/vNm/24dlBgTaeaCc3+wceHh7enJeXre2GkbfQ8sj4+U6dteDh4eGteftgog0p2q/nbxh+AA8PD28URrStpgTWLut50VyfKcPDw8M7xGuj2HZYSQAxe+YfbTA8PDy8b+HNGv+zIjifjtWhKzw8PLyjvPzY06xZNTsEkIyqeBseHh7eBd6mqd8eqGo3g9lBBDw8PLx7vLxgnTWu2olL3lDEKHh4eHgXeEl8MCuL21hhc+gq2oTw8PDwDvFmC277ybaRNivii5IaDw8Pb81LlubZNpAPaB/UrvY6PDw8vJiXbwD50lx8eDTFbVSBh4eHd4+3GdwMvAkjisNeeHh4eNd4bWP+NboOlMjltoGHh4f3Pbw2lm1bUxtYHX/g4eHhXea1x6fqZToomnNkdOHh4eEd5c0K4s1Rg1l7LHnnX36Fh4eHd4G3X2Pbhb5trbXbxnA7wcPDwyt5efCaY57vtMX3arPBw8PDu8bLF+U2/G2j3lPBCh4eHt778PJFOUfOJiuaGjw8PLw34+1bYvnEzYJmPDw8vHu8WVA7a1wljLyUP5a14OHh4R3qqudhQb4BbJpqx3p6eHh4eBPeL9FFxTrvSpW6AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
