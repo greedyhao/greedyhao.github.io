@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>uboot启动内核 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="uboot">
+    <meta name="description" content="认识 uboot 和 内核 之间不可不说的关系 uboot 镜像为 uboot.bin，Linux 镜像为 zImage 嵌入式设备中的分区表是自己定义的，uboot 和内核中的分区表应一致 内核运行前必须加载到 ddr 中指定的地址处 uboot 需要提供内核必要的参数 内核启动的方式 uboot 启动内核有两种方式，一种是等待倒计时结束后直接启动内核，一种是在 uboot 命令行中使用 boo">
+<meta name="keywords" content="uboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uboot启动内核">
+<meta property="og:url" content="http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="认识 uboot 和 内核 之间不可不说的关系 uboot 镜像为 uboot.bin，Linux 镜像为 zImage 嵌入式设备中的分区表是自己定义的，uboot 和内核中的分区表应一致 内核运行前必须加载到 ddr 中指定的地址处 uboot 需要提供内核必要的参数 内核启动的方式 uboot 启动内核有两种方式，一种是等待倒计时结束后直接启动内核，一种是在 uboot 命令行中使用 boo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-11T08:41:42.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uboot启动内核">
+<meta name="twitter:description" content="认识 uboot 和 内核 之间不可不说的关系 uboot 镜像为 uboot.bin，Linux 镜像为 zImage 嵌入式设备中的分区表是自己定义的，uboot 和内核中的分区表应一致 内核运行前必须加载到 ddr 中指定的地址处 uboot 需要提供内核必要的参数 内核启动的方式 uboot 启动内核有两种方式，一种是等待倒计时结束后直接启动内核，一种是在 uboot 命令行中使用 boo">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">uboot启动内核</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">uboot启动内核</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-11T08:39:18.000Z" itemprop="datePublished" class="page-time">
+  2019-06-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#认识-uboot-和-内核-之间不可不说的关系"><span class="post-toc-number">1.</span> <span class="post-toc-text">认识 uboot 和 内核 之间不可不说的关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内核启动的方式"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">内核启动的方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加载内核到ddr中"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">加载内核到DDR中</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内核的镜像生成"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">内核的镜像生成</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#加载启动内核"><span class="post-toc-number">2.</span> <span class="post-toc-text">加载启动内核</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#内核启动"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">内核启动</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#uboot-启动4步骤总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">uboot 启动4步骤总结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-x210-2019-06-11-uboot启动内核" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">uboot启动内核</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-11 16:39:18" datetime="2019-06-11T08:39:18.000Z" itemprop="datePublished">2019-06-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="认识-uboot-和-内核-之间不可不说的关系">认识 uboot 和 内核 之间不可不说的关系</h1>
+<p>uboot 镜像为 uboot.bin，Linux 镜像为 zImage</p>
+<p>嵌入式设备中的分区表是自己定义的，uboot 和内核中的分区表应一致</p>
+<p>内核运行前必须加载到 ddr 中指定的地址处</p>
+<p>uboot 需要提供内核必要的参数</p>
+<h2 id="内核启动的方式">内核启动的方式</h2>
+<p>uboot 启动内核有两种方式，一种是等待倒计时结束后直接启动内核，一种是在 uboot 命令行中使用 boot 命令启动内核</p>
+<p>其代码分别如下</p>
+<p>其中 parse_string_outer 的作用是解析 boot 参数并执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">/*------------------倒计时----------------------*/</span><br><span class="line">s = getenv (&quot;bootcmd&quot;);</span><br><span class="line"></span><br><span class="line">if (bootdelay &gt;= 0 &amp;&amp; s &amp;&amp; !abortboot (bootdelay)) &#123;</span><br><span class="line">	...</span><br><span class="line">	parse_string_outer(s, FLAG_PARSE_SEMICOLON |</span><br><span class="line">				    FLAG_EXIT_FROM_LOOP);</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">/*------------------命令行----------------------*/</span><br><span class="line">int do_bootd (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">	if (parse_string_outer (getenv (&quot;bootcmd&quot;),</span><br><span class="line">			FLAG_PARSE_SEMICOLON | FLAG_EXIT_FROM_LOOP) != 0)</span><br><span class="line">		rcode = 1;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">U_BOOT_CMD(</span><br><span class="line">	boot,	1,	1,	do_bootd,</span><br><span class="line">	&quot;boot    - boot default, i.e., run &apos;bootcmd&apos;\n&quot;,</span><br><span class="line">	NULL</span><br><span class="line">);</span><br><span class="line">/*-----------------相关宏定义----------------------*/</span><br><span class="line">#ifdef	CONFIG_BOOTARGS</span><br><span class="line">	&quot;bootargs=&quot;	CONFIG_BOOTARGS			&quot;\0&quot;</span><br><span class="line">#endif</span><br><span class="line">#ifdef	CONFIG_BOOTCOMMAND</span><br><span class="line">	&quot;bootcmd=&quot;	CONFIG_BOOTCOMMAND		&quot;\0&quot;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#define CONFIG_BOOTARGS    	&quot;console=ttySAC2,115200 root=/dev/mmcblk0p2 rw init=/linuxrc rootfstype=ext3&quot;</span><br><span class="line">#define CONFIG_BOOTCOMMAND	&quot;movi read kernel 30008000; movi read rootfs 30B00000 300000; bootm 30008000 30B00000&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="加载内核到ddr中">加载内核到DDR中</h2>
+<p>uboot 启动内核的步骤</p>
+<ul>
+<li>内核镜像从启动介质中加载到DDR中</li>
+<li>去DDR中启动内核镜像</li>
+</ul>
+<p>本文使用的开发板 x210 将镜像存放在 SD 卡中，要加载到 ddr 中需要使用到 movi 指令</p>
+<p>movi 提供了对 iNand/SD 卡的操作，movi read 用来读取 iNand/SD 卡中的内容到DDR中；movi write 用来将DDR中的内容写入到 iNand/SD 卡中</p>
+<p>上面的代码中 bootcmd 中的命令就是用来加载 kernel rootfs 到 ddr</p>
+<p>除了从 SD 卡加载，还可以通过 tftp nfs 等网络下载方式加载镜像</p>
+<p>通过 <code>movi read kernel 30008000</code> 可以知道，内核加载到了 0x30008000 的位置</p>
+<h2 id="内核的镜像生成">内核的镜像生成</h2>
+<p>Linux 直接编译得到 elf 文件，叫 vmlinux 或 vmlinuz。这种文件会比较大，为了烧录方便，会使用 objcopy 工具制作成镜像文件，叫 Image(从78M精简成了7.5M)</p>
+<p>早期使用的软盘比较小，Image 对与软盘来说还是太大了，放不下。Linux 对 Image 做进一步的压缩，并在压缩文件前端附加了一部分解压缩代码，形成 zImage</p>
+<p>uboot 可以使用 mkimage 工具，在 zImage 前面加上64字节的uImage的头信息，形成 uImage</p>
+<h1 id="加载启动内核">加载启动内核</h1>
+<p>内核的加载启动是通过 do_bootm 完成的</p>
+<p>前面介绍过，镜像文件分为两个部分，头部以及真正的内核</p>
+<p>所以 do_bootm 会先对镜像进行头部信息的校验，然后再进行内核的启动</p>
+<p>头部信息的结构体如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">typedef struct image_header &#123;</span><br><span class="line">	uint32_t	ih_magic;	/* Image Header Magic Number	*/</span><br><span class="line">	uint32_t	ih_hcrc;	/* Image Header CRC Checksum	*/</span><br><span class="line">	uint32_t	ih_time;	/* Image Creation Timestamp	*/</span><br><span class="line">	uint32_t	ih_size;	/* Image Data Size		*/</span><br><span class="line">	uint32_t	ih_load;	/* Data	 Load  Address		*/</span><br><span class="line">	uint32_t	ih_ep;		/* Entry Point Address		*/</span><br><span class="line">	uint32_t	ih_dcrc;	/* Image Data CRC Checksum	*/</span><br><span class="line">	uint8_t		ih_os;		/* Operating System		*/</span><br><span class="line">	uint8_t		ih_arch;	/* CPU architecture		*/</span><br><span class="line">	uint8_t		ih_type;	/* Image Type			*/</span><br><span class="line">	uint8_t		ih_comp;	/* Compression Type		*/</span><br><span class="line">	uint8_t		ih_name[IH_NMLEN];	/* Image Name		*/</span><br><span class="line">&#125; image_header_t;</span><br></pre></td></tr></table></figure>
+<p>在 do_bootm 中就是通过 ih_os 判断镜像的类型，然后使用相应的方法启动内核</p>
+<p>这里的镜像是 Linux 镜像，所以使用的是 do_bootm_linux， do_bootm_linux 的参数大部分是通过 do_bootm 传递的</p>
+<p>启动的参数 <code>bootm 30008000</code>，告诉 uboot 去 30008000 这个地址去找镜像文件</p>
+<h2 id="内核启动">内核启动</h2>
+<p>镜像的程序入口叫做 entrypoint ，在 do_bootm_linux 中使用 ep 保存，镜像的程序入口在头信息的 ih_ep 中，可以通过读取头信息得到</p>
+<p>得到 ep 后，通过 <code>theKernel = (void (*)(int, int, uint))ep;</code> 将 ep 格式化后传递给 theKernel ，这样 theKernel 函数就指向了内存中加载的OS镜像的真正入口地址</p>
+<p>前面也提到了，每个开发板在 uboot 中都有唯一的机器码，这个编码用来验证开发板与 uboot 是否匹配，这个机器码还会传到内核中再次验证。这个机器码获取的第一顺序备选是环境变量machid，第二顺序备选是gd-&gt;bd-&gt;bi_arch_num(x210_sd.h 中的 #define MACH_TYPE 2456)</p>
+<p>接下来就是传参的过程。先看看 Linux 的 Documentation/arm/Booting 中对 CPU 寄存器设置的描述</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- CPU register settings</span><br><span class="line">  r0 = 0,</span><br><span class="line">  r1 = machine type number discovered in (3) above.</span><br><span class="line">  r2 = physical address of tagged list in system RAM, or</span><br><span class="line">       physical address of device tree block (dtb) in system RAM</span><br></pre></td></tr></table></figure>
+<p>通过读取 r0 r1 r2 这三个寄存器的值来设置 CPU ，r0 固定为0，r1 为前面提到的机器码，r2 为存放启动参数 tag 结构体的首地址</p>
+<p>所以在 do_bootm_linux 通过 <code>theKernel (0, machid, bd-&gt;bi_boot_params);</code> 完成传参的过程</p>
+<p>传参是通过 struct tag 这个结构体完成的，获取参数就是获取一个个 tag 的过程。这些 tag 也有着规定的格式，do_bootm_linux 中通过 setup_start_tag 和 setup_end_tag 函数设置 tag 的开始和结束，这个函数的作用就是设置当前 tag 的类型为 ATAG_CORE 和 ATAG_NONE ，用作 tag 起始终止位置的判别</p>
+<p>需要注意的是，传参是一个很重要的过程，内核启动不成功与传参错误有很大关系</p>
+<h1 id="uboot-启动4步骤总结">uboot 启动4步骤总结</h1>
+<p>第一步：将内核搬移到DDR中</p>
+<p>第二步：校验内核格式、CRC等</p>
+<p>第三步：准备传参</p>
+<p>第四步：跳转执行内核</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li>朱有鹏视频</li>
+<li><a href="https://blog.csdn.net/czg13548930186/article/details/76383153" target="_blank" rel="noopener">u-boot 启动内核解析</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-11T08:41:42.233Z" itemprop="dateUpdated">2019-06-11 16:41:42</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&title=《uboot启动内核》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&title=《uboot启动内核》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动内核》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">uboot启动第二阶段分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&title=《uboot启动内核》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&title=《uboot启动内核》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《uboot启动内核》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQW7jMBAEQP//0w6wpwCJpG4OmfWhdApsQ5nigTNo8vWKn/e/5+cn35+rb+/fcPW/rp7XiQcPDw9vqfT71/38+/7blpos3FUND0uAh4eHd4x33wyS4taWIF+atgY8PDy8T+AlW3Oy3UdlxcuNh4eH98m8CWyt9ElzwsPDwzvNS8KItZG3jXrvl/Jg1oKHh4d34BTpc/4+eL6Hh4eHNzhVbzfffOS9v0aQN4CHCvHw8PAO8JKAtb2AlQ/cCTVZoIfK8fDw8Lby2rLajTv5fU7Keb/0PTw8PLytvLWj/Xyjz4fsSfRwOUzj4eHhbeVNBuh8zG2XrH3bKL3Gw8PDW+Ll2/radas2hlgbzYubEXh4eHhjXltK/uq83LWbAMXxGx4eHt4mXj68tkFqPmq3baYY0/Hw8PAO8CaNYRLyrgUcozAXDw8PbxOvvWjVHnS1Q3Z+LFcEEHh4eHhbeXlLaAOFd/xM4t379+Dh4eH9L94kcl0bsteuGizm03h4eHibeJOy1oprz+vypoKHh4e3l7cWK7TDdx7RzqPbX2JcPDw8vK28CaaNU/+mhTwM1nh4eHhbeWsFtcdd7bjcVvhq+wkeHh5eyZtch8ovItTrWkbJl7/Bw8PDO8CbxKYtbG+5bfyBh4eHt5fXhghr2/qJVhGN/nh4eHgHeHkzSMo6cTyWtIcit8DDw8Mb85L4de0aweRAa+1KVtES8PDw8Ma8tSE4x+SBwmv8PGTVeHh4eAPeu3zybX1t7G7b1cMS4+Hh4R3gLXaSTYFsEteeuKqFh4eHN+flzaANfNu4Nv88b1R4eHh453jtpYFJtNou3+iyAh4eHt4H8OYRRk5q42M8PDy8T+Mlh2Tt4Dv5fPNIjYeHh3cgjNh1Pavd3EdHbnh4eHgHeLuOrCYDdzt25+/Ew8PD28r7AvaCxTpubNmwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,3 +1,3 @@
+http://greedyhao.cc/2019/06/11/工作-x210-2019-06-11-uboot启动内核/
 http://greedyhao.cc/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/
 http://greedyhao.cc/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/
-http://greedyhao.cc/2019/05/27/编程语言-asm-2019-05-27-栈和帧指针使用方法/
