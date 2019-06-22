@@ -587,7 +587,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-WWDG" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Output" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -604,7 +604,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
     </h3>
   
 
@@ -614,17 +614,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        基本步骤
-
-使能WWDG时钟（APB1）
-设置窗口值和分频值
-开启WWDG中断并分组
-设置计数器初始值并使能看门狗
-编写中断服务函数
-
+        关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+2.初始化I/O参数,调用函数GPIO_Init()
+3.操作I/O
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
