@@ -167,157 +167,6 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-PWM" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-PWM/">学习PWM</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        PWM简述
-PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。
-这是一个通过数字控制模拟电路的非常有效的办法。
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-TIM" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
-在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-EXTI" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/">学习外部中断</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        基本步骤
-
-初始化I/O口为输入
-开启AFIO时钟
-设置I/O口与中断线的映射关系
-初始化线上中断，设置触发条件等
-配置中断分组（NVIC），并使能中断
-编写中断服务函数
-
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
             <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -403,6 +252,108 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     
 
         <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-PWM" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-PWM/">学习PWM</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        PWM简述
+PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。
+这是一个通过数字控制模拟电路的非常有效的办法。
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-GPIO-EXTI" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/">学习外部中断</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        基本步骤
+
+初始化I/O口为输入
+开启AFIO时钟
+设置I/O口与中断线的映射关系
+初始化线上中断，设置触发条件等
+配置中断分组（NVIC），并使能中断
+编写中断服务函数
+
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -520,6 +471,104 @@ GPIO端口模式设置
         </li>
     
         <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-TIM" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        定时器简述
+相信使用过51单片机的人对定时器都很熟悉了吧。
+顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
+在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Output" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/">学习GPIO输出</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        关键信息
+1.使能I/O口时钟，调用函数RCC_APB2PeriphClockCmd()
+2.初始化I/O参数,调用函数GPIO_Init()
+3.操作I/O
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Output/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -607,53 +656,6 @@ GPIO端口模式设置
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-开始学习stm32" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/">开始学习stm32</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        说说我的教材吧
-我使用的是原子的stm32的书， 手上暂时没有其他的书了，就只能将就着用这本了，听说口碑还是不错的。
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-开始学习stm32/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
 
     </div>
     

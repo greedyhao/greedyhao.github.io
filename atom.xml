@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2019-06-22T23:26:16.878Z</updated>
+  <updated>2019-06-25T08:25:40.406Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图像频域全白现象</title>
+    <link href="http://greedyhao.cc/2019/06/25/%E5%B7%A5%E4%BD%9C-img-proc-2019-06-25-%E5%9B%BE%E5%83%8F%E9%A2%91%E5%9F%9F%E5%85%A8%E7%99%BD%E7%8E%B0%E8%B1%A1/"/>
+    <id>http://greedyhao.cc/2019/06/25/工作-img-proc-2019-06-25-图像频域全白现象/</id>
+    <published>2019-06-25T08:23:15.000Z</published>
+    <updated>2019-06-25T08:25:40.406Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近开始图像处理的实验课了，一开始学习的是空间灰度变换与直方图变换，使用的软件是 MATLAB。一开始对图片进行傅里叶变换，查看它的频谱的时候发现，和理论上的不一样，居然全是白色的</p><a id="more"></a><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/img_proc/gray_scale_0.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>在网上查到原因是，自己使用的是 rbg ，应该使用灰度值</p><p>在使用 rgb2gray 转换成灰度值后，图片的频谱就正常了</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/img_proc/gray_scale_1.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li><a href="https://ww2.mathworks.cn/matlabcentral/answers/261707-how-to-convert-an-image-to-frequency-domain-in-matlab" target="_blank" rel="noopener">How to convert an image to frequency domain in MATLAB?</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近开始图像处理的实验课了，一开始学习的是空间灰度变换与直方图变换，使用的软件是 MATLAB。一开始对图片进行傅里叶变换，查看它的频谱的时候发现，和理论上的不一样，居然全是白色的&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>从三星uboot开始移植</title>
@@ -430,28 +448,6 @@
     
     
       <category term="uboot" scheme="http://greedyhao.cc/tags/uboot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>uboot编译体验</title>
-    <link href="http://greedyhao.cc/2019/03/11/%E5%B7%A5%E4%BD%9C-x210-2019-03-11-uboot%E7%BC%96%E8%AF%91%E4%BD%93%E9%AA%8C/"/>
-    <id>http://greedyhao.cc/2019/03/11/工作-x210-2019-03-11-uboot编译体验/</id>
-    <published>2019-03-11T14:15:37.000Z</published>
-    <updated>2019-03-11T14:16:05.846Z</updated>
-    
-    <content type="html"><![CDATA[<p>想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux</p><a id="more"></a><p>正好买了朱有鹏视频，就拿来学习一下</p><p>看了看学习的进程大概是这样的 + 安装编译工具，编译uboot + 分析uboot源码和makefile</p><h1 id="安装交叉编译工具链">安装交叉编译工具链</h1><p>本人使用的开发部是s5pv210，需要安装的交叉编译工具链是<em>arm-2019q3</em></p><p>遵循默认规则，将工具链解压安装到了<em>/usr/local/arm</em>下</p><p>添加到了PATH中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ARM Cross Complier PATH</span><br><span class="line">export PATH=/usr/local/arm/arm-2009q3/bin:$PATH</span><br></pre></td></tr></table></figure><p>测试工具链是否正常</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:~$ arm-none-linux-gnueabi-gcc --version</span><br><span class="line">arm-none-linux-gnueabi-gcc (Sourcery G++ Lite 2009q3-67) 4.4.1</span><br><span class="line">Copyright (C) 2009 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure><h1 id="编译uboot">编译uboot</h1><p>毕竟是有课程学习，有提供做好的uboot源码，可以体验一下编译的感觉，氪金了还真是不一样</p><p>首先是先找到需要编译的bsp,QT4.8版本，并解压出来</p><h2 id="配置">配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ make x210_sd_config </span><br><span class="line">Configuring for x210_sd board...</span><br></pre></td></tr></table></figure><p>如果出现了上面的信息就说明配置成功</p><p>检查Makefile中的编译链位置是否正确</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CROSS_COMPILE = /usr/local/arm/arm-2009q3/bin/arm-none-linux-gnueabi-</span><br></pre></td></tr></table></figure><p>查看编译结果</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">greedyhao@greedyhao-PC:.../qt_x210v3s_160307/uboot$ du u-boot*</span><br><span class="line">936u-boot</span><br><span class="line">384u-boot.bin</span><br><span class="line">1780u-boot.dis</span><br><span class="line">184u-boot.map</span><br><span class="line">1156u-boot.srec</span><br></pre></td></tr></table></figure><hr><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/wechat_official_accounts.jpg" alt title>                </div>                <div class="image-caption"></div>            </figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;想玩玩zynq，但是发现需要linux方面的知识配合会更加合适，因为zynq有arm的硬核，有的时候可能会需要用上linux&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="http://greedyhao.cc/tags/Linux/"/>
-    
-      <category term="x210" scheme="http://greedyhao.cc/tags/x210/"/>
     
   </entry>
   
