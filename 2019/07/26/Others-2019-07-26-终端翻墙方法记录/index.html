@@ -30,25 +30,24 @@ ga('send', 'pageview');
     
     
     
-    <title>学习定时器 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>终端翻墙方法记录 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content>
+    <meta name="description" content="这里使用的工具是 proxychains 1sudo apt install proxychains4 安装完成后需要修改配置 1sudo nano /etc/proxychains.conf 在文件的末尾加上翻墙的端口号，比如我的是 1080，这里就写 1080 1socks5  127.0.0.1 1080 使用很简单，直接 proxychains4 + 命令就可以 1proxychains4">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习定时器">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/index.html">
+<meta property="og:title" content="终端翻墙方法记录">
+<meta property="og:url" content="http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
+<meta property="og:description" content="这里使用的工具是 proxychains 1sudo apt install proxychains4 安装完成后需要修改配置 1sudo nano /etc/proxychains.conf 在文件的末尾加上翻墙的端口号，比如我的是 1080，这里就写 1080 1socks5  127.0.0.1 1080 使用很简单，直接 proxychains4 + 命令就可以 1proxychains4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:49.000Z">
+<meta property="og:updated_time" content="2019-07-26T10:10:19.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习定时器">
-<meta name="twitter:description" content="定时器简述 相信使用过51单片机的人对定时器都很熟悉了吧。 顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等 在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变">
+<meta name="twitter:title" content="终端翻墙方法记录">
+<meta name="twitter:description" content="这里使用的工具是 proxychains 1sudo apt install proxychains4 安装完成后需要修改配置 1sudo nano /etc/proxychains.conf 在文件的末尾加上翻墙的端口号，比如我的是 1080，这里就写 1080 1socks5  127.0.0.1 1080 使用很简单，直接 proxychains4 + 命令就可以 1proxychains4">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +128,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习定时器</div>
+        <div class="flex-col header-title ellipsis">终端翻墙方法记录</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +150,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习定时器</h1>
+        <h1 class="title">终端翻墙方法记录</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2019-07-26T10:09:45.000Z" itemprop="datePublished" class="page-time">
+  2019-07-26
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -176,21 +173,19 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时器简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">定时器简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时的计算时间"><span class="post-toc-number">3.</span> <span class="post-toc-text">定时的计算时间</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-工作-stm32-2017-08-10-TIM" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-Others-2019-07-26-终端翻墙方法记录" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习定时器</h1>
+        <h1 class="post-card-title">终端翻墙方法记录</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2019-07-26 18:09:45" datetime="2019-07-26T10:09:45.000Z" itemprop="datePublished">2019-07-26</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -201,22 +196,24 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="定时器简述">定时器简述</h2>
-<p>相信使用过51单片机的人对定时器都很熟悉了吧。</p>
-<p>顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等</p>
-<p>在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变</p>
-<a id="more"></a>
-<h2 id="基本步骤">基本步骤</h2>
-<ol type="1">
-<li>很通常的一个时钟使能（APB1）</li>
-<li>初始化定时器参数，设置自动重装值、预分频值、时钟分割、计数方式等(TIM_TimeBaseInitTypeDef)</li>
-<li>设置TIM3_DIER允许更新（TIM_ITConfig)</li>
-<li>TIMx中断优先级设置</li>
-<li>使能TIMx工作</li>
-<li>编写中断服务函数(TIMx_IRQHandler)</li>
-</ol>
-<h2 id="定时的计算时间">定时的计算时间</h2>
-<p>Tout=((arr+1)*(psc+1))/Tclk - arr：自动重转载值 - psc：预分频值 - Tout：溢出时间（μs) - Tclk：输入时钟频率</p>
+            <p>这里使用的工具是 proxychains</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install proxychains4</span><br></pre></td></tr></table></figure>
+<p>安装完成后需要修改配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/proxychains.conf</span><br></pre></td></tr></table></figure>
+<p>在文件的末尾加上翻墙的端口号，比如我的是 1080，这里就写 1080</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socks5  127.0.0.1 1080</span><br></pre></td></tr></table></figure>
+<p>使用很简单，直接 proxychains4 + 命令就可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains4 git clone xxxx</span><br></pre></td></tr></table></figure>
+<p>如果运行发现</p>
+<p><code>'libproxychains.so.3' from LD_PRELOAD cannot be preloaded</code></p>
+<p>需要修改 /usr/bin/proxychains 文件</p>
+<p>首先需要找到 proxychains 的动态库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find /usr/ -name libproxychains.so.3 -print</span><br><span class="line">/usr/lib/x86_64-linux-gnu/libproxychains.so.3</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>打开<code>/usr/bin/proxychains</code>，将 <code>export LD_PRELOAD=libproxychains.so.3</code> 改为 <code>/usr/lib/x86_64-linux-gnu/libproxychains.so.3</code></p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a href="https://blog.csdn.net/jiezhi2013/article/details/50624561" target="_blank" rel="noopener">解决'libproxychains.so.3' from LD_PRELOAD cannot be preloaded问题</a></li>
+</ul>
 
         </div>
 
@@ -225,7 +222,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:49.000Z" itemprop="dateUpdated">2017-08-14 21:27:49</time>
+    最后更新时间：<time datetime="2019-07-26T10:10:19.148Z" itemprop="dateUpdated">2019-07-26 18:10:19</time>
 </span><br>
 
 
@@ -251,8 +248,6 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
 
             
 <div class="page-share-wrap">
@@ -261,7 +256,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&title=《终端翻墙方法记录》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -271,24 +266,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&source=定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&title=《终端翻墙方法记录》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习定时器》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《终端翻墙方法记录》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -308,21 +301,14 @@ ga('send', 'pageview');
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习TFT-FSMC</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-next" class="post-nav-link">
+      <a href="/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习PWM</h4>
+        <h4 class="title">drm设备不工作</h4>
       </a>
     </div>
   
@@ -427,7 +413,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&title=《终端翻墙方法记录》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -437,24 +423,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&title=《学习定时器》 — Zhuhao's Blog&source=定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&title=《终端翻墙方法记录》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习定时器》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《终端翻墙方法记录》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-TIM/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -465,7 +449,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3a266CQBBEUf7/pzE5TyYKU9UF5tC958kg6ixMOtOXbZPX/rfeX78v5Z7zOz8/td2xYMCA8VjGfrr0Hzu6X/+U/ji+UGHAgDGA4QZZZdNusFa++fA6DBgwYMRHQCVww4ABA8a1AVfJIpMMFAYMGDBqSWztB9yk9/ZcHAYMGA9k1BoDv3l9e38DBgwY/56xm8st8bthvbgrGDBgtGYoRbGkuVjD146kMGDA6M3IS2z56IbeKpAwMGDAaMRwW49ueyAv6kktBBgwYLRmJENg7rbcsKsfFmHAgNGbURuJyJ+ZW3Rb7AEGDBgDGEkwTcpk+v2LPcCAAWMAQ0kO3RKYm6zWkmQYMGBMYySFfiUsKlusNR5gwIAxh5Ec7PQwWtv0ov0AAwaMkYyr2pZ2A1Iu6h02BmDAgNGO4S4Xc9WBUuHBgAGjK+PclDcale93r395FwYMGK0ZedHfHY/QxzjsxwcDBowxDP0smQRrPYk1ynAwYMBoykgGLNyRrzz4Lv4HGDBgtGa4pXm3MOeW2PRCHgwYMCYw3BGHJO08v9MdFIMBA8Ycxm6unJqE48N3YcCA0ZrhHvVq7Um3kVnDw4ABozdDCbLu0S1pahb3AAMGjAGMZEPJ9doDimqHMGDAaM1wmwHu+TRKoWHAgAHjN21IuVEhDbDCgAGjHcMNl8rwloJ3D5eLgAsDBoymjFoCqZfylQCtN1Ava2HCgAHjGYwXaMTRP9vkywkAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQW7DQAgF0Nz/0q3UbWLnA0OTxfMqspyaN5UGAvN4xNfP3/V85/7+83X1N6+evP8Lxy48PDy8Vuj3AV19vg/3fmmSSPLluFwCPDw8vDVeL9z7z5OUUF2yy/t4eHh4H+UloSTgKKx4ufHw8PC+mZdv2cl354kHDw8P77O8pBmRB9prHORt3JVeCx4eHl7Mqw7AvuHz4nwPDw8PbzBVz1NFNYhJIinEiYeHh7fASxqsvf02L4iTowPVZscjOR2Gh4eH1+JVj1tNNvrtdPLiSTw8PLxl3v0YKWm5lkdTreSRD9Lw8PDw/oc3GVxNlqyXWgolNR4eHt7RZkSyfSe/8asLlDQjqsio74KHh4c35lU35XxpclivfZykGTw8PLyzvB6sOrjK2xDVtPFmifHw8PAWePl2n7yyeqfa/K0OyfDw8PA2eNWWa7UU7o2vjvVX8PDw8JZ51aNRybd6Ld3qolzGjIeHh7fAyzGT4dapQVf1H4CHh4e3x8vL6N54LAlrMmyLRmt4eHh4R3m9EVQ+5u8V3JMjBW9Kajw8PLwBrzp2OtVEqDLydHJ56AoPDw/vEK/8UOuoVq9VkRf90cECPDw8vAVe/rM/TyGjFwdLeeBdeHh4eANetWztbdx5uDkmKtbx8PDwFnj5mL/XtJ2XxT/FCw8PD2+bl4++NsKdj+KiXgseHh7eId78BdVjAfnzSWP3TZmOh4eHt8ybt1arrd7tJggeHh7eWd7k5/1kxFVNDElZ/yIePDw8vAXeqQME92H1tvXkOFc1heDh4eGd4uUNgiq+PH+Lly9JJHh4eHjbvEnQSSk8b2pUy3Q8PDy8b+Pl4//CsCou0AtLiYeHh/dRXnL4Kdnoe0cTcjYeHh7e//B6Q6l5CpkPt94U33h4eHgLvN6YajLEmqSZZjMXDw8P7wzvF/SLac4pO+x5AAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
