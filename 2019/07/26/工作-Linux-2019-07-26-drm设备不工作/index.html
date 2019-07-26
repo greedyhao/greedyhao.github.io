@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>drm设备不工作 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="在设备升级新版内核后，发现没有 fb0 设备，开机没有打印 drm 相关的信息 首先是检查设备树，确认加入 panel 节点 1234567891011121314151617panel: panel &amp;#123;		compatible = &amp;quot;lg,lb070wv8”, “simple-panel&amp;quot;;		#address-cells = &amp;lt;1&amp;gt;;		#size-c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="drm设备不工作">
+<meta property="og:url" content="http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="在设备升级新版内核后，发现没有 fb0 设备，开机没有打印 drm 相关的信息 首先是检查设备树，确认加入 panel 节点 1234567891011121314151617panel: panel &amp;#123;		compatible = &amp;quot;lg,lb070wv8”, “simple-panel&amp;quot;;		#address-cells = &amp;lt;1&amp;gt;;		#size-c">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-26T07:54:52.276Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="drm设备不工作">
+<meta name="twitter:description" content="在设备升级新版内核后，发现没有 fb0 设备，开机没有打印 drm 相关的信息 首先是检查设备树，确认加入 panel 节点 1234567891011121314151617panel: panel &amp;#123;		compatible = &amp;quot;lg,lb070wv8”, “simple-panel&amp;quot;;		#address-cells = &amp;lt;1&amp;gt;;		#size-c">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">drm设备不工作</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">drm设备不工作</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-26T07:54:39.000Z" itemprop="datePublished" class="page-time">
+  2019-07-26
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#感谢"><span class="post-toc-number">1.</span> <span class="post-toc-text">感谢</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-Linux-2019-07-26-drm设备不工作" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">drm设备不工作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-26 15:54:39" datetime="2019-07-26T07:54:39.000Z" itemprop="datePublished">2019-07-26</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在设备升级新版内核后，发现没有 fb0 设备，开机没有打印 drm 相关的信息</p>
+<p>首先是检查设备树，确认加入 panel 节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">panel: panel &#123;</span><br><span class="line">		compatible = &quot;lg,lb070wv8”, “simple-panel&quot;;</span><br><span class="line">		#address-cells = &lt;1&gt;;</span><br><span class="line">		#size-cells = &lt;0&gt;;</span><br><span class="line">		enable-gpios = &lt;&amp;pio 4 6 GPIO_ACTIVE_HIGH&gt;;</span><br><span class="line"></span><br><span class="line">		port@0 &#123;</span><br><span class="line">			reg = &lt;0&gt;;</span><br><span class="line">			#address-cells = &lt;1&gt;;</span><br><span class="line">			#size-cells = &lt;0&gt;;</span><br><span class="line"></span><br><span class="line">			panel_input: endpoint@0 &#123;</span><br><span class="line">				reg = &lt;0&gt;;</span><br><span class="line">				remote-endpoint = &lt;&amp;tcon0_out_lcd&gt;;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+<p>其次是检查内核是否开启了相关的驱动，这里使用的是 lichepi nano，依赖的驱动是 SUN4I 系列的驱动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_DRM_SUN4I=y</span><br><span class="line">CONFIG_DRM_SUN4I_HDMI=y</span><br><span class="line">CONFIG_DRM_SUN4I_BACKEND=y</span><br></pre></td></tr></table></figure>
+<p>不过在检查完上面两个地方没有问题后，还是没有解决问题</p>
+<p>为了获取 drm 启动过程中的更多信息，在 uboot 的 bootargs 中加入 drm.debug=0x1f debug ，让内核打印 drm 的更多信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[    1.079849] [drm:drm_core_init] Initialized</span><br><span class="line">[    1.084524] [drm:sun4i_drv_probe] Adding component /soc/display-backend@1e60000</span><br><span class="line">[    1.092143] [drm:sun4i_drv_probe] Adding component /soc/lcd-controller@1c0c000</span><br><span class="line">[    1.099606] [drm:sun4i_drv_probe] Adding component /panel</span><br><span class="line">[    1.105025] [drm:sun4i_drv_traverse_endpoints] No output to bind on port 1</span><br><span class="line">[    1.124695] [drm:compare_of] Comparing of node /soc/lcd-controller@1c0c000 with /soc/display-backend@1e60000</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>发现内核尝试着挂载 /panel 节点，这个本来是不用挂载的</p>
+<p>修改 suniv_quirks，加上 has_channel_0 的配置。缺少 has_channel_0 会让内核认为这个 TCON 没有 RGB 口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">sun4i_tcon_quirks</span> <span class="title">suniv_quirks</span> = &#123;</span></span><br><span class="line">    .has_channel_0		= <span class="literal">true</span>,</span><br><span class="line">	.has_channel_1		= <span class="literal">true</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>重新编译烧录后，drm 的启动信息如下。内核没有再去挂载 /panel 节点了，不过 drm 的启动还是没有成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[    1.079943] [drm:drm_core_init] Initialized</span><br><span class="line">[    1.084616] [drm:sun4i_drv_probe] Adding component /soc/display-backend@1e60000</span><br><span class="line">[    1.092235] [drm:sun4i_drv_probe] Adding component /soc/lcd-controller@1c0c000</span><br><span class="line">[    1.099662] [drm:sun4i_drv_traverse_endpoints] Endpoint is our panel... skipping</span><br><span class="line">[    1.121843] [drm:compare_of] Comparing of node /soc/display-backend@1e60000 with /soc/display-backend@1e60000</span><br><span class="line">[    1.131931] [drm:compare_of] Comparing of node /soc/display-backend@1e60000 with /soc/lcd-controller@1c0c000</span><br></pre></td></tr></table></figure>
+<p>后来在看到了<a href="https://github.com/Libunko/linux/commit/95f0749694112894c10dc931953fa02d96036a26#diff-f6d9b3f2f9db8d9369f3ab2e76473459" target="_blank" rel="noopener">这份 commit</a>中说的内容，将 .has_channel_1 屏蔽掉，drm 正常工作了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">static const struct sun4i_tcon_quirks suniv_f1c100s_quirks = &#123;</span><br><span class="line">	/*</span><br><span class="line">	 * The F1C100s SoC has a second channel in TCON, but the clock input of</span><br><span class="line">	 * it is not documented.</span><br><span class="line">	 */</span><br><span class="line">	.has_channel_0		= true,</span><br><span class="line">	/* .has_channel_1	= true, */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="感谢">感谢</h1>
+<p>非常感谢这两位大神给我的帮助</p>
+<ul>
+<li><a href="https://github.com/Icenowy" target="_blank" rel="noopener">Icenowy</a></li>
+<li><a href="https://github.com/Libunko" target="_blank" rel="noopener">libunko</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-26T07:54:52.276Z" itemprop="dateUpdated">2019-07-26 15:54:52</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&title=《drm设备不工作》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&title=《drm设备不工作》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《drm设备不工作》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/23/工作-Linux-2019-07-23-升级内核遇到的问题汇总/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">升级内核遇到的问题汇总</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&title=《drm设备不工作》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&title=《drm设备不工作》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《drm设备不工作》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW4bMQwFUN//0inQVQp3xp+kaCfAm1XhOoreLCTmk49H/Hz9fZ4/+f48f56skK/2vMKxBw8PD6+19avnfis5/v77CeaeffkK8PDw8NZ495dB/p37l5JfCVfsfD94eHh4P4HXux7uS+1eWY+Hh4f3W3hJ3JDEENG24qsFDw8P71O8JD6oApKfyiOG9awFDw8PL+ZNytlP/Xuxv4eHh4c36Kr3GmP5VVEt38s7xMPDw1vg9QLW5Pt5QVxdP2+G4eHh4W3wTrX281/fCxGqI1z/3Ht4eHh4R3nRf99+nt8/p4rsfD94eHh4G7zqoZwsPRotjUvqaP94eHh4a7z80J+PYVVHAZL9vAhw8fDw8BZ41UWroerGhRHtEw8PD2+Nl8cHE95GpPtiz3h4eHgLvF7rqzcEMBkjeEwePDw8vAVeL1zojRrkAUd+dUUvCw8PD2+Nlx/lya/srZm81vI1g4eHh3eUlw8HVA/oavuqF+9GYQQeHh7eIV41Ns2jh+o61ZAiaozh4eHhvZGXHM3VQavq0FU1of3PCnh4eHhrvMOpRrG11gNELx0PDw9vjdcbF0gYeVQxjx6ilAUPDw9vzJvHBKcaZnm0UY6b8fDw8I7yqiNQeYE7CWqrkfHlzvHw8PAWeL0DOi+aq8d6r9SOWnR4eHh4C7x5sTtvd+UH/aRhhoeHhzfnVcOFyUWSBx+9Ma8Xo1d4eHh4b+FVh66qV0jeWqsW2Xh4eHgbvK/is9djmsS7l6vh4eHhLfDOBhO9pSeleX4J4eHh4Z3lVQenqqVwtc0/H0rAw8PDew8vKZfzSCIvrHsxR67Aw8PD+zm8aqCQDwpMSvnyNBkeHh7eMi+/ACYDBNUCGg8PD+9TvF5TalIoJzHE5PLAw8PD2+NV/9TPy9xqq6w6yDWPMPDw8PCKvD/pzwMn4aYybAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
