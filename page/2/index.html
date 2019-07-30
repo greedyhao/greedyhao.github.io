@@ -167,6 +167,54 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-工作-x210-2019-05-26-uboot启动阶段分析二" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-05-26 23:17:53" datetime="2019-05-26T15:17:53.000Z" itemprop="datePublished">2019-05-26</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/05/26/工作-x210-2019-05-26-uboot启动阶段分析二/">uboot启动阶段分析二</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+物理基址定义
+12_TEXT_PHY_BASE:	.word	CFG_PHY_UBOOT_BASE
+start.s 中使用 _TEXT_PHY_BASE 存放物理基址。这个变量很重要，因为我们在 u-boot 中使用 MMU ，在 MMU 没有开启之前，需要这个变量来保证程序能在正确的地址运行
+通过在 u-boot 源码中全局搜索可以发现， CFG_PHY_UBOOT_BASE 定义在 u...
+    
+
+        <a href="/2019/05/26/工作-x210-2019-05-26-uboot启动阶段分析二/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-x210-2019-05-25-uboot启动阶段分析一" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -563,53 +611,6 @@ ga('send', 'pageview');
     
 
         <a href="/2019/03/25/自动控制-PID-2019-03-25-pid抗饱和积分/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PID/">PID</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-自动控制-PID-2019-03-24-pid是什么" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-03-24 11:28:26" datetime="2019-03-24T03:28:26.000Z" itemprop="datePublished">2019-03-24</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/自动控制/">自动控制</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/24/自动控制-PID-2019-03-24-pid是什么/">pid是什么</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本人想做做之前的电赛题--滚球平衡，但这涉及到了一些自动控制的东西，比如PID。
-对PID之前只是略有耳闻，为了复现滚球平衡，只能来现学PID了。
-    
-
-        <a href="/2019/03/24/自动控制-PID-2019-03-24-pid是什么/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
