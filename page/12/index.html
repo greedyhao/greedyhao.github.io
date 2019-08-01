@@ -167,6 +167,53 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-工作-python-pythonic-2017-08-12-list-comprehensions" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-12 22:20:00" datetime="2017-08-12T14:20:00.000Z" itemprop="datePublished">2017-08-12</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/12/工作-python-pythonic-2017-08-12-list-comprehensions/">list comprehensions</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        这个例子是生成一个(i,j,k)坐标，if (i + j + k) != n，就输出这个坐标。
+这里使用了list comprehensions的方法，使得代码变得简洁，更加pythonic
+    
+
+        <a href="/2017/08/12/工作-python-pythonic-2017-08-12-list-comprehensions/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pythonic/">pythonic</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-生活-感悟-2017-08-12-人总是不理性的" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -355,7 +402,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -372,7 +419,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/">学习TFT-FSMC</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
     </h3>
   
 
@@ -382,59 +429,19 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        TFT简述
-这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。
-    
+        一般步骤
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-PWM" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
+串口时钟的使能，GPIO时钟使能
+串口复位
+GPIO端口模式设置
+串口参数初始化
+开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
+使能串口
+编写中断处理函数
 
     
 
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-PWM/">学习PWM</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        PWM简述
-PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。
-这是一个通过数字控制模拟电路的非常有效的办法。
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -482,59 +489,6 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     
 
         <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-WWDG" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-WWDG/">学习窗口看门狗</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        基本步骤
-
-使能WWDG时钟（APB1）
-设置窗口值和分频值
-开启WWDG中断并分组
-设置计数器初始值并使能看门狗
-编写中断服务函数
-
-    
-
-        <a href="/2017/08/10/工作-stm32-2017-08-10-WWDG/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -599,7 +553,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-PWM" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -616,7 +570,7 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-PWM/">学习PWM</a>
     </h3>
   
 
@@ -626,19 +580,59 @@ PWM的原理照我的理解就是，你设置一段时间一个阈值，让管�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        一般步骤
+        PWM简述
+PWM的原理照我的理解就是，你设置一段时间一个阈值，让管脚在阈值前输出高电平在阈值后输出低电平（理论上反过来也行，不过我没试过），这样就产生了PWM。
+这是一个通过数字控制模拟电路的非常有效的办法。
+    
 
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-使能串口
-编写中断处理函数
+        <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
 
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/">学习TFT-FSMC</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        TFT简述
+这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -658,7 +652,7 @@ GPIO端口模式设置
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
     </div>
 </nav>
 

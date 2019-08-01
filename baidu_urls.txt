@@ -1,3 +1,3 @@
+http://greedyhao.cc/2019/08/01/工作-uboot-2019-08-01-uboot移植nor-flash/
 http://greedyhao.cc/2019/07/30/工作-Linux-2019-07-30-编译根文件系统遇到的问题/
 http://greedyhao.cc/2019/07/26/Others-2019-07-26-终端翻墙方法记录/
-http://greedyhao.cc/2019/07/26/工作-Linux-2019-07-26-drm设备不工作/
