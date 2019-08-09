@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://greedyhao.cc/"/>
-  <updated>2019-08-01T08:27:10.352Z</updated>
+  <updated>2019-08-09T07:19:50.093Z</updated>
   <id>http://greedyhao.cc/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux内核依赖问题汇总</title>
+    <link href="http://greedyhao.cc/2019/08/09/%E5%B7%A5%E4%BD%9C-Linux-2019-08-09-linux%E5%86%85%E6%A0%B8%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
+    <id>http://greedyhao.cc/2019/08/09/工作-Linux-2019-08-09-linux内核依赖问题汇总/</id>
+    <published>2019-08-09T07:19:13.000Z</published>
+    <updated>2019-08-09T07:19:50.093Z</updated>
+    
+    <content type="html"><![CDATA[<p>编译后的内核，可以正常启动了，不过时常还是会遇到一些依赖问题</p><p>之前遇到的时候没有注意，没有记录下来，后面都会记录，免得忘记</p><h1 id="rfkill-cannot-open-rfkill-control-device">rfkill: Cannot open RFKILL control device</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># wpa_supplicant -iwlan0 -B  -c /etc/wpa_supplicant.conf</span><br><span class="line">Successfully initialized wpa_supplicant</span><br><span class="line">rfkill: Cannot open RFKILL control device</span><br></pre></td></tr></table></figure><p>使用无线网卡连接 WiFi 的时候，发现会报这个错误信息，虽然无线网卡连接还是正常的，不过还是想找找是什么原因</p><p><a href="https://www.cnblogs.com/tid-think/p/10905056.html" target="_blank" rel="noopener">wpa_supplicant启动出错rfkill: Cannot open RFKILL control device</a> 这篇文章提到了这个问题</p><p>这是由于内核编译的时候没有打开 RFKILL 导致的</p><p>进入 Linux 的 menuconfig ，按 <code>/</code> 搜索 RFKILL ，找到这个配置并打开，重新编译后就正常了</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;编译后的内核，可以正常启动了，不过时常还是会遇到一些依赖问题&lt;/p&gt;
+&lt;p&gt;之前遇到的时候没有注意，没有记录下来，后面都会记录，免得忘记&lt;/p&gt;
+&lt;h1 id=&quot;rfkill-cannot-open-rfkill-control-device&quot;&gt;rfkill: Cannot
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://greedyhao.cc/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何查看arm可执行文件的依赖</title>
+    <link href="http://greedyhao.cc/2019/08/07/%E5%B7%A5%E4%BD%9C-Linux-2019-08-07-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Barm%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E4%BE%9D%E8%B5%96/"/>
+    <id>http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/</id>
+    <published>2019-08-07T06:58:52.000Z</published>
+    <updated>2019-08-09T07:19:02.100Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure><p>担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件的动态库依赖</p><p>在网上搜索到可以使用 ldd 进行查看，然而交叉编译工具链并没有提供 ldd 这么一个东西</p><p>最后在网上看到一篇文章提到了这个问题<a href="https://codeday.me/bug/20171129/101157.html" target="_blank" rel="noopener">交叉编译 – 交叉编译ldd</a></p><p>将下面这段程序保存为脚本，执行后就可以查看可执行程序的依赖</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">arm-none-linux-gnueabi-readelf -a <span class="variable">$1</span> | grep <span class="string">"Shared library:"</span></span><br></pre></td></tr></table></figure><p>以本人用到的 fswebcam 这个文件为例，命令执行后，输出所有的库的依赖</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ arm-linux-gnueabihf-readelf -a fswebcam |  grep &quot;Shared library:&quot;</span><br><span class="line"> 0x00000001 (NEEDED)                     Shared library: [libgd.so.3]</span><br><span class="line"> 0x00000001 (NEEDED)                     Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://greedyhao.cc/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>uboot移植nor-flash</title>
@@ -392,9 +441,9 @@
       <category term="自动控制" scheme="http://greedyhao.cc/categories/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/"/>
     
     
-      <category term="Matlab" scheme="http://greedyhao.cc/tags/Matlab/"/>
-    
       <category term="PID" scheme="http://greedyhao.cc/tags/PID/"/>
+    
+      <category term="Matlab" scheme="http://greedyhao.cc/tags/Matlab/"/>
     
   </entry>
   
@@ -416,54 +465,9 @@
       <category term="自动控制" scheme="http://greedyhao.cc/categories/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/"/>
     
     
+      <category term="PID" scheme="http://greedyhao.cc/tags/PID/"/>
+    
       <category term="Matlab" scheme="http://greedyhao.cc/tags/Matlab/"/>
-    
-      <category term="PID" scheme="http://greedyhao.cc/tags/PID/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pid整定概述</title>
-    <link href="http://greedyhao.cc/2019/03/28/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6-PID-2019-03-28-pid%E6%95%B4%E5%AE%9A%E6%A6%82%E8%BF%B0/"/>
-    <id>http://greedyhao.cc/2019/03/28/自动控制-PID-2019-03-28-pid整定概述/</id>
-    <published>2019-03-28T01:51:06.000Z</published>
-    <updated>2019-04-06T12:15:47.423Z</updated>
-    
-    <content type="html"><![CDATA[<p>这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先</p><p>之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题</p><a id="more"></a><h1 id="pid系统设计流程">pid系统设计流程</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_10.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>设计一个pid控制系统的流程大致就上面这几个阶段</p><p>本篇文章注重的控制器架构为PID，和这种架构如何调整或者说如何调优</p><h1 id="pid整定指南">pid整定指南</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_11_1.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>先判断系统是否表现良好，是否存在高非线性、开环不稳定、很多延时、非最小相位等问题，如果表现不良好，需要使用进阶方法</p><p>在系统表现良好的情况下，可以基于数学模型，也可以基于物理模型进行调整pid</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_11_2.png" alt title>                </div>                <div class="image-caption"></div>            </figure><ul><li>增加P可以减少rise time</li><li>增加D提升稳定性和减小超调(overshoot)</li></ul><p>基于物理模型调整pid时，可以通过给系统一个阶跃序列，通过观察系统响应，来调整pid</p><p>这种观察系统响应的启发式方法有<strong>Cohen-Coon Method</strong>和<strong>Ziegler-Nichols</strong></p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_11_3.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>我们还可以通过第一性原理，通过实验从物理系统中得到数学模型；也可以通过给物理系统一个阶跃信号，通过阶跃响应得到数学模型。再通过数学模型进行pid调整</p><p>手动调整有<strong>Pole placement</strong>, <strong>loop shaping</strong>, <strong>heuristics</strong>的方法</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_11_4.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>此外还可以通过软件的方法，让pid系统自整定</p><h1 id="参考资料">参考资料</h1><ul><li><a href="https://ww2.mathworks.cn/help/control/ref/stepinfo.html?requestedDomain=zh" target="_blank" rel="noopener">stepinfo</a></li><li><a href="http://support.motioneng.com/downloads-notes/tuning//img/auto_control/pid/pid_overshoot.htm" target="_blank" rel="noopener">PID Tuning:Step Behavior</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这篇文章感觉需要在我pid的知识体系建立好以后重新完善一遍，很多地方很模糊，先占个位，保持顺序，先写后面的文章先&lt;/p&gt;
-&lt;p&gt;之前的文章都是介绍pid的原理，现在要说的就是在实际中应用所需要遇到的问题，pid的整定问题&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="自动控制" scheme="http://greedyhao.cc/categories/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/"/>
-    
-    
-      <category term="PID" scheme="http://greedyhao.cc/tags/PID/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pid对微分器的优化</title>
-    <link href="http://greedyhao.cc/2019/03/26/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6-PID-2019-03-26-pid%E5%AF%B9%E5%BE%AE%E5%88%86%E5%99%A8%E7%9A%84%E4%BC%98%E5%8C%96/"/>
-    <id>http://greedyhao.cc/2019/03/26/自动控制-PID-2019-03-26-pid对微分器的优化/</id>
-    <published>2019-03-26T15:19:40.000Z</published>
-    <updated>2019-03-27T07:15:05.299Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="http://greedyhao.cc/2019/03/25/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6-PID-2019-03-25-pid%E6%8A%97%E9%A5%B1%E5%92%8C%E7%A7%AF%E5%88%86/">上一篇</a>文章写了对积分器的优化，这一篇写对微分器的优化</p><a id="more"></a><h1 id="为什么要优化微分器">为什么要优化微分器</h1><p>微分器对于噪声很敏感，我们可以从微分器的laplace传递函数G(s)=s看出来</p><p>通过简单的求导也可以看得出</p><p>假设噪声n(t)是一个正弦函数</p><p><span class="math display">\[n(t) = A\sin(\omega_a t+ \phi_a) \]</span></p><p><span class="math display">\[\frac{dn(t)}{dt} = A\omega_a \sin(\omega_a t+ \phi_a + \frac{\pi}{2})\]</span></p><p>Aω就是经过微分得到的幅度，可以看出，频率越高，对控制信号的影响就越大</p><h1 id="关于噪声">关于噪声</h1><p>现实中，一般情况下无法避免噪声的存在</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_9_1.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>在pid系统中，一般通过传感器来将设备的信息采集出来，通过反馈回路送回pid系统入口处</p><p>但是采集信息的时候会不可避免的被噪声干扰，有热噪声、散射噪声等，这些噪声的存在会干扰pid系统的稳定性</p><h1 id="如何优化微分器">如何优化微分器</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/auto_control/pid/pid_9_2.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>很多噪声在整个频域内均匀分布，但是我们的信号却大部分都是低频信号</p><p>为了优化我们得到的信号，一个简单有效的方法就是使用低通滤波器</p><p>通过设置一个合适的截止频率，滤除掉大部分的噪声</p><hr><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="/img/wechat_official_accounts.jpg" alt title>                </div>                <div class="image-caption"></div>            </figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;http://greedyhao.cc/2019/03/25/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6-PID-2019-03-25-pid%E6%8A%97%E9%A5%B1%E5%92%8C%E7%A7%AF%E5%88%86/&quot;&gt;上一篇&lt;/a&gt;文章写了对积分器的优化，这一篇写对微分器的优化&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="自动控制" scheme="http://greedyhao.cc/categories/%E8%87%AA%E5%8A%A8%E6%8E%A7%E5%88%B6/"/>
-    
-    
-      <category term="PID" scheme="http://greedyhao.cc/tags/PID/"/>
     
   </entry>
   

@@ -30,25 +30,25 @@ ga('send', 'pageview');
     
     
     
-    <title>学习串口 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <title>如何查看arm可执行文件的依赖 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="stm32">
-    <meta name="description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
-<meta name="keywords" content="stm32">
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错 1fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory 担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件的动态">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习串口">
-<meta property="og:url" content="http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/index.html">
+<meta property="og:title" content="如何查看arm可执行文件的依赖">
+<meta property="og:url" content="http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/index.html">
 <meta property="og:site_name" content="Zhuhao&#39;s Blog">
-<meta property="og:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta property="og:description" content="在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错 1fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory 担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件的动态">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T13:27:30.000Z">
+<meta property="og:updated_time" content="2019-08-09T07:19:02.100Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习串口">
-<meta name="twitter:description" content="一般步骤  串口时钟的使能，GPIO时钟使能 串口复位 GPIO端口模式设置 串口参数初始化 开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤 使能串口 编写中断处理函数">
+<meta name="twitter:title" content="如何查看arm可执行文件的依赖">
+<meta name="twitter:description" content="在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错 1fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory 担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件的动态">
     
         <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
     
@@ -129,7 +129,7 @@ ga('send', 'pageview');
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">学习串口</div>
+        <div class="flex-col header-title ellipsis">如何查看arm可执行文件的依赖</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,15 +151,13 @@ ga('send', 'pageview');
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">学习串口</h1>
+        <h1 class="title">如何查看arm可执行文件的依赖</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished" class="page-time">
-  2017-08-10
+                <time datetime="2019-08-07T06:58:52.000Z" itemprop="datePublished" class="page-time">
+  2019-08-07
 </time>
 
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
 
             
         </h5>
@@ -173,24 +171,15 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一般步骤"><span class="post-toc-number">1.</span> <span class="post-toc-text">一般步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#又遇到坑了"><span class="post-toc-number">2.</span> <span class="post-toc-text">又遇到坑了</span></a></li></ol>
-        </nav>
-    </aside>
 
-
-<article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="post-article article-type-post fade" itemprop="blogPost">
+<article id="post-工作-Linux-2019-08-07-如何查看arm可执行文件的依赖" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">学习串口</h1>
+        <h1 class="post-card-title">如何查看arm可执行文件的依赖</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+            <time class="post-time" title="2019-08-07 14:58:52" datetime="2019-08-07T06:58:52.000Z" itemprop="datePublished">2019-08-07</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
 
 
             
@@ -201,23 +190,15 @@ ga('send', 'pageview');
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="一般步骤">一般步骤</h2>
-<ol type="1">
-<li>串口时钟的使能，GPIO时钟使能</li>
-<li>串口复位</li>
-<li>GPIO端口模式设置</li>
-<li>串口参数初始化</li>
-<li>开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤</li>
-<li>使能串口</li>
-<li>编写中断处理函数</li>
-</ol>
-<a id="more"></a>
-<h2 id="又遇到坑了">又遇到坑了</h2>
-<p>~<sub>我是使用原子的库的，但是他的usart.c这个文件有点问题（可能只是我下载的那个有问题吧），重写的fputs有问题，printf根本用不了， 浪费了我好多时间查找解决方法，最后看了原子的官方示例才发现，他的usart.c改过了...~</sub></p>
-<p>我又发现自己之前的想法错了，我改的地方其实无关紧要</p>
-<p><strong>这是改之前</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//重定义fputc函数</span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while((USART1-&gt;SR&amp;0X40)==0)；//循环发送,直到发送完毕  </span><br><span class="line">	USART1-&gt;DR = (u8) ch;      </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>这是改之后</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int fputc(int ch, FILE *f)</span><br><span class="line">&#123;      </span><br><span class="line">	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);</span><br><span class="line">    USART_SendData(USART1,(uint8_t)ch);   </span><br><span class="line">	return ch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我发现了我的<strong>真正的问题</strong>，原来是 uart_init() 函数名打错成 usart_init() ！！！</p>
+            <p>在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件的动态库依赖</p>
+<p>在网上搜索到可以使用 ldd 进行查看，然而交叉编译工具链并没有提供 ldd 这么一个东西</p>
+<p>最后在网上看到一篇文章提到了这个问题<a href="https://codeday.me/bug/20171129/101157.html" target="_blank" rel="noopener">交叉编译 – 交叉编译ldd</a></p>
+<p>将下面这段程序保存为脚本，执行后就可以查看可执行程序的依赖</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">arm-none-linux-gnueabi-readelf -a <span class="variable">$1</span> | grep <span class="string">"Shared library:"</span></span><br></pre></td></tr></table></figure>
+<p>以本人用到的 fswebcam 这个文件为例，命令执行后，输出所有的库的依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ arm-linux-gnueabihf-readelf -a fswebcam |  grep &quot;Shared library:&quot;</span><br><span class="line"> 0x00000001 (NEEDED)                     Shared library: [libgd.so.3]</span><br><span class="line"> 0x00000001 (NEEDED)                     Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -226,7 +207,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-14T13:27:30.000Z" itemprop="dateUpdated">2017-08-14 21:27:30</time>
+    最后更新时间：<time datetime="2019-08-09T07:19:02.100Z" itemprop="dateUpdated">2019-08-09 15:19:02</time>
 </span><br>
 
 
@@ -252,7 +233,7 @@ ga('send', 'pageview');
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
 
             
@@ -262,7 +243,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&title=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -272,29 +253,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&title=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -317,18 +291,18 @@ GPIO端口模式设置
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-PWM/" id="post-prev" class="post-nav-link">
+      <a href="/2019/08/09/工作-Linux-2019-08-09-linux内核依赖问题汇总/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">学习PWM</h4>
+        <h4 class="title">linux内核依赖问题汇总</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" id="post-next" class="post-nav-link">
+      <a href="/2019/08/01/工作-uboot-2019-08-01-uboot移植nor-flash/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">学习外部中断</h4>
+        <h4 class="title">uboot移植nor-flash</h4>
       </a>
     </div>
   
@@ -433,7 +407,7 @@ GPIO端口模式设置
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&title=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -443,29 +417,22 @@ GPIO端口模式设置
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&title=《学习串口》 — Zhuhao's Blog&source=一般步骤
-
-串口时钟的使能，GPIO时钟使能
-串口复位
-GPIO端口模式设置
-串口参数初始化
-开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
-..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&title=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《学习串口》 — Zhuhao's Blog&url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/&via=http://greedyhao.cc" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何查看arm可执行文件的依赖》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/&via=http://greedyhao.cc" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -476,7 +443,7 @@ GPIO端口模式设置
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3a0XLiMAwFUP7/p7uv7HQTriQL2p2Tpw4UOyfMWObKj0d8fT1d3195fv3q3fx6HuH7mI+NCw8PD29w6/eT5dP3AMl95uPj4eHhbfOS4e5LQhWclJ/84V6+joeHh/cDePmy3lzKb/8fDw8P7//j3d909dHcFyc8PDy8z/LyhXgeVdzP/rGsBQ8PD6+2gy1HqJ/9e6W/h4eHhzfuqlebYfNm/9mDCHh4eHgbvF40MLnp3qPJ58XDw8N7D28SFsyPauXhRTUuwcPDw9vjVZfmySGAZOR8hKhE4eHh4R3lTRpXyTTzg1lJSXjxWwEPDw9vgXeq6VWNbicb7uhdPDw8vLfw8kX5bEjR20a/CCbw8PDwFnj5ZjePevOFO48k8uJRaM7h4eHhjXnV1lQvxu0t673mHB4eHt4er9e272248yJRLQmXr+Dh4eG9nZcv6Hlom2+gq2UGDw8P7z28SXnoFYwkROiFvKNkBQ8PDy/gnZp4Y1NeDW1fnCnDw8PDW+PlTf1JRNsLgvPw4q+TEXh4eHhrvLwZ34tcJw22ZBv9j0/h4eHhLfPyrW20nR0clsofxIsvAw8PD2+NV23kT9pX+Ta9OuZlYcDDw8M7yps05vPDBOWtcPGmy10+PDw8vKO8alBb3RxXR6h+AckIeHh4eHPe2WKQs3/lNhoPDw8vCGF7xwLyhb4a15apeHh4eGu8apNpEuDmLbe8PFzeAx4eHt5R3lfx6rXwq6HDPE0pHLrCw8PDK/J6G9ZJwTgVCvcOZuHh4eGd4s2LQcJIZrln9D6Fh4eHt8fLf+TnwUH+mHqBb6Ew4OHh4X2Ul5eT3gGFfPYopMDDw8P7AbzqMYJkK5y/mz9QPDw8vG1etZGflIH78avHF6qNNzw8PLw9XvVHft6+SoKJfKs9jyrw8PDwxrw/PoSccYi02uQAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3aQW7jQAwEQP//09nrAhvb3aSClSelUyDY0tQYCMHmPB7x9fXX9e+dZ9frp/3797MnJ298/MSFjY2N/SHs5HHJa2bU11uQb329NdjY2NjHsduFJtuULL39Adpy+PQ+NjY29q9nzxqVzebO1oaNjY2N3T5u37TMGg9sbGxs7Ly1SIrTvo3Zb81lWRo2Njb27dn5VPT+f//IfBsbGxv7xuyv8kqecFXcn7cctQIbGxv7IPYm4mnbhnYAsA+S3qwTGxsb+yD2ZqGzAUDeYMy6qyTqwsbGxj6D3R6RTA7uJOWnHQy//mTdRGFjY2MfxJ59LSkzeVlqNysvjW8+j42NjX0EO494kqM8eWlsQ6X8u1H4hY2NjX0QOy8As4HubLltC9RGWtjY2NgnsdsykBeJfAvyVbVPeHofGxsb+zh2+x9+NjBoC+Hm8M3w2CU2Njb2x7I3J3pm4X57HGc/QvgmS8PGxsY+iJ2H8rNPzlqOq36GR7sgbGxs7I9iz0rC5oBOUpbyVV0QQmFjY2N/OPuqGCgpbLNxQl44i0KIjY2NfSi7LTYJrz2smVybUfRjX2OxsbGxb8lOilbeiuxLTkutNxobGxv7OHYbD83KXjsAnm3TcNCLjY2N/eHs2etny90MfWdl75uNwMbGxj6I3Z5s2bQfdfRz6TQbGxsb+2z2pjC0Y93ZkGAWV71ZPzY2NvZB7KsCoM2wIY+E2re82ThsbGzsI9izKOcqdruSWcODjY2NfTY7f/0m3M9L0T7qyu9jY2Njn8SeNQCzvD1phH6ifA7nD9jY2Ni3Z+ek2bfaoz+bQCp5LzY2Nvap7FmctDkHNHt+wo7WiY2NjX0ce1PG2uLRLn0Y979+GjY2NvYR7K/ymg0P2gjp9d/tcOKb+9jY2NgHsa9tG2ZD3LxktqWx3T5sbGzsz2XPFp18qz0M1Eb/q1YKGxsb+zj2/hjN7LhPG13NGh5sbGxs7E30M4ufNtsR/UjY2NjYv5idH45JSlce37dB/5s2CRsbG/s4dj7czQtSfrAyL4T/IUvDxsbGvj17FtDsj8W0sVS7TRcc3MHGxsa+O/sP1Pd8uL1dgREAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

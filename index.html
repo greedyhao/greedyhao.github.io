@@ -167,6 +167,99 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-工作-Linux-2019-08-09-linux内核依赖问题汇总" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-09 15:19:13" datetime="2019-08-09T07:19:13.000Z" itemprop="datePublished">2019-08-09</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/09/工作-Linux-2019-08-09-linux内核依赖问题汇总/">linux内核依赖问题汇总</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        编译后的内核，可以正常启动了，不过时常还是会遇到一些依赖问题
+之前遇到的时候没有注意，没有记录下来，后面都会记录，免得忘记
+rfkill: Cannot open RFKILL control device
+123# wpa_supplicant -iwlan0 -B  -c /etc/wpa_supplicant.confSuccessfully initialized wpa_suppl...
+    
+
+        <a href="/2019/08/09/工作-Linux-2019-08-09-linux内核依赖问题汇总/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-工作-Linux-2019-08-07-如何查看arm可执行文件的依赖" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-08-07 14:58:52" datetime="2019-08-07T06:58:52.000Z" itemprop="datePublished">2019-08-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/">如何查看arm可执行文件的依赖</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        在 arm 设备上执行可执行程序时报错，缺少库文件，类似如下报错
+1fswebcam: error while loading shared libraries: libgd.so.3: cannot open shared object file: No such file or directory
+担心复制 libgd.so.3 库文件到文件系统后还有其他的依赖缺失，决定先确定可执行文件...
+    
+
+        <a href="/2019/08/07/工作-Linux-2019-08-07-如何查看arm可执行文件的依赖/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-uboot-2019-08-01-uboot移植nor-flash" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -519,94 +612,6 @@ uboot 启动内核有两种方式，一种是等待倒计时结束后直接启�
     
 
         <a href="/2019/06/11/工作-x210-2019-06-11-uboot启动内核/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-x210-2019-06-10-uboot启动第二阶段分析" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-10 22:57:44" datetime="2019-06-10T14:57:44.000Z" itemprop="datePublished">2019-06-10</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/">uboot启动第二阶段分析</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        之前介绍了 uboot 启动第一阶段，现在介绍启动的第二阶段
-    
-
-        <a href="/2019/06/10/工作-x210-2019-06-10-uboot启动第二阶段分析/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uboot/">uboot</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-x210-2019-06-04-uboot启动阶段分析三" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-06-04 20:51:55" datetime="2019-06-04T12:51:55.000Z" itemprop="datePublished">2019-06-04</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/">uboot启动阶段分析三</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        这里继续 lowlevel_init 中的内容
-    
-
-        <a href="/2019/06/04/工作-x210-2019-06-04-uboot启动阶段分析三/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
