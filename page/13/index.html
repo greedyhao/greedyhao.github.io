@@ -116,6 +116,13 @@ ga('send', 'pageview');
               </a>
             </li>
         
+            <li class="waves-block waves-effect">
+              <a href="https://www.zhihu.com/people/shen-ye-de-kuang-xiang-qu/activities" target="_blank">
+                <i class="icon icon-lg icon-paper-plane"></i>
+                知乎
+              </a>
+            </li>
+        
       </ul>
     </div>
   </div>
@@ -167,7 +174,7 @@ ga('send', 'pageview');
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-GPIO-EXTI" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-TFTLCD-FSMC" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -184,7 +191,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/">学习外部中断</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/">学习TFT-FSMC</a>
     </h3>
   
 
@@ -194,18 +201,11 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        基本步骤
-
-初始化I/O口为输入
-开启AFIO时钟
-设置I/O口与中断线的映射关系
-初始化线上中断，设置触发条件等
-配置中断分组（NVIC），并使能中断
-编写中断服务函数
-
+        TFT简述
+这个实验是我认为比较麻烦的一个实验了，有一定难度。 主要是我看到书和我使用的开发板不是配套的，所以引出了很多麻烦。
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-EXTI/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TFTLCD-FSMC/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -221,7 +221,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-IWDG" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-TIM" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -238,7 +238,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
     </h3>
   
 
@@ -248,11 +248,13 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        看门狗简述
-独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
+        定时器简述
+相信使用过51单片机的人对定时器都很熟悉了吧。
+顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
+在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -321,6 +323,53 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
+            <article id="post-工作-stm32-2017-08-10-IWDG" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-IWDG/">学习独立看门狗</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        看门狗简述
+独立看门狗这个东西比较简单，就是设置一个初值确定它复位的时间，然后在这段时间内必须给它“喂食”，否则就会导致单片机复位。 这个功能是为了防止单片机死机，如果单片机死机就无法给看门狗喂食，那么单片机就会复位。
+    
+
+        <a href="/2017/08/10/工作-stm32-2017-08-10-IWDG/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-stm32-2017-08-10-GPIO-Output" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -370,7 +419,7 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-工作-stm32-2017-08-10-TIM" class="article-card article-type-post" itemprop="blogPost">
+            <article id="post-工作-stm32-2017-08-10-GPIO-Usart" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
         <time class="post-time" title="2017-08-10 20:00:00" datetime="2017-08-10T12:00:00.000Z" itemprop="datePublished">2017-08-10</time>
@@ -387,7 +436,7 @@ ga('send', 'pageview');
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-TIM/">学习定时器</a>
+      <a class="post-title-link" href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/">学习串口</a>
     </h3>
   
 
@@ -397,13 +446,19 @@ ga('send', 'pageview');
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        定时器简述
-相信使用过51单片机的人对定时器都很熟悉了吧。
-顾名思义，定时器就是用来定时的，固定一个时间，到了以后可以向cpu发送一个中断请求；或者就干脆只是用来等待一段时间；还可以用来产生振荡等
-在stm32中，定时器变得复杂多了，但是复杂的只是操作的寄存器变多了，原理并没有改变
+        一般步骤
+
+串口时钟的使能，GPIO时钟使能
+串口复位
+GPIO端口模式设置
+串口参数初始化
+开启中断并且初始化NVIC（如果需要开启中断才需要这个步骤
+使能串口
+编写中断处理函数
+
     
 
-        <a href="/2017/08/10/工作-stm32-2017-08-10-TIM/" class="post-more waves-effect waves-button">
+        <a href="/2017/08/10/工作-stm32-2017-08-10-GPIO-Usart/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -411,54 +466,6 @@ ga('send', 'pageview');
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm32/">stm32</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/">利用github page搭建博客简易教程</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言
-之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。
-其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。
-    
-
-        <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
 
     </div>
     
@@ -561,6 +568,54 @@ ga('send', 'pageview');
         </li>
     
         <li class="post-list-item fade">
+            <article id="post-工作-jekyll-2017-08-10-简易版搭建博客教程" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-08-10 18:00:00" datetime="2017-08-10T10:00:00.000Z" itemprop="datePublished">2017-08-10</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/">利用github page搭建博客简易教程</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言
+之前写一些自己的感悟都是放在github上，可是每一个知识点放一个repo，搞到我的github首页都 不好看了，又看到可以利用github page搭建免费个人博客，就萌发了搭建博客的念头。
+其中踩了不少的坑，因为jekyll有过大的更新，jekyll3对很多jekyll2的内容不支持，让我抓狂。 所以为了让大家有更好的建立博客的体验，就写了这个简易版的教程。
+    
+
+        <a href="/2017/08/10/工作-jekyll-2017-08-10-简易版搭建博客教程/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-工作-sublime-2017-08-10-在ubuntu16上安装sublime3出现的问题并解决" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
@@ -600,53 +655,6 @@ ga('send', 'pageview');
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/入门/">入门</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工作-altium-2017-08-10-绘制51最小系统板" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-08-10 16:49:00" datetime="2017-08-10T08:49:00.000Z" itemprop="datePublished">2017-08-10</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工作/">工作</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/">从51最小系统开始</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        绘制51最小系统板
-我在之前从没有完整的画过51系统最小板，现在就来尝试。
-    
-
-        <a href="/2017/08/10/工作-altium-2017-08-10-绘制51最小系统板/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Altium/">Altium</a></li></ul>
 
     </div>
     

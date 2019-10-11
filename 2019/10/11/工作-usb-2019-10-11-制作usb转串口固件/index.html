@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104674648-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d230cbd4c1f4abd065bc1ca0e61663da"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="x0NhT11Wdmfn9lsdbcQQOIhQHQKeNWATVfTj5rYZWXo">
+    
+    
+    
+    
+    <title>制作usb转串口固件 | Zhuhao&#39;s Blog | I am the captain of my ship and the master of my fate.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="usb">
+    <meta name="description" content="定时器相关 最近在用 ch552 芯片做 usb 转串口的调试板 串口需要设置波特率，在 ch552 上需要给串口提供设定的波特率，这里使用定时器产生 初值计算问题 一般使用定时器的模式2，8位自动重装，使用 TL 计数，使用 TH 重装 波特率初值的计算公式如下 THn = TLn = 256 - fsys/12/16/波特率/2 ch552 有 1T 的模式，所以可以不用除以 12，还可以设置">
+<meta name="keywords" content="usb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="制作usb转串口固件">
+<meta property="og:url" content="http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/index.html">
+<meta property="og:site_name" content="Zhuhao&#39;s Blog">
+<meta property="og:description" content="定时器相关 最近在用 ch552 芯片做 usb 转串口的调试板 串口需要设置波特率，在 ch552 上需要给串口提供设定的波特率，这里使用定时器产生 初值计算问题 一般使用定时器的模式2，8位自动重装，使用 TL 计数，使用 TH 重装 波特率初值的计算公式如下 THn = TLn = 256 - fsys/12/16/波特率/2 ch552 有 1T 的模式，所以可以不用除以 12，还可以设置">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+<meta property="og:updated_time" content="2019-10-11T03:46:34.138Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="制作usb转串口固件">
+<meta name="twitter:description" content="定时器相关 最近在用 ch552 芯片做 usb 转串口的调试板 串口需要设置波特率，在 ch552 上需要给串口提供设定的波特率，这里使用定时器产生 初值计算问题 一般使用定时器的模式2，8位自动重装，使用 TL 计数，使用 TH 重装 波特率初值的计算公式如下 THn = TLn = 256 - fsys/12/16/波特率/2 ch552 有 1T 的模式，所以可以不用除以 12，还可以设置">
+<meta name="twitter:image" content="http://greedyhao.cc/img/wechat_official_accounts.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Zhuhao&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/portrait.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Greedyhao</h5>
+          <a href="mailto:hao_kr@163.com" title="hao_kr@163.com" class="mail">hao_kr@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/greedyhao" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.zhihu.com/people/shen-ye-de-kuang-xiang-qu/activities" target="_blank">
+                <i class="icon icon-lg icon-paper-plane"></i>
+                知乎
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">制作usb转串口固件</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">制作usb转串口固件</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-10-11T03:41:51.000Z" itemprop="datePublished" class="page-time">
+  2019-10-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定时器相关"><span class="post-toc-number">1.</span> <span class="post-toc-text">定时器相关</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初值计算问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">初值计算问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#波特率误差问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">波特率误差问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#usb-相关"><span class="post-toc-number">2.</span> <span class="post-toc-text">usb 相关</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-工作-usb-2019-10-11-制作usb转串口固件" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">制作usb转串口固件</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-10-11 11:41:51" datetime="2019-10-11T03:41:51.000Z" itemprop="datePublished">2019-10-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="定时器相关">定时器相关</h1>
+<p>最近在用 ch552 芯片做 usb 转串口的调试板</p>
+<p>串口需要设置波特率，在 ch552 上需要给串口提供设定的波特率，这里使用定时器产生</p>
+<h2 id="初值计算问题">初值计算问题</h2>
+<p>一般使用定时器的模式2，8位自动重装，使用 TL 计数，使用 TH 重装</p>
+<p>波特率初值的计算公式如下</p>
+<p>THn = TLn = 256 - fsys/12/16/波特率/2</p>
+<p>ch552 有 1T 的模式，所以可以不用除以 12，还可以设置波特率倍频，也不用除以 2，这样的话，计算公式改为</p>
+<p>THn = TLn = 256 - fsys/16/波特率</p>
+<p>这里顺便提一下除以 16 的原因。在51单片机内置的串口模块中，他采取的方式是把一位信号采集16次，然后把第7、8、9次取出来，如果这三次中其中有两次是高电平的话，就认定这一位数据是1，如果两次数据是低电平，就认为是0。这样可以提高通信的容错率。<a href="https://www.cnblogs.com/qsyll0916/p/7788475.html" target="_blank" rel="noopener">【参考来源】</a> (PS:STC12C5A60S2 的 datasheet 8.2.2 节有更详细的介绍)</p>
+<h2 id="波特率误差问题">波特率误差问题</h2>
+<p>异步串口有起始和停止位，再加校验位，8位字节最多可有12位。51单片机的串口模块通常在位中间采样，如此12位偏差50%就可能采样错误造成通信失败，对应通信双方波特率偏差约50%/12=4%。</p>
+<p>串口通信误码率与通信双方波特率高低无关，不过波特率和通信距离的乘积有上限。<a href="http://bbs.21ic.com/icview-45920-1-1.html" target="_blank" rel="noopener">【参考来源】</a></p>
+<p>本文中使用的 ch552 ，系统时钟为 16M，下面对是使用的常见的波特率进行误差分析。因为 ch552 不支持浮点波特率，所以对于小数部分进行截断</p>
+<table>
+<thead>
+<tr class="header">
+<th>波特率</th>
+<th>THn</th>
+<th>误差</th>
+<th>THn</th>
+<th>误差</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2400</td>
+<td>416</td>
+<td>0.16%</td>
+<td>417</td>
+<td>0.08%</td>
+</tr>
+<tr class="even">
+<td>9600</td>
+<td>104</td>
+<td>0.16%</td>
+<td>105</td>
+<td>0.79%</td>
+</tr>
+<tr class="odd">
+<td>19200</td>
+<td>52</td>
+<td>0.16%</td>
+<td>53</td>
+<td>1.73%</td>
+</tr>
+<tr class="even">
+<td>38400</td>
+<td>26</td>
+<td>0.16%</td>
+<td>27</td>
+<td>3.55%</td>
+</tr>
+<tr class="odd">
+<td>43000</td>
+<td>23</td>
+<td>1.11%</td>
+<td>24</td>
+<td>3.1%</td>
+</tr>
+<tr class="even">
+<td>56000</td>
+<td>17</td>
+<td>5%</td>
+<td>18</td>
+<td>0.79%</td>
+</tr>
+<tr class="odd">
+<td>57600</td>
+<td>17</td>
+<td>2.12%</td>
+<td>18</td>
+<td>3.55%</td>
+</tr>
+<tr class="even">
+<td>115200</td>
+<td>8</td>
+<td>8.5%</td>
+<td>9</td>
+<td>3.55%</td>
+</tr>
+<tr class="odd">
+<td>128000</td>
+<td>7</td>
+<td>11.6%</td>
+<td>8</td>
+<td>2.3%</td>
+</tr>
+</tbody>
+</table>
+<p>虽然说理论上 5% 的误差对于异步串口通信来说都是可以容忍的，但是可能存在收发双方都存在偏差的情况，所以需要控制偏差在 2.5% 以下。</p>
+<p>本次实验中使用发现，表中误差达到 3.55% 的波特率，在接收数据的时候都会乱码</p>
+<h1 id="usb-相关">usb 相关</h1>
+<p>既然 ch552 上的串口波特率需要定时器的支持，那在 host 设备上设置波特率的时候，如何将 host 设备上对于波特率的需求传达给 ch552 呢</p>
+<p>ch552 的 usb 驱动是 ftdi 的，通过对 ftdi 的 usb 驱动反汇编可以知道设置波特率的 usb 非标准请求编码(当然不是我反汇编的☺)，然后通过这个编码获取 usb 驱动送过来的一个 divisor 值。计算公式如下</p>
+<p>divisor = 48M/16/波特率</p>
+<p>这个计算是在 usb 驱动中完成的</p>
+<p>在接收 host 端发送过来的 divisor 时要注意，自己的串口在什么接口，需要进行判断</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(UsbSetupBuf-&gt;wIndexL == <span class="number">1</span>)</span><br><span class="line">    <span class="comment">// inf1</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment">// inf2</span></span><br></pre></td></tr></table></figure>
+<p>由于 ch552 不支持浮点波特率，因此可以忽略 host 端传送过来的 divisor 的小数部分， divisor 的低 14 位是整数部分，高两位是小数部分。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">divisor = UsbSetupBuf-&gt;wValueL |</span><br><span class="line">        (UsbSetupBuf-&gt;wValueH &lt;&lt; <span class="number">8</span>);</span><br><span class="line">divisor &amp;= <span class="number">0x3fff</span>;</span><br></pre></td></tr></table></figure>
+<p>在接收到 divisor 后，还需要对这个数进行处理。因为 ftdi 驱动中使用的是 48M 的时钟进行波特率的计算的，这里我们需要转换成自己的系统时钟，然后再进行定时器的 THn 进行设置</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">divisor = divisor / <span class="number">3</span>; <span class="comment">// 16M CPU时钟</span></span><br><span class="line"><span class="keyword">if</span>(UsbSetupBuf-&gt;wIndexL == <span class="number">1</span>) <span class="comment">// 串口位于接口1</span></span><br><span class="line">    TH1 = <span class="number">0</span> - divisor;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://www.zhihu.com/people/shen-ye-de-kuang-xiang-qu/activities" target="_blank" rel="noopener">知乎链接</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/wechat_official_accounts.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-10-11T03:46:34.138Z" itemprop="dateUpdated">2019-10-11 11:46:34</time>
+</span><br>
+
+
+        
+        下方的留言框比较调皮，有时候故意不出来，而且还是滚刀肉，实在拿他没办法，所以如果等得不爽可以直接去<a href="https://github.com/greedyhao/greedyhao.github.io/issues" target="_blank" rel="external">issues</a>给我留言
+        
+    </div>
+    
+    <footer>
+        <a href="http://greedyhao.cc">
+            <img src="/img/portrait.jpg" alt="Greedyhao">
+            Greedyhao
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/usb/">usb</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&title=《制作usb转串口固件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&title=《制作usb转串口固件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《制作usb转串口固件》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/09/工作-Linux-2019-08-09-linux内核依赖问题汇总/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">linux内核依赖问题汇总</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'greedyhao';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢打赏
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Greedyhao &copy; 2017 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&title=《制作usb转串口固件》 — Zhuhao's Blog&pic=http://greedyhao.cc/img/portrait.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&title=《制作usb转串口固件》 — Zhuhao's Blog&source=linux,c,python,stm32" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《制作usb转串口固件》 — Zhuhao's Blog&url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/&via=http://greedyhao.cc" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://greedyhao.cc/2019/10/11/工作-usb-2019-10-11-制作usb转串口固件/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3awY4iMQwEUP7/p3evK40ayhVHjFavTwgB3S+HxJT9esXXnx/Xv+8/ff7nd5/eye/+unHh4eHhHT96/kDJJ99/N3m290v29Mx4eHh4t3ndT0/356c7dofN+8/g4eHh/R5eflTk23peCePh4eH9H7zk6orp9wuEh4eH911evhFPD4lugfJoeC1rwcPDw5t9t4wSvvX6Sn8PDw8P77ir3jXDojI3iC3yY+DxafHw8PAu8E6igfwg6dpg+W9+eE48PDy8Vd40ApiOEXQhRRLmRnEJHh4e3gXe9HG7zb1rZSVDBlGAi4eHh7fKS+KAfAggGY3qRqySzzz+V8DDw8Nb5eVxwxQ5LcenZf00pMDDw8Pb4m01uvIm1kkZPQ4m8PDw8K7xukB2d2QqL6bLzh4eHh7eEm9aZJ9EBt0CnUcYeHh4eDd43fEwLXnzd6YdvA/HDx4eHt4FXveFpN2VHz954X4e++Lh4eGd8/IyN79ZV0x3R8J4pgwPDw/vGq/bjrvxgmQhytEHPDw8vGu8/IHyMYI86u3uMujy4eHh4S3xpsNS3TGQj2p1Q1ePr/Hw8PAu8E7GqnY39+nWPx66wsPDw1vl5W2nrYGAraGr6KDCw8PDu8bLg4kpaVo6d/f9UEzj4eHhrfKmBfQ0ru2CjOlVdvnw8PDwKl4+HJAUtXlMkMQT0yWIam08PDy8Vd7JtFL3CyfttGg58PDw8C7zoj/2cTQwjVynQXAU++Lh4eGt8ro//Hlk0DW08vjjAxgPDw/vAm8aNHS3nAbEJ42uLkbBw8PDm/Kmm/v5Rp9v7tPlKG+Ph4eHV/HyDX0a8ibLdNJ4+yDCw8PD+zW8vEffhcXToyiaJsPDw8P7Kq8ro6fpyEnQjIeHh3ebl4QR+VGxFfUuHEt4eHh4F3jTv/fThUhi2a6IP+rp4eHh4TW8v+nE7gODcPVmAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '再见';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '你好';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
